@@ -6,3 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+require('api_frontend.php');
+require('api_backend.php');

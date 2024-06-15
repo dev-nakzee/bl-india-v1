@@ -7,7 +7,7 @@
         <title>BL-India : </title>
 
         @viteReactRefresh
-        @vite('resources/js/App/app.jsx')
+        @vite('resources/js/Site/app.jsx')
         @vite('resources/css/app.css')
     </head>
     <body>
