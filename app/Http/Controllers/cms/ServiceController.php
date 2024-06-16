@@ -80,9 +80,8 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): JsonResponse
+    public function update1(Request $request, $id): JsonResponse
     {
-        Log::info('Incoming request data: ', $request->all());
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|max:255|unique:services,slug,' . $id,
@@ -98,33 +97,33 @@ class ServiceController extends Controller
             'service_category_id' => 'sometimes|required|exists:service_categories,id',
         ]);
 
-        Log::info('Validated data: ', $validated);
         $service = Service::findOrFail($id);
 
         if ($request->hasFile('image')) {
             try {
                 // Delete the old image if exists
                 if ($service->image_url) {
-                    Storage::disk('public')->delete(str_replace('/storage/', '', $service->image_url));
+                    Storage::disk('public')->delete($service->image_url);
                 }
                 if ($service->thumbnail_url) {
-                    Storage::disk('public')->delete(str_replace('/storage/', '', $service->thumbnail_url));
+                    Storage::disk('public')->delete($service->thumbnail_url);
                 }
 
-                $image = $request->file('image');
-                $imageName = uniqid() . '.webp';
+                $imageWebp  = Image::read($request->file('image'));
+                $image = $imageWebp->toWebp(100);
+                $imageName = uniqid().'.webp';
 
                 // Convert and store original image as WebP
                 $imagePath = 'service_images/' . $imageName;
-                $imageWebp = Image::make($image)->encode('webp', 90);
-                Storage::disk('public')->put($imagePath, (string) $imageWebp);
+                Storage::disk('public')->put($imagePath, (string) $image);
                 $validated['image_url'] = Storage::url($imagePath);
 
                 // Generate and store thumbnail as WebP
                 $thumbnailPath = 'service_images/thumbnail/' . $imageName;
-                $thumbnailWebp = Image::make($image)->resize(100, 100)->encode('webp', 90);
-                Storage::disk('public')->put($thumbnailPath, (string) $thumbnailWebp);
+                $thumbnail = $imageWebp->resize(100, 100);
+                Storage::disk('public')->put($thumbnailPath, (string) $thumbnail->toWebp(100));
                 $validated['thumbnail_url'] = Storage::url($thumbnailPath);
+
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Failed to upload image: ' . $e->getMessage()], 500);
             }

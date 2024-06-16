@@ -15,7 +15,7 @@ class ServiceCategoryController extends Controller
      */
     public function index(): JsonResponse
     {
-        $serviceCategories = ServiceCategory::all();
+        $serviceCategories = ServiceCategory::orderBy('id')->get();
         return response()->json($serviceCategories);
     }
 

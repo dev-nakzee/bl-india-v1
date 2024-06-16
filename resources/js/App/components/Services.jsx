@@ -159,7 +159,7 @@ const Services = () => {
 
     try {
       if (editing) {
-        await apiClient.put(`/services/${service.id}`, formData, {
+        await apiClient.post(`/services/${service.id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

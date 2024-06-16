@@ -10,9 +10,12 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Services from './components/Services';
 import ServiceCategories from './components/ServiceCategories';
+import ProductCategories from './components/ProductCategories';
+import Products from './components/Products';
 
 function App() {
     return (
+      <React.StrictMode>
       <React.Fragment>
         <CssBaseline />
         <Router>
@@ -29,11 +32,14 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="services/list" element={<Services />} />
               <Route path="services/categories" element={<ServiceCategories />} />
+              <Route path="products/list" element={<Products />} />
+              <Route path="products/categories" element={<ProductCategories />} />
               {/* You can add more nested routes under /cms here */}
             </Route>
           </Routes>
         </Router>
       </React.Fragment>
+      </React.StrictMode>
     );
 }
 
