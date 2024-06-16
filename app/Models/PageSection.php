@@ -6,28 +6,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Page extends Model
+class PageSection extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'page_id',
         'name',
         'slug',
+        'title',
+        'tag_line',
         'image_url',
         'image_alt',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
-        'seo_tags',
+        'content',
     ];
+
     protected $hidden = [
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function pageSections()
+    public function page()
     {
-        return $this->hasMany(PageSection::class);
+        return $this->belongsTo(Page::class);
     }
 }

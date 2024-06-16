@@ -37,7 +37,7 @@ class StickerController extends Controller
             $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
-            $imagePath = 'service_images/' . $imageName;
+            $imagePath = 'sticker_images/' . $imageName;
             Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }
@@ -79,7 +79,7 @@ class StickerController extends Controller
             $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
-            $imagePath = 'service_images/' . $imageName;
+            $imagePath = 'sticker_images/' . $imageName;
             Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }

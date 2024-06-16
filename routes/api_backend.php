@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\cms\AuthController;
+use App\Http\Controllers\cms\ClientController;
 use App\Http\Controllers\cms\ServiceCategoryController;
 use App\Http\Controllers\cms\ServiceController;
 use App\Http\Controllers\cms\ProductController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\cms\ProcessController;
 use App\Http\Controllers\cms\TestimonialController;
 use App\Http\Controllers\cms\StickerController;
 use App\Http\Controllers\cms\SocialMediaController;
+use App\Http\Controllers\cms\PageController;
+use App\Http\Controllers\cms\PageSectionController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -16,6 +19,8 @@ Route::prefix('v1/cms')->group(function(){
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
     Route::middleware('auth:sanctum')->group(function () {
+        // Client Routes
+        Route::apiResource('clients', ClientController::class);
         // Service Category Routes
         Route::apiResource('service-categories', ServiceCategoryController::class);
         // Service Routes
@@ -37,5 +42,20 @@ Route::prefix('v1/cms')->group(function(){
         Route::post('stickers/{id}', [StickerController::class, 'update1']);
         // Social Media Routes
         Route::apiResource('social-media', SocialMediaController::class);
+        // Pages Routes
+        Route::apiResource('pages', PageController::class);
+        Route::post('pages/{id}', [PageController::class, 'update1']);
+        // Page Sections Routes
+        Route::apiResource('page-sections', PageSectionController::class);
+        Route::post('page-sections/{id}', [PageSectionController::class, 'update1']);
+        // Blog Categories Routes
+        Route::apiResource('blog-categories', \App\Http\Controllers\cms\BlogCategoryController::class);
+        // Route::post('blog-categories/{id}', [\App\Http\Controllers\cms\BlogCategoryController::class, 'update1']);
+        // Blog Routes
+        Route::apiResource('blogs', \App\Http\Controllers\cms\BlogController::class);
+        Route::post('blogs/{id}', [\App\Http\Controllers\cms\BlogController::class, 'update1']);
+        // Blog Comments Routes
+        Route::apiResource('blog-comments', \App\Http\Controllers\cms\BlogCommentController::class);
+        // Route::post('blog-comments/{id}', [\App\Http\Controllers\cms\BlogCommentController::class, 'update1']);
     });
 });

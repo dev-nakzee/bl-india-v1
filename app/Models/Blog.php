@@ -6,28 +6,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Page extends Model
+class Blog extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'blog_category_id',
         'name',
         'slug',
-        'image_url',
-        'image_alt',
         'seo_title',
         'seo_description',
         'seo_keywords',
         'seo_tags',
-    ];
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
+        'image_url',
+        'image_alt',
+        'content',
+        'like_count',
     ];
 
-    public function pageSections()
+    public function blogCategory()
     {
-        return $this->hasMany(PageSection::class);
+        return $this->belongsTo(BlogCategory::class);
     }
 }

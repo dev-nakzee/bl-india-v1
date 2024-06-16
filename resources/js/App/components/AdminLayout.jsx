@@ -178,9 +178,13 @@ const AdminLayout = () => {
           </ListItem>
           <Collapse in={pagesOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button component={Link} to="/cms/pages/list" sx={{ pl: 4 }}>
+              <ListItem button component={Link} to="/cms/pages" sx={{ pl: 4 }}>
                 <ListItemIcon><PageviewIcon /></ListItemIcon>
                 <ListItemText primary="Pages" />
+              </ListItem>
+              <ListItem button component={Link} to="/cms/pages/sections" sx={{ pl: 4 }}>
+                <ListItemIcon><PageviewIcon /></ListItemIcon>
+                <ListItemText primary="Page Sections" />
               </ListItem>
             </List>
           </Collapse>
@@ -193,9 +197,17 @@ const AdminLayout = () => {
           </ListItem>
           <Collapse in={blogsOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button component={Link} to="/cms/blogs/list" sx={{ pl: 4 }}>
+              <ListItem button component={Link} to="/cms/blogs" sx={{ pl: 4 }}>
                 <ListItemIcon><BlogIcon /></ListItemIcon>
                 <ListItemText primary="Blogs" />
+              </ListItem>
+              <ListItem button component={Link} to="/cms/blogs/categories" sx={{ pl: 4 }}>
+                <ListItemIcon><BlogIcon /></ListItemIcon>
+                <ListItemText primary="Categories" />
+              </ListItem>
+              <ListItem button component={Link} to="/cms/blogs/comments" sx={{ pl: 4 }}>
+                <ListItemIcon><BlogIcon /></ListItemIcon>
+                <ListItemText primary="Comments" />
               </ListItem>
             </List>
           </Collapse>
