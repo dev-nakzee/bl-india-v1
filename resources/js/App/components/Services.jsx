@@ -151,7 +151,7 @@ const Services = () => {
     formData.append('seo_description', service.seo_description);
     formData.append('seo_keywords', service.seo_keywords);
     formData.append('seo_tags', service.seo_tags);
-    formData.append('is_global', service.is_global ? 'true' : 'false'); // Convert boolean to string
+    formData.append('is_global', service.is_global ? 1 : 0); // Convert boolean to string
     formData.append('service_category_id', service.service_category_id);
     if (service.image) {
       formData.append('image', service.image); // Append image file directly
