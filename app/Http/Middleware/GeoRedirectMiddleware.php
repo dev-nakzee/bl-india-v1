@@ -29,7 +29,7 @@ class GeoRedirectMiddleware
         $baseDomain = $parsedUrl['host'] ?? ''; // Extract the domain
 
         // Prepend the subdomain to the base domain
-        $expectedHost = $targetSubdomain . '.' . $baseDomain.':8000';
+        $expectedHost = $targetSubdomain . '.' . $baseDomain;
 
         if (!Str::startsWith($currentHost, $targetSubdomain)) {
             return redirect()->to($request->getScheme() . '://' . $expectedHost . $request->getRequestUri());
