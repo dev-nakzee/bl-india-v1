@@ -6,6 +6,7 @@ use App\Http\Controllers\cms\ProductController;
 use App\Http\Controllers\cms\ProductCategoryController;
 use App\Http\Controllers\cms\ProductServiceMapController;
 use App\Http\Controllers\cms\ProcessController;
+use App\Http\Controllers\cms\TestimonialController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -27,5 +28,7 @@ Route::prefix('v1/cms')->group(function(){
         Route::get('products/{id}/services', [ProductController::class, 'getServices']);
         // Process Routes
         Route::apiResource('processes', ProcessController::class);
+        // Testimonials Routes
+        Route::apiResource('testimonials', TestimonialController::class);
     });
 });

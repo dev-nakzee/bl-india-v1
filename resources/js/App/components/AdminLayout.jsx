@@ -142,8 +142,6 @@ const AdminLayout = () => {
                 <ListItemIcon><ProductsIcon /></ListItemIcon>
                 <ListItemText primary="Products" />
               </ListItem>
-            </List>
-            <List component="div" disablePadding>
               <ListItem button component={Link} to="/cms/products/categories" sx={{ pl: 4 }}>
                 <ListItemIcon><ProductsIcon /></ListItemIcon>
                 <ListItemText primary="Categories" />
@@ -223,6 +221,25 @@ const AdminLayout = () => {
             <ListItemText primary="Social Media" />
           </ListItem>
           
+          {/* Miscellaneous Menu */}
+          <ListItem button onClick={() => handleMenuToggle(setMiscellaneousOpen)}>
+            <ListItemIcon><MiscellaneousIcon /></ListItemIcon>
+            <ListItemText primary="Miscellaneous" />
+            {miscellaneousOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={miscellaneousOpen} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button component={Link} to="/cms/miscellaneous/processes" sx={{ pl: 4 }}>
+                <ListItemIcon><ProcessIcon /></ListItemIcon>
+                <ListItemText primary="Processes" />
+              </ListItem>
+              <ListItem button component={Link} to="/cms/miscellaneous/testimonials" sx={{ pl: 4 }}>
+                <ListItemIcon><ProcessIcon /></ListItemIcon>
+                <ListItemText primary="Testimonials" />
+              </ListItem>
+            </List>
+          </Collapse>
+
           {/* Settings Menu */}
           <ListItem button onClick={() => handleMenuToggle(setSettingsOpen)}>
             <ListItemIcon><SettingsIcon /></ListItemIcon>
@@ -238,21 +255,6 @@ const AdminLayout = () => {
               <ListItem button component={Link} to="/cms/settings/advanced" sx={{ pl: 4 }}>
                 <ListItemIcon><SettingsIcon /></ListItemIcon>
                 <ListItemText primary="Advanced Settings" />
-              </ListItem>
-            </List>
-          </Collapse>
-
-          {/* Miscellaneous Menu */}
-          <ListItem button onClick={() => handleMenuToggle(setMiscellaneousOpen)}>
-            <ListItemIcon><MiscellaneousIcon /></ListItemIcon>
-            <ListItemText primary="Miscellaneous" />
-            {miscellaneousOpen ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={miscellaneousOpen} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button component={Link} to="/cms/miscellaneous/processes" sx={{ pl: 4 }}>
-                <ListItemIcon><ProcessIcon /></ListItemIcon>
-                <ListItemText primary="Processes" />
               </ListItem>
             </List>
           </Collapse>

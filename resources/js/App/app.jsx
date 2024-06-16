@@ -13,6 +13,7 @@ import ServiceCategories from './components/ServiceCategories';
 import ProductCategories from './components/ProductCategories';
 import Products from './components/Products';
 import Processes from './components/Processes';
+import Testimonials from './components/Testimonials';
 
 function App() {
     return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="products/list" element={<Products />} />
               <Route path="products/categories" element={<ProductCategories />} />
               <Route path="miscellaneous/processes" element={<Processes />} />
+              <Route path="miscellaneous/testimonials" element={<Testimonials />} />
               {/* You can add more nested routes under /cms here */}
             </Route>
           </Routes>
