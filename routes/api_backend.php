@@ -7,6 +7,8 @@ use App\Http\Controllers\cms\ProductCategoryController;
 use App\Http\Controllers\cms\ProductServiceMapController;
 use App\Http\Controllers\cms\ProcessController;
 use App\Http\Controllers\cms\TestimonialController;
+use App\Http\Controllers\cms\StickerController;
+use App\Http\Controllers\cms\SocialMediaController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -30,5 +32,10 @@ Route::prefix('v1/cms')->group(function(){
         Route::apiResource('processes', ProcessController::class);
         // Testimonials Routes
         Route::apiResource('testimonials', TestimonialController::class);
+        // Stickers Routes
+        Route::apiResource('stickers', StickerController::class);
+        Route::post('stickers/{id}', [StickerController::class, 'update1']);
+        // Social Media Routes
+        Route::apiResource('social-media', SocialMediaController::class);
     });
 });

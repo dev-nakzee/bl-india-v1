@@ -14,6 +14,8 @@ import ProductCategories from './components/ProductCategories';
 import Products from './components/Products';
 import Processes from './components/Processes';
 import Testimonials from './components/Testimonials';
+import Stickers from './components/Stickers';
+import SocialMedia from './components/SocialMedia';
 
 function App() {
     return (
@@ -38,6 +40,8 @@ function App() {
               <Route path="products/categories" element={<ProductCategories />} />
               <Route path="miscellaneous/processes" element={<Processes />} />
               <Route path="miscellaneous/testimonials" element={<Testimonials />} />
+              <Route path="miscellaneous/stickers" element={<Stickers />} />
+              <Route path="social-media" element={<SocialMedia />} />
               {/* You can add more nested routes under /cms here */}
             </Route>
           </Routes>
