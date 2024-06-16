@@ -4,11 +4,11 @@ import { toast } from 'react-toastify';
 const getBaseURL = () => {
   const hostname = window.location.hostname;
   if (hostname.startsWith('global')) {
-    return 'http://global.localhost:8000/api/v1/cms';
+    return 'http://global.b-india.com/api/v1/cms';
   } else if (hostname.startsWith('in')) {
-    return 'http://in.localhost:8000/api/v1/cms';
+    return 'http://in.bl-india.com/api/v1/cms';
   }
-  return 'http://localhost:8000/api/v1/cms'; // Default to local
+  return 'http://demo.bl-india.com/api/v1/cms'; // Default to local
 };
 
 const apiClient = axios.create({
