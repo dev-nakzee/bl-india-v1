@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Layouts/Layout';
 import HomePage from './Pages/Home';
-// import LoginPage from './components/LoginPage';  // Assuming you have a LoginPage component
-// import ProtectedPage from './components/ProtectedPage';  // Example protected page component
 
 // Simulated authentication function
 const isAuthenticated = () => {
@@ -20,10 +18,6 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* <Route path="/login" element={<LoginPage />} />
-          <Route path="/protected" element={
-            isAuthenticated() ? <ProtectedPage /> : <Navigate to="/login" />
-          } /> */}
         </Routes>
       </Layout>
     </BrowserRouter>

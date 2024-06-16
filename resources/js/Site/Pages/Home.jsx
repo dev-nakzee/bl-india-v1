@@ -4,9 +4,9 @@ import { Typography } from '@mui/material';
 
 function HomePage() {
     return (
-        <Layout>
+        <>
             <Typography paragraph>Welcome to our homepage!</Typography>
-        </Layout>
+        </>
     );
 }
 
