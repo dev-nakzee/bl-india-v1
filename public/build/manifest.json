@@ -1,11 +1,38 @@
 {
+  "_Toolbar-B8uq8Bwm.js": {
+    "file": "assets/Toolbar-B8uq8Bwm.js",
+    "name": "Toolbar"
+  },
   "resources/css/app.css": {
     "file": "assets/app-l9CJHO8v.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/js/App/app.jsx": {
+    "file": "assets/app-DmIueRhC.js",
+    "name": "app",
+    "src": "resources/js/App/app.jsx",
+    "isEntry": true,
+    "imports": [
+      "_Toolbar-B8uq8Bwm.js",
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/app-CYivYX3d.css"
+    ]
+  },
+  "resources/js/Site/app.jsx": {
+    "file": "assets/app-B2fq9KMn.js",
+    "name": "app",
+    "src": "resources/js/Site/app.jsx",
+    "isEntry": true,
+    "imports": [
+      "_Toolbar-B8uq8Bwm.js",
+      "resources/js/app.jsx"
+    ]
+  },
   "resources/js/app.jsx": {
-    "file": "assets/app-C1-XIpUa.js",
+    "file": "assets/app-BFRg2C6K.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true
