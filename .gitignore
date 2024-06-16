@@ -21,3 +21,5 @@ Homestead.json
 
 
 app/Http/Middleware/GeoRedirectMiddleware.php
+resources/js/App/services/api.jsx
+resources/js/App/services/api.jsx
