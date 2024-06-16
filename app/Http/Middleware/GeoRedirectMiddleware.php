@@ -20,18 +20,22 @@ class GeoRedirectMiddleware
     {
         $location = Location::get($request->ip());
 
-        // Assuming 'IN' as the country code for India, adjust as necessary
         $targetSubdomain = $location && $location->countryCode === 'IN' ? 'in' : 'global';
 
         $currentHost = $request->getHost();
         $baseURL = Config::get('app.url'); // Retrieve the base URL from config
         $parsedUrl = parse_url($baseURL);
         $baseDomain = $parsedUrl['host'] ?? ''; // Extract the domain
+        $expectedHost = $targetSubdomain . '.' . $baseDomain;
 
-        // Prepend the subdomain to the base domain
-        $expectedHost = $targetSubdomain . '.' . $baseDomain.':8000';
+        if (Str::startsWith($currentHost, 'in.') && $targetSubdomain !== 'in') {
+            $expectedHost = 'global.' . $baseDomain;
+        } elseif (Str::startsWith($currentHost, 'global.') && $targetSubdomain !== 'global') {
+            $expectedHost = 'in.' . $baseDomain;
+        }
 
-        if (!Str::startsWith($currentHost, $targetSubdomain)) {
+        // Check if current host matches the expected host
+        if ($currentHost !== $expectedHost) {
             return redirect()->to($request->getScheme() . '://' . $expectedHost . $request->getRequestUri());
         }
 
