@@ -1,8 +1,18 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const getBaseURL = () => {
+  const hostname = window.location.hostname;
+  if (hostname.startsWith('global')) {
+    return 'http://global.localhost:8000/api/v1/cms';
+  } else if (hostname.startsWith('in')) {
+    return 'http://in.localhost:8000/api/v1/cms';
+  }
+  return 'http://localhost:8000/api/v1/cms'; // Default to local
+};
+
 const apiClient = axios.create({
-  baseURL: 'http://global.localhost:8000/api/v1/cms',
+  baseURL: getBaseURL(),
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -16,6 +26,7 @@ apiClient.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
+    config.baseURL = getBaseURL(); // Dynamically set baseURL before each request
     return config;
   },
   (error) => {
