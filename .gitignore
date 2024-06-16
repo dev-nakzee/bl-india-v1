@@ -18,4 +18,6 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+
 app/Http/Middleware/GeoRedirectMiddleware.php
