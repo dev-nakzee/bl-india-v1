@@ -6,6 +6,7 @@ Route::get('/', function () {
     return view('site');
 });
 
-Route::get('/cms', function () {
-    return view('app');
-});
+// Route::get('/cms/', function () {
+//     return view('app');
+// });
+Route::view('/cms/{path?}', 'app')->where('path', '.*');
