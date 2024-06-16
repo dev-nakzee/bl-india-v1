@@ -37,6 +37,8 @@ import GalleryIcon from '@mui/icons-material/Photo';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SocialIcon from '@mui/icons-material/Share';
 import ProductsIcon from '@mui/icons-material/ShoppingCart';
+import MiscellaneousIcon from '@mui/icons-material/Category';
+import ProcessIcon from '@mui/icons-material/Settings';
 
 const drawerWidth = 240;
 
@@ -51,6 +53,7 @@ const AdminLayout = () => {
   const [blogsOpen, setBlogsOpen] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [miscellaneousOpen, setMiscellaneousOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -235,6 +238,21 @@ const AdminLayout = () => {
               <ListItem button component={Link} to="/cms/settings/advanced" sx={{ pl: 4 }}>
                 <ListItemIcon><SettingsIcon /></ListItemIcon>
                 <ListItemText primary="Advanced Settings" />
+              </ListItem>
+            </List>
+          </Collapse>
+
+          {/* Miscellaneous Menu */}
+          <ListItem button onClick={() => handleMenuToggle(setMiscellaneousOpen)}>
+            <ListItemIcon><MiscellaneousIcon /></ListItemIcon>
+            <ListItemText primary="Miscellaneous" />
+            {miscellaneousOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={miscellaneousOpen} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button component={Link} to="/cms/miscellaneous/processes" sx={{ pl: 4 }}>
+                <ListItemIcon><ProcessIcon /></ListItemIcon>
+                <ListItemText primary="Processes" />
               </ListItem>
             </List>
           </Collapse>
