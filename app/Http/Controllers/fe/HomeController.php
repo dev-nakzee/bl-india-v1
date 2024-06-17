@@ -50,6 +50,7 @@ class HomeController extends Controller
     public function brochure(): JsonResponse
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-brochure')->get();
-        return response()->json(['section' => $section]);
+        $services = Service::orderBy('id')->get();
+        return response()->json(['section' => $section, 'services' => $services]);
     }
 }
