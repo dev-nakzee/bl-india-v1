@@ -45,7 +45,7 @@ const HomeServices = () => {
                 {data.services && data.services.map(service => (
                     <Grid item xs={12} md={6} lg={3} key={service.id}>
                         <Box sx={{ textAlign: 'center', padding: '20px', boxShadow: 3 }}>
-                            <img src={service.thumbnail_url} alt={service.image_alt} style={{ width: '100%', borderRadius: '10px' }} />
+                            <img src={service.thumbnail_url} alt={service.image_alt} style={{ width: '90px', borderRadius: '10px' }} />
                             <Typography variant="h5" sx={{ marginTop: '15px' }}>{service.name}</Typography>
                             <Typography variant="body2" sx={{ marginTop: '10px' }}>{service.description}</Typography>
                         </Box>
