@@ -1,6 +1,6 @@
 import React from 'react';
 import Topbar from '../Components/Topbar/Topbar';
-// import NavigationBar from './NavigationBar';
+import NavigationBar from '../Components/Navbar/NavigationBar';
 // import Footer from './Footer';
 import { Container } from '@mui/material';
 
@@ -8,10 +8,10 @@ function Layout({ children }) {
     return (
         <>
             <Topbar />
-            {/* <NavigationBar /> */}
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <NavigationBar />
+            <>
                 {children}
-            </Container>
+            </>
             {/* <Footer /> */}
         </>
     );

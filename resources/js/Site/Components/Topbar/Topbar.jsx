@@ -72,7 +72,7 @@ function Topbar() {
 
     return (
         <AppBar position="static">
-            <Toolbar sx={{ background: 'rgb(28, 124, 188)' }}>
+            <Toolbar sx={{ background: '#0D629A' }}>
                 <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
                     <IconButton
                         component="a"

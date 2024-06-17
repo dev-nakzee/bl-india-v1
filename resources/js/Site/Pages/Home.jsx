@@ -1,11 +1,45 @@
-import React from 'react';
-import Layout from '../Layouts/Layout';
-import { Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Typography, CircularProgress, Box } from '@mui/material';
+import HomeBanner from '../Components/Home/HomeBanner';
+import apiClient from '../Services/api';
+import { Helmet } from 'react-helmet';
 
-function HomePage() {
+const HomePage = () => {
+    const [homeData, setHomeData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getHomeData = async () => {
+            try {
+                const response = await apiClient.get('/home');
+                const homePageData = response.data.find(page => page.slug === 'home');
+                setHomeData(homePageData);
+            } catch (error) {
+                console.error('Error fetching home data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        getHomeData();
+    }, []);
+
     return (
         <>
-            <Typography paragraph>Welcome to our homepage!</Typography>
+            <Helmet>
+                <title>{homeData?.seo_title}</title>
+                <meta name="description" content={homeData?.seo_description} />
+                <meta name="keywords" content={homeData?.seo_keywords} />
+                {/* Other meta tags */}
+            </Helmet>
+            <HomeBanner />
+            {loading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+                    <CircularProgress />
+                </Box>
+            ) : (
+                <Typography paragraph>Welcome to our homepage!</Typography>
+            )}
         </>
     );
 }
