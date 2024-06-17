@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography, CircularProgress, Box } from '@mui/material';
 import HomeBanner from '../Components/Home/HomeBanner';
 import HomeServices from '../Components/Home/HomeServices';
+import HomeAbout from '../Components/Home/HomeAbout';
 import apiClient from '../Services/api';
 import { Helmet } from 'react-helmet';
 
@@ -35,6 +36,7 @@ const HomePage = () => {
             </Helmet>
             <HomeBanner />
             <HomeServices />
+            <HomeAbout />
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
                     <CircularProgress />
