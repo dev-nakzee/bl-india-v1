@@ -34,20 +34,31 @@ const HomeServices = () => {
     }
 
     return (
-        <Box sx={{ padding: '20px' }}>
+        <Box sx={{ mx: 4, px: 4 }}>
             {data.section && data.section.map(section => (
                 <Box key={section.id} sx={{ marginBottom: '40px', textAlign: 'center' }}>
-                    <Typography variant="h3">{section.title}</Typography>
                     <Typography variant="subtitle1" sx={{ marginTop: '10px' }}>{section.tag_line}</Typography>
+                    <Typography variant="h3">{section.title}</Typography>
                 </Box>
             ))}
             <Grid container spacing={4}>
                 {data.services && data.services.map(service => (
                     <Grid item xs={12} md={6} lg={3} key={service.id}>
-                        <Box sx={{ textAlign: 'center', padding: '20px', boxShadow: 3 }}>
-                            <img src={service.thumbnail_url} alt={service.image_alt} style={{ width: '90px', borderRadius: '10px' }} />
-                            <Typography variant="h5" sx={{ marginTop: '15px' }}>{service.name}</Typography>
-                            <Typography variant="body2" sx={{ marginTop: '10px' }}>{service.description}</Typography>
+                        <Box sx={{ 
+                            display: 'flex', 
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            textAlign: 'center', 
+                            padding: '20px', 
+                            boxShadow: 3, 
+                            borderRadius: '10px', 
+                            height: '100%' 
+                        }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
+                                <img src={service.thumbnail_url} alt={service.image_alt} style={{ width: '90px', borderRadius: '10px' }} />
+                                <Typography variant="h3" sx={{ marginLeft: '15px' }}>{service.name}</Typography>
+                            </Box>
+                            <Typography variant="body2" sx={{ marginTop: '10px', flexGrow: 1 }}>{service.description}</Typography>
                         </Box>
                     </Grid>
                 ))}
