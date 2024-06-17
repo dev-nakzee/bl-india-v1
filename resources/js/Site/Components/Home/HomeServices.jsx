@@ -39,7 +39,7 @@ const HomeServices = () => {
             {data.section && data.section.map(section => (
                 <Box key={section.id} sx={{ marginBottom: '40px', textAlign: 'center' }}>
                     <Typography variant="subtitle1" sx={{ fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20}}>{section.tag_line}</Typography>
-                    <Typography variant="h1" sx={{ mt: 2, fontWeight: 400}}>{section.title}</Typography>
+                    <Typography variant="h1" sx={{ mt: 1, fontWeight: 400}}>{section.title}</Typography>
                 </Box>
             ))}
             <Grid container spacing={4}>
