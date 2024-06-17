@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, CircularProgress, Button, Grid, TextField, MenuItem } from '@mui/material';
+import { Box, Typography, CircularProgress, Button, Grid, TextField, MenuItem, InputAdornment } from '@mui/material';
 import { styled } from '@mui/system';
 import apiClient from '../../Services/api';
 
@@ -24,6 +24,7 @@ const BrochureImage = styled('img')(({ theme }) => ({
 
 const HomeBrochure = () => {
     const [brochureData, setBrochureData] = useState(null);
+    const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({
         name: '',
@@ -31,7 +32,7 @@ const HomeBrochure = () => {
         email: '',
         phone: '',
         countryCode: '',
-        services: '',
+        service: '',
         source: '',
         message: ''
     });
@@ -39,16 +40,56 @@ const HomeBrochure = () => {
     const countryCodes = [
         { code: '+1', country: 'USA' },
         { code: '+91', country: 'India' },
-        // Add more country codes as needed
-    ];
-
-    const sources = [
-        { value: 'social media', label: 'Social Media' },
-        { value: 'google', label: 'Google' },
-        { value: 'reference', label: 'Reference' },
-        { value: 'newspaper', label: 'Newspaper' },
-        { value: 'website article', label: 'Website Article' },
-        { value: 'others', label: 'Others' }
+        { code: '+44', country: 'UK' },
+        { code: '+61', country: 'Australia' },
+        { code: '+81', country: 'Japan' },
+        { code: '+49', country: 'Germany' },
+        { code: '+86', country: 'China' },
+        { code: '+33', country: 'France' },
+        { code: '+39', country: 'Italy' },
+        { code: '+7', country: 'Russia' },
+        { code: '+55', country: 'Brazil' },
+        { code: '+27', country: 'South Africa' },
+        { code: '+34', country: 'Spain' },
+        { code: '+82', country: 'South Korea' },
+        { code: '+971', country: 'UAE' },
+        { code: '+52', country: 'Mexico' },
+        { code: '+62', country: 'Indonesia' },
+        { code: '+60', country: 'Malaysia' },
+        { code: '+65', country: 'Singapore' },
+        { code: '+66', country: 'Thailand' },
+        { code: '+64', country: 'New Zealand' },
+        { code: '+31', country: 'Netherlands' },
+        { code: '+46', country: 'Sweden' },
+        { code: '+41', country: 'Switzerland' },
+        { code: '+34', country: 'Spain' },
+        { code: '+48', country: 'Poland' },
+        { code: '+45', country: 'Denmark' },
+        { code: '+47', country: 'Norway' },
+        { code: '+92', country: 'Pakistan' },
+        { code: '+63', country: 'Philippines' },
+        { code: '+20', country: 'Egypt' },
+        { code: '+98', country: 'Iran' },
+        { code: '+90', country: 'Turkey' },
+        { code: '+58', country: 'Venezuela' },
+        { code: '+56', country: 'Chile' },
+        { code: '+51', country: 'Peru' },
+        { code: '+57', country: 'Colombia' },
+        { code: '+54', country: 'Argentina' },
+        { code: '+964', country: 'Iraq' },
+        { code: '+880', country: 'Bangladesh' },
+        { code: '+94', country: 'Sri Lanka' },
+        { code: '+64', country: 'New Zealand' },
+        { code: '+32', country: 'Belgium' },
+        { code: '+353', country: 'Ireland' },
+        { code: '+48', country: 'Poland' },
+        { code: '+386', country: 'Slovenia' },
+        { code: '+357', country: 'Cyprus' },
+        { code: '+358', country: 'Finland' },
+        { code: '+961', country: 'Lebanon' },
+        { code: '+359', country: 'Bulgaria' },
+        { code: '+385', country: 'Croatia' },
+        { code: '+380', country: 'Ukraine' },
     ];
 
     useEffect(() => {
@@ -56,6 +97,7 @@ const HomeBrochure = () => {
             try {
                 const response = await apiClient.get('/home-brochure');
                 setBrochureData(response.data.section[0]);
+                setServices(response.data.services);
             } catch (error) {
                 console.error('Error fetching brochure data:', error);
             } finally {
@@ -66,21 +108,19 @@ const HomeBrochure = () => {
         fetchBrochureData();
     }, []);
 
-    const handleChange = (e) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }));
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await apiClient.post('/brochure-request', formData);
-            alert('Brochure download link has been sent to your email.');
+            await apiClient.post('https://pms.bl-india.com/api/lead', formData);
+            alert('Form submitted successfully');
         } catch (error) {
             console.error('Error submitting form:', error);
+            alert('Failed to submit the form');
         }
     };
 
@@ -107,96 +147,109 @@ const HomeBrochure = () => {
                         <Typography variant="subtitle1">
                             {brochureData.tag_line}
                         </Typography>
-                        <form onSubmit={handleSubmit}>
+                        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                             <TextField
-                                name="name"
                                 label="Name"
+                                name="name"
                                 value={formData.name}
-                                onChange={handleChange}
+                                onChange={handleInputChange}
                                 fullWidth
-                                margin="normal"
+                                required
+                                sx={{ mb: 2 }}
                             />
                             <TextField
-                                name="company"
                                 label="Company"
+                                name="company"
                                 value={formData.company}
-                                onChange={handleChange}
+                                onChange={handleInputChange}
                                 fullWidth
-                                margin="normal"
+                                sx={{ mb: 2 }}
                             />
                             <TextField
-                                name="email"
                                 label="Email"
+                                name="email"
                                 type="email"
                                 value={formData.email}
-                                onChange={handleChange}
+                                onChange={handleInputChange}
                                 fullWidth
-                                margin="normal"
+                                required
+                                sx={{ mb: 2 }}
                             />
                             <TextField
-                                name="phone"
                                 label="Phone"
+                                name="phone"
                                 value={formData.phone}
-                                onChange={handleChange}
+                                onChange={handleInputChange}
                                 fullWidth
-                                margin="normal"
+                                required
+                                sx={{ mb: 2 }}
                                 InputProps={{
                                     startAdornment: (
-                                        <TextField
-                                            select
-                                            name="countryCode"
-                                            value={formData.countryCode}
-                                            onChange={handleChange}
-                                            margin="none"
-                                            variant="standard"
-                                            sx={{ mr: 1, minWidth: 60 }}
-                                        >
-                                            {countryCodes.map((option) => (
-                                                <MenuItem key={option.code} value={option.code}>
-                                                    {option.code}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
+                                        <InputAdornment position="start">
+                                            <TextField
+                                                select
+                                                name="countryCode"
+                                                value={formData.countryCode}
+                                                onChange={handleInputChange}
+                                                sx={{ width: '100px', mr: 1 }}
+                                            >
+                                                {countryCodes.map((code) => (
+                                                    <MenuItem key={code.code} value={code.code}>
+                                                        {code.code} ({code.country})
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                        </InputAdornment>
                                     )
                                 }}
                             />
                             <TextField
-                                name="services"
-                                label="Services"
-                                value={formData.services}
-                                onChange={handleChange}
-                                fullWidth
-                                margin="normal"
-                            />
-                            <TextField
                                 select
-                                name="source"
-                                label="How did you hear about us?"
-                                value={formData.source}
-                                onChange={handleChange}
+                                label="Service"
+                                name="service"
+                                value={formData.service}
+                                onChange={handleInputChange}
                                 fullWidth
-                                margin="normal"
+                                required
+                                sx={{ mb: 2 }}
                             >
-                                {sources.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
+                                {services.map((service) => (
+                                    <MenuItem key={service.id} value={service.name}>
+                                        {service.name}
                                     </MenuItem>
                                 ))}
                             </TextField>
                             <TextField
-                                name="message"
+                                select
+                                label="Source"
+                                name="source"
+                                value={formData.source}
+                                onChange={handleInputChange}
+                                fullWidth
+                                required
+                                sx={{ mb: 2 }}
+                            >
+                                <MenuItem value="social media">Social Media</MenuItem>
+                                <MenuItem value="google">Google</MenuItem>
+                                <MenuItem value="reference">Reference</MenuItem>
+                                <MenuItem value="newspaper">Newspaper</MenuItem>
+                                <MenuItem value="website article">Website Article</MenuItem>
+                                <MenuItem value="others">Others</MenuItem>
+                            </TextField>
+                            <TextField
                                 label="Message"
+                                name="message"
                                 value={formData.message}
-                                onChange={handleChange}
+                                onChange={handleInputChange}
                                 fullWidth
                                 multiline
                                 rows={4}
-                                margin="normal"
+                                sx={{ mb: 2 }}
                             />
                             <Button variant="contained" color="primary" type="submit">
                                 Download Brochure
                             </Button>
-                        </form>
+                        </Box>
                     </BrochureContent>
                 </Grid>
                 <Grid item xs={12} md={6}>
