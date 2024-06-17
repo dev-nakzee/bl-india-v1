@@ -40,4 +40,10 @@ class HomeController extends Controller
         $services = Service::with('serviceCategory')->orderBy('id')->limit(4)->get();
         return response()->json(['section' => $section, 'services' => $services]);
     }
+
+    public function about(): JsonResponse
+    {
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-about')->get();
+        return response()->json(['section' => $section]);
+    }
 }
