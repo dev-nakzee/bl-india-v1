@@ -18,26 +18,32 @@ const theme = createTheme({
     h1: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '2rem',
+      color: '#0D629A'
     },
     h2: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '1.5rem',
+            color: '#0D629A'
     },
     h3: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '1.25rem',
+            color: '#0D629A'
     },
     h4: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '1.125rem',
+        color: '#0D629A'
     },
     h5: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '1rem',
+      color: '#0D629A'
     },
     h6: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '0.875rem',
+      color: '#0D629A'
     },
     subtitle1: {
       fontFamily: '"Raleway", "Roboto", "Helvetica", "Arial", sans-serif',

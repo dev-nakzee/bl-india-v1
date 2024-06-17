@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Grid, CircularProgress } from '@mui/material';
+import { Box, Typography, Grid, CircularProgress, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import apiClient from '../../Services/api';
 
 const HomeServices = () => {
@@ -9,7 +10,7 @@ const HomeServices = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await apiClient.get('https://in.bl-india.com/api/v1/fe/home-services');
+                const response = await apiClient.get('/home-services');
                 setData(response.data);
             } catch (error) {
                 console.error('Error fetching home services data:', error);
@@ -56,13 +57,18 @@ const HomeServices = () => {
                         }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
                                 <img src={service.thumbnail_url} alt={service.image_alt} style={{ width: '90px', borderRadius: '10px' }} />
-                                <Typography variant="h3" sx={{ marginLeft: '15px' }}>{service.name}</Typography>
+                                <Typography variant="h3" component="h3" sx={{ marginLeft: '15px', color: '#0D629A', fontWeight: 500 }}>{service.name}</Typography>
                             </Box>
                             <Typography variant="body2" sx={{ marginTop: '10px', flexGrow: 1 }}>{service.description}</Typography>
                         </Box>
                     </Grid>
                 ))}
             </Grid>
+            <Box sx={{ textAlign: 'center', marginTop: '40px' }}>
+                <Button component={Link} to="/services" variant="contained" color="primary">
+                    View All
+                </Button>
+            </Box>
         </Box>
     );
 };
