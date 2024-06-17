@@ -60,6 +60,9 @@ const HomeServices = () => {
                                 <Typography variant="h3" component="h3" sx={{ marginLeft: '15px', color: '#0D629A', fontWeight: 500 }}>{service.name}</Typography>
                             </Box>
                             <Typography variant="body2" sx={{ marginTop: '10px', flexGrow: 1 }}>{service.description}</Typography>
+                            <Button component={Link} to={`/services/${service.slug}`} sx={{ marginTop: '10px', color: '#0D629A' }}>
+                                Read More
+                            </Button>
                         </Box>
                     </Grid>
                 ))}
