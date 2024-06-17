@@ -85,8 +85,8 @@ class PageSectionController extends Controller
         $pageSection = PageSection::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            if ($page->image_url) {
-                Storage::disk('public')->delete($page->image_url);
+            if ($pageSection->image_url) {
+                Storage::disk('public')->delete($pageSection->image_url);
             }
             try {
                 
