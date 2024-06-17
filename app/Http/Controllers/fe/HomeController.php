@@ -46,4 +46,10 @@ class HomeController extends Controller
         $section = PageSection::where('page_id', 1)->where('slug', 'home-about')->get();
         return response()->json(['section' => $section]);
     }
+
+    public function brochure(): JsonResponse
+    {
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-brochure')->get();
+        return response()->json(['section' => $section]);
+    }
 }

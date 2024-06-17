@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, CircularProgress, Grid } from '@mui/material';
+import { Box, Typography, CircularProgress, Grid, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import apiClient from '../../Services/api';
 import parse from 'html-react-parser';
@@ -80,8 +81,14 @@ const HomeAbout = () => {
                             {parse(aboutData.content)}
                         </Box>
                     </AboutContent>
+                    <Box sx={{ textAlign: 'center', mb: 2 }}>
+                        <Button component={Link} to="/about" variant="contained" color="primary">
+                            View All
+                        </Button>
+                    </Box>
                 </Grid>
             </Grid>
+            
         </AboutSection>
     );
 };
