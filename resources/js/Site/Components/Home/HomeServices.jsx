@@ -35,11 +35,11 @@ const HomeServices = () => {
     }
 
     return (
-        <Box sx={{ mx: 4, px: 4 }}>
+        <Box sx={{ mx: 4, px: 4, py: 6 }}>
             {data.section && data.section.map(section => (
                 <Box key={section.id} sx={{ marginBottom: '40px', textAlign: 'center' }}>
-                    <Typography variant="subtitle1" sx={{ marginTop: '10px' }}>{section.tag_line}</Typography>
-                    <Typography variant="h3">{section.title}</Typography>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20}}>{section.tag_line}</Typography>
+                    <Typography variant="h1" sx={{ mt: 2, fontWeight: 400}}>{section.title}</Typography>
                 </Box>
             ))}
             <Grid container spacing={4}>
@@ -56,7 +56,7 @@ const HomeServices = () => {
                             height: '100%' 
                         }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-                                <img src={service.thumbnail_url} alt={service.image_alt} style={{ width: '90px', borderRadius: '10px' }} />
+                                <img src={'https://in.bl-india.com/' + service.thumbnail_url} alt={service.image_alt} style={{ width: '90px', borderRadius: '10px' }} />
                                 <Typography variant="h3" component="h3" sx={{ marginLeft: '15px', color: '#0D629A', fontWeight: 500 }}>{service.name}</Typography>
                             </Box>
                             <Typography variant="body2" sx={{ marginTop: '10px', flexGrow: 1 }}>{service.description}</Typography>
