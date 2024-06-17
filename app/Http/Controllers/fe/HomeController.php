@@ -38,6 +38,6 @@ class HomeController extends Controller
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-services')->get();
         $services = Service::orderBy('id')->limit(4)->get();
-        return response()->json($services);
+        return response()->json(['section' => $section, 'services' => $services]);
     }
 }
