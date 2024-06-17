@@ -27,7 +27,17 @@ class HomeController extends Controller
      */
     public function banner(): JsonResponse
     {
-        $banner = PageSection::where('page_id', 1)->get();
+        $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
         return response()->json($banner);
+    }
+
+    /**
+     * Handle the Home Services request.
+     */
+    public function services(): JsonResponse
+    {
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-services')->get();
+        $services = Service::orderBy('id')->limit(4)->get();
+        return response()->json($services);
     }
 }

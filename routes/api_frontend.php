@@ -7,4 +7,5 @@ Route::prefix('v1/fe')->group(function(){
     // Home Page Routes
     Route::get('/home', [HomeController::class, 'home']);
     Route::get('/home-banner', [HomeController::class, 'banner']);
+    Route::get('/home-services', [HomeController::class, 'services']);
 });
