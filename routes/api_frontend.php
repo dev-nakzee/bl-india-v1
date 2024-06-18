@@ -6,7 +6,7 @@ use App\Http\Controllers\fe\LanguageController;
 
 Route::prefix('v1/fe')->group(function(){
     // Set locale Routes
-    Route::get('/set-locale/{locale}', [LocaleController::class, 'setSiteLocale']);
+    Route::get('/set-locale/{locale}', [LanguageController::class, 'setSiteLocale']);
     // Search Page Routes
     Route::get('/search', [SearchController::class,'search']);
     // Home Page Routes
