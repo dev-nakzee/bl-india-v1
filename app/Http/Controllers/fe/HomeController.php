@@ -20,7 +20,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $locale = Session::get('locale'); // Default to 'en' if no locale is set
-        $this->translator = new GoogleTranslate($locale);
+        $this->translator = new GoogleTranslate('en');
     }
      /**
      * Handle the home request.
@@ -41,7 +41,7 @@ class HomeController extends Controller
             $banner[0]->title = $this->translator->translate($banner[0]->title);
             $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
         }
-      
+        $locale = Session::get('locale');
         return response()->json([$locale, $banner]);
     }
 
