@@ -6,8 +6,8 @@ import apiClient from '../../Services/api';
 const ProcessSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     padding: theme.spacing(4),
-    backgroundColor: '#C3E7FF',
-    boxShadow: theme.shadows[3],
+    // backgroundColor: '#C3E7FF',
+    // boxShadow: theme.shadows[3],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -59,7 +59,7 @@ const HomeProcess = () => {
     const { section, processes } = processData;
 
     return (
-        <ProcessSection>
+        <ProcessSection className='Process-section'>
             <Grid container spacing={4} alignItems="center">
                 <Grid item xs={12} md={12}>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
@@ -70,18 +70,19 @@ const HomeProcess = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container >
+                    <Grid container fluid sx={{alignItems:'center',justifyContent:'space-between'}}>
                         {processes.map((process) => (
                             <Grid item xs={12} md={2} key={process.id}>
-                                <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' ,alignItems:'center'}}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' ,alignItems:'center',justifyContent:'space-between'}}>
                                     <img src={'https://in.bl-india.com/' + process.image_url}  alt={process.image_alt} />                                    
-                                   
+                                    <Box sx={{textAlign:'center'}}>
                                         <Typography variant="h5" component="div">
                                             {process.order}. {process.name}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {process.text}
                                         </Typography>
+                                        </Box>
                                    
                                 </Box>
                             </Grid>
