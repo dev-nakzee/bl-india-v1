@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import {
   Box,
   Typography,
-  TextField,
   Button,
+  TextField,
+  Drawer,
+  IconButton,
   Grid,
+  InputAdornment,
   MenuItem,
-  InputAdornment
 } from '@mui/material';
-import { ToastContainer, toast } from 'react-toastify';
+import CloseIcon from '@mui/icons-material/Close';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+import apiClient from '../Services/api';
 
 const countryCodes = [
   { code: '+1', country: 'USA' },
@@ -66,15 +69,22 @@ const countryCodes = [
   { code: '+380', country: 'Ukraine' },
 ];
 
-const ScheduleCall = () => {
+const ScheduleCallDrawer = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
     countryCode: '+1',
-    callDate: '',
-    message: '',
+    schedule: '',
   });
+
+  const handleDrawerOpen = () => {
+    setDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -88,25 +98,30 @@ const ScheduleCall = () => {
       toast.success('Call scheduled successfully');
       setFormData({
         name: '',
-        email: '',
         phone: '',
         countryCode: '+1',
-        callDate: '',
-        message: '',
+        schedule: '',
       });
+      handleDrawerClose();
     } catch (error) {
       toast.error('Failed to schedule call');
     }
   };
 
   return (
-    <Box sx={{ mx: 4, px: 4, py: 6 }}>
-      <Typography variant="h4" sx={{ textAlign: 'center', mb: 4 }}>
-        Schedule a Call
-      </Typography>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+    <>
+      <Button variant="contained" color="primary" onClick={handleDrawerOpen}>
+        Connect with us
+      </Button>
+      <Drawer anchor="right" open={drawerOpen} onClose={handleDrawerClose}>
+        <Box sx={{ width: 350, p: 3 }}>
+          <IconButton onClick={handleDrawerClose} sx={{ mb: 2 }}>
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h5" sx={{ mb: 3 }}>
+            Schedule a Call
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit}>
             <TextField
               label="Name"
               name="name"
@@ -114,20 +129,8 @@ const ScheduleCall = () => {
               onChange={handleInputChange}
               fullWidth
               required
+              sx={{ mb: 2 }}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
             <TextField
               label="Phone"
               name="phone"
@@ -135,6 +138,7 @@ const ScheduleCall = () => {
               onChange={handleInputChange}
               fullWidth
               required
+              sx={{ mb: 2 }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -152,45 +156,31 @@ const ScheduleCall = () => {
                       ))}
                     </TextField>
                   </InputAdornment>
-                )
+                ),
               }}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
             <TextField
-              label="Preferred Call Date"
-              name="callDate"
-              type="date"
-              value={formData.callDate}
+              label="Schedule (Date and Time)"
+              name="schedule"
+              type="datetime-local"
+              value={formData.schedule}
               onChange={handleInputChange}
               fullWidth
               required
               InputLabelProps={{
                 shrink: true,
               }}
+              sx={{ mb: 2 }}
             />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Message"
-              name="message"
-              value={formData.message}
-              onChange={handleInputChange}
-              fullWidth
-              multiline
-              rows={4}
-            />
-          </Grid>
-        </Grid>
-        <Box sx={{ textAlign: 'center', mt: 4 }}>
-          <Button variant="contained" color="primary" type="submit">
-            Schedule Call
-          </Button>
+            <Button variant="contained" color="primary" type="submit" fullWidth>
+              Schedule Call
+            </Button>
+          </Box>
         </Box>
-      </Box>
+      </Drawer>
       <ToastContainer />
-    </Box>
+    </>
   );
 };
 
-export default ScheduleCall;
+export default ScheduleCallDrawer;
