@@ -43,7 +43,7 @@ class HomeController extends Controller
             $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
         }
         // $locale = Session::get('locale');
-        $locale = App::setLocale('locale');
+        $locale = App::getLocale();
         return response()->json([$locale, $banner]);
     }
 
