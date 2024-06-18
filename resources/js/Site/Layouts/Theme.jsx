@@ -4,16 +4,17 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2', // Customize your primary color
+      main: '#1C7CBC', // Customize your primary color
     },
     secondary: {
-      main: '#dc004e', // Customize your secondary color
+      main: '#0D629A', // Customize your secondary color
     },
     background: {
       default: '#f5f5f5', // Customize your background color
     },
   },
   typography: {
+    
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
@@ -72,6 +73,7 @@ const theme = createTheme({
     button: {
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '0.875rem',
+
     },
     iconMenu: {
         fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',

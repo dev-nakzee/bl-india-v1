@@ -13,19 +13,19 @@ import SearchIcon from "@mui/icons-material/Search";
 import logo from "../../Assets/logo.svg"; // Replace with your logo path
 import ServicesIcon from "../../Assets/services.svg"; // Replace with your first SVG icon path
 import NotificationIcon from "../../Assets/notifications.svg"; // Replace with your second SVG icon path
-import Sidebar from "../Sidebar/Sidebar";
-import zIndex from "@mui/material/styles/zIndex";
+import Sidebar from "../Sidebar/TopsideBar";
+import { useSidebar } from "../Sidebar/SidebarContext";
 
 const NavigationBar = () => {
     // searchBar
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
+    const [TopbarOpen, setTopbarOpen] = useState(false);
+    // const { toggleSidebar } = useSidebar();
     const handleSidebarOpen = () => {
-        setSidebarOpen(true);
+        setTopbarOpen(true);
     };
 
     const handleSidebarClose = () => {
-        setSidebarOpen(false);
+        setTopbarOpen(false);
     };
 
     // searchBar
@@ -104,29 +104,23 @@ const NavigationBar = () => {
                             </Box>
                         </IconButton>
                     </Box>
-                    <IconButton component={Link} to="/profile" color="inherit">
+                    <IconButton
+                        // component={Link} to="/profile"
+                        color="inherit"
+                        // onClick={toggleSidebar}
+                    >
                         <AccountCircleIcon fontSize="large" />
                     </IconButton>
 
-                    {/* <IconButton
-                    //  component={Link} to="/search"
-                      color="inherit" onClick={handleSidebarOpen}>
-                        <SearchIcon fontSize="large" />
-                        <Sidebar open={sidebarOpen} onClose={handleSidebarClose} />
-                    </IconButton> */}
-                     {/* <IconButton onClick={handleSidebarOpen}>
-                                <SearchIcon fontSize="large" />
-                            <Sidebar
-                                open={sidebarOpen}
-                                onClose={handleSidebarClose}
-                            />
-                            </IconButton> */}
-        <IconButton onClick={handleSidebarOpen}>
-          <SearchIcon fontSize="large" color="primary" />
-        </IconButton>
-        <Sidebar open={sidebarOpen} onClose={handleSidebarClose} className="sidebar-close"
-        />
-                   
+                    
+                    <IconButton onClick={handleSidebarOpen}>
+                        <SearchIcon fontSize="large" color="primary" />
+                    </IconButton>
+                    <Sidebar
+                        open={TopbarOpen}
+                        onClose={handleSidebarClose}
+                        className="sidebar-close"
+                    />
                 </Box>
             </Toolbar>
         </AppBar>

@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Typography, CircularProgress, Box } from '@mui/material';
-import HomeBanner from '../Components/Home/HomeBanner';
-import HomeServices from '../Components/Home/HomeServices';
-import HomeAbout from '../Components/Home/HomeAbout';
-import HomeBrochure from '../Components/Home/HomeBrochure';
-import apiClient from '../Services/api';
-import { Helmet } from 'react-helmet';
+import React, { useState, useEffect } from "react";
+import { Typography, CircularProgress, Box } from "@mui/material";
+import HomeBanner from "../Components/Home/HomeBanner";
+import HomeServices from "../Components/Home/HomeServices";
+import HomeAbout from "../Components/Home/HomeAbout";
+import HomeBrochure from "../Components/Home/HomeBrochure";
+import apiClient from "../Services/api";
+import { Helmet } from "react-helmet";
+import { SidebarProvider } from "../Components/Sidebar/SidebarContext";
+import Sidebar from "../Components/Sidebar/Sidebar";
+import Login from "../Components/Sidebar/Login/Login";
 
 const HomePage = () => {
     const [homeData, setHomeData] = useState(null);
@@ -14,11 +17,13 @@ const HomePage = () => {
     useEffect(() => {
         const getHomeData = async () => {
             try {
-                const response = await apiClient.get('/home');
-                const homePageData = response.data.find(page => page.slug === 'home');
+                const response = await apiClient.get("/home");
+                const homePageData = response.data.find(
+                    (page) => page.slug === "home"
+                );
                 setHomeData(homePageData);
             } catch (error) {
-                console.error('Error fetching home data:', error);
+                console.error("Error fetching home data:", error);
             } finally {
                 setLoading(false);
             }
@@ -35,12 +40,20 @@ const HomePage = () => {
                 <meta name="keywords" content={homeData?.seo_keywords} />
                 {/* Other meta tags */}
             </Helmet>
+         
             <HomeBanner />
             <HomeServices />
             <HomeAbout />
             <HomeBrochure />
             {loading ? (
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "60vh",
+                    }}
+                >
                     <CircularProgress />
                 </Box>
             ) : (
@@ -48,6 +61,6 @@ const HomePage = () => {
             )}
         </>
     );
-}
+};
 
 export default HomePage;

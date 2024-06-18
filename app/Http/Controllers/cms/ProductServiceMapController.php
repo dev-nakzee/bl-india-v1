@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\cms;
 
+use App\Http\Controllers\Controller;
 use App\Models\ProductServiceMap;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
