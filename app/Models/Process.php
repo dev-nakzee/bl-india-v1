@@ -12,6 +12,8 @@ class Process extends Model
         'name',
         'order',
         'text',
+        'image_url',
+        'image_alt',
     ];
     protected $hidden = [
         'created_at',

@@ -73,7 +73,7 @@ function Topbar() {
             try {
                 await apiClient.get(`/set-locale/${locale}`);
                 localStorage.setItem('selectedLanguage', locale);
-                window.location.reload();
+                // window.location.reload();
             } catch (error) {
                 console.error('Error setting locale:', error);
             }

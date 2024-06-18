@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Typography, CircularProgress, Box } from "@mui/material";
-import HomeBanner from "../Components/Home/HomeBanner";
-import HomeServices from "../Components/Home/HomeServices";
-import HomeAbout from "../Components/Home/HomeAbout";
-import HomeBrochure from "../Components/Home/HomeBrochure";
-import apiClient from "../Services/api";
-import { Helmet } from "react-helmet";
-import { SidebarProvider } from "../Components/Sidebar/SidebarContext";
-import Sidebar from "../Components/Sidebar/Sidebar";
-import Login from "../Components/Sidebar/Login/Login";
+import React, { useState, useEffect } from 'react';
+import { Typography, CircularProgress, Box } from '@mui/material';
+import HomeBanner from '../Components/Home/HomeBanner';
+import HomeServices from '../Components/Home/HomeServices';
+import HomeAbout from '../Components/Home/HomeAbout';
+import HomeBrochure from '../Components/Home/HomeBrochure';
+import HomeProcess from '../Components/Home/HomeProcess';
+import HomeBlog from '../Components/Home/HomeBlog';
+import apiClient from '../Services/api';
+import { Helmet } from 'react-helmet';
 
 const HomePage = () => {
     const [homeData, setHomeData] = useState(null);
@@ -45,6 +44,8 @@ const HomePage = () => {
             <HomeServices />
             <HomeAbout />
             <HomeBrochure />
+            <HomeProcess />
+            <HomeBlog />
             {loading ? (
                 <Box
                     sx={{

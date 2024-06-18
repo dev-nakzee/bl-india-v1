@@ -7,20 +7,22 @@ use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\PageSection;
 use App\Models\Service;
+use App\Models\Process;
 use App\Models\Blog;
 use App\Models\Testimonial;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\App;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HomeController extends Controller
 {
     protected $translator;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $locale = session()->get('locale', 'en'); // Default to 'en' if no locale is set
-        $this->translator = new GoogleTranslate($locale);
+        $locale = session()->get('locale'); // Default to 'en' if no locale is set
+        $this->translator = new GoogleTranslate('en');
     }
      /**
      * Handle the home request.
@@ -37,11 +39,10 @@ class HomeController extends Controller
     public function banner(): JsonResponse
     {
         $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
-        // foreach($banner as $data)
-        // {
-        //     $data['title'] = $this->translator->translate($data['title']);
-        //     $data['tag_line'] = $this->translator->translate($data['subtitle']);
-        // }
+        if ($banner->isNotEmpty()) {
+            $banner[0]->title = $this->translator->translate($banner[0]->title);
+            $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
+        }
         return response()->json($banner);
     }
 
@@ -67,5 +68,36 @@ class HomeController extends Controller
         $section = PageSection::where('page_id', 1)->where('slug', 'home-brochure')->get();
         $services = Service::orderBy('id')->get();
         return response()->json(['section' => $section, 'services' => $services]);
+    }
+
+    public function process(): JsonResponse
+    {
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-process')->get();
+        $processes = Process::orderBy('id')->get();
+        return response()->json(['section' => $section, 'processes' => $processes]);
+    }
+
+    public function blog(): JsonResponse
+    {
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->get();
+        $blogs = Blog::orderBy('id', 'desc')->limit(3)->get();
+        foreach ($blogs as $blog) {
+            $blog->content = mb_strimwidth($this->getFirstParagraphContent($blog->content), 0, 250, '...');
+        }
+        return response()->json(['section' => $section, 'blogs' => $blogs]);
+    }
+
+    protected function getFirstParagraphContent(string $html): ?string
+    {
+        $dom = new \DOMDocument();
+        // Suppress warnings from malformed HTML
+        @$dom->loadHTML('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $html);
+        
+        $paragraphs = $dom->getElementsByTagName('p');
+        if ($paragraphs->length > 0) {
+            return $paragraphs->item(0)->textContent;
+        }
+
+        return null;
     }
 }

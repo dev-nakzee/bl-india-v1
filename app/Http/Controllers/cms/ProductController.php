@@ -80,7 +80,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): JsonResponse
+    public function update1(Request $request, string $id): JsonResponse
     {
         //
         $validated = $request->validate([
