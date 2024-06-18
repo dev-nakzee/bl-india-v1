@@ -20,7 +20,7 @@ class HomeController extends Controller
 
     public function __construct(Request $request)
     {
-        $locale = $request->session()->get('locale'); // Default to 'en' if no locale is set
+        $locale = session()->get('locale'); // Default to 'en' if no locale is set
         $this->translator = new GoogleTranslate($locale);
     }
      /**
@@ -35,7 +35,7 @@ class HomeController extends Controller
     /**
      * Handle the Home Banner request.
      */
-    public function banner(Request $request): JsonResponse
+    public function banner(): JsonResponse
     {
         $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
         if ($banner->isNotEmpty()) {
@@ -43,7 +43,7 @@ class HomeController extends Controller
             $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
         }
         // $locale = Session::get('locale');
-        $locale = $request->session->get('locale');
+        $locale = session()->get('locale');
         return response()->json([$locale, $banner]);
     }
 
