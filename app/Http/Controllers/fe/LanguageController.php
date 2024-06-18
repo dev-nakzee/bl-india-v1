@@ -17,7 +17,7 @@ class LanguageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function setLocale($locale): JsonResponse
+    public function setSiteLocale($locale): JsonResponse
     {
         if (in_array($locale, config('app.locales'))) {
             Session::put('locale', $locale);

@@ -71,7 +71,7 @@ function Topbar() {
         setAnchorEl(null);
         if (locale) {
             try {
-                await apiClient.get(`/api/set-locale/${locale}`);
+                await apiClient.get(`/set-locale/${locale}`);
                 localStorage.setItem('selectedLanguage', locale);
                 window.location.reload();
             } catch (error) {
