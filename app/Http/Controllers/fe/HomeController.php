@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\PageSection;
 use App\Models\Service;
+use App\Models\Process;
 use App\Models\Blog;
 use App\Models\Testimonial;
 use Illuminate\Http\JsonResponse;
@@ -67,5 +68,12 @@ class HomeController extends Controller
         $section = PageSection::where('page_id', 1)->where('slug', 'home-brochure')->get();
         $services = Service::orderBy('id')->get();
         return response()->json(['section' => $section, 'services' => $services]);
+    }
+
+    public function process(): JsonResponse
+    {
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-process')->get();
+        $processes = Process::orderBy('id')->get();
+        return response()->json(['section' => $section, 'processes' => $processes]);
     }
 }
