@@ -113,7 +113,7 @@ const ScheduleCallDrawer = () => {
       <Button variant="contained" color="primary" onClick={handleDrawerOpen}>
         Connect with us
       </Button>
-      <Drawer anchor="right" open={drawerOpen} onClose={handleDrawerClose}>
+      <Drawer anchor="right" open={drawerOpen} onClose={handleDrawerClose} sx={{ zIndex: 1301}}>
         <Box sx={{ width: 350, p: 3 }}>
           <IconButton onClick={handleDrawerClose} sx={{ mb: 2 }}>
             <CloseIcon />
