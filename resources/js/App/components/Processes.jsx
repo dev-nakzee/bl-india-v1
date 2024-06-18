@@ -33,9 +33,9 @@ const Processes = () => {
     name: '',
     order: '',
     text: '',
-    image: '',
     image_alt: '',
   });
+  const [image, setImage] = useState(null);
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
@@ -57,9 +57,9 @@ const Processes = () => {
       name: '',
       order: '',
       text: '',
-      image: '',
       image_alt: '',
     });
+    setImage(null);
     setEditing(false);
     setOpen(true);
   };
@@ -70,6 +70,7 @@ const Processes = () => {
 
   const handleEditClick = (process) => {
     setProcess(process);
+    setImage(null);
     setEditing(true);
     setOpen(true);
   };
@@ -105,14 +106,30 @@ const Processes = () => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('name', process.name);
+    formData.append('order', process.order);
+    formData.append('text', process.text);
+    formData.append('image_alt', process.image_alt);
+    if (image) {
+      formData.append('image', image);
+    }
     try {
       if (editing) {
-        await apiClient.post(`/processes/${process.id}`, process);
+        await apiClient.post(`/processes/${process.id}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
         toast.success('Process updated successfully');
       } else {
-        await apiClient.post('/processes', process);
+        await apiClient.post('/processes', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
         toast.success('Process added successfully');
       }
       fetchProcesses();
@@ -150,7 +167,9 @@ const Processes = () => {
             {processes.map((process) => (
               <TableRow key={process.id}>
                 <TableCell>{process.id}</TableCell>
-                <TableCell><img src={process.image_url} alt={process.image_alt} style={{ width: '50px', height: '50px' }} /></TableCell>
+                <TableCell>
+                  <img src={process.image_url} alt={process.image_alt} style={{ width: '50px', height: '50px' }} />
+                </TableCell>
                 <TableCell>{process.name}</TableCell>
                 <TableCell>{process.order}</TableCell>
                 <TableCell>{process.text}</TableCell>
@@ -205,15 +224,6 @@ const Processes = () => {
               required
             />
             <TextField
-              label="Image URL"
-              name="image"
-              value={process.image || ''}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <TextField
               label="Image Alt Text"
               name="image_alt"
               value={process.image_alt || ''}
@@ -222,6 +232,10 @@ const Processes = () => {
               margin="normal"
               required
             />
+            <Button variant="contained" component="label" sx={{ mt: 2 }}>
+              Upload Image
+              <input type="file" hidden onChange={handleImageChange} />
+            </Button>
             <DialogActions>
               <Button onClick={handleClose} color="primary">
                 Cancel
