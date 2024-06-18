@@ -5,6 +5,7 @@ import HomeServices from '../Components/Home/HomeServices';
 import HomeAbout from '../Components/Home/HomeAbout';
 import HomeBrochure from '../Components/Home/HomeBrochure';
 import HomeProcess from '../Components/Home/HomeProcess';
+import HomeBlog from '../Components/Home/HomeBlog';
 import apiClient from '../Services/api';
 import { Helmet } from 'react-helmet';
 
@@ -41,6 +42,7 @@ const HomePage = () => {
             <HomeAbout />
             <HomeBrochure />
             <HomeProcess />
+            <HomeBlog />
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
                     <CircularProgress />

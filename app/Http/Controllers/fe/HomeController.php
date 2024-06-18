@@ -80,7 +80,24 @@ class HomeController extends Controller
     public function blog(): JsonResponse
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->get();
-        $blogs = Blog::orderBy('id')->get();
+        $blogs = Blog::orderBy('id', 'desc')->limit(3)->get();
+        foreach ($blogs as $blog) {
+            $blog->content = $this->getFirstParagraphContent($blog->content);
+        }
         return response()->json(['section' => $section, 'blogs' => $blogs]);
+    }
+
+    protected function getFirstParagraphContent(string $html): ?string
+    {
+        $dom = new \DOMDocument();
+        // Suppress warnings from malformed HTML
+        @$dom->loadHTML('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $html);
+        
+        $paragraphs = $dom->getElementsByTagName('p');
+        if ($paragraphs->length > 0) {
+            return $paragraphs->item(0)->textContent;
+        }
+
+        return null;
     }
 }
