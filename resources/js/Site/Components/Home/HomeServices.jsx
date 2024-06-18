@@ -65,10 +65,10 @@ const HomeServices = () => {
                                     {service.name}
                                 </Typography>
                             </Box>
-                            <Typography variant="body2" sx={{ marginTop: '10px', flexGrow: 1 }}>
+                            <Typography variant="body2" sx={{ marginTop: '10px', flexGrow: 1 ,textAlign:'left' }}>
                                 {service.description}
                             </Typography>
-                            <Button component={Link} to={`/services/${service.service_category.slug}/${service.slug}`} sx={{ marginTop: '10px', color: '#0D629A' }}>
+                            <Button  variant="outlined" component={Link} to={`/services/${service.service_category.slug}/${service.slug}`}>
                                 Read More
                             </Button>
                         </Box>

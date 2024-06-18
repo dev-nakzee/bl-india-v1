@@ -17,11 +17,13 @@ const HomePage = () => {
     useEffect(() => {
         const getHomeData = async () => {
             try {
-                const response = await apiClient.get('/home');
-                const homePageData = response.data.find(page => page.slug === 'home');
+                const response = await apiClient.get("/home");
+                const homePageData = response.data.find(
+                    (page) => page.slug === "home"
+                );
                 setHomeData(homePageData);
             } catch (error) {
-                console.error('Error fetching home data:', error);
+                console.error("Error fetching home data:", error);
             } finally {
                 setLoading(false);
             }
@@ -38,6 +40,7 @@ const HomePage = () => {
                 <meta name="keywords" content={homeData?.seo_keywords} />
                 {/* Other meta tags */}
             </Helmet>
+         
             <HomeBanner />
             <HomeServices />
             <HomeAbout />
@@ -46,7 +49,14 @@ const HomePage = () => {
             <HomeProcess />
             <HomeBlog />
             {loading ? (
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "60vh",
+                    }}
+                >
                     <CircularProgress />
                 </Box>
             ) : (
@@ -54,6 +64,6 @@ const HomePage = () => {
             )}
         </>
     );
-}
+};
 
 export default HomePage;

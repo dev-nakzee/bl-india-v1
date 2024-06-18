@@ -61,15 +61,16 @@ const HomeAbout = () => {
     return (
         <AboutSection>
             <Grid container spacing={4} alignItems="center" sx={{ mx: 4}}>
-                <Grid item xs={12} md={12}>
-                    <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20}}>
-                        {aboutData.name}
-                    </Typography>
-                </Grid>
+               
                 <Grid item xs={12} md={6}>
                     <AboutImage src={'https://in.bl-india.com/' + aboutData.image_url} alt={aboutData.image_alt} sx={{}}/>
                 </Grid>
                 <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={12}>
+                    <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff',  borderRadius: 20}}>
+                        {aboutData.name}
+                    </Typography>
+                </Grid>
                     <AboutContent>
                         <Typography variant="h2" sx={{ mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase',  }}>
                             {aboutData.title}

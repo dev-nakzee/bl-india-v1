@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
 }
+.MuiDrawer-root.MuiDrawer-modal.MuiModal-root{z-index: 1301;}
 .about-content ul {
     padding: 0;
     margin: 0;
