@@ -49,7 +49,7 @@ class HomeController extends Controller
             $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
         }
       
-        return response()->json($banner, session()->get('locale'));
+        return response()->json([session()->get('locale'), $banner]);
     }
 
     /**
