@@ -38,8 +38,10 @@ class HomeController extends Controller
     {
         $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
 
-        $banner[0]['title'] = $this->translator->translate($banner[0]['title']);
-        $banner[0]['tag_line'] = $this->translator->translate($banner[0]['subtitle']);
+        if ($banner->isNotEmpty()) {
+            $banner[0]->title = $this->translator->translate($banner[0]->title);
+            $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
+        }
       
         return response()->json($banner);
     }
