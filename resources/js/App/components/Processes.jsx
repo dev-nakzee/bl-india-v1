@@ -109,7 +109,7 @@ const Processes = () => {
     e.preventDefault();
     try {
       if (editing) {
-        await apiClient.put(`/processes/${process.id}`, process);
+        await apiClient.post(`/processes/${process.id}`, process);
         toast.success('Process updated successfully');
       } else {
         await apiClient.post('/processes', process);

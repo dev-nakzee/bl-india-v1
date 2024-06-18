@@ -68,13 +68,15 @@ class ProcessController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): JsonResponse
+    public function update1(Request $request, string $id): JsonResponse
     {
         //
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'order' => 'sometimes|required|string|max:255',
             'text' => 'sometimes|required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_alt' => 'nullable|string|max:255',
         ]);
 
         $process = Process::findOrFail($id);

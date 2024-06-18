@@ -36,6 +36,7 @@ Route::prefix('v1/cms')->group(function(){
         Route::get('products/{id}/services', [ProductController::class, 'getServices']);
         // Process Routes
         Route::apiResource('processes', ProcessController::class);
+        Route::post('processes/{id}', [ProcessController::class, 'update1']);
         // Testimonials Routes
         Route::apiResource('testimonials', TestimonialController::class);
         // Stickers Routes
