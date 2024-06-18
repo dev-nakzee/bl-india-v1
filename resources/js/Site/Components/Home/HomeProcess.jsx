@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, CircularProgress, Grid, Card, CardMedia, CardContent } from '@mui/material';
+import { Box, Typography, CircularProgress, Grid, Card, CardMedia, CardContent, Stack } from '@mui/material';
 import { styled } from '@mui/system';
 import apiClient from '../../Services/api';
 
@@ -60,7 +60,7 @@ const HomeProcess = () => {
 
     return (
         <ProcessSection>
-            <Grid container spacing={4} alignItems="center" sx={{ mx: 4 }}>
+            <Grid container spacing={4} alignItems="center">
                 <Grid item xs={12} md={12}>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section[0].tag_line}
@@ -70,21 +70,20 @@ const HomeProcess = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container spacing={4}>
+                    <Grid container >
                         {processes.map((process) => (
                             <Grid item xs={12} md={2} key={process.id}>
-                                <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                                    <img src={'https://in.bl-india.com/' + process.image_url}  alt={process.image_alt} />
-                                    
-                                    <CardContent>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' ,alignItems:'center'}}>
+                                    <img src={'https://in.bl-india.com/' + process.image_url}  alt={process.image_alt} />                                    
+                                   
                                         <Typography variant="h5" component="div">
                                             {process.order}. {process.name}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {process.text}
                                         </Typography>
-                                    </CardContent>
-                                </Card>
+                                   
+                                </Box>
                             </Grid>
                         ))}
                     </Grid>

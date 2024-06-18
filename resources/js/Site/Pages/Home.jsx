@@ -4,6 +4,7 @@ import HomeBanner from '../Components/Home/HomeBanner';
 import HomeServices from '../Components/Home/HomeServices';
 import HomeAbout from '../Components/Home/HomeAbout';
 import HomeBrochure from '../Components/Home/HomeBrochure';
+import ScheduleCallDrawer from '../Components/ScheduleCallDrawer';
 import HomeProcess from '../Components/Home/HomeProcess';
 import HomeBlog from '../Components/Home/HomeBlog';
 import apiClient from '../Services/api';
@@ -44,6 +45,7 @@ const HomePage = () => {
             <HomeServices />
             <HomeAbout />
             <HomeBrochure />
+            <ScheduleCallDrawer />
             <HomeProcess />
             <HomeBlog />
             {loading ? (

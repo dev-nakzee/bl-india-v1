@@ -83,9 +83,9 @@ const HomeBlog = () => {
                                     />
                                     <CardContent>
                                         <Typography variant="h5" component="div">
-                                            {blog.title}
+                                            {blog.name}
                                         </Typography>
-                                        <Typography variant="body2" color="text.secondary">
+                                        <Typography variant="body2" color="text.secondary" sx={{mt:1}}>
                                             {blog.content}
                                         </Typography>
                                         <Button component={Link} to={`/blog/${blog.slug}`} sx={{ mt: 2 }} variant="outlined" color="primary">
