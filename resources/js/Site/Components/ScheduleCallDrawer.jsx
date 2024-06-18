@@ -11,6 +11,8 @@ import {
   MenuItem,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
+import { styled } from '@mui/system';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import apiClient from '../Services/api';
@@ -69,6 +71,20 @@ const countryCodes = [
   { code: '+380', country: 'Ukraine' },
 ];
 
+const ScheduleCall = styled(Box)(({ theme }) => ({
+  textAlign: 'left',
+  // padding: theme.spacing(4),
+  paddingLeft: '10%',
+  paddingRight: '10%',
+  paddingTop: '5%',
+  paddingBottom: '5%',
+  backgroundColor: '#C3E7FF',
+  boxShadow: theme.shadows[3],
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+}));
+
 const ScheduleCallDrawer = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -110,9 +126,19 @@ const ScheduleCallDrawer = () => {
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={handleDrawerOpen}>
-        Connect with us
-      </Button>
+      <ScheduleCall>
+        <PermPhoneMsgIcon sx={{ color: '#ffffff', fontSize: 100}}/>
+        <Typography variant="h2" sx={{fontWeight: 500, }}>
+          +91-8130615678<br/>
+          +91-9250056788
+        </Typography>
+        <Typography variant="h1" sx={{ fontWeight: 400, pl: 4, borderLeft: '5px solid #0D629A' }}>
+          REQUEST A SCHEDULE<br/>FOR FREE CONSULTATION
+        </Typography>
+        <Button variant="contained" color="primary" onClick={handleDrawerOpen}>
+          Connect with us
+        </Button>
+      </ScheduleCall>
       <Drawer anchor="right" open={drawerOpen} onClose={handleDrawerClose} sx={{ zIndex: 1301}}>
         <Box sx={{ width: 350, p: 3 }}>
           <IconButton onClick={handleDrawerClose} sx={{ mb: 2 }}>
