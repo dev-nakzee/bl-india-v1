@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Process;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ProcessController extends Controller
 {
