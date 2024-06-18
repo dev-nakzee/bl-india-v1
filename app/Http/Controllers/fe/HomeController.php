@@ -15,11 +15,10 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HomeController extends Controller
 {
-    protected $locale;
 
     public function __construct(Request $request)
     {
-        $this->locale = session()->get('locale', 'en'); // Default to 'en' if no locale is set
+        $translator = new GoogleTranslate(session()->get('locale'));
     }
 
      /**
@@ -37,8 +36,8 @@ class HomeController extends Controller
     public function banner(): JsonResponse
     {
         $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
-        $banner['title'] = $this->translateData($banner['title']);
-        $banner['tag_line'] = $this->translateData($banner['subtitle']);
+        $banner['title'] = $translator->translate($banner['title']);
+        $banner['tag_line'] = $translator->translate($banner['subtitle']);
         return response()->json([$this->locale, $banner]);
     }
 
