@@ -67,16 +67,10 @@ function Topbar() {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleLanguageClose = async (locale) => {
+    const handleLanguageClose = (locale) => {
         setAnchorEl(null);
         if (locale) {
-            try {
-                await apiClient.post('/set-locale', { locale });
-                localStorage.setItem('selectedLanguage', locale);
-                window.location.reload();
-            } catch (error) {
-                console.error('Error setting locale:', error);
-            }
+            window.location.href = `/set-locale/${locale}`;
         }
     };
 
