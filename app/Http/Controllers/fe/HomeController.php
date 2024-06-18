@@ -25,7 +25,7 @@ class HomeController extends Controller
         } 
         else
         {
-            $locale = config('app.locale');
+            $locale = 'en';
         }
         $this->translator = new GoogleTranslate($locale);
     }
@@ -44,13 +44,12 @@ class HomeController extends Controller
     public function banner(): JsonResponse
     {
         $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
-
         if ($banner->isNotEmpty()) {
             $banner[0]->title = $this->translator->translate($banner[0]->title);
             $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
         }
       
-        return response()->json($banner);
+        return response()->json($banner, session()->get('locale'));
     }
 
     /**
