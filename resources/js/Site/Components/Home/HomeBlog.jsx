@@ -66,16 +66,9 @@ const HomeBlog = () => {
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section[0].tag_line}
                     </Typography>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <BlogImage src={'https://in.bl-india.com/' + section[0].image_url} alt={section[0].image_alt} />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <BlogContent>
-                        <Typography variant="h2" sx={{ mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
-                            {section[0].title}
-                        </Typography>
-                    </BlogContent>
+                    <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                        {section[0].title}
+                    </Typography>
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container spacing={4}>
@@ -103,6 +96,13 @@ const HomeBlog = () => {
                             </Grid>
                         ))}
                     </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                    <Box sx={{ textAlign: 'center' }}>
+                        <Button component={Link} to="/blogs" variant="contained" color="primary">
+                            View All
+                        </Button>
+                    </Box>
                 </Grid>
             </Grid>
         </BlogSection>
