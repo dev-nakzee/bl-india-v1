@@ -8,6 +8,7 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LanguageIcon from '@mui/icons-material/Language';
+import axios from 'axios';
 
 function Topbar() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -66,8 +67,17 @@ function Topbar() {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleLanguageClose = () => {
+    const handleLanguageClose = async (locale) => {
         setAnchorEl(null);
+        if (locale) {
+            try {
+                await axios.post('/set-locale', { locale });
+                localStorage.setItem('selectedLanguage', locale);
+                window.location.reload();
+            } catch (error) {
+                console.error('Error setting locale:', error);
+            }
+        }
     };
 
     return (
@@ -168,10 +178,13 @@ function Topbar() {
                     <Menu
                         anchorEl={anchorEl}
                         open={Boolean(anchorEl)}
-                        onClose={handleLanguageClose}
+                        onClose={() => handleLanguageClose(null)}
                     >
                         {languages.map((language) => (
-                            <MenuItem key={language.locale} onClick={handleLanguageClose}>
+                            <MenuItem 
+                                key={language.locale} 
+                                onClick={() => handleLanguageClose(language.locale)}
+                            >
                                 {language.name}
                             </MenuItem>
                         ))}

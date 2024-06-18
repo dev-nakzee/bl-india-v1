@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, CircularProgress, Button, Grid, TextField, MenuItem, InputAdornment } from '@mui/material';
 import { styled } from '@mui/system';
 import apiClient from '../../Services/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BrochureSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
@@ -62,7 +64,6 @@ const HomeBrochure = () => {
         { code: '+31', country: 'Netherlands' },
         { code: '+46', country: 'Sweden' },
         { code: '+41', country: 'Switzerland' },
-        { code: '+34', country: 'Spain' },
         { code: '+48', country: 'Poland' },
         { code: '+45', country: 'Denmark' },
         { code: '+47', country: 'Norway' },
@@ -79,10 +80,8 @@ const HomeBrochure = () => {
         { code: '+964', country: 'Iraq' },
         { code: '+880', country: 'Bangladesh' },
         { code: '+94', country: 'Sri Lanka' },
-        { code: '+64', country: 'New Zealand' },
         { code: '+32', country: 'Belgium' },
         { code: '+353', country: 'Ireland' },
-        { code: '+48', country: 'Poland' },
         { code: '+386', country: 'Slovenia' },
         { code: '+357', country: 'Cyprus' },
         { code: '+358', country: 'Finland' },
@@ -117,10 +116,10 @@ const HomeBrochure = () => {
         e.preventDefault();
         try {
             await apiClient.post('https://pms.bl-india.com/api/lead', formData);
-            alert('Form submitted successfully');
+            toast.success('Form submitted successfully');
         } catch (error) {
             console.error('Error submitting form:', error);
-            alert('Failed to submit the form');
+            toast.error('Failed to submit the form');
         }
     };
 
@@ -138,6 +137,7 @@ const HomeBrochure = () => {
 
     return (
         <BrochureSection>
+            <ToastContainer />
             <Grid container spacing={4} alignItems="center">
                 <Grid item xs={12} md={6}>
                     <BrochureContent>
@@ -188,10 +188,11 @@ const HomeBrochure = () => {
                                         <InputAdornment position="start">
                                             <TextField
                                                 select
+                                                variant='standard'
                                                 name="countryCode"
                                                 value={formData.countryCode}
                                                 onChange={handleInputChange}
-                                                sx={{ width: '100px', mr: 1 }}
+                                                sx={{ width: '200px' }}
                                             >
                                                 {countryCodes.map((code) => (
                                                     <MenuItem key={code.code} value={code.code}>

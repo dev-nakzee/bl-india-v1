@@ -2,8 +2,13 @@
 
 use App\Http\Controllers\fe\SearchController;
 use App\Http\Controllers\fe\HomeController;
+use App\Http\Controllers\fe\LanguageController;
 
 Route::prefix('v1/fe')->group(function(){
+    // Set locale Routes
+    Route::post('/set-locale', [LanguageController::class, 'setLocale']);
+    // Search Page Routes
+    Route::get('/search', [SearchController::class,'search']);
     // Home Page Routes
     Route::get('/home', [HomeController::class, 'home']);
     Route::get('/home-banner', [HomeController::class, 'banner']);
