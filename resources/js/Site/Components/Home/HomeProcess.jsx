@@ -65,28 +65,17 @@ const HomeProcess = () => {
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section[0].tag_line}
                     </Typography>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <ProcessImage src={'https://in.bl-india.com/' + section[0].image_url} alt={section[0].image_alt} />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <ProcessContent>
-                        <Typography variant="h2" sx={{ mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                    <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
                             {section[0].title}
-                        </Typography>
-                    </ProcessContent>
+                    </Typography>
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container spacing={4}>
                         {processes.map((process) => (
-                            <Grid item xs={12} md={4} key={process.id}>
+                            <Grid item xs={12} md={2} key={process.id}>
                                 <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                                    <CardMedia
-                                        component="img"
-                                        height="140"
-                                        image={'https://in.bl-india.com/' + process.image_url}
-                                        alt={process.image_alt}
-                                    />
+                                    <img src={'https://in.bl-india.com/' + process.image_url}  alt={process.image_alt} />
+                                    
                                     <CardContent>
                                         <Typography variant="h5" component="div">
                                             {process.order}. {process.name}
