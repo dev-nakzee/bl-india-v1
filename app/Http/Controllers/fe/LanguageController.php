@@ -23,7 +23,7 @@ class LanguageController extends Controller
             Session::put('locale', $locale);
             App::setLocale($locale);
 
-            return response()->json(['message' => 'Locale set successfully']);
+            return response()->json(['message' => 'Locale set successfully to '.$locale]);
         }
 
         return response()->json(['error' => 'Invalid locale'], 400);
