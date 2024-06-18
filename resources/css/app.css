@@ -24,3 +24,9 @@ body {
     margin: 0;
     margin-bottom: 20px !important;
 }
+.Process-section{
+    background-image: url(../js/Site/Assets/bgarrow.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}

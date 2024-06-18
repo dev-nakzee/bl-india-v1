@@ -74,7 +74,7 @@ const HomeBlog = () => {
                     <Grid container spacing={4}>
                         {blogs.map((blog) => (
                             <Grid item xs={12} md={4} key={blog.id}>
-                                <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                                <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' ,borderRadius:'20px'}}>
                                     <CardMedia
                                         component="img"
                                         height="140"
