@@ -11,6 +11,7 @@ use App\Models\Blog;
 use App\Models\Testimonial;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\App;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HomeController extends Controller
@@ -41,7 +42,8 @@ class HomeController extends Controller
             $banner[0]->title = $this->translator->translate($banner[0]->title);
             $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
         }
-        $locale = Session::get('locale');
+        // $locale = Session::get('locale');
+        $locale = App::setLocale('locale');
         return response()->json([$locale, $banner]);
     }
 
