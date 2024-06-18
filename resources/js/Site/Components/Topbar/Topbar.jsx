@@ -8,7 +8,7 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LanguageIcon from '@mui/icons-material/Language';
-import axios from 'axios';
+import apiClient from '../../Services/api';
 
 function Topbar() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -71,7 +71,7 @@ function Topbar() {
         setAnchorEl(null);
         if (locale) {
             try {
-                await axios.post('/set-locale', { locale });
+                await apiClient.post('/set-locale', { locale });
                 localStorage.setItem('selectedLanguage', locale);
                 window.location.reload();
             } catch (error) {
