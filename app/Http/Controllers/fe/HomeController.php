@@ -33,7 +33,7 @@ class HomeController extends Controller
         $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
         // $banner['title'] = $translator->translate($banner['title']);
         // $banner['tag_line'] = $translator->translate($banner['subtitle']);
-        return response()->json([$this->locale, $banner]);
+        return response()->json([$banner]);
     }
 
     /**
