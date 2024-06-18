@@ -18,7 +18,7 @@ class HomeController extends Controller
 {
     protected $translator;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         $locale = $request->session()->get('locale'); // Default to 'en' if no locale is set
         $this->translator = new GoogleTranslate($locale);
