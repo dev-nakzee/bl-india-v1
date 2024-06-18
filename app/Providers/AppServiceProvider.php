@@ -22,14 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        if(Session::get('locale'))
-        {
-            $locale = Session::get('locale');
-        }
-        else
-        {
-            $locale = 'en_US';
-        }
+        $locale = Session::get('locale', config('app.locale'));
         App::setLocale($locale);
     }
 }

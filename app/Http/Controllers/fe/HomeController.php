@@ -19,14 +19,7 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        if(session()->get('locale'))
-        {
-            $locale = session()->get('locale');
-        } 
-        else
-        {
-            $locale = 'en';
-        }
+        $locale = session()->get('locale', 'en'); // Default to 'en' if no locale is set
         $this->translator = new GoogleTranslate($locale);
     }
      /**
