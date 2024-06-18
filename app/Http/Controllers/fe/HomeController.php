@@ -82,7 +82,7 @@ class HomeController extends Controller
         $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->get();
         $blogs = Blog::orderBy('id', 'desc')->limit(3)->get();
         foreach ($blogs as $blog) {
-            $blog->content = str_split($this->getFirstParagraphContent($blog->content));
+            $blog->content = mb_strimwidth($this->getFirstParagraphContent($blog->content), 0, 250, '...');
         }
         return response()->json(['section' => $section, 'blogs' => $blogs]);
     }
