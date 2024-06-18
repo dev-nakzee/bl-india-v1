@@ -182,7 +182,7 @@ const Products = () => {
     }
     try {
       if (editing) {
-        await apiClient.put(`/products/${product.id}`, formData, {
+        await apiClient.post(`/products/${product.id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

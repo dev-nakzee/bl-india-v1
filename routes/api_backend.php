@@ -29,6 +29,7 @@ Route::prefix('v1/cms')->group(function(){
         // Product Routes
         Route::apiResource('product-categories', ProductCategoryController::class);
         Route::apiResource('products', ProductController::class);
+        Route::post('products/{id}', [ProductController::class, 'update1']);
         Route::apiResource('product-service-maps', ProductServiceMapController::class);
         Route::post('products/{id}/services', [ProductController::class, 'attachServices']);
         Route::delete('products/{productId}/services/{serviceId}', [ProductController::class, 'detachService']);
