@@ -76,4 +76,11 @@ class HomeController extends Controller
         $processes = Process::orderBy('id')->get();
         return response()->json(['section' => $section, 'processes' => $processes]);
     }
+
+    public function blog(): JsonResponse
+    {
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->get();
+        $blogs = Blog::orderBy('id')->get();
+        return response()->json(['section' => $section, 'blogs' => $blogs]);
+    }
 }
