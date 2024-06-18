@@ -33,6 +33,8 @@ const Processes = () => {
     name: '',
     order: '',
     text: '',
+    image: '',
+    image_alt: '',
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -55,6 +57,8 @@ const Processes = () => {
       name: '',
       order: '',
       text: '',
+      image: '',
+      image_alt: '',
     });
     setEditing(false);
     setOpen(true);
@@ -135,6 +139,7 @@ const Processes = () => {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
+              <TableCell>Image</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Order</TableCell>
               <TableCell>Text</TableCell>
@@ -145,6 +150,7 @@ const Processes = () => {
             {processes.map((process) => (
               <TableRow key={process.id}>
                 <TableCell>{process.id}</TableCell>
+                <TableCell><img src={process.image_url} alt={process.image_alt} style={{ width: '50px', height: '50px' }} /></TableCell>
                 <TableCell>{process.name}</TableCell>
                 <TableCell>{process.order}</TableCell>
                 <TableCell>{process.text}</TableCell>
@@ -196,6 +202,24 @@ const Processes = () => {
               margin="normal"
               multiline
               rows={4}
+              required
+            />
+            <TextField
+              label="Image URL"
+              name="image"
+              value={process.image || ''}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Image Alt Text"
+              name="image_alt"
+              value={process.image_alt || ''}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
               required
             />
             <DialogActions>

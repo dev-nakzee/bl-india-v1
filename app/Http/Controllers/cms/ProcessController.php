@@ -29,7 +29,26 @@ class ProcessController extends Controller
             'name' => 'required|string|max:255',
             'order' => 'required|string|max:255',
             'text' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_alt' => 'nullable|string|max:255',
         ]);
+
+        if ($request->hasFile('image')) {
+            try {
+                
+                $imageWebp  = Image::read($request->file('image'));
+                $image = $imageWebp->toWebp(100);
+                $imageName = uniqid().'.webp';
+
+                // Convert and store original image as WebP
+                $imagePath = 'process_images/' . $imageName;
+                Storage::disk('public')->put($imagePath, (string) $image);
+                $validated['image_url'] = Storage::url($imagePath);
+
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to upload image: ' . $e->getMessage()], 500);
+            }
+        }
 
         $process = Process::create($validated);
 
@@ -59,6 +78,27 @@ class ProcessController extends Controller
         ]);
 
         $process = Process::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            if ($process->image_url) {
+                Storage::disk('public')->delete($process->image_url);
+            }
+            try {
+                
+                $imageWebp  = Image::read($request->file('image'));
+                $image = $imageWebp->toWebp(100);
+                $imageName = uniqid().'.webp';
+
+                // Convert and store original image as WebP
+                $imagePath = 'process_images/' . $imageName;
+                Storage::disk('public')->put($imagePath, (string) $image);
+                $validated['image_url'] = Storage::url($imagePath);
+
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to upload image: ' . $e->getMessage()], 500);
+            }
+        }
+
         $process->update($validated);
 
         return response()->json($process, 202);
