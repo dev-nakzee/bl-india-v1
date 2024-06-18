@@ -42,7 +42,7 @@ class HomeController extends Controller
             $banner[0]->title = $this->translator->translate($banner[0]->title);
             $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
         }
-        return response()->json([$banner]);
+        return response()->json($banner);
     }
 
     /**
