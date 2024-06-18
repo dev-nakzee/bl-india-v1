@@ -10,9 +10,18 @@ use App\Models\Service;
 use App\Models\Blog;
 use App\Models\Testimonial;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Session;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HomeController extends Controller
 {
+    protected $locale;
+
+    public function __construct(Request $request)
+    {
+        $this->locale = session()->get('locale', 'en'); // Default to 'en' if no locale is set
+    }
+
      /**
      * Handle the home request.
      */
@@ -28,7 +37,8 @@ class HomeController extends Controller
     public function banner(): JsonResponse
     {
         $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
-        return response()->json($banner);
+        // $banner =
+        return response()->json([$this->locale, $banner]);
     }
 
     /**
