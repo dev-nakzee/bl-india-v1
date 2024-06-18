@@ -87,6 +87,13 @@ class HomeController extends Controller
         return response()->json(['section' => $section, 'blogs' => $blogs]);
     }
 
+    public function testimonial(): JsonResponse
+    {
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-testimonial')->get();
+        $testimonials = Testimonial::orderBy('id', 'desc')->limit(3)->get();
+        return response()->json(['section' => $section, 'testimonials' => $testimonials]);
+    }
+
     protected function getFirstParagraphContent(string $html): ?string
     {
         $dom = new \DOMDocument();
