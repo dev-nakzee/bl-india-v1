@@ -42,9 +42,7 @@ class HomeController extends Controller
             $banner[0]->title = $this->translator->translate($banner[0]->title);
             $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
         }
-        // $locale = Session::get('locale');
-        $locale = session()->get('locale');
-        return response()->json([$locale, $banner]);
+        return response()->json([$banner]);
     }
 
     /**
