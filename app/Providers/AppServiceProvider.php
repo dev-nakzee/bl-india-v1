@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         }
         else
         {
-            $locale = config('app.locale');
+            $locale = 'en_US';
         }
         App::setLocale($locale);
     }
