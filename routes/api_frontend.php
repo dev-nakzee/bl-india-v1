@@ -17,4 +17,5 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/home-brochure', [HomeController::class, 'brochure']);
     Route::get('/home-process', [HomeController::class, 'process']);
     Route::get('/home-blog', [HomeController::class, 'blog']);
+    Route::get('/home-testimonial', [HomeController::class, 'testimonial']);
 });
