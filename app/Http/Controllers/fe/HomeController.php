@@ -29,10 +29,10 @@ class HomeController extends Controller
      */
     public function banner(): JsonResponse
     {
-        // $translator = new GoogleTranslate(session()->get('locale'));
+        $translator = new GoogleTranslate(session()->get('locale'));
         $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
-        // $banner['title'] = $translator->translate($banner['title']);
-        // $banner['tag_line'] = $translator->translate($banner['subtitle']);
+        $banner['title'] = $translator->translate($banner['title']);
+        $banner['tag_line'] = $translator->translate($banner['subtitle']);
         return response()->json([$banner]);
     }
 
