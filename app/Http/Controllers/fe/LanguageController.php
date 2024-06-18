@@ -17,15 +17,15 @@ class LanguageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function setLocale(Request $request): JsonResponse
+    public function setLocale($locale): JsonResponse
     {
         if (in_array($locale, config('app.locales'))) {
             Session::put('locale', $locale);
             App::setLocale($locale);
 
-            return redirect()->back()->with('message', 'Locale set successfully');
+            return response()->json(['message' => 'Locale set successfully']);
         }
 
-        return redirect()->back()->with('error', 'Invalid locale');
+        return response()->json(['error' => 'Invalid locale'], 400);
     }
 }
