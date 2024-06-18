@@ -36,10 +36,12 @@ class HomeController extends Controller
      */
     public function banner(): JsonResponse
     {
-        $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->first();
-        
-        $banner['title'] = $this->translator->translate($banner['title']);
-        $banner['tag_line'] = $this->translator->translate($banner['subtitle']);
+        $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
+        foreach($banner as $data)
+        {
+            $data['title'] = $this->translator->translate($data['title']);
+            $data['tag_line'] = $this->translator->translate($data['subtitle']);
+        }
         return response()->json([$banner]);
     }
 
