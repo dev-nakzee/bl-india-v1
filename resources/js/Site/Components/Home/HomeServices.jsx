@@ -35,7 +35,7 @@ const HomeServices = () => {
     }
 
     return (
-        <Box sx={{ mx: 4, px: 4, py: 6 }}>
+        <Box sx={{ mx: 4, px: 4, py: 6 }} className='Services-section'>
             {data.section && data.section.map(section => (
                 <Box key={section.id} sx={{ marginBottom: '40px', textAlign: 'center' }}>
                     <Typography variant="subtitle1" sx={{ fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20}}>

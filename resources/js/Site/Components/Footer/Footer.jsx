@@ -65,10 +65,10 @@ const Footer = () => {
   }
 
   return (
-    <FooterContainer>
+    <FooterContainer className='Footer-section'>
       <Grid container spacing={4} justifyContent="center">
         <Grid item xs={12} sm={3}>
-          <Typography variant="h6">Services</Typography>
+          <Typography variant="h4">Services</Typography>
           {footerData.service.map((service) => (
             <FooterLink key={service.id} href={`/${service.slug}`}>
               {service.name}
@@ -76,7 +76,7 @@ const Footer = () => {
           ))}
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Typography variant="h6">Quick Links</Typography>
+          <Typography variant="h4">Quick Links</Typography>
           <Box>
             {footerData.links.map((link) => (
               <FooterLink key={link.url} href={link.url}>
@@ -86,7 +86,7 @@ const Footer = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Typography variant="h6">Important Links</Typography>
+          <Typography variant="h4">Important Links</Typography>
           <Box>
             {footerData.important.map((link) => (
               <FooterLink key={link.url} href={link.url}>
@@ -96,7 +96,7 @@ const Footer = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Typography variant="h6">Contact Us</Typography>
+          <Typography variant="h4">Contact Us</Typography>
           <Typography variant="body2">{footerData.contact.name}</Typography>
           <Typography variant="body2">{footerData.contact.email}</Typography>
           <Typography variant="body2">{footerData.contact.phone1}</Typography>
@@ -105,7 +105,7 @@ const Footer = () => {
           <Typography variant="body2" dangerouslySetInnerHTML={{ __html: footerData.contact.address }} />
         </Grid>
         <Grid item xs={12} sm={12}>
-          <Typography variant="h6">Follow Us</Typography>
+          <Typography variant="h4">Follow Us</Typography>
           <SocialMediaIcons>
             {footerData.socialMedia.map((social) => {
               const icons = {

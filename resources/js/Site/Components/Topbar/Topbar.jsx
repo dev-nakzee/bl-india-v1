@@ -81,7 +81,7 @@ function Topbar() {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" className='Topbar-section'>
             <Toolbar sx={{ background: '#0D629A' }}>
                 <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
                     <IconButton
@@ -133,7 +133,7 @@ function Topbar() {
                         <YouTubeIcon />
                     </IconButton>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box className="box-hidden" sx={{ display: 'flex', alignItems: 'center' }}>
                     <Typography
                         component={Link}
                         to="/about"

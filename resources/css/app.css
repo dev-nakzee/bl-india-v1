@@ -10,7 +10,7 @@
 }
 html {
     /* font-size: 62.5%; */
-    font-family: "Roboto","Raleway","Poppins" sans-serif;
+    font-family: "Roboto", "Raleway", "Poppins" sans-serif;
     font-weight: 300;
     font-style: normal;
     /* 62.5% of 16px = 10px */
@@ -37,6 +37,13 @@ html::-webkit-scrollbar-thumb {
     border-radius: 4px;
     height: 0px;
 }
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+}
 ul,
 ol {
     list-style: none;
@@ -51,15 +58,12 @@ li a {
     pointer-events: auto;
 }
 
-body {
-    overflow-x: hidden;
-    overflow-y: auto;
-    margin: 0;
-    padding: 0;
-}
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
 }
+
+/* About Section CSS */
+
 .about-content ul {
     padding: 0;
     margin: 0;
@@ -67,7 +71,7 @@ body {
 }
 .about-content ul li {
     background: url("../js/Site/Assets/check-circle.svg") top left no-repeat;
-    /* font-family: "Raleway", "Roboto", "Helvetica", "Arial", sans-serif; */
+    font-family: "Raleway", "Roboto", "Poppins", sans-serif;
     font-size: 1.25rem !important;
     color: #0d629a;
     font-weight: 300;
@@ -86,8 +90,78 @@ body {
     background-position: center;
     background-size: contain;
 }
-.Testimonial-section .MuiPaper-root{
-    background-color:none;
+.Testimonial-section .MuiPaper-root {
+    background-color: transparent;
     box-shadow: none;
+}
+.Brochure-section-data{padding:0 !important;}
+/* .Footer-section{}
+.Footer-section h4{
+    padding-bottom: 1.5rem;
+    position: relative;
+    color:#ffffff !important;
+  }
 
+  .Footer-section h4::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
+    width: 15%;
+    border-bottom: 0.3rem solid #fff;
+  } */
+
+
+@media (max-width: 767px) {
+    .box-hidden {
+        display: none !important;
+    }
+    .Banner-section {
+        background-image: none !important;
+        height: 45vh !important;
+        background-color: #c3e7ff;
+    }
+    .Banner-section .Banner-section-content {
+        margin-inline: 20px;
+    }
+    .Banner-section h2 {
+        font-size: 36px;
+        width: 100%;
+    }
+    .Banner-section p {
+        margin-top: 16px;
+    }
+    .Services-section {
+        margin-left: 20px !important;
+        margin-right: 20px !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .Services-section .MuiGrid-root>.MuiGrid-item{padding-top: 20px;} 
+    .about-section{padding:20px !important;}
+    .about-section .MuiGrid-root.MuiGrid-container{ margin-left: 0 !important;
+        margin-right: 0 !important;}
+        .about-section .MuiGrid-root.MuiGrid-container .MuiGrid-item{padding-left:0 !important}
+        .Brochure-section .MuiGrid-root.MuiGrid-container .MuiGrid-item{padding-left:20px !important}
+    .schedule-section {
+        flex-direction: column;
+    }
+    .schedule-section-call-details {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .schedule-section-call-details .MuiTypography-root.MuiTypography-h1 {
+        border-left: none;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    .schedule-section-call-details svg {
+        font-size: 60px;
+    }
+    .Process-section {
+        background-image: none;
+    }
+    .Process-section .Process-section-item {
+        margin-bottom: 0;
+    }
 }
