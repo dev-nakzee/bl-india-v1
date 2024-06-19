@@ -261,8 +261,8 @@ const HomeBrochure = () => {
                                         fullWidth
                                         required
                                         sx={{ mb: 2 }}
-                                    >
-                                        {services.map((service) => (
+                                   
+                                        {...services.map((service) => (
                                             <MenuItem
                                                 key={service.id}
                                                 value={service.name}
@@ -270,7 +270,7 @@ const HomeBrochure = () => {
                                                 {service.name}
                                             </MenuItem>
                                         ))}
-                                    </TextField>
+                                        />
                                     <TextField
                                         select
                                         label="Source"

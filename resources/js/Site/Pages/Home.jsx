@@ -7,6 +7,8 @@ import HomeBrochure from '../Components/Home/HomeBrochure';
 import ScheduleCallDrawer from '../Components/ScheduleCallDrawer';
 import HomeProcess from '../Components/Home/HomeProcess';
 import HomeBlog from '../Components/Home/HomeBlog';
+import HomeTestimonials from '../Components/Home/HomeTestimonials';
+import HomeAssociates from '../Components/Home/HomeAssociates';
 import apiClient from '../Services/api';
 import { Helmet } from 'react-helmet';
 
@@ -40,7 +42,6 @@ const HomePage = () => {
                 <meta name="keywords" content={homeData?.seo_keywords} />
                 {/* Other meta tags */}
             </Helmet>
-         
             <HomeBanner />
             <HomeServices />
             <HomeAbout />
@@ -48,6 +49,8 @@ const HomePage = () => {
             <ScheduleCallDrawer />
             <HomeProcess />
             <HomeBlog />
+            <HomeTestimonials />
+            <HomeAssociates />
             {loading ? (
                 <Box
                     sx={{
@@ -60,7 +63,7 @@ const HomePage = () => {
                     <CircularProgress />
                 </Box>
             ) : (
-                <Typography paragraph>Welcome to our homepage!</Typography>
+                console.log('loaded')
             )}
         </>
     );

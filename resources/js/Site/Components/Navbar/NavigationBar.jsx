@@ -42,7 +42,7 @@ const NavigationBar = () => {
                     <img
                         src={logo}
                         alt="Brand Logo"
-                        style={{ height: 75, marginRight: 20 }}
+                        style={{ width:'30%'}}
                     />
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" }}>

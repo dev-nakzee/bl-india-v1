@@ -8,7 +8,7 @@ const getBaseURL = () => {
   } else if (hostname.startsWith('in')) {
     return 'https://in.bl-india.com/api/v1/cms';
   }
-  return 'https://demo.bl-india.com/api/v1/cms'; // Default to local
+  return 'http://localhost:8000/api/v1/cms'; // Default to local
 };
 
 const apiClient = axios.create({
