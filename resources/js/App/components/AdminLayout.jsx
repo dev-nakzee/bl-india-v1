@@ -54,6 +54,7 @@ const AdminLayout = () => {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [miscellaneousOpen, setMiscellaneousOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -150,10 +151,23 @@ const AdminLayout = () => {
           </Collapse>
 
           {/* Notifications Menu */}
-          <ListItem button component={Link} to="/cms/notifications">
+          <ListItem button onClick={() => handleMenuToggle(setNotificationsOpen)}>
             <ListItemIcon><NotificationsIcon /></ListItemIcon>
             <ListItemText primary="Notifications" />
+            {notificationsOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
+          <Collapse in={notificationsOpen} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button component={Link} to="/cms/notifications/list" sx={{ pl: 4 }}>
+                <ListItemIcon><NotificationsIcon /></ListItemIcon>
+                <ListItemText primary="Notifications" />
+              </ListItem>
+              <ListItem button component={Link} to="/cms/notifications/categories" sx={{ pl: 4 }}>
+                <ListItemIcon><NotificationsIcon /></ListItemIcon>
+                <ListItemText primary="Categories" />
+              </ListItem>
+            </List>
+          </Collapse>
 
           {/* Downloads Menu */}
           <ListItem button onClick={() => handleMenuToggle(setDownloadsOpen)}>
@@ -252,6 +266,10 @@ const AdminLayout = () => {
               <ListItem button component={Link} to="/cms/miscellaneous/stickers" sx={{ pl: 4 }}>
                 <ListItemIcon><ProcessIcon /></ListItemIcon>
                 <ListItemText primary="Stickers" />
+              </ListItem>
+              <ListItem button component={Link} to="/cms/miscellaneous/contacts" sx={{ pl: 4 }}>
+                <ListItemIcon><ProcessIcon /></ListItemIcon>
+                <ListItemText primary="Contacts" />
               </ListItem>
             </List>
           </Collapse>

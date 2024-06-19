@@ -3,8 +3,12 @@
 use App\Http\Controllers\fe\SearchController;
 use App\Http\Controllers\fe\HomeController;
 use App\Http\Controllers\fe\LanguageController;
+use App\Http\Controllers\fe\LayoutController;
 
 Route::prefix('v1/fe')->group(function(){
+    // Layout Routes
+    Route::get('/social', [LayoutController::class,'social']);
+    Route::get('/footer', [LayoutController::class, 'footer']);
     // Set locale Routes
     Route::get('/set-locale/{locale}', [LanguageController::class, 'setSiteLocale']);
     // Search Page Routes

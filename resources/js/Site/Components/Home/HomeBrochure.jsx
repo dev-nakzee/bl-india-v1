@@ -157,7 +157,7 @@ const HomeBrochure = () => {
             <ToastContainer />
             <Grid container spacing={4} alignItems="center">
                 <Grid item xs={12} md={6}>
-                    <BrochureContent>
+                    <BrochureContent className="Brochure-section-data">
                         <Typography
                             variant="h2"
                             sx={{ mt: 2, fontWeight: 400 }}

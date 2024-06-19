@@ -16,11 +16,14 @@ import Processes from './components/Processes';
 import Testimonials from './components/Testimonials';
 import Stickers from './components/Stickers';
 import SocialMedia from './components/SocialMedia';
+import Contacts from './components/Contacts';
 import Pages from './components/Pages';
 import PageSections from './components/PageSections';
 import BlogCategories from './components/BlogCategories';
 import BlogPosts from './components/BlogPosts';
 import BlogComments from './components/BlogComments';
+import NotificationCategories from './components/NotificationCategories';
+import Notifications from './components/Notifications';
 
 function App() {
     return (
@@ -46,12 +49,15 @@ function App() {
               <Route path="miscellaneous/processes" element={<Processes />} />
               <Route path="miscellaneous/testimonials" element={<Testimonials />} />
               <Route path="miscellaneous/stickers" element={<Stickers />} />
+              <Route path="miscellaneous/contacts" element={<Contacts />} />
               <Route path="social-media" element={<SocialMedia />} />
               <Route path="pages" element={<Pages />} />
               <Route path="pages/sections" element={<PageSections />} />
               <Route path="blogs" element={<BlogPosts />} />
               <Route path="blogs/categories" element={<BlogCategories />} />
               <Route path="blogs/comments" element={<BlogComments />} />
+              <Route path="notifications/categories" element={<NotificationCategories />} />
+              <Route path="notifications/list" element={<Notifications />} />
               {/* You can add more nested routes under /cms here */}
             </Route>
           </Routes>

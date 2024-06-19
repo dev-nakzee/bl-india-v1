@@ -34,7 +34,7 @@ const theme = createTheme({
     h4: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '1.125rem',
-        color: '#0D629A'
+        color: '#ffffff'
     },
     h5: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',

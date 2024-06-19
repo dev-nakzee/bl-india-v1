@@ -94,6 +94,23 @@ li a {
     background-color: transparent;
     box-shadow: none;
 }
+.Brochure-section-data{padding:0 !important;}
+/* .Footer-section{}
+.Footer-section h4{
+    padding-bottom: 1.5rem;
+    position: relative;
+    color:#ffffff !important;
+  }
+
+  .Footer-section h4::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
+    width: 15%;
+    border-bottom: 0.3rem solid #fff;
+  } */
+
 
 @media (max-width: 767px) {
     .box-hidden {

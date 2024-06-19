@@ -12,6 +12,9 @@ use App\Http\Controllers\cms\StickerController;
 use App\Http\Controllers\cms\SocialMediaController;
 use App\Http\Controllers\cms\PageController;
 use App\Http\Controllers\cms\PageSectionController;
+use App\Http\Controllers\cms\ContactController;
+use App\Http\Controllers\cms\NotificationCategoryController;
+use App\Http\Controllers\cms\NotificationController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -59,5 +62,18 @@ Route::prefix('v1/cms')->group(function(){
         // Blog Comments Routes
         Route::apiResource('blog-comments', \App\Http\Controllers\cms\BlogCommentController::class);
         // Route::post('blog-comments/{id}', [\App\Http\Controllers\cms\BlogCommentController::class, 'update1']);
+
+        // Contacts Routes
+        Route::apiResource('contacts', \App\Http\Controllers\cms\ContactController::class);
+        Route::post('contacts/{id}', [\App\Http\Controllers\cms\ContactController::class, 'update1']);
+
+        // Notifications Category Routes
+        Route::apiResource('notification-categories', \App\Http\Controllers\cms\NotificationCategoryController::class);
+        Route::post('notification-categories/{id}', [\App\Http\Controllers\cms\NotificationCategoryController::class, 'update1']);
+
+        // Notifications Route
+        Route::apiResource('notifications', \App\Http\Controllers\cms\NotificationController::class);
+        Route::post('notifications/{id}', [\App\Http\Controllers\cms\NotificationController::class, 'update1']);
+
     });
 });
