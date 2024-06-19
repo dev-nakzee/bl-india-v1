@@ -63,5 +63,6 @@ Route::prefix('v1/cms')->group(function(){
 
         // Contacts Routes
         Route::apiResource('contacts', \App\Http\Controllers\cms\ContactController::class);
+        Route::post('contacts/{id}', [\App\Http\Controllers\cms\ContactController::class, 'update1']);
     });
 });

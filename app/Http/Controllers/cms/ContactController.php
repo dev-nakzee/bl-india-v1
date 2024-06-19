@@ -15,7 +15,7 @@ class ContactController extends Controller
     public function index(): JsonResponse
     {
         //
-        $contacts = Contact::first();
+        $contacts = Contact::get();
         return response()->json($contacts);
     }
 
@@ -52,7 +52,7 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): JsonResponse
+    public function update1(Request $request, string $id): JsonResponse
     {
         //
         $validated = $request->validate([
@@ -65,6 +65,8 @@ class ContactController extends Controller
             'address' => 'nullable|string',
             'Timings' => 'nullable|string',
         ]);
+        
+        $contact = Contact::findOrFail($id);
 
         $contact->update($validated);
         return response()->json($contact);
