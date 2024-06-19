@@ -19,7 +19,14 @@ class Notification extends Model
         'seo_keywords',
         'seo_tags',
         'file_url',
-        'content'
+        'content',
+        'date',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public function category()

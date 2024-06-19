@@ -42,7 +42,8 @@ const Notifications = () => {
     seo_keywords: '',
     seo_tags: '',
     file_url: null,
-    content: ''
+    content: '',
+    date: '' // Add this line
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -80,7 +81,8 @@ const Notifications = () => {
       seo_keywords: '',
       seo_tags: '',
       file_url: null,
-      content: ''
+      content: '',
+      date: '' // Add this line
     });
     setEditing(false);
     setOpen(true);
@@ -201,8 +203,9 @@ const Notifications = () => {
             <TableRow>
               <TableCell>ID</TableCell>
               <TableCell>Name</TableCell>
-              <TableCell>Slug</TableCell>
               <TableCell>Category</TableCell>
+              <TableCell>Slug</TableCell>
+              <TableCell>Date</TableCell> {/* Add this line */}
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -211,8 +214,9 @@ const Notifications = () => {
               <TableRow key={notification.id}>
                 <TableCell>{notification.id}</TableCell>
                 <TableCell>{notification.name}</TableCell>
+                <TableCell>{notification.category.name}</TableCell>
                 <TableCell>{notification.slug}</TableCell>
-                <TableCell>{notification.category?.name}</TableCell>
+                <TableCell>{notification.date}</TableCell> {/* Add this line */}
                 <TableCell>
                   <IconButton color="primary" onClick={() => handleEditClick(notification)}>
                     <EditIcon />
@@ -313,6 +317,19 @@ const Notifications = () => {
                 Upload PDF
               </Button>
             </label>
+            <TextField
+              label="Date"
+              name="date"
+              type="date"
+              value={notification.date || ''}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              required
+            />
             <ReactQuill
               value={notification.content || ''}
               onChange={handleContentChange}
@@ -320,7 +337,6 @@ const Notifications = () => {
               theme="snow"
               modules={modules}
               formats={formats}
-              style={{ marginTop: '20px' }}
             />
             <DialogActions>
               <Button onClick={handleClose} color="primary">

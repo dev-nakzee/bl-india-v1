@@ -34,6 +34,7 @@ class NotificationController extends Controller
             'seo_tags' => 'nullable|string',
             'file_url' => 'nullable|file|mimes:pdf|max:2048', // max 2MB
             'content' => 'nullable|string',
+            'date' => 'required|date', // Add validation rule for date
         ]);
 
         $data = $request->except('file_url');
@@ -60,6 +61,7 @@ class NotificationController extends Controller
             'seo_tags' => 'nullable|string',
             'file_url' => 'nullable|file|mimes:pdf|max:2048', // max 2MB
             'content' => 'nullable|string',
+            'date' => 'required|date', // Add validation rule for date
         ]);
 
         $data = $request->except('file_url');
