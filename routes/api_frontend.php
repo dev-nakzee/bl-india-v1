@@ -4,6 +4,7 @@ use App\Http\Controllers\fe\SearchController;
 use App\Http\Controllers\fe\HomeController;
 use App\Http\Controllers\fe\LanguageController;
 use App\Http\Controllers\fe\LayoutController;
+use App\Http\Controllers\fe\AboutController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
