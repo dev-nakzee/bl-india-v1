@@ -35,23 +35,29 @@ const Footer = () => {
   return (
     <FooterContainer>
       <Grid container spacing={4} justifyContent="center">
-        <Grid item xs={12} sm={4}>
-          <Typography variant="h6">About Us</Typography>
-          <Typography variant="body2">
-            We are a leading compliance consultancy firm providing end-to-end solutions for all your regulatory needs. Our expertise ensures your business stays compliant with the latest standards and regulations.
-          </Typography>
+        <Grid item xs={12} sm={3}>
+          <Typography variant="h6">Services</Typography>
+          
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={3}>
           <Typography variant="h6">Quick Links</Typography>
           <Box>
             <FooterLink href="/about">About</FooterLink>
-            <FooterLink href="/services">Services</FooterLink>
+            <FooterLink href="/contact">Contact</FooterLink>
+            <FooterLink href="/careers">Careers</FooterLink>
+            <FooterLink href="/blogs">Blogs</FooterLink>
+            <FooterLink href="/downloads">Downloads</FooterLink>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <Typography variant="h6">Contact Us</Typography>
+          <Box>
             <FooterLink href="/contact">Contact</FooterLink>
             <FooterLink href="/careers">Careers</FooterLink>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <Typography variant="h6">Follow Us</Typography>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h6">Address</Typography>
           <SocialMediaIcons>
             <IconButton component="a" href="https://www.facebook.com" target="_blank" color="inherit">
               <FacebookIcon />
@@ -71,6 +77,7 @@ const Footer = () => {
           </SocialMediaIcons>
         </Grid>
       </Grid>
+      
       <Typography variant="body2" sx={{ mt: 4 }}>
         © {new Date().getFullYear()} Brand Liaison. All rights reserved.
       </Typography>
