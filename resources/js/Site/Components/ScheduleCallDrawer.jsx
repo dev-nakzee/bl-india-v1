@@ -126,8 +126,8 @@ const ScheduleCallDrawer = () => {
 
     return (
         <>
-            <ScheduleCall>
-                <Box
+            <ScheduleCall className='schedule-section'>
+                <Box  className="schedule-section-call-details"
                     sx={{
                         display: "flex",
                         justifyContent: "space-between",

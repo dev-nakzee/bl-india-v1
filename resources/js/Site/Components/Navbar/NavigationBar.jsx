@@ -34,6 +34,7 @@ const NavigationBar = () => {
         <AppBar
             position="sticky"
             sx={{ background: "white", color: "#0D629A", py: 1, zIndex: 1300 }}
+            className="box-hidden"
         >
             <Toolbar>
                 <Box

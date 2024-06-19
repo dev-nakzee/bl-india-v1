@@ -59,7 +59,7 @@ const HomeAbout = () => {
     }
 
     return (
-        <AboutSection>
+        <AboutSection className='about-section'>
             <Grid container spacing={4} alignItems="center" sx={{ mx: 4}}>
                
                 <Grid item xs={12} md={6}>

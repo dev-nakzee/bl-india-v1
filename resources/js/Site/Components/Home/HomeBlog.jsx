@@ -60,7 +60,7 @@ const HomeBlog = () => {
     const { section, blogs } = blogData;
 
     return (
-        <BlogSection>
+        <BlogSection className='Blog-section'>
             <Grid container spacing={4} alignItems="center" sx={{ mx: 4 }}>
                 <Grid item xs={12} md={12}>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>

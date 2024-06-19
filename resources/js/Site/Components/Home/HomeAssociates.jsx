@@ -55,7 +55,7 @@ const HomeAssociates = () => {
     const { section, associates } = associatesData;
 
     return (
-        <AssociatesSection>
+        <AssociatesSection className='Associates-section'>
             <Grid container spacing={4} alignItems="center">
             <Grid item xs={12} md={12}>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>

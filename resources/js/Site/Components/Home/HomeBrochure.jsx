@@ -8,6 +8,7 @@ import {
     TextField,
     MenuItem,
     InputAdornment,
+    Stack,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import apiClient from "../../Services/api";
@@ -152,7 +153,7 @@ const HomeBrochure = () => {
     }
 
     return (
-        <BrochureSection>
+        <BrochureSection className='Brochure-section'>
             <ToastContainer />
             <Grid container spacing={4} alignItems="center">
                 <Grid item xs={12} md={6}>
@@ -191,8 +192,7 @@ const HomeBrochure = () => {
                                         fullWidth
                                         required
                                         sx={{ mb: 2 }}
-                                    />
-                                    
+                                    />                                    
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <TextField
@@ -251,7 +251,7 @@ const HomeBrochure = () => {
                                         }}
                                     />
                                 </Grid>
-                                <Grid item xs={12} md={6}>
+                                <Grid item xs={12} md={12}>
                                     <TextField
                                         select
                                         label="Service"
@@ -261,8 +261,8 @@ const HomeBrochure = () => {
                                         fullWidth
                                         required
                                         sx={{ mb: 2 }}
-                                   
-                                        {...services.map((service) => (
+                                   >
+                                        {services.map((service) => (
                                             <MenuItem
                                                 key={service.id}
                                                 value={service.name}
@@ -270,7 +270,8 @@ const HomeBrochure = () => {
                                                 {service.name}
                                             </MenuItem>
                                         ))}
-                                        />
+                                        </TextField>
+
                                     <TextField
                                         select
                                         label="Source"
@@ -300,7 +301,7 @@ const HomeBrochure = () => {
                                             Others
                                         </MenuItem>
                                     </TextField>
-                                </Grid>
+                                    </Grid>
                                 <Grid item xs={12} md={12}>
                                     <TextField
                                         label="Message"

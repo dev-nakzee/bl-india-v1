@@ -58,8 +58,10 @@ const HomeProcess = () => {
 
     return (
         <ProcessSection className='Process-section'>
-            <Grid container spacing={4} alignItems="center" sx={{ py: 4 }}>
-                <Grid item xs={12} sx={{ mb: 10 }}>
+            <Grid container className='Process-section-container' spacing={4} alignItems="center" 
+            paddingBlock={{xs:1,sm:2,md:3,lg:4}}
+    >
+                <Grid className='Process-section-item' item xs={12} sx={{ mb: 10 }}>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section[0].tag_line}
                     </Typography>
