@@ -12,7 +12,7 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        $notifications = Notification::with('category')->get();
+        $notifications = Notification::orderBy('id', 'desc')->with('category')->get();
         return response()->json($notifications);
     }
 
