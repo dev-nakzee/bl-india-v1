@@ -59,5 +59,8 @@ Route::prefix('v1/cms')->group(function(){
         // Blog Comments Routes
         Route::apiResource('blog-comments', \App\Http\Controllers\cms\BlogCommentController::class);
         // Route::post('blog-comments/{id}', [\App\Http\Controllers\cms\BlogCommentController::class, 'update1']);
+
+        // Contacts Routes
+        Route::apiResource('contacts', \App\Http\Controllers\cms\ContactController::class);
     });
 });
