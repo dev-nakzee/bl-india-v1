@@ -85,7 +85,7 @@ li a {
     margin-bottom: 20px !important;
 }
 .Process-section {
-    background-image: url(../js/Site/Assets/bgarrow.svg);
+    background-image: url(./images/bgarrow.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
