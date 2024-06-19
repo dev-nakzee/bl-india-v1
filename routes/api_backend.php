@@ -15,6 +15,9 @@ use App\Http\Controllers\cms\PageSectionController;
 use App\Http\Controllers\cms\ContactController;
 use App\Http\Controllers\cms\NotificationCategoryController;
 use App\Http\Controllers\cms\NotificationController;
+use App\Http\Controllers\cms\DownloadCategoryController;
+use App\Http\Controllers\cms\DownloadController;
+use App\Http\Controllers\cms\DownloadFileController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -74,6 +77,24 @@ Route::prefix('v1/cms')->group(function(){
         // Notifications Route
         Route::apiResource('notifications', \App\Http\Controllers\cms\NotificationController::class);
         Route::post('notifications/{id}', [\App\Http\Controllers\cms\NotificationController::class, 'update1']);
+
+        // Download Category Routes
+        Route::apiResource('download-categories', \App\Http\Controllers\cms\DownloadCategoryController::class);
+
+        // Routes for Download operations
+        Route::get('/downloads', [DownloadController::class, 'index']);
+        Route::get('/downloads/{id}', [DownloadController::class, 'show']);
+        Route::post('/downloads', [DownloadController::class, 'store']);
+        Route::post('/downloads/{id}', [DownloadController::class, 'update']);
+        Route::delete('/downloads/{id}', [DownloadController::class, 'destroy']);
+
+        // Routes for attaching and detaching files to a download
+        Route::post('/downloads/{downloadId}/files', [DownloadController::class, 'attachFile']);
+        Route::delete('/downloads/{downloadId}/files/{fileId}', [DownloadController::class, 'detachFile']);
+
+        // Routes for DownloadFile operations
+        Route::get('/downloads/{downloadId}/files', [DownloadFileController::class, 'index']);
+        Route::get('/downloads/{downloadId}/files/{fileId}', [DownloadFileController::class, 'show']);
 
     });
 });
