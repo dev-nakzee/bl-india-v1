@@ -23,7 +23,6 @@ return new class extends Migration
             $table->text('file_url')->nullable();
             $table->longText('content')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
