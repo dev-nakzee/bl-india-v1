@@ -10,7 +10,7 @@ const TestimonialSection = styled(Box)(({ theme }) => ({
     textAlign: 'center',
     padding: theme.spacing(4),
     backgroundColor: '#f5f5f5',
-    boxShadow: theme.shadows[3],
+    // boxShadow: theme.shadows[3],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -24,14 +24,14 @@ const TestimonialImage = styled('img')(({ theme }) => ({
     width: '100%',
     maxWidth: '500px',
     borderRadius: '10px',
-    boxShadow: theme.shadows[3],
+    // boxShadow: theme.shadows[3],
 }));
 
 const TestimonialCard = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(3),
     margin: theme.spacing(2),
-    boxShadow: theme.shadows[1],
-    background: 'transparent',
+    // boxShadow: theme.shadows[1],
+    // background: 'transparent',
 }));
 
 const Arrow = (props) => {
@@ -91,16 +91,17 @@ const HomeTestimonials = () => {
     const section = testimonialsData.section[0];
 
     return (
-        <TestimonialSection>
+        <TestimonialSection className='Testimonial-section'>
             <Grid container spacing={4} alignItems="center">
-                <Grid item xs={12}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 500, background: '#0D629A', color: '#ffffff', padding: '5px 20px', borderRadius: 20, margin: 'auto' }}>
+            <Grid item xs={12} md={12}>
+                    <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section.tag_line}
                     </Typography>
-                    <Typography variant="h2" sx={{ mt: 2, fontWeight: 400 }}>
+                    <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
                         {section.title}
                     </Typography>
                 </Grid>
+             
                 <Grid item xs={12} md={6}>
                     <TestimonialContent>
                         {section.image_url && (

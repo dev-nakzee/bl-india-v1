@@ -6,8 +6,8 @@ import apiClient from '../../Services/api';
 const AssociatesSection = styled(Box)(({ theme }) => ({
     textAlign: 'center',
     padding: theme.spacing(4),
-    backgroundColor: '#f5f5f5',
-    boxShadow: theme.shadows[3],
+    backgroundColor: '#C3E7FF',
+    // boxShadow: theme.shadows[3],
 }));
 
 const AssociatesContent = styled(Box)(({ theme }) => ({
@@ -57,14 +57,22 @@ const HomeAssociates = () => {
     return (
         <AssociatesSection>
             <Grid container spacing={4} alignItems="center">
-                <Grid item xs={12}>
+            <Grid item xs={12} md={12}>
+                    <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
+                        {section[0].tag_line}
+                    </Typography>
+                    <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                        {section[0].title}
+                    </Typography>
+                </Grid>
+                {/* <Grid item xs={12}>
                     <Typography variant="subtitle1" sx={{ fontWeight: 500, background: '#0D629A', color: '#ffffff', padding: '5px 20px', borderRadius: 20, margin: 'auto' }}>
                         {section[0].tag_line}
                     </Typography>
                     <Typography variant="h2" sx={{ mt: 2, fontWeight: 400 }}>
                         {section[0].title}
                     </Typography>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} >
                     <AssociatesContent>
                         <Grid container spacing={2}>
