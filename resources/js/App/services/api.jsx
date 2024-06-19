@@ -4,9 +4,9 @@ import { toast } from 'react-toastify';
 const getBaseURL = () => {
   const hostname = window.location.hostname;
   if (hostname.startsWith('global')) {
-    return 'http://global.localhost:8000/api/v1/cms';
+    return 'https://global.bl-india.com/api/v1/cms';
   } else if (hostname.startsWith('in')) {
-    return 'http://in.localhost:8000/api/v1/cms';
+    return 'https://in.bl-india.com/api/v1/cms';
   }
   return 'http://localhost:8000/api/v1/cms'; // Default to local
 };
