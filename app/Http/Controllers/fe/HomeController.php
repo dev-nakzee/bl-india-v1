@@ -98,7 +98,7 @@ class HomeController extends Controller
     public function associates(): JsonResponse
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-associates')->get();
-        $associates = Sticker::orderBy('id')->where('Associate')->get();
+        $associates = Sticker::orderBy('id')->where('image_type','Associate')->get();
         return response()->json(['section' => $section]);
     }
 
