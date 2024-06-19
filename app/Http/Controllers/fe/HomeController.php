@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\Process;
 use App\Models\Blog;
 use App\Models\Testimonial;
+use App\Models\Sticker;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\App;
@@ -92,6 +93,13 @@ class HomeController extends Controller
         $section = PageSection::where('page_id', 1)->where('slug', 'home-testimonial')->get();
         $testimonials = Testimonial::orderBy('id', 'desc')->limit(3)->get();
         return response()->json(['section' => $section, 'testimonials' => $testimonials]);
+    }
+
+    public function associates(): JsonResponse
+    {
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-associates')->get();
+        $associates = Sticker::orderBy('id')->where('Associates')->get();
+        return response()->json(['section' => $section]);
     }
 
     protected function getFirstParagraphContent(string $html): ?string
