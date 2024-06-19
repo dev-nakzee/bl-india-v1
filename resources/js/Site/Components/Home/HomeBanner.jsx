@@ -62,7 +62,7 @@ const HomeBanner = () => {
     };
 
     return (
-        <Banner className="Banner-section" style={{ backgroundImage: `url(${'https://in.bl-india.com/'+bannerData.image_url})` }}>
+        <Banner className="Banner-section" style={{ backgroundImage: `url(${bannerData.image_url})` }}>
             <Content className='Banner-section-content'>
                 <Typography variant="h2" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 56, width: '60%' }}>{bannerData.title}</Typography>
                 <Typography variant="subtitle1" component="p" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 18, mt: 4 }}>{bannerData.tag_line}</Typography>

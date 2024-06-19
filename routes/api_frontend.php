@@ -23,4 +23,6 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/home-blog', [HomeController::class, 'blog']);
     Route::get('/home-testimonial', [HomeController::class, 'testimonial']);
     Route::get('/home-associates', [HomeController::class, 'associates']);
+    // About Page Routes
+    Route::get('/about', [AboutController::class, 'about']);
 });
