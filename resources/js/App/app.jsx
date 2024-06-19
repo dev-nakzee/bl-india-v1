@@ -16,6 +16,7 @@ import Processes from './components/Processes';
 import Testimonials from './components/Testimonials';
 import Stickers from './components/Stickers';
 import SocialMedia from './components/SocialMedia';
+import Contacts from './components/Contacts';
 import Pages from './components/Pages';
 import PageSections from './components/PageSections';
 import BlogCategories from './components/BlogCategories';
@@ -46,6 +47,7 @@ function App() {
               <Route path="miscellaneous/processes" element={<Processes />} />
               <Route path="miscellaneous/testimonials" element={<Testimonials />} />
               <Route path="miscellaneous/stickers" element={<Stickers />} />
+              <Route path="miscellaneous/contacts" element={<Contacts />} />
               <Route path="social-media" element={<SocialMedia />} />
               <Route path="pages" element={<Pages />} />
               <Route path="pages/sections" element={<PageSections />} />

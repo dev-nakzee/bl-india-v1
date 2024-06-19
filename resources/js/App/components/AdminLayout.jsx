@@ -253,6 +253,10 @@ const AdminLayout = () => {
                 <ListItemIcon><ProcessIcon /></ListItemIcon>
                 <ListItemText primary="Stickers" />
               </ListItem>
+              <ListItem button component={Link} to="/cms/miscellaneous/contacts" sx={{ pl: 4 }}>
+                <ListItemIcon><ProcessIcon /></ListItemIcon>
+                <ListItemText primary="Contacts" />
+              </ListItem>
             </List>
           </Collapse>
 
