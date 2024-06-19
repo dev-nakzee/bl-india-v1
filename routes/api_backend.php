@@ -12,6 +12,7 @@ use App\Http\Controllers\cms\StickerController;
 use App\Http\Controllers\cms\SocialMediaController;
 use App\Http\Controllers\cms\PageController;
 use App\Http\Controllers\cms\PageSectionController;
+use App\Http\Controllers\cms\ContactController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
