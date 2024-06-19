@@ -1,7 +1,7 @@
 import React from "react";
 import Topbar from "../Components/Topbar/Topbar";
 import NavigationBar from "../Components/Navbar/NavigationBar";
-// import Footer from './Footer';
+import Footer from '../Components/Footer/Footer';
 import { Container } from "@mui/material";
 import { SidebarProvider } from "../Components/Sidebar/SidebarContext";
 import Sidebar from "../Components/Sidebar/Sidebar";
@@ -15,7 +15,7 @@ function Layout({ children }) {
                 <Sidebar />
             </SidebarProvider>
             <>{children}</>
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 }

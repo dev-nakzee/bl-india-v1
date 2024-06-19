@@ -7,6 +7,7 @@ import HomeBrochure from '../Components/Home/HomeBrochure';
 import ScheduleCallDrawer from '../Components/ScheduleCallDrawer';
 import HomeProcess from '../Components/Home/HomeProcess';
 import HomeBlog from '../Components/Home/HomeBlog';
+import HomeTestimonials from '../Components/Home/HomeTestimonials';
 import apiClient from '../Services/api';
 import { Helmet } from 'react-helmet';
 
@@ -48,6 +49,7 @@ const HomePage = () => {
             <ScheduleCallDrawer />
             <HomeProcess />
             <HomeBlog />
+            <HomeTestimonials />
             {loading ? (
                 <Box
                     sx={{

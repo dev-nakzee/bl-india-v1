@@ -6,8 +6,6 @@ import apiClient from '../../Services/api';
 const ProcessSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     padding: theme.spacing(4),
-    // backgroundColor: '#C3E7FF',
-    // boxShadow: theme.shadows[3],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -60,30 +58,29 @@ const HomeProcess = () => {
 
     return (
         <ProcessSection className='Process-section'>
-            <Grid container spacing={4} alignItems="center">
-                <Grid item xs={12} md={12}>
+            <Grid container spacing={4} alignItems="center" sx={{ py: 4 }}>
+                <Grid item xs={12} sx={{ mb: 10 }}>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section[0].tag_line}
                     </Typography>
                     <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
-                            {section[0].title}
+                        {section[0].title}
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container fluid sx={{alignItems:'center',justifyContent:'space-between'}}>
+                    <Grid container spacing={4} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
                         {processes.map((process) => (
-                            <Grid item xs={12} md={2} key={process.id}>
-                                <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' ,alignItems:'center',justifyContent:'space-between'}}>
-                                    <img src={'https://in.bl-india.com/' + process.image_url}  alt={process.image_alt} />                                    
-                                    <Box sx={{textAlign:'center'}}>
+                            <Grid item xs={12} sm={6} md={2} key={process.id}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '100%' }}>
+                                    <img src={'https://in.bl-india.com/' + process.image_url} alt={process.image_alt} />
+                                    <Box sx={{ textAlign: 'center', mt: 2 }}>
                                         <Typography variant="h5" component="div">
                                             {process.order}. {process.name}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {process.text}
                                         </Typography>
-                                        </Box>
-                                   
+                                    </Box>
                                 </Box>
                             </Grid>
                         ))}
