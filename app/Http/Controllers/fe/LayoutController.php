@@ -28,6 +28,8 @@ class LayoutController extends Controller
         $contact = Contact::first();
         $socialMedia = SocialMedia::all();
         $service = ServiceCategory::all();
+        $siteCert = Sticker::orderBy('id')->where('image_type','Site Certificate')->get();
+        $companyCert = Sticker::orderBy('id')->where('image_type','Company Certificate')->get();
         $links = [
             ['title' => 'About', 'url' => '/about'],
             ['title' => 'Blog', 'url' => '/blog'],
@@ -41,6 +43,6 @@ class LayoutController extends Controller
             ['title' => 'Terms & Conditions', 'url' => '/terms-conditions'],
             ['title' => 'Knowledge Base', 'url' => '/knowledge-base']
         ];
-        return response()->json(['contact' => $contact,'socialMedia' => $socialMedia, 'service' => $service, 'links' => $links, 'important' => $important]);
+        return response()->json(['contact' => $contact,'socialMedia' => $socialMedia, 'service' => $service, 'links' => $links, 'important' => $important, 'siteCert' => $siteCert, 'companyCert' => $companyCert]);
     }
 }
