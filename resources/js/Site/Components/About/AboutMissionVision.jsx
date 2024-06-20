@@ -21,7 +21,7 @@ const MissionVisionContent = styled(Box)(({ theme }) => ({
 
 const MissionVisionImage = styled('img')(({ theme }) => ({
     width: '100%',
-    maxWidth: '500px',
+    // maxWidth: '500px',
     borderRadius: '10px',
     boxShadow: theme.shadows[3],
 }));
