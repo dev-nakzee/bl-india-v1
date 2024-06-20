@@ -17,7 +17,9 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
-  MenuItem
+  MenuItem,
+  FormControlLabel,
+  Checkbox
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -38,7 +40,8 @@ const ServiceSections = () => {
     name: '',
     slug: '',
     tagline: '',
-    content: ''
+    content: '',
+    is_global: false,
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -72,7 +75,8 @@ const ServiceSections = () => {
       name: '',
       slug: '',
       tagline: '',
-      content: ''
+      content: '',
+      is_global: false,
     });
     setEditing(false);
     setOpen(true);
@@ -112,10 +116,10 @@ const ServiceSections = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setServiceSection((prevServiceSection) => ({
       ...prevServiceSection,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -164,6 +168,7 @@ const ServiceSections = () => {
               <TableCell>Name</TableCell>
               <TableCell>Slug</TableCell>
               <TableCell>Tagline</TableCell>
+              <TableCell>Global</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -176,6 +181,7 @@ const ServiceSections = () => {
                   <TableCell>{section.name}</TableCell>
                   <TableCell>{section.slug}</TableCell>
                   <TableCell>{section.tagline}</TableCell>
+                  <TableCell>{section.is_global ? 'Yes' : 'No'}</TableCell>
                   <TableCell>
                     <IconButton color="primary" onClick={() => handleEditClick(section)}>
                       <EditIcon />
@@ -188,7 +194,7 @@ const ServiceSections = () => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={6} align="center">
+                <TableCell colSpan={7} align="center">
                   No service sections found
                 </TableCell>
               </TableRow>
@@ -249,6 +255,17 @@ const ServiceSections = () => {
               onChange={handleChange}
               fullWidth
               margin="normal"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={serviceSection.is_global}
+                  onChange={handleChange}
+                  name="is_global"
+                  color="primary"
+                />
+              }
+              label="Global"
             />
             <ReactQuill
               value={serviceSection.content || ''}

@@ -32,6 +32,7 @@ class ServiceSectionController extends Controller
             'slug' => 'required|string|unique:service_sections,slug',
             'tagline' => 'nullable|string',
             'content' => 'nullable|string',
+            'is_global' => 'required|boolean',
         ]);
 
         $serviceSection = ServiceSection::create($validated);
@@ -62,6 +63,7 @@ class ServiceSectionController extends Controller
             'slug' => 'required|string|unique:service_sections,slug,' . $id,
             'tagline' => 'nullable|string',
             'content' => 'nullable|string',
+            'is_global' => 'required|boolean',
         ]);
 
         $serviceSection->update($validated);
