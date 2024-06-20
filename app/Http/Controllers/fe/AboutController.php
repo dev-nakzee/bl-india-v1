@@ -33,7 +33,7 @@ class AboutController extends Controller
     public function team(): JsonResponse
     {
         $section = PageSection::where('slug', 'our-team')->first();
-        $team = Team::orderBy('order')->all();
+        $team = Team::orderBy('order')->get();
         return response()->json(['section' => $section, 'team' => $team]);
     }
 }
