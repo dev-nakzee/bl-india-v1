@@ -102,10 +102,7 @@ const MandatoryProducts = ({ serviceId }) => {
         initialState={{
           pagination: {
             pageSize: 25,
-          },
-          sorting: {
-            sortModel: [{ field: 'category_id', sort: 'asc' }],
-          },
+          }
         }}
       />
     </Box>
