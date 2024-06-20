@@ -34,12 +34,14 @@ const theme = createTheme({
     h4: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '1.125rem',
-        color: '#ffffff'
+        color: '#ffffff',
+       
     },
     h5: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '1rem',
-      color: '#0D629A'
+      color: '#0D629A',
+      fontWeight:'bold',
     },
     h6: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',

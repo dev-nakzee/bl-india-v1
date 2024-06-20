@@ -21,21 +21,24 @@ const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
   padding: theme.spacing(4),
   backgroundColor: '#f5f5f5',
-  boxShadow: theme.shadows[3],
+  boxShadow: theme.shadows[5],
   display: 'flex',
 }));
 
 const ServiceCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
   height: '100%',
-  margin: theme.spacing(2),
-  boxShadow: theme.shadows[3],
+  // margin: theme.spacing(2),
+  boxShadow: theme.shadows[5],
 }));
 
 const ServiceImage = styled(CardMedia)(({ theme }) => ({
-  height: 140,
+ maxWidth: '85px',
+  backgroundSize: 'contain',
+  objectFit: 'contain' ,
+  marginRight: '20px',
 }));
 
 const ServiceCardContent = styled(CardContent)(({ theme }) => ({
@@ -47,6 +50,8 @@ const ServiceCardContent = styled(CardContent)(({ theme }) => ({
 
 const Sidebar = styled(Box)(({ theme }) => ({
   width: '25%',
+  maxHeight: '400px',
+  overflowY: 'auto',
   paddingRight: theme.spacing(2),
 }));
 
@@ -102,9 +107,9 @@ const Services = () => {
         <meta name="description" content={serviceData.page.seo_description} />
         <meta name="keywords" content={serviceData.page.seo_keywords} />
       </Helmet>
-      <ServiceSection>
-        <Sidebar>
-          <Typography variant="h6">Categories</Typography>
+      <ServiceSection className='Service-section'>
+        <Sidebar className='Service-section-siderbar'>
+          <Typography variant="h3" mb={2}>Service Categories</Typography>
           <List>
             <ListItem
               button
@@ -128,7 +133,7 @@ const Services = () => {
         <ServicesList>
           <Grid container spacing={4} alignItems="center">
             <Grid item xs={12}>
-              <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
+              <Typography variant="h2" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, color: '#0D629A', margin: 'auto', borderRadius: 20 }}>
                 {serviceData.page.name}
               </Typography>
               <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
@@ -140,15 +145,18 @@ const Services = () => {
                 {filteredServices.map(service => (
                   <Grid item key={service.id} xs={12} sm={6} md={4}>
                     <ServiceCard>
+                      <Box paddingInline={'16px'} sx={{display:'flex',justifyContent:'space-between',alignItems:'center',paddingTop:'16px'}}>
                       <ServiceImage
                         component="img"
                         image={`https://in.bl-india.com/${service.thumbnail_url}`}
                         alt={service.image_alt}
                       />
-                      <ServiceCardContent>
                         <Typography gutterBottom variant="h5" component="div">
                           {service.name}
                         </Typography>
+                        </Box>
+                      <ServiceCardContent>
+                      
                         <Typography variant="body2" color="text.secondary">
                           {service.description}
                         </Typography>
