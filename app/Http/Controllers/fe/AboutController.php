@@ -45,7 +45,7 @@ class AboutController extends Controller
     public function clients(): JsonResponse
     {
         $section = PageSection::where('slug', 'our-clients')->first();
-        $customers = Customer::orderBy('order')->get();
+        $customers = Customer::all();
         return response()->json(['section' => $section, 'customers' => $customers]);
     }
 }
