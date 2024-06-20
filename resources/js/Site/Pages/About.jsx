@@ -4,6 +4,7 @@ import { styled } from '@mui/system';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import { Helmet } from 'react-helmet';
 import AboutMain from '../Components/About/AboutMain';
+import AboutMissionVision from '../Components/About/AboutMissionVision';
 
 const AboutSection = styled(Box)(({ theme }) => ({
     padding: theme.spacing(4),
@@ -77,6 +78,7 @@ const AboutPage = () => {
                 </Grid>
             </AboutSection>
             <AboutMain />
+            <AboutMissionVision />
         </>
         
     );
