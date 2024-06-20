@@ -29,7 +29,7 @@ class ServiceSectionController extends Controller
         $validated = $request->validate([
             'service_id' => 'required|exists:services,id',
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:service_sections,slug',
+            'slug' => 'required|string',
             'tagline' => 'nullable|string',
             'content' => 'nullable|string',
             'is_global' => 'required|boolean',
@@ -60,7 +60,7 @@ class ServiceSectionController extends Controller
         $validated = $request->validate([
             'service_id' => 'required|exists:services,id',
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:service_sections,slug,' . $id,
+            'slug' => 'required|string',
             'tagline' => 'nullable|string',
             'content' => 'nullable|string',
             'is_global' => 'required|boolean',
