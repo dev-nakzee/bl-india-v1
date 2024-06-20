@@ -41,20 +41,25 @@ class ServiceController extends Controller
             'serviceCategories' => $serviceCategories,
         ]);
     }
-
     public function serviceDetails(Request $request, string $slug): JsonResponse
     {
         $service = Service::where('slug', $slug)->with('serviceCategory')->first();
-        $isGlobal = $request->get('is_global');
 
-        $sectionsQuery = ServiceSection::where('service_id', $service->id);
+        // Determine the subdomain
+        $host = $request->getHost();
+        $subdomain = explode('.', $host)[0];
 
-        if ($isGlobal !== null) {
-            $sectionsQuery->where('is_global', $isGlobal);
+        // Build sections query
+        $sectionsQuery = ServiceSection::where('service_id', $service->id)->orderBy('id', 'asc');
+
+        // Check if the subdomain is 'global' and filter sections accordingly
+        if ($subdomain === 'global') {
+            $sectionsQuery->where('is_global', true);
         }
 
         $sections = $sectionsQuery->get();
 
         return response()->json(['service' => $service, 'sections' => $sections]);
     }
+
 }
