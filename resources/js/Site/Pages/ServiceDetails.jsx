@@ -10,14 +10,13 @@ import {
   List,
   ListItem,
   ListItemText,
-  Drawer,
-  CssBaseline
 } from '@mui/material';
 import { styled } from '@mui/system';
 import { useParams } from 'react-router-dom';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import parse from 'html-react-parser';
+import MandatoryProducts from '../Components/MandatoryProducts'; // Import the MandatoryProducts component
 
 const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
@@ -25,23 +24,40 @@ const ServiceSection = styled(Box)(({ theme }) => ({
   backgroundColor: '#f5f5f5',
   boxShadow: theme.shadows[3],
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
 }));
 
 const ServiceCard = styled(Card)(({ theme }) => ({
-  maxWidth: 345,
-  margin: theme.spacing(2),
-  boxShadow: theme.shadows[3],
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'space-between',
+  height: '100%',
+  boxShadow: theme.shadows[5],
 }));
 
 const ServiceImage = styled(CardMedia)(({ theme }) => ({
-  height: 140,
+  maxWidth: '85px',
+  backgroundSize: 'contain',
+  objectFit: 'contain',
+  marginRight: '20px',
 }));
 
-const drawerWidth = 240;
+const ServiceCardContent = styled(CardContent)(({ theme }) => ({
+  flexGrow: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+}));
+
+const Sidebar = styled(Box)(({ theme }) => ({
+  width: '25%',
+  maxHeight: '400px',
+  overflowY: 'auto',
+  paddingRight: theme.spacing(2),
+}));
+
+const ServicesList = styled(Box)(({ theme }) => ({
+  width: '75%',
+}));
 
 const ServiceDetails = () => {
   const { slug } = useParams();
@@ -84,78 +100,63 @@ const ServiceDetails = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
+    <>
       <Helmet>
         <title>{serviceData.service.seo_title}</title>
         <meta name="description" content={serviceData.service.seo_description} />
         <meta name="keywords" content={serviceData.service.seo_keywords} />
       </Helmet>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-      >
-        <List>
-          {serviceData.sections.map((section) => (
-            <ListItem button key={section.id} onClick={() => handleSectionClick(section)}>
-              <ListItemText primary={section.name} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          bgcolor: 'background.paper',
-          p: 3,
-        }}
-      >
-        <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12}>
-            <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
-              {serviceData.service.name}
-            </Typography>
-            <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
-              {serviceData.service.name}
-            </Typography>
+      <ServiceSection>
+        <Sidebar>
+          <Typography variant="h3" mb={2}>Service Sections</Typography>
+          <List>
+            {serviceData.sections.map((section) => (
+              <ListItem
+                button
+                key={section.id}
+                selected={section.id === (selectedSection && selectedSection.id)}
+                onClick={() => handleSectionClick(section)}
+              >
+                <ListItemText primary={section.name} />
+              </ListItem>
+            ))}
+          </List>
+        </Sidebar>
+        <ServicesList>
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12}>
+                <ServiceImage
+                    component="img"
+                    image={`https://in.bl-india.com/${serviceData.service.thumbnail_url}`}
+                    alt={serviceData.service.image_alt}
+                  />
+              <Typography variant="h2" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, color: '#0D629A', margin: 'auto', borderRadius: 20 }}>
+                {serviceData.service.name}
+              </Typography>
+              <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                {serviceData.service.name}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              {selectedSection && (
+                <Box sx={{ mt: 4 }}>
+                  <Typography variant="h4" gutterBottom>
+                    {selectedSection.name}
+                  </Typography>
+                  {selectedSection.slug === 'mandatory-products' ? (
+                    <MandatoryProducts />
+                  ) : (
+                    <Typography variant="body1">
+                      {selectedSection.content ? parse(selectedSection.content) : 'No content available.'}
+                    </Typography>
+                  )}
+                </Box>
+              )}
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <ServiceCard>
-              <ServiceImage
-                component="img"
-                image={`https://in.bl-india.com/${serviceData.service.image_url}`}
-                alt={serviceData.service.image_alt}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {serviceData.service.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {serviceData.service.description}
-                </Typography>
-              </CardContent>
-            </ServiceCard>
-          </Grid>
-          <Grid item xs={12}>
-            {selectedSection && (
-              <Box sx={{ mt: 4 }}>
-                <Typography variant="h4" gutterBottom>
-                  {selectedSection.name}
-                </Typography>
-                <Typography variant="body1">
-                  {selectedSection.content ? parse(selectedSection.content) : ''}
-                </Typography>
-              </Box>
-            )}
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
+        </ServicesList>
+      </ServiceSection>
+    </>
   );
 };
 
