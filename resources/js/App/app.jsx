@@ -24,6 +24,8 @@ import BlogPosts from './components/BlogPosts';
 import BlogComments from './components/BlogComments';
 import NotificationCategories from './components/NotificationCategories';
 import Notifications from './components/Notifications';
+import DownloadCategories from './components/DownloadCategories';
+import Downloads from './components/Downloads';
 
 function App() {
     return (
@@ -58,6 +60,8 @@ function App() {
               <Route path="blogs/comments" element={<BlogComments />} />
               <Route path="notifications/categories" element={<NotificationCategories />} />
               <Route path="notifications/list" element={<Notifications />} />
+              <Route path="downloads/categories" element={<DownloadCategories />} />
+              <Route path="downloads/list" element={<Downloads />} />
               {/* You can add more nested routes under /cms here */}
             </Route>
           </Routes>

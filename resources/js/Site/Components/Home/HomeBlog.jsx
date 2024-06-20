@@ -77,7 +77,7 @@ const HomeBlog = () => {
                                 <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' ,borderRadius:'20px'}}>
                                     <CardMedia
                                         component="img"
-                                        height="140"
+                                        height="200"
                                         image={'https://in.bl-india.com/' + blog.image_url}
                                         alt={blog.image_alt}
                                     />

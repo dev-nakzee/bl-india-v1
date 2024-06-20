@@ -181,6 +181,10 @@ const AdminLayout = () => {
                 <ListItemIcon><DownloadIcon /></ListItemIcon>
                 <ListItemText primary="Downloads" />
               </ListItem>
+              <ListItem button component={Link} to="/cms/downloads/categories" sx={{ pl: 4 }}>
+                <ListItemIcon><DownloadIcon /></ListItemIcon>
+                <ListItemText primary="Categories" />
+              </ListItem>
             </List>
           </Collapse>
 

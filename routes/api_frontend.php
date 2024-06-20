@@ -4,6 +4,7 @@ use App\Http\Controllers\fe\SearchController;
 use App\Http\Controllers\fe\HomeController;
 use App\Http\Controllers\fe\LanguageController;
 use App\Http\Controllers\fe\LayoutController;
+use App\Http\Controllers\fe\AboutController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -23,4 +24,6 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/home-blog', [HomeController::class, 'blog']);
     Route::get('/home-testimonial', [HomeController::class, 'testimonial']);
     Route::get('/home-associates', [HomeController::class, 'associates']);
+    // About Page Routes
+    Route::get('/about', [AboutController::class, 'about']);
 });
