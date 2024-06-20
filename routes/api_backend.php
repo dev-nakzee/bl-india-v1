@@ -100,5 +100,9 @@ Route::prefix('v1/cms')->group(function(){
         Route::apiResource('customers', \App\Http\Controllers\cms\CustomerController::class);
         Route::post('customers/{id}', [\App\Http\Controllers\cms\CustomerController::class, 'update1']);
 
+        // Teams routes
+        Route::apiResource('teams', \App\Http\Controllers\cms\TeamController::class);
+        Route::post('teams/{id}', [\App\Http\Controllers\cms\TeamController::class, 'update1']);
+
     });
 });

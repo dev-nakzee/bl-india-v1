@@ -34,12 +34,13 @@ class CustomerController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $imageWebp  = Image::make($request->file('image'))->encode('webp', 100);
-            $imageName = uniqid() . '.webp';
+            $imageWebp  = Image::read($request->file('image'));
+            $image = $imageWebp->toWebp(100);
+            $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
             $imagePath = 'customer_images/' . $imageName;
-            Storage::disk('public')->put($imagePath, (string) $imageWebp);
+            Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }
 

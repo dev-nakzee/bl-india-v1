@@ -40,6 +40,7 @@ import ProductsIcon from '@mui/icons-material/ShoppingCart';
 import MiscellaneousIcon from '@mui/icons-material/Category';
 import ProcessIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 const drawerWidth = 240;
 
@@ -256,6 +257,12 @@ const AdminLayout = () => {
           <ListItem button component={Link} to="/cms/customers">
             <ListItemIcon><GroupIcon /></ListItemIcon>
             <ListItemText primary="Customers" />
+          </ListItem>
+
+          {/* Teams Menu */}
+          <ListItem button component={Link} to="/cms/teams">
+            <ListItemIcon><GroupsIcon /></ListItemIcon>
+            <ListItemText primary="Teams" />
           </ListItem>
           
           {/* Miscellaneous Menu */}
