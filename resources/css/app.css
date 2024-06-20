@@ -120,6 +120,12 @@ li a {
     width: 100%;
     max-width: 150px;
   }
+  .Footer-section .footer-certificates{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px;
+  }
 
 @media (max-width: 767px) {
     .box-hidden {

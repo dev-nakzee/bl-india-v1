@@ -27,4 +27,8 @@ Route::prefix('v1/fe')->group(function(){
     // About Page Routes
     Route::get('/about', [AboutController::class, 'about']);
     Route::get('/about-main', [AboutController::class, 'main']);
+    Route::get('/vision-mission', [AboutController::class, 'visionMission']);
+    Route::get('/about-team', [AboutController::class, 'team']);
+    Route::get('/founder-voice', [AboutController::class, 'founder']);
+    Route::get('/about-clients', [AboutController::class, 'clients']);
 });

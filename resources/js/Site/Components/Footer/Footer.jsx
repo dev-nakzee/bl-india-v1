@@ -10,6 +10,7 @@ import {
     ListItem,
     ListItemButton,
     ListItemText,
+    Divider,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -39,7 +40,7 @@ const FooterLink = styled(Link)(({ theme }) => ({
 
 const SocialMediaIcons = styled(Box)(({ theme }) => ({
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     "& > *": {
         margin: theme.spacing(1),
     },
@@ -183,9 +184,11 @@ const Footer = () => {
                     />
                 </Grid>
             </Grid>
-            <Grid container spacing={4}>
-                <Grid item xs={12} sm={12}>
-                    <Box>
+            <Divider sx={{ marginBlock: "25px", backgroundColor: "#fff" }} />
+
+            <Grid container fluid>
+                <Grid item className="footer-certificates" xs={12} sm={6}>
+                    <Box sx={{ display: "flex" }}>
                         <img
                             src={logo}
                             alt="Brand Logo"
@@ -201,7 +204,7 @@ const Footer = () => {
                         className="footer-img"
                     />
                 </Grid>
-                <Grid item xs={12} sm={12}>
+                <Grid item className="footer-certificates" xs={12} sm={6}>
                     <SocialMediaIcons>
                         {footerData.socialMedia.map((social) => {
                             const icons = {
@@ -225,15 +228,16 @@ const Footer = () => {
                             );
                         })}
                     </SocialMediaIcons>
-
-                    <img
-                        src={
-                            "https://in.bl-india.com/" +
-                            footerData.siteCert[0].image_url
-                        }
-                        alt={footerData.siteCert[0].image_alt}
-                        className="footer-img"
-                    />
+                    <Box sx={{ display: "flex",justifyContent:'end' }}>
+                        <img
+                            src={
+                                "https://in.bl-india.com/" +
+                                footerData.siteCert[0].image_url
+                            }
+                            alt={footerData.siteCert[0].image_alt}
+                            className="footer-img"
+                        />
+                    </Box>
                 </Grid>
             </Grid>
             <Typography variant="body2" sx={{ mt: 4 }}>
