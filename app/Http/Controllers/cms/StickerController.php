@@ -97,7 +97,7 @@ class StickerController extends Controller
 
         // Delete the image if exists
         if ($sticker->image_url) {
-            Storage::disk('public')->delete(str_replace('/storage/', '', $sticker->image_url));
+            Storage::disk('public')->delete($sticker->image_url);
         }
 
         $sticker->delete();

@@ -75,17 +75,19 @@ class CustomerController extends Controller
         if ($request->hasFile('image')) {
             // Delete the old image if exists
             if ($customer->image_url) {
-                Storage::disk('public')->delete(str_replace('/storage/', '', $customer->image_url));
+                Storage::disk('public')->delete($customer->image_url);
             }
 
-            $imageWebp  = Image::make($request->file('image'))->encode('webp', 100);
-            $imageName = uniqid() . '.webp';
+            $imageWebp  = Image::read($request->file('image'));
+            $image = $imageWebp->toWebp(100);
+            $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
             $imagePath = 'customer_images/' . $imageName;
-            Storage::disk('public')->put($imagePath, (string) $imageWebp);
+            Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }
+
 
         $customer->update($validated);
         return response()->json($customer, 202);
@@ -101,7 +103,7 @@ class CustomerController extends Controller
 
         // Delete the image if exists
         if ($customer->image_url) {
-            Storage::disk('public')->delete(str_replace('/storage/', '', $customer->image_url));
+            Storage::disk('public')->delete($customer->image_url);
         }
 
         $customer->delete();

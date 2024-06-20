@@ -34,14 +34,16 @@ class TeamController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $imageWebp  = Image::make($request->file('image'))->encode('webp', 100);
-            $imageName = uniqid() . '.webp';
+            $imageWebp  = Image::read($request->file('image'));
+            $image = $imageWebp->toWebp(100);
+            $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
             $imagePath = 'team_images/' . $imageName;
-            Storage::disk('public')->put($imagePath, (string) $imageWebp);
+            Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }
+
 
         $team = Team::create($validated);
         return response()->json($team, 201);
@@ -74,15 +76,16 @@ class TeamController extends Controller
         if ($request->hasFile('image')) {
             // Delete the old image if exists
             if ($team->image_url) {
-                Storage::disk('public')->delete(str_replace('/storage/', '', $team->image_url));
+                Storage::disk('public')->delete($team->image_url);
             }
 
-            $imageWebp  = Image::make($request->file('image'))->encode('webp', 100);
-            $imageName = uniqid() . '.webp';
+            $imageWebp  = Image::read($request->file('image'));
+            $image = $imageWebp->toWebp(100);
+            $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
             $imagePath = 'team_images/' . $imageName;
-            Storage::disk('public')->put($imagePath, (string) $imageWebp);
+            Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }
 
@@ -99,7 +102,7 @@ class TeamController extends Controller
 
         // Delete the image if exists
         if ($team->image_url) {
-            Storage::disk('public')->delete(str_replace('/storage/', '', $team->image_url));
+            Storage::disk('public')->delete($team->image_url);
         }
 
         $team->delete();
