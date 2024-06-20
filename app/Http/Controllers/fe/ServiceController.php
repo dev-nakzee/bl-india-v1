@@ -8,6 +8,7 @@ use App\Models\Page;
 use App\Models\Service;
 use App\Models\ServiceCategory;
 use App\Models\ServiceSection;
+use App\Models\ProductServiceMap;
 use Illuminate\Http\JsonResponse;
 
 class ServiceController extends Controller
@@ -60,6 +61,12 @@ class ServiceController extends Controller
         $sections = $sectionsQuery->get();
 
         return response()->json(['service' => $service, 'sections' => $sections]);
+    }
+
+    public function getMandatoryProducts(Request $request, $serviceId): JsonResponse
+    {
+        $products = ProductServiceMap::where('service_id', $serviceId)->with('product')->get();
+        return response()->json($products);
     }
 
 }

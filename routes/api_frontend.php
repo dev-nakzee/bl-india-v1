@@ -36,4 +36,5 @@ Route::prefix('v1/fe')->group(function(){
     // Services Page Routes
     Route::get('/services', [ServiceController::class, 'services']);
     Route::get('/services/{slug}', [ServiceController::class,'serviceDetails']);
+    Route::get('/services/{serviceId}/mandatory-products', [ServiceController::class, 'getMandatoryProducts']);
 });

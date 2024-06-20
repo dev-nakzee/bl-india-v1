@@ -125,11 +125,11 @@ const ServiceDetails = () => {
         <ServicesList>
           <Grid container spacing={4} alignItems="center">
             <Grid item xs={12}>
-                <ServiceImage
-                    component="img"
-                    image={`https://in.bl-india.com/${serviceData.service.thumbnail_url}`}
-                    alt={serviceData.service.image_alt}
-                  />
+              <ServiceImage
+                component="img"
+                image={`https://in.bl-india.com/${serviceData.service.thumbnail_url}`}
+                alt={serviceData.service.image_alt}
+              />
               <Typography variant="h2" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, color: '#0D629A', margin: 'auto', borderRadius: 20 }}>
                 {serviceData.service.name}
               </Typography>
@@ -144,7 +144,7 @@ const ServiceDetails = () => {
                     {selectedSection.name}
                   </Typography>
                   {selectedSection.slug === 'mandatory-products' ? (
-                    <MandatoryProducts />
+                    <MandatoryProducts serviceId={serviceData.service.id} />
                   ) : (
                     <Typography variant="body1">
                       {selectedSection.content ? parse(selectedSection.content) : 'No content available.'}
