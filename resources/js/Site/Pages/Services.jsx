@@ -133,10 +133,10 @@ const Services = () => {
         <ServicesList>
           <Grid container spacing={4} alignItems="center">
             <Grid item xs={12}>
-              <Typography variant="h2" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, color: '#0D629A', margin: 'auto', borderRadius: 20 }}>
+              <Typography variant="h2" sx={{ textAlign: 'left', fontWeight: 500, maxWidth: 280, color: '#0D629A', margin: 'auto', borderRadius: 20 }}>
                 {serviceData.page.name}
               </Typography>
-              <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+              <Typography variant="h2" sx={{ textAlign: 'left', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
                 {serviceData.page.title}
               </Typography>
             </Grid>

@@ -68,7 +68,7 @@ const AboutPage = () => {
                 {/* Other meta tags */}
             </Helmet>
             <AboutSection>
-                <Grid container spacing={4} alignItems="center">
+                {/* <Grid container spacing={4} alignItems="center">
                     <Grid item xs={12} md={12}>
                         <AboutCard>
                             <CardContent>
@@ -78,7 +78,7 @@ const AboutPage = () => {
                             </CardContent>
                         </AboutCard>
                     </Grid>
-                </Grid>
+                </Grid> */}
             </AboutSection>
             <AboutMain />
             <AboutMissionVision />
