@@ -116,6 +116,10 @@ li a {
     align-items: flex-start;    
     padding-bottom:10px;                         
   }
+  .Footer-section .footer-img{
+    width: 100%;
+    max-width: 150px;
+  }
 
 @media (max-width: 767px) {
     .box-hidden {
