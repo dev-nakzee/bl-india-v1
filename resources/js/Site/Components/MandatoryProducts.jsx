@@ -15,8 +15,12 @@ const MandatoryProducts = ({ serviceId }) => {
     const fetchProducts = async () => {
       try {
         const response = await apiClient.get(`/services/${serviceId}/mandatory-products`);
-        setProducts(response.data);
-        setFilteredProducts(response.data);
+        const dataWithSrNo = response.data.map((product, index) => ({
+          ...product,
+          srNo: index + 1,
+        }));
+        setProducts(dataWithSrNo);
+        setFilteredProducts(dataWithSrNo);
       } catch (error) {
         console.error('Error fetching mandatory products:', error);
       } finally {
@@ -46,7 +50,7 @@ const MandatoryProducts = ({ serviceId }) => {
 
   const getColumns = () => {
     const baseColumns = [
-      { field: 'srNo', headerName: 'Sr. No.', flex: 0.5, valueGetter: (params) => params.api.getRowIndex(params.id) + 1 },
+      { field: 'srNo', headerName: 'Sr. No.', width: 90 },
       { field: 'product_name', headerName: 'Product Name', flex: 1 },
       { field: 'product_category_name', headerName: 'Category Name', flex: 1 },
     ];
