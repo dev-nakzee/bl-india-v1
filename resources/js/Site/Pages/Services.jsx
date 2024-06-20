@@ -28,7 +28,7 @@ const ServiceSection = styled(Box)(({ theme }) => ({
 const ServiceCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-start',
+  justifyContent: 'space-between',
   height: '100%',
   // margin: theme.spacing(2),
   boxShadow: theme.shadows[5],
@@ -145,7 +145,7 @@ const Services = () => {
                 {filteredServices.map(service => (
                   <Grid item key={service.id} xs={12} sm={6} md={4}>
                     <ServiceCard>
-                      <Box paddingInline={'16px'} sx={{display:'flex',justifyContent:'space-between',alignItems:'center',paddingTop:'16px'}}>
+                      <Box paddingInline={'16px'} sx={{display:'flex',justifyContent:'flex-start',alignItems:'center',paddingTop:'16px'}}>
                       <ServiceImage
                         component="img"
                         image={`https://in.bl-india.com/${service.thumbnail_url}`}
@@ -160,7 +160,7 @@ const Services = () => {
                         <Typography variant="body2" color="text.secondary">
                           {service.description}
                         </Typography>
-                        <Button  variant="outlined" component={Link} to={`/services/${service.slug}`}>
+                        <Button sx={{marginTop:'15px'}} variant="outlined" component={Link} to={`/services/${service.slug}`}>
                             Read More
                         </Button>
                       </ServiceCardContent>
