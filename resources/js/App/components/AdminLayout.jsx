@@ -126,6 +126,10 @@ const AdminLayout = () => {
                 <ListItemIcon><BuildIcon /></ListItemIcon>
                 <ListItemText primary="Services" />
               </ListItem>
+              <ListItem button component={Link} to="/cms/services/sections" sx={{ pl: 4 }}>
+                <ListItemIcon><BuildIcon /></ListItemIcon>
+                <ListItemText primary="Sections" />
+              </ListItem>
               <ListItem button component={Link} to="/cms/services/categories" sx={{ pl: 4 }}>
                 <ListItemIcon><BuildIcon /></ListItemIcon>
                 <ListItemText primary="Categories" />

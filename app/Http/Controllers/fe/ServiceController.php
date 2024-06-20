@@ -14,7 +14,7 @@ class ServiceController extends Controller
     public function services(Request $request): JsonResponse
     {
         $page = Page::where('slug', 'services')->first();
-        $query = Service::orderBy('id', 'asc');
+        $query = Service::orderBy('id', 'asc')->with('serviceCategory');
 
         // Determine the subdomain
         $host = $request->getHost();
@@ -39,5 +39,11 @@ class ServiceController extends Controller
             'services' => $services,
             'serviceCategories' => $serviceCategories,
         ]);
+    }
+
+    public function serviceDetails(Request $request, string $slug): JsonResponse
+    {
+        $service = Service::where('slug', $slug)->with('serviceCategory')->first();
+        return response()->json($service);
     }
 }

@@ -68,7 +68,7 @@ const HomeServices = () => {
                             <Typography variant="body2" sx={{ marginTop: '10px', flexGrow: 1 ,textAlign:'left' }}>
                                 {service.description}
                             </Typography>
-                            <Button  variant="outlined" component={Link} to={`/services/${service.service_category.slug}/${service.slug}`}>
+                            <Button  variant="outlined" component={Link} to={`/services/${service.slug}`}>
                                 Read More
                             </Button>
                         </Box>
