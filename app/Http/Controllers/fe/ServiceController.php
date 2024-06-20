@@ -68,6 +68,7 @@ class ServiceController extends Controller
     
         $filteredProducts = $products->map(function($productServiceMap) {
             return [
+                'category_id' => $productServiceMap->product->productCategory->id,
                 'product_name' => $productServiceMap->product->name,
                 'product_slug' => $productServiceMap->product->slug,
                 'product_is_standard' => $productServiceMap->is,

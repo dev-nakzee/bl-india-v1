@@ -9,6 +9,7 @@ import HomePage from './Pages/Home';
 import About from './Pages/About';
 import Services from './Pages/Services';
 import ServiceDetails from './Pages/ServiceDetails';
+import ProductDetails from './Pages/ProductDetails';
 import theme from './Layouts/Theme';
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/:slug" element={<ServiceDetails />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/products/:slug" element={<ProductDetails />} />
+            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
           </Routes>
         </Layout>
       </BrowserRouter>
