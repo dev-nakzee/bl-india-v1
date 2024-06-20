@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Link, Grid, IconButton, CircularProgress } from '@mui/material';
+import { Box, Typography, Link, Grid, IconButton, CircularProgress, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { styled } from '@mui/system';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -17,12 +17,12 @@ const FooterContainer = styled(Box)(({ theme }) => ({
 }));
 
 const FooterLink = styled(Link)(({ theme }) => ({
-  margin: theme.spacing(1),
+  // margin: theme.spacing(1),
   color: '#ffffff',
   textDecoration: 'none',
-  '&:hover': {
-    textDecoration: 'underline',
-  },
+  // '&:hover': {
+  //   textDecoration: 'underline',
+  // },
 }));
 
 const SocialMediaIcons = styled(Box)(({ theme }) => ({
@@ -66,46 +66,52 @@ const Footer = () => {
 
   return (
     <FooterContainer className='Footer-section'>
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={4} >
         <Grid item xs={12} sm={3}>
-          <Typography variant="h4">Services</Typography>
+          <Typography variant="h4" textAlign={'left'}  mb={3}>Services</Typography>
           {footerData.service.map((service) => (
             <FooterLink key={service.id} href={`/${service.slug}`}>
-              {service.name}
+             <Typography variant="body2" className="Service-list">                   
+            {service.name}           
+            </Typography> 
             </FooterLink>
           ))}
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Typography variant="h4">Quick Links</Typography>
+          <Typography variant="h4" textAlign={'left'} mb={3}>Quick Links</Typography>
           <Box>
             {footerData.links.map((link) => (
               <FooterLink key={link.url} href={link.url}>
+                    <Typography variant="body2" className="Service-list">  
                 {link.title}
+                </Typography>
               </FooterLink>
             ))}
           </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Typography variant="h4">Important Links</Typography>
+          <Typography variant="h4" textAlign={'left'}  mb={3}>Important Links</Typography>
           <Box>
             {footerData.important.map((link) => (
               <FooterLink key={link.url} href={link.url}>
+                    <Typography variant="body2" className="Service-list">  
                 {link.title}
+                </Typography>
               </FooterLink>
             ))}
           </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Typography variant="h4">Contact Us</Typography>
-          <Typography variant="body2">{footerData.contact.name}</Typography>
-          <Typography variant="body2">{footerData.contact.email}</Typography>
-          <Typography variant="body2">{footerData.contact.phone1}</Typography>
-          <Typography variant="body2">{footerData.contact.phone2}</Typography>
-          <Typography variant="body2">{footerData.contact.phone3}</Typography>
-          <Typography variant="body2" dangerouslySetInnerHTML={{ __html: footerData.contact.address }} />
+          <Typography variant="h4" textAlign={'left'}  mb={3}>Contact Us</Typography>
+          <Typography variant="body2" textAlign={'left'}  className="Service-list">{footerData.contact.name}</Typography>
+          <Typography variant="body2" textAlign={'left'}  className="Service-list">{footerData.contact.email}</Typography>
+          <Typography variant="body2" textAlign={'left'}  className="Service-list">{footerData.contact.phone1}</Typography>
+          <Typography variant="body2" textAlign={'left'}  className="Service-list">{footerData.contact.phone2}</Typography>
+          <Typography variant="body2" textAlign={'left'}  className="Service-list">{footerData.contact.phone3}</Typography>
+          <Typography variant="body2" dangerouslySetInnerHTML={{ __html: footerData.contact.address }} textAlign={'left'} />
         </Grid>
         <Grid item xs={12} sm={12}>
-          <Typography variant="h4">Follow Us</Typography>
+          {/* <Typography variant="h4"  mb={3}>Follow Us</Typography> */}
           <SocialMediaIcons>
             {footerData.socialMedia.map((social) => {
               const icons = {
@@ -123,6 +129,12 @@ const Footer = () => {
               );
             })}
           </SocialMediaIcons>
+          <Grid item xs={12} sm={12}>
+          <img src={'https://in.bl-india.com/' + footerData.companyCert[0].image_url} alt={footerData.companyCert[0].image_alt} />        
+          </Grid>
+          <Grid item xs={12} sm={12}>
+          <img src={'https://in.bl-india.com/' + footerData.siteCert[0].image_url} alt={footerData.siteCert[0].image_alt} />        
+          </Grid>
         </Grid>
       </Grid>
       <Typography variant="body2" sx={{ mt: 4 }}>
