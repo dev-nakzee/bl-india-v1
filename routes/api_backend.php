@@ -96,5 +96,9 @@ Route::prefix('v1/cms')->group(function(){
         Route::get('/downloads/{downloadId}/files', [DownloadFileController::class, 'index']);
         Route::get('/downloads/{downloadId}/files/{fileId}', [DownloadFileController::class, 'show']);
 
+        // Customer routes
+        Route::apiResource('customers', \App\Http\Controllers\cms\CustomerController::class);
+        Route::post('customers/{id}', [\App\Http\Controllers\cms\CustomerController::class, 'update1']);
+
     });
 });
