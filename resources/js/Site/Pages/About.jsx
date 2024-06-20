@@ -5,6 +5,7 @@ import apiClient from '../Services/api'; // Ensure this is your configured axios
 import { Helmet } from 'react-helmet';
 import AboutMain from '../Components/About/AboutMain';
 import AboutMissionVision from '../Components/About/AboutMissionVision';
+import AboutTeam from '../Components/About/AboutTeam';
 
 const AboutSection = styled(Box)(({ theme }) => ({
     padding: theme.spacing(4),
@@ -79,6 +80,7 @@ const AboutPage = () => {
             </AboutSection>
             <AboutMain />
             <AboutMissionVision />
+            <AboutTeam />
         </>
         
     );

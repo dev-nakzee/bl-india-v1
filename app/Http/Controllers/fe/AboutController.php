@@ -36,4 +36,10 @@ class AboutController extends Controller
         $team = Team::orderBy('order')->get();
         return response()->json(['section' => $section, 'team' => $team]);
     }
+
+    public function founder(): JsonResponse
+    {
+        $section = PageSection::where('slug', 'founder-voice')->first();
+        return response()->json($section);
+    }
 }
