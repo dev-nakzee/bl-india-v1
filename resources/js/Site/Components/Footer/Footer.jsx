@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Link, Grid, IconButton, CircularProgress } from '@mui/material';
+import { Box, Typography, Link, Grid, IconButton, CircularProgress, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { styled } from '@mui/system';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -66,12 +66,14 @@ const Footer = () => {
 
   return (
     <FooterContainer className='Footer-section'>
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={4} >
         <Grid item xs={12} sm={3}>
-          <Typography variant="h4">Services</Typography>
+          <Typography variant="h4" textAlign={'left'}>Services</Typography>
           {footerData.service.map((service) => (
             <FooterLink key={service.id} href={`/${service.slug}`}>
-              {service.name}
+             <Box className="Service-list">                   
+            {service.name}           
+            </Box> 
             </FooterLink>
           ))}
         </Grid>

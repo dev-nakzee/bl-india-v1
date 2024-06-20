@@ -110,7 +110,13 @@ li a {
     width: 15%;
     border-bottom: 0.3rem solid #fff;
   } */
-
+  .Footer-section .Service-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;    
+    padding: 0;                         
+  }
 
 @media (max-width: 767px) {
     .box-hidden {
