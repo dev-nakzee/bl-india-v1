@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\ServiceSection;
 use Illuminate\Http\JsonResponse;
 
 class ServiceController extends Controller
@@ -44,6 +45,16 @@ class ServiceController extends Controller
     public function serviceDetails(Request $request, string $slug): JsonResponse
     {
         $service = Service::where('slug', $slug)->with('serviceCategory')->first();
-        return response()->json($service);
+        $isGlobal = $request->get('is_global');
+
+        $sectionsQuery = ServiceSection::where('service_id', $service->id);
+
+        if ($isGlobal !== null) {
+            $sectionsQuery->where('is_global', $isGlobal);
+        }
+
+        $sections = $sectionsQuery->get();
+
+        return response()->json(['service' => $service, 'sections' => $sections]);
     }
 }
