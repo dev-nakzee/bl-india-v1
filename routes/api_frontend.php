@@ -30,4 +30,5 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/vision-mission', [AboutController::class, 'visionMission']);
     Route::get('/about-team', [AboutController::class, 'team']);
     Route::get('/founder-voice', [AboutController::class, 'founder']);
+    Route::get('/about-clients', [AboutController::class, 'clients']);
 });

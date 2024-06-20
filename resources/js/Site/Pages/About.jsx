@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import AboutMain from '../Components/About/AboutMain';
 import AboutMissionVision from '../Components/About/AboutMissionVision';
 import AboutTeam from '../Components/About/AboutTeam';
+import AboutFounder from '../Components/About/AboutFounder';
 
 const AboutSection = styled(Box)(({ theme }) => ({
     padding: theme.spacing(4),
@@ -81,6 +82,7 @@ const AboutPage = () => {
             <AboutMain />
             <AboutMissionVision />
             <AboutTeam />
+            <AboutFounder />
         </>
         
     );

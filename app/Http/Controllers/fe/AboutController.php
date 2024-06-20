@@ -42,4 +42,10 @@ class AboutController extends Controller
         $section = PageSection::where('slug', 'founder-voice')->first();
         return response()->json($section);
     }
+    public function clients(): JsonResponse
+    {
+        $section = PageSection::where('slug', 'our-clients')->first();
+        $customers = Customer::orderBy('order')->get();
+        return response()->json(['section' => $section, 'customers' => $customers]);
+    }
 }
