@@ -3,6 +3,7 @@ use App\Http\Controllers\cms\AuthController;
 use App\Http\Controllers\cms\ClientController;
 use App\Http\Controllers\cms\ServiceCategoryController;
 use App\Http\Controllers\cms\ServiceController;
+use App\Http\Controllers\cms\ServiceSectionController;
 use App\Http\Controllers\cms\ProductController;
 use App\Http\Controllers\cms\ProductCategoryController;
 use App\Http\Controllers\cms\ProductServiceMapController;

@@ -51,7 +51,7 @@ class ServiceSectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update1(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         //
         $serviceSection = ServiceSection::findOrFail($id);
