@@ -62,11 +62,19 @@ class ServiceController extends Controller
 
         return response()->json(['service' => $service, 'sections' => $sections]);
     }
-
     public function getMandatoryProducts(Request $request, $serviceId): JsonResponse
     {
-        $products = ProductServiceMap::where('service_id', $serviceId)->with('product')->get();
-        return response()->json($products);
+        $products = ProductServiceMap::where('service_id', $serviceId)->with('product.productCategory')->get();
+    
+        $filteredProducts = $products->map(function($productServiceMap) {
+            return [
+                'product_name' => $productServiceMap->product->name,
+                'product_slug' => $productServiceMap->product->slug,
+                'product_category_name' => $productServiceMap->product->productCategory->name,
+            ];
+        });
+    
+        return response()->json($filteredProducts);
     }
 
 }
