@@ -32,6 +32,9 @@ Route::prefix('v1/cms')->group(function(){
         // Service Routes
         Route::apiResource('services', ServiceController::class);
         Route::post('services/{id}', [ServiceController::class, 'update1']);
+        // Service Section Routes
+        Route::apiResource('service-sections', ServiceSectionController::class);
+        Route::post('service-sections/{id}', [ServiceSectionController::class, 'update1']);
         // Product Routes
         Route::apiResource('product-categories', ProductCategoryController::class);
         Route::apiResource('products', ProductController::class);

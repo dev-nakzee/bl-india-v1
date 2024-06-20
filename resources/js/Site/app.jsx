@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Layouts/Layout';
 import HomePage from './Pages/Home';
 import About from './Pages/About';
+import Services from './Pages/Services';
 import theme from './Layouts/Theme';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
           </Routes>
         </Layout>
       </BrowserRouter>
