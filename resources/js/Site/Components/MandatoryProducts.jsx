@@ -15,12 +15,12 @@ const MandatoryProducts = ({ serviceId }) => {
     const fetchProducts = async () => {
       try {
         const response = await apiClient.get(`/services/${serviceId}/mandatory-products`);
-        const dataWithSrNo = response.data.map((product, index) => ({
+        const productsWithSrNo = response.data.map((product, index) => ({
           ...product,
           srNo: index + 1,
         }));
-        setProducts(dataWithSrNo);
-        setFilteredProducts(dataWithSrNo);
+        setProducts(productsWithSrNo);
+        setFilteredProducts(productsWithSrNo);
       } catch (error) {
         console.error('Error fetching mandatory products:', error);
       } finally {
@@ -50,7 +50,7 @@ const MandatoryProducts = ({ serviceId }) => {
 
   const getColumns = () => {
     const baseColumns = [
-      { field: 'srNo', headerName: 'Sr. No.', width: 90 },
+      { field: 'srNo', headerName: 'Sr. No.', width: 70 },
       { field: 'product_name', headerName: 'Product Name', flex: 1 },
       { field: 'product_category_name', headerName: 'Category Name', flex: 1 },
     ];
@@ -102,7 +102,10 @@ const MandatoryProducts = ({ serviceId }) => {
         initialState={{
           pagination: {
             pageSize: 25,
-          }
+          },
+          sorting: {
+            sortModel: [{ field: 'category_id', sort: 'asc' }],
+          },
         }}
       />
     </Box>
