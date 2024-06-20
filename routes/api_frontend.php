@@ -5,6 +5,7 @@ use App\Http\Controllers\fe\HomeController;
 use App\Http\Controllers\fe\LanguageController;
 use App\Http\Controllers\fe\LayoutController;
 use App\Http\Controllers\fe\AboutController;
+use App\Http\Controllers\fe\ServiceController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -31,4 +32,7 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/about-team', [AboutController::class, 'team']);
     Route::get('/founder-voice', [AboutController::class, 'founder']);
     Route::get('/about-clients', [AboutController::class, 'clients']);
+
+    // Services Page Routes
+    Route::get('/services', [ServiceController::class, 'services']);
 });
