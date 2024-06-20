@@ -16,4 +16,10 @@ class AboutController extends Controller
         $page = Page::where('slug', 'about')->first();
         return response()->json($page);
     }
+
+    public function main(): JsonResponse
+    {
+        $section = PageSection::where('slug', 'about-main')->first();
+        return response()->json($section);
+    }
 }

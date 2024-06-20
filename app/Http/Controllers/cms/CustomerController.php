@@ -3,21 +3,22 @@
 namespace App\Http\Controllers\cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Sticker;
 use Illuminate\Http\Request;
+use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
-class StickerController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
-        $stickers = Sticker::all();
-        return response()->json($stickers);
+        //
+        $customers = Customer::all();
+        return response()->json($customers);
     }
 
     /**
@@ -25,10 +26,11 @@ class StickerController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        //
         $validated = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'image_alt' => 'required|string|max:255',
-            'image_type' => 'required|in:Associate,Site Certificate,Company Certificate',
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_alt' => 'nullable|string|max:255',
         ]);
 
         if ($request->hasFile('image')) {
@@ -37,41 +39,43 @@ class StickerController extends Controller
             $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
-            $imagePath = 'sticker_images/' . $imageName;
+            $imagePath = 'customer_images/' . $imageName;
             Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }
 
-        $sticker = Sticker::create($validated);
-        return response()->json($sticker, 201);
+        $customer = Customer::create($validated);
+        return response()->json($customer, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id): JsonResponse
+    public function show(string $id): JsonResponse
     {
-        $sticker = Sticker::findOrFail($id);
-        return response()->json($sticker);
+        //
+        $customer = Customer::findOrFail($id);
+        return response()->json($customer);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update1(Request $request, $id): JsonResponse
+    public function update1(Request $request, string $id): JsonResponse
     {
+        //
         $validated = $request->validate([
+            'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'image_alt' => 'sometimes|required|string|max:255',
-            'image_type' => 'sometimes|required|in:Associate,Site Certificate,Company Certificate',
+            'image_alt' => 'nullable|string|max:255',
         ]);
 
-        $sticker = Sticker::findOrFail($id);
+        $customer = Customer::findOrFail($id);
 
         if ($request->hasFile('image')) {
             // Delete the old image if exists
-            if ($service->image_url) {
-                Storage::disk('public')->delete($service->image_url);
+            if ($customer->image_url) {
+                Storage::disk('public')->delete($customer->image_url);
             }
 
             $imageWebp  = Image::read($request->file('image'));
@@ -79,28 +83,30 @@ class StickerController extends Controller
             $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
-            $imagePath = 'sticker_images/' . $imageName;
+            $imagePath = 'customer_images/' . $imageName;
             Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }
 
-        $sticker->update($validated);
-        return response()->json($sticker, 202);
+
+        $customer->update($validated);
+        return response()->json($customer, 202);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id): JsonResponse
+    public function destroy(string $id): JsonResponse 
     {
-        $sticker = Sticker::findOrFail($id);
+        //
+        $customer = Customer::findOrFail($id);
 
         // Delete the image if exists
-        if ($sticker->image_url) {
-            Storage::disk('public')->delete($sticker->image_url);
+        if ($customer->image_url) {
+            Storage::disk('public')->delete($customer->image_url);
         }
 
-        $sticker->delete();
+        $customer->delete();
         return response()->json(null, 204);
     }
 }

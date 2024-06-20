@@ -133,7 +133,7 @@ const Footer = () => {
           <img src={'https://in.bl-india.com/' + footerData.companyCert[0].image_url} alt={footerData.companyCert[0].image_alt} />        
           </Grid>
           <Grid item xs={12} sm={12}>
-          <img src={'https://in.bl-india.com/' + footerData.siteCert[0].image_url} alt={footerData.siteCert[0].image_alt} />        
+          <img src={'https://in.bl-india.com/' + footerData.siteCert[0].image_url} alt={footerData.siteCert[0].image_alt} className='footer-img'/>        
           </Grid>
         </Grid>
       </Grid>

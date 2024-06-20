@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Sticker;
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
-class StickerController extends Controller
+class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
-        $stickers = Sticker::all();
-        return response()->json($stickers);
+        $teams = Team::all();
+        return response()->json($teams);
     }
 
     /**
@@ -26,9 +26,11 @@ class StickerController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'image_alt' => 'required|string|max:255',
-            'image_type' => 'required|in:Associate,Site Certificate,Company Certificate',
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_alt' => 'nullable|string|max:255',
+            'designation' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
         ]);
 
         if ($request->hasFile('image')) {
@@ -37,13 +39,14 @@ class StickerController extends Controller
             $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
-            $imagePath = 'sticker_images/' . $imageName;
+            $imagePath = 'team_images/' . $imageName;
             Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }
 
-        $sticker = Sticker::create($validated);
-        return response()->json($sticker, 201);
+
+        $team = Team::create($validated);
+        return response()->json($team, 201);
     }
 
     /**
@@ -51,8 +54,8 @@ class StickerController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $sticker = Sticker::findOrFail($id);
-        return response()->json($sticker);
+        $team = Team::findOrFail($id);
+        return response()->json($team);
     }
 
     /**
@@ -61,17 +64,19 @@ class StickerController extends Controller
     public function update1(Request $request, $id): JsonResponse
     {
         $validated = $request->validate([
+            'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'image_alt' => 'sometimes|required|string|max:255',
-            'image_type' => 'sometimes|required|in:Associate,Site Certificate,Company Certificate',
+            'image_alt' => 'nullable|string|max:255',
+            'designation' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
         ]);
 
-        $sticker = Sticker::findOrFail($id);
+        $team = Team::findOrFail($id);
 
         if ($request->hasFile('image')) {
             // Delete the old image if exists
-            if ($service->image_url) {
-                Storage::disk('public')->delete($service->image_url);
+            if ($team->image_url) {
+                Storage::disk('public')->delete($team->image_url);
             }
 
             $imageWebp  = Image::read($request->file('image'));
@@ -79,13 +84,13 @@ class StickerController extends Controller
             $imageName = uniqid().'.webp';
 
             // Convert and store original image as WebP
-            $imagePath = 'sticker_images/' . $imageName;
+            $imagePath = 'team_images/' . $imageName;
             Storage::disk('public')->put($imagePath, (string) $image);
             $validated['image_url'] = Storage::url($imagePath);
         }
 
-        $sticker->update($validated);
-        return response()->json($sticker, 202);
+        $team->update($validated);
+        return response()->json($team, 202);
     }
 
     /**
@@ -93,14 +98,14 @@ class StickerController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $sticker = Sticker::findOrFail($id);
+        $team = Team::findOrFail($id);
 
         // Delete the image if exists
-        if ($sticker->image_url) {
-            Storage::disk('public')->delete($sticker->image_url);
+        if ($team->image_url) {
+            Storage::disk('public')->delete($team->image_url);
         }
 
-        $sticker->delete();
+        $team->delete();
         return response()->json(null, 204);
     }
 }

@@ -26,6 +26,8 @@ import NotificationCategories from './components/NotificationCategories';
 import Notifications from './components/Notifications';
 import DownloadCategories from './components/DownloadCategories';
 import Downloads from './components/Downloads';
+import Customers from './components/Customers';
+import Teams from './components/Teams';
 
 function App() {
     return (
@@ -52,6 +54,8 @@ function App() {
               <Route path="miscellaneous/testimonials" element={<Testimonials />} />
               <Route path="miscellaneous/stickers" element={<Stickers />} />
               <Route path="miscellaneous/contacts" element={<Contacts />} />
+              <Route path="customers" element={<Customers />} />
+              <Route path="teams" element={<Teams />} />
               <Route path="social-media" element={<SocialMedia />} />
               <Route path="pages" element={<Pages />} />
               <Route path="pages/sections" element={<PageSections />} />
