@@ -23,15 +23,16 @@ class GeoRedirectMiddleware
         $targetSubdomain = $location && $location->countryCode === 'IN' ? 'in' : 'global';
 
         $currentHost = $request->getHost();
-        $baseURL = Config::get('app.url'); // Retrieve the base URL from config
+        // $baseURL = Config::get('app.url'); // Retrieve the base URL from config
+        $baseURL = 'https://bl-india.com';
         $parsedUrl = parse_url($baseURL);
         $baseDomain = $parsedUrl['host'] ?? ''; // Extract the domain
         $expectedHost = $targetSubdomain . '.' . $baseDomain;
 
         if (Str::startsWith($currentHost, 'in.') && $targetSubdomain !== 'in') {
-            $expectedHost = 'global.' . $baseDomain.':8000';
+            $expectedHost = 'global.' . $baseDomain;
         } elseif (Str::startsWith($currentHost, 'global.') && $targetSubdomain !== 'global') {
-            $expectedHost = 'in.' . $baseDomain.':8000';
+            $expectedHost = 'in.' . $baseDomain;
         }
 
         // Check if current host matches the expected host
