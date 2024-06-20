@@ -41,7 +41,7 @@ const Topsidebar = ({ open, onClose }) => {
                         }}
                     />
                 </Box> */}
-                 <Box sx={{ display: 'flex', alignItems: 'center', mt:1, width: '50%',margin:"auto" ,minHeight:'100px' }}>
+                 <Box sx={{ display: 'flex', alignItems: 'center', mt:1, width: '50%',margin:"auto" ,height:'80vh' }}>
                     <TextField
                         variant="outlined"
                         placeholder="Search..."

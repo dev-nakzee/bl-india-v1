@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, CircularProgress, Grid, Card, CardMedia, CardContent } from '@mui/material';
 import { styled } from '@mui/system';
 import apiClient from '../../Services/api'; // Ensure this is your configured axios instance
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const CustomersSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     padding: theme.spacing(4),
-    backgroundColor: '#f5f5f5',
-    boxShadow: theme.shadows[3],
+    // backgroundColor: '#f5f5f5',
+    // boxShadow: theme.shadows[3],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -16,13 +19,13 @@ const CustomersSection = styled(Box)(({ theme }) => ({
 const CustomerCard = styled(Card)(({ theme }) => ({
     maxWidth: 345,
     margin: theme.spacing(2),
-    boxShadow: theme.shadows[3],
+    // boxShadow: theme.shadows[3],
 }));
 
 const CustomerImage = styled(CardMedia)(({ theme }) => ({
     height: 140,
     borderRadius: '10px',
-    boxShadow: theme.shadows[3],
+    // boxShadow: theme.shadows[3],
 }));
 
 const AboutCustomers = () => {
@@ -55,6 +58,16 @@ const AboutCustomers = () => {
     if (!customersData) {
         return null; // Or return a fallback UI if needed
     }
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+       
+    };
 
     return (
         <CustomersSection>
@@ -67,8 +80,10 @@ const AboutCustomers = () => {
                         {customersData.section.title}
                     </Typography>
                 </Grid>
+               
                 <Grid item xs={12}>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} >                      
+               
                         {customersData.customers.map((customer) => (
                             <Grid item xs={12} sm={6} md={4} key={customer.id}>
                                 <CustomerCard>
@@ -82,8 +97,10 @@ const AboutCustomers = () => {
                                         </Typography>
                                     </CardContent>
                                 </CustomerCard>
+                            
                             </Grid>
                         ))}
+                           
                     </Grid>
                 </Grid>
             </Grid>

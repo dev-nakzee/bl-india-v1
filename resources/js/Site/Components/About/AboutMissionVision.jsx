@@ -7,8 +7,8 @@ import parse from 'html-react-parser';
 const MissionVisionSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     padding: theme.spacing(4),
-    backgroundColor: '#f5f5f5',
-    boxShadow: theme.shadows[3],
+    backgroundColor: '#C3E7FF',
+    // boxShadow: theme.shadows[3],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

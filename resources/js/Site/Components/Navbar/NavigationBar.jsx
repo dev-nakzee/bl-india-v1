@@ -40,11 +40,7 @@ const NavigationBar = () => {
                 <Box
                     sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}
                 >
-                    <img
-                        src={logo}
-                        alt="Brand Logo"
-                        style={{ width:'30%'}}
-                    />
+                    <img src={logo} alt="Brand Logo" style={{ width: "30%" }} />
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Box
@@ -113,7 +109,6 @@ const NavigationBar = () => {
                         <AccountCircleIcon fontSize="large" />
                     </IconButton>
 
-                    
                     <IconButton onClick={handleSidebarOpen}>
                         <SearchIcon fontSize="large" color="primary" />
                     </IconButton>
