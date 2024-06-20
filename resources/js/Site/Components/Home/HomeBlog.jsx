@@ -24,6 +24,7 @@ const BlogImage = styled('img')(({ theme }) => ({
     maxWidth: '500px',
     borderRadius: '10px',
     boxShadow: theme.shadows[3],
+  
 }));
 
 const HomeBlog = () => {
@@ -79,6 +80,7 @@ const HomeBlog = () => {
                                         component="img"
                                         height="200"
                                         image={'https://in.bl-india.com/' + blog.image_url}
+                                        sx={{  backgroundSize: 'contain', objectFit: 'fill'}}
                                         alt={blog.image_alt}
                                     />
                                     <CardContent>

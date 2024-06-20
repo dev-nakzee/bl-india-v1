@@ -41,7 +41,7 @@ const HomeServices = () => {
                     <Typography variant="subtitle1" sx={{ fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20}}>
                         {section.tag_line}
                     </Typography>
-                    <Typography variant="h1" sx={{ mt: 1, fontWeight: 400}}>
+                    <Typography variant="h2" sx={{ mt: 1, fontWeight: 400}}>
                         {section.title}
                     </Typography>
                 </Box>

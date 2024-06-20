@@ -67,7 +67,7 @@ const AboutPage = () => {
                 <meta name="keywords" content={aboutData?.seo_keywords} />
                 {/* Other meta tags */}
             </Helmet>
-            <AboutSection>
+            {/* <AboutSection>
                 <Grid container spacing={4} alignItems="center">
                     <Grid item xs={12} md={12}>
                         <AboutCard>
@@ -79,7 +79,7 @@ const AboutPage = () => {
                         </AboutCard>
                     </Grid>
                 </Grid>
-            </AboutSection>
+            </AboutSection> */}
             <AboutMain />
             <AboutMissionVision />
             <AboutTeam />

@@ -152,7 +152,7 @@ const ScheduleCallDrawer = () => {
                         </Typography>
                     </Box>
                     <Typography
-                        variant="h1"
+                        variant="h2"
                         sx={{
                             fontWeight: 400,
                             pl: 7,

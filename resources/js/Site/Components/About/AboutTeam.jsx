@@ -20,7 +20,10 @@ const TeamCard = styled(Card)(({ theme }) => ({
 }));
 
 const TeamImage = styled(CardMedia)(({ theme }) => ({
-    height: 140,
+    minHeight: '300px',
+    width: '300px',
+    objectFit: 'cover',
+    borderBottomRightRadius:'220px',
 }));
 
 const AboutTeam = () => {
@@ -60,7 +63,7 @@ const AboutTeam = () => {
         <TeamSection>
             <Grid container spacing={4} alignItems="center">
                 <Grid item xs={12} md={12}>
-                    <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
+                    <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: '30%', color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section.tag_line}
                     </Typography>
                     <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>

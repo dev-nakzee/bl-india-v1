@@ -8,7 +8,7 @@ const FounderSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     padding: theme.spacing(4),
     backgroundColor: '#f5f5f5',
-    boxShadow: theme.shadows[3],
+    // boxShadow: theme.shadows[3],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -23,7 +23,7 @@ const FounderImage = styled('img')(({ theme }) => ({
     width: '100%',
     maxWidth: '500px',
     borderRadius: '10px',
-    boxShadow: theme.shadows[3],
+    // boxShadow: theme.shadows[3],
 }));
 
 const AboutFounder = () => {

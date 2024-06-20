@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import apiClient from '../../Services/api';
 import parse from 'html-react-parser';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const AboutSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
