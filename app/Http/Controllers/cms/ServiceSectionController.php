@@ -32,6 +32,7 @@ class ServiceSectionController extends Controller
             'slug' => 'required|string|unique:service_sections,slug',
             'tagline' => 'nullable|string',
             'content' => 'nullable|string',
+            'is_global' => 'required|boolean',
         ]);
 
         $serviceSection = ServiceSection::create($validated);
@@ -51,7 +52,7 @@ class ServiceSectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update1(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         //
         $serviceSection = ServiceSection::findOrFail($id);
@@ -62,6 +63,7 @@ class ServiceSectionController extends Controller
             'slug' => 'required|string|unique:service_sections,slug,' . $id,
             'tagline' => 'nullable|string',
             'content' => 'nullable|string',
+            'is_global' => 'required|boolean',
         ]);
 
         $serviceSection->update($validated);

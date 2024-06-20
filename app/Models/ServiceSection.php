@@ -15,7 +15,8 @@ class ServiceSection extends Model
         'name',
         'slug',
         'tagline',
-        'content'
+        'content',
+        'is_global',
     ];
 
     protected $hidden = [

@@ -10,6 +10,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Services from './components/Services';
 import ServiceCategories from './components/ServiceCategories';
+import ServiceSections from './components/ServiceSections';
 import ProductCategories from './components/ProductCategories';
 import Products from './components/Products';
 import Processes from './components/Processes';
@@ -48,6 +49,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="services/list" element={<Services />} />
               <Route path="services/categories" element={<ServiceCategories />} />
+              <Route path="services/sections" element={<ServiceSections />} />
               <Route path="products/list" element={<Products />} />
               <Route path="products/categories" element={<ProductCategories />} />
               <Route path="miscellaneous/processes" element={<Processes />} />
