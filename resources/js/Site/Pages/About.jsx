@@ -7,6 +7,7 @@ import AboutMain from '../Components/About/AboutMain';
 import AboutMissionVision from '../Components/About/AboutMissionVision';
 import AboutTeam from '../Components/About/AboutTeam';
 import AboutFounder from '../Components/About/AboutFounder';
+import AboutCustomers from '../Components/About/AboutCustomers';
 
 const AboutSection = styled(Box)(({ theme }) => ({
     padding: theme.spacing(4),
@@ -83,6 +84,7 @@ const AboutPage = () => {
             <AboutMissionVision />
             <AboutTeam />
             <AboutFounder />
+            <AboutCustomers />
         </>
         
     );
