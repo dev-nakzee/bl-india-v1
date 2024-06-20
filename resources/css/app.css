@@ -62,7 +62,7 @@ li a {
     z-index: 1301;
 }
 
-/* About Section CSS */
+/* Home Page All Section CSS */
 
 .about-content ul {
     padding: 0;
@@ -95,7 +95,7 @@ li a {
     box-shadow: none;
 }
 .Brochure-section-data{padding:0 !important;}
-.Footer-section{ }
+
 .Footer-section h4{
     position: relative;
     color:#ffffff !important;
@@ -125,6 +125,14 @@ li a {
     flex-direction: column;
     justify-content: flex-start;
     gap: 15px;
+  }
+  /* Service List Css */
+  .Service-section-siderbar{
+    padding: 20px;
+    border:1px solid #0d629a;
+    border-radius: 25px;
+    margin-right: 40px;
+    margin-top:80px;
   }
 
 @media (max-width: 767px) {
