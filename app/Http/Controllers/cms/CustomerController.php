@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class CustomerController extends Controller
 {
@@ -22,33 +24,33 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         //
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image_alt' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_alt' => 'nullable|string|max:255',
         ]);
 
-        $customer = new Customer();
-        $customer->name = $request->name;
-        $customer->image_alt = $request->image_alt;
-
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $customer->image_url = '/storage/' . $imagePath;
+            $imageWebp  = Image::make($request->file('image'))->encode('webp', 100);
+            $imageName = uniqid() . '.webp';
+
+            // Convert and store original image as WebP
+            $imagePath = 'customer_images/' . $imageName;
+            Storage::disk('public')->put($imagePath, (string) $imageWebp);
+            $validated['image_url'] = Storage::url($imagePath);
         }
 
-        $customer->save();
-
+        $customer = Customer::create($validated);
         return response()->json($customer, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
         //
         $customer = Customer::findOrFail($id);
@@ -58,44 +60,49 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update1(Request $request, string $id)
+    public function update1(Request $request, string $id): JsonResponse
     {
         //
-        $customer = Customer::findOrFail($id);
-
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image_alt' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_alt' => 'nullable|string|max:255',
         ]);
 
-        $customer->name = $request->name;
-        $customer->image_alt = $request->image_alt;
+        $customer = Customer::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            // Delete old image if exists
+            // Delete the old image if exists
             if ($customer->image_url) {
                 Storage::disk('public')->delete(str_replace('/storage/', '', $customer->image_url));
             }
-            $imagePath = $request->file('image')->store('images', 'public');
-            $customer->image_url = '/storage/' . $imagePath;
+
+            $imageWebp  = Image::make($request->file('image'))->encode('webp', 100);
+            $imageName = uniqid() . '.webp';
+
+            // Convert and store original image as WebP
+            $imagePath = 'customer_images/' . $imageName;
+            Storage::disk('public')->put($imagePath, (string) $imageWebp);
+            $validated['image_url'] = Storage::url($imagePath);
         }
 
-        $customer->save();
-
-        return response()->json($customer);
+        $customer->update($validated);
+        return response()->json($customer, 202);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse 
     {
         //
         $customer = Customer::findOrFail($id);
+
+        // Delete the image if exists
         if ($customer->image_url) {
             Storage::disk('public')->delete(str_replace('/storage/', '', $customer->image_url));
         }
+
         $customer->delete();
         return response()->json(null, 204);
     }
