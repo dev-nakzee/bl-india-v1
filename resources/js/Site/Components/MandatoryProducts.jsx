@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Typography,
-  CircularProgress,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-} from '@mui/material';
+import { Box, Typography, CircularProgress, Grid, Card, CardContent } from '@mui/material';
+import { styled } from '@mui/system';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+
+const ProductCard = styled(Card)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  height: '100%',
+  boxShadow: theme.shadows[5],
+  margin: theme.spacing(2),
+}));
 
 const MandatoryProducts = ({ serviceId }) => {
   const [products, setProducts] = useState([]);
@@ -37,30 +39,23 @@ const MandatoryProducts = ({ serviceId }) => {
     );
   }
 
-  if (!products.length) {
-    return <Typography>No mandatory products available.</Typography>;
-  }
-
   return (
     <Grid container spacing={2}>
-      {products.map((product) => (
-        <Grid item key={product.id} xs={12} sm={6} md={4}>
-          <Card>
-            <CardMedia
-              component="img"
-              height="140"
-              image={`https://in.bl-india.com/${product.image_url}`}
-              alt={product.image_alt}
-            />
+      {products.map((product, index) => (
+        <Grid item key={index} xs={12} sm={6} md={4}>
+          <ProductCard>
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {product.name}
+              <Typography variant="h5" component="div">
+                {product.product_name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {product.description}
+                {product.product_slug}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {product.product_category_name}
               </Typography>
             </CardContent>
-          </Card>
+          </ProductCard>
         </Grid>
       ))}
     </Grid>

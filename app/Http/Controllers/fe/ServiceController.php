@@ -70,6 +70,10 @@ class ServiceController extends Controller
             return [
                 'product_name' => $productServiceMap->product->name,
                 'product_slug' => $productServiceMap->product->slug,
+                'product_is_standard' => $productServiceMap->is,
+                'product_group' => $productServiceMap->group,
+                'product_scheme' => $productServiceMap->scheme,
+                'product_others' => $productServiceMap->others,
                 'product_category_name' => $productServiceMap->product->productCategory->name,
             ];
         });
