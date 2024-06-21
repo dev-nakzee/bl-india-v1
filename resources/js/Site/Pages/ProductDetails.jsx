@@ -52,9 +52,6 @@ const ProductDetails = () => {
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
       <Box sx={{ padding: 4 }}>
-        <Typography variant="h2" gutterBottom>
-          {productData.name}
-        </Typography>
         <Card sx={{ display: 'flex', mb: 4 }}>
           <CardMedia
             component="img"
@@ -63,12 +60,22 @@ const ProductDetails = () => {
             alt={productData.image_alt}
           />
           <CardContent>
-            <Typography variant="body1">
-              {productData.description ? parse(productData.description) : 'No description available.'}
-            </Typography>
+                <Typography variant="h3" gutterBottom>
+                {productData.name}
+                </Typography>
+                {productData.technical_name ?
+                   ( <Typography variant="h3" gutterBottom>
+                    Technical Name : {productData.technical_name}
+                    </Typography>) : ("")}
+                <Typography variant="h3" gutterBottom>
+                    Product Category : {productData.product_category.name}
+                </Typography>
           </CardContent>
         </Card>
         <Box>
+        <Typography variant="body1">
+              {productData.description ? parse(productData.description) : 'No description available.'}
+        </Typography>
           <Typography variant="h4" gutterBottom>
             Services
           </Typography>
