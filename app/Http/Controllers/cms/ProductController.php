@@ -31,7 +31,6 @@ class ProductController extends Controller
          $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:products',
-            'tagline' => 'nullable|string|max:255',
             'technical_name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
@@ -87,7 +86,6 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|max:255|unique:products,slug,' . $id,
-            'tagline' => 'nullable|string|max:255',
             'technical_name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',

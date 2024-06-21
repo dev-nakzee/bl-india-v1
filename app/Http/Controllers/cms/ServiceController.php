@@ -28,6 +28,7 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:services',
+            'tagline' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'image_alt' => 'nullable|string',
             'description' => 'nullable|string',
@@ -85,6 +86,7 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|max:255|unique:services,slug,' . $id,
+            'tagline' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'image_alt' => 'nullable|string',
             'description' => 'nullable|string',
