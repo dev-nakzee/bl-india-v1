@@ -57,6 +57,9 @@ li a {
     text-decoration: none;
     color: #fff;
 }
+.font-bold{
+    font-weight: 600;
+}
 
 .MuiButtonBase-root:disabled {
     cursor: not-allowed;
@@ -167,6 +170,33 @@ li a {
   .Service-section p img{
     width: 100%;
   }
+
+  /******** Product List ***********/
+ .Product-card{
+    background-color:unset !important;
+    -webkit-transition: unset !important;
+    transition: unset !important;
+    border-radius: 4px;
+    box-shadow: unset !important;
+    align-items: center;
+    gap: 20px
+ } 
+ .Product-card img{
+   
+    color: rgba(0, 0, 0, 0.87);
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+ box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+ }
+ .ProductDetail-tab{
+    border: 3px solid #1C7CBC  ;
+ }
+ .ProductDetail-tab button{
+    background-color: #c3e7ff;
+    border-right: 3px solid #1C7CBC  ;
+ }
+   /******** Product List ***********/
 
 @media (max-width: 767px) {
     .box-hidden {
