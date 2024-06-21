@@ -23,4 +23,9 @@ class NotificationController extends Controller
             'categories' => $categories,
         ]);
     }
+    public function notificationDetails($categorySlug, $slug): JsonResponse
+    {
+        $notification = Notification::where('slug', $slug)->with('products')->first();
+        return response()->json($notification);
+    }
 }

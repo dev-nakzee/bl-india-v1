@@ -11,6 +11,7 @@ import Services from './Pages/Services';
 import ServiceDetails from './Pages/ServiceDetails';
 import ProductDetails from './Pages/ProductDetails';
 import Notifications from './Pages/Notifications';
+import NotificationDetails from './Pages/NotificationDetails';
 import theme from './Layouts/Theme';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/products/:slug" element={<ProductDetails />} />
             <Route path='/notifications' element={<Notifications />} />
             <Route path='/notifications/:categorySlug' element={<Notifications />} />
+            <Route path='/notifications/:categorySlug/:slug' element={<NotificationDetails />} />
           </Routes>
         </Layout>
       </BrowserRouter>

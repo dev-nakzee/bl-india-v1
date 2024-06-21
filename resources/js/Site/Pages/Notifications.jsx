@@ -4,29 +4,29 @@ import {
   Typography,
   CircularProgress,
   Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   List,
   ListItem,
   ListItemText,
-  Button,
+  Pagination,
+  Link as MuiLink
 } from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
-const NotificationPage = () => {
+const Notifications = () => {
   const { categorySlug } = useParams();
   const [pageData, setPageData] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const notificationsPerPage = 5;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,9 +67,18 @@ const NotificationPage = () => {
     navigate(`/notifications/${slug}`);
   };
 
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
   const filteredNotifications = selectedCategory === 'all' 
     ? notifications 
     : notifications.filter(notification => notification.notification_category_id === selectedCategory);
+
+  const paginatedNotifications = filteredNotifications.slice(
+    (currentPage - 1) * notificationsPerPage,
+    currentPage * notificationsPerPage
+  );
 
   return (
     <>
@@ -108,32 +117,50 @@ const NotificationPage = () => {
             <Typography variant="h3" gutterBottom>
               {pageData.name}
             </Typography>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Actions</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filteredNotifications.map(notification => (
-                    <TableRow key={notification.id}>
-                      <TableCell>{notification.id}</TableCell>
-                      <TableCell>{notification.name}</TableCell>
-                      <TableCell>{notification.date}</TableCell>
-                      <TableCell>
-                        <Button variant="outlined" component="a" href={`/notifications/${notification.category.slug}/${notification.slug}`}>
-                          View
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            {paginatedNotifications.map(notification => (
+              <Accordion key={notification.id}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls={`panel${notification.id}-content`}
+                  id={`panel${notification.id}-header`}
+                >
+                  <Typography>{notification.name}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography variant="body2" color="textSecondary">
+                    {notification.date}
+                  </Typography>
+                  <List>
+                    {notification.products.length > 0 ? (
+                      notification.products.map(product => (
+                        <ListItem key={product.id}>
+                          <MuiLink href={`/products/${product.slug}`} target="_blank">
+                            {product.name}
+                          </MuiLink>
+                        </ListItem>
+                      ))
+                    ) : (
+                      <Typography variant="body1">No products available.</Typography>
+                    )}
+                  </List>
+                  <MuiLink
+                    component={Link}
+                    to={`/notification/${notification.id}`}
+                    sx={{ mt: 2 }}
+                  >
+                    View Notification Details
+                  </MuiLink>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+              <Pagination
+                count={Math.ceil(filteredNotifications.length / notificationsPerPage)}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+              />
+            </Box>
           </Grid>
         </Grid>
       </Box>
@@ -141,4 +168,4 @@ const NotificationPage = () => {
   );
 };
 
-export default NotificationPage;
+export default Notifications;
