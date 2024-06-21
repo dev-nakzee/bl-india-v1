@@ -7,6 +7,7 @@ use App\Http\Controllers\fe\LayoutController;
 use App\Http\Controllers\fe\AboutController;
 use App\Http\Controllers\fe\ServiceController;
 use App\Http\Controllers\fe\NotificationController;
+use App\Http\Controllers\fe\BlogController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
