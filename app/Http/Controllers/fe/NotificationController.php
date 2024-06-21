@@ -15,7 +15,7 @@ class NotificationController extends Controller
     public function notifications(): JsonResponse
     {
         $page = Page::where('slug', 'notifications')->get();
-        $notifications = Notification::orderBy('date', 'desc')->with('category', 'products')->get();
+        $notifications = Notification::orderBy('id')->with('category', 'products')->limit(3)->get();
         $categories = NotificationCategory::orderBy('id', 'asc')->get();
         return response()->json([
             'page' => $page,
