@@ -6,6 +6,10 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Tabs,
+  Tab,
+  TabContext,
+  TabPanel,
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -16,6 +20,7 @@ const ProductDetails = () => {
   const { slug } = useParams();
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [tabValue, setTabValue] = useState('0');
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -31,6 +36,10 @@ const ProductDetails = () => {
 
     fetchProductData();
   }, [slug]);
+
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
 
   if (loading) {
     return (
@@ -60,33 +69,39 @@ const ProductDetails = () => {
             alt={productData.image_alt}
           />
           <CardContent>
-                <Typography variant="h3" gutterBottom>
-                {productData.name}
-                </Typography>
-                {productData.technical_name ?
-                   ( <Typography variant="h3" gutterBottom>
-                    Technical Name : {productData.technical_name}
-                    </Typography>) : ("")}
-                <Typography variant="h3" gutterBottom>
-                    Product Category : {productData.product_category.name}
-                </Typography>
+            <Typography variant="h3" gutterBottom>
+              {productData.name}
+            </Typography>
+            {productData.technical_name && (
+              <Typography variant="h5" gutterBottom>
+                Technical Name: {productData.technical_name}
+              </Typography>
+            )}
+            <Typography variant="h5" gutterBottom>
+              Product Category: {productData.product_category.name}
+            </Typography>
           </CardContent>
         </Card>
         <Box>
-        <Typography variant="body1">
-              {productData.description ? parse(productData.description) : 'No description available.'}
-        </Typography>
+          <Typography variant="body1">
+            {productData.description ? parse(productData.description) : 'No description available.'}
+          </Typography>
           <Typography variant="h4" gutterBottom>
             Services
           </Typography>
           {productData.services.length > 0 ? (
-            productData.services.map(service => (
-              <Box key={service.id} sx={{ mb: 4 }}>
-                <Typography variant="h5" gutterBottom>
+            <TabContext value={tabValue}>
+              <Tabs value={tabValue} onChange={handleTabChange} aria-label="service tabs">
+                {productData.services.map((service, index) => (
+                  <Tab key={service.id} label={`Service ${index + 1}`} value={`${index}`} />
+                ))}
+              </Tabs>
+              {productData.services.map((service, index) => (
+                <TabPanel key={service.id} value={`${index}`}>
                   {service.details ? parse(service.details) : 'No details available.'}
-                </Typography>
-              </Box>
-            ))
+                </TabPanel>
+              ))}
+            </TabContext>
           ) : (
             <Typography>No services available for this product.</Typography>
           )}
