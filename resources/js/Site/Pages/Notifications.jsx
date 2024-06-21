@@ -145,7 +145,7 @@ const Notifications = () => {
                   </List>
                   <MuiLink
                     component={Link}
-                    to={`/notification/${notification.id}`}
+                    to={`/notifications/${notification.category.slug}/${notification.slug}`}
                     sx={{ mt: 2 }}
                   >
                     View Notification Details

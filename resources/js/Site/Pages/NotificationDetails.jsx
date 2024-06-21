@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, CircularProgress, Link as MuiLink } from '@mui/material';
+import { Box, Typography, CircularProgress, Link as MuiLink, List, ListItem, IconButton } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const NotificationDetails = () => {
-  const { id } = useParams();
+  const { categorySlug, slug } = useParams();
   const [notification, setNotification] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNotification = async () => {
       try {
-        const response = await apiClient.get(`/notifications/${id}`);
+        const response = await apiClient.get(`/notifications/${categorySlug}/${slug}`);
         setNotification(response.data);
       } catch (error) {
         console.error('Error fetching notification details:', error);
@@ -22,7 +24,7 @@ const NotificationDetails = () => {
     };
 
     fetchNotification();
-  }, [id]);
+  }, [categorySlug, slug]);
 
   if (loading) {
     return (
@@ -51,19 +53,32 @@ const NotificationDetails = () => {
           {notification.date}
         </Typography>
         <Box sx={{ marginY: 2 }}>
-          <Typography variant="body1">{notification.content}</Typography>
+          <Typography variant="body1" dangerouslySetInnerHTML={{ __html: notification.content }} />
         </Box>
-        <MuiLink href={notification.file_url} target="_blank" rel="noopener noreferrer">
-          View PDF
-        </MuiLink>
+        <Box sx={{ display: 'flex', alignItems: 'center', marginY: 2 }}>
+          <MuiLink href={notification.file_url} target="_blank" rel="noopener noreferrer">
+            <IconButton>
+              <PictureAsPdfIcon />
+            </IconButton>
+          </MuiLink>
+          <MuiLink href={notification.file_url} target="_blank" download>
+            <IconButton>
+              <DownloadIcon />
+            </IconButton>
+          </MuiLink>
+        </Box>
         <Box sx={{ marginY: 2 }}>
           <Typography variant="h6">Products</Typography>
           {notification.products.length > 0 ? (
-            notification.products.map((product) => (
-              <MuiLink key={product.id} href={`/products/${product.slug}`} target="_blank">
-                {product.name}
-              </MuiLink>
-            ))
+            <List>
+              {notification.products.map((product) => (
+                <ListItem key={product.id}>
+                  <MuiLink href={`/products/${product.slug}`} target="_blank">
+                    {product.name}
+                  </MuiLink>
+                </ListItem>
+              ))}
+            </List>
           ) : (
             <Typography>No products available.</Typography>
           )}
