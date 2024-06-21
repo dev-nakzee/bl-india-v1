@@ -9,6 +9,7 @@ use App\Models\Service;
 use App\Models\ServiceCategory;
 use App\Models\ServiceSection;
 use App\Models\ProductServiceMap;
+use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 
 class ServiceController extends Controller
@@ -85,6 +86,13 @@ class ServiceController extends Controller
             ->all();
 
         return response()->json($products);
+    }
+
+    public function productDetails(Request $request, string $slug): JsonResponse
+    {
+        $product = Product::where('slug', $slug)->with(['productCategory','services', 'services', 'services.service'])->first();
+
+        return response()->json(['product' => $product]);
     }
 
 }

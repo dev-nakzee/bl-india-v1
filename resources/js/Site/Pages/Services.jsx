@@ -12,7 +12,7 @@ import {
   ListItemText,
   Button,
 } from '@mui/material';
-import { Link } from'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
@@ -30,14 +30,13 @@ const ServiceCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'space-between',
   height: '100%',
-  // margin: theme.spacing(2),
   boxShadow: theme.shadows[5],
 }));
 
 const ServiceImage = styled(CardMedia)(({ theme }) => ({
- maxWidth: '85px',
+  maxWidth: '85px',
   backgroundSize: 'contain',
-  objectFit: 'contain' ,
+  objectFit: 'contain',
   marginRight: '20px',
 }));
 
@@ -62,16 +61,21 @@ const ServicesList = styled(Box)(({ theme }) => ({
 }));
 
 const Services = () => {
+  const { categorySlug } = useParams();
   const [serviceData, setServiceData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchServiceData = async () => {
       try {
         const response = await apiClient.get('/services');
         setServiceData(response.data);
-        setSelectedCategory('all'); // Default to 'All Services'
+        const category = response.data.serviceCategories.find(
+          (cat) => cat.slug === categorySlug
+        );
+        setSelectedCategory(category ? category.id : 'all'); // Default to 'All Services' if no categorySlug is matched
       } catch (error) {
         console.error('Error fetching service data:', error);
       } finally {
@@ -80,7 +84,7 @@ const Services = () => {
     };
 
     fetchServiceData();
-  }, []);
+  }, [categorySlug]);
 
   if (loading) {
     return (
@@ -94,8 +98,9 @@ const Services = () => {
     return null; // Or return a fallback UI if needed
   }
 
-  const handleCategoryClick = (categoryId) => {
+  const handleCategoryClick = (categoryId, slug) => {
     setSelectedCategory(categoryId);
+    navigate(`/services/${slug}`);
   };
 
   const filteredServices = selectedCategory === 'all' 
@@ -126,7 +131,7 @@ const Services = () => {
             <ListItem
               button
               selected={selectedCategory === 'all'}
-              onClick={() => handleCategoryClick('all')}
+              onClick={() => handleCategoryClick('all', '')}
             >
               <ListItemText primary="All Services" />
             </ListItem>
@@ -135,7 +140,7 @@ const Services = () => {
                 key={category.id}
                 button
                 selected={category.id === selectedCategory}
-                onClick={() => handleCategoryClick(category.id)}
+                onClick={() => handleCategoryClick(category.id, category.slug)}
               >
                 <ListItemText primary={category.name} />
               </ListItem>
@@ -165,7 +170,7 @@ const Services = () => {
                         <Typography variant="body2" color="text.secondary">
                           {service.description}
                         </Typography>
-                        <Button sx={{marginTop:'15px'}} variant="outlined" component={Link} to={`/services/${service.slug}`}>
+                        <Button sx={{marginTop:'15px'}} variant="outlined" component={Link} to={`/services/${service.service_category.slug}/${service.slug}`}>
                             Read More
                         </Button>
                       </ServiceCardContent>
