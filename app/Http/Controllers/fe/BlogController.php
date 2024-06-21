@@ -16,7 +16,7 @@ class BlogController extends Controller
     {
         $page = Page::where('slug', 'blogs')->first();
         $blogs = Blog::orderBy('id', 'desc')->limit(2)->get();
-        $category = BlogCategory::orderBY('id', 'asc')->get();
+        $category = BlogCategory::orderBy('id', 'asc')->get();
         return response()->json(['page' => $page, 'blogs' => $blogs]);
     }
 }
