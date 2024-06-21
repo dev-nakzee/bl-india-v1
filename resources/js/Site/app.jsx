@@ -29,6 +29,7 @@ function App() {
             <Route path="/services/:categorySlug/:slug" element={<ServiceDetails />} />
             <Route path="/products/:slug" element={<ProductDetails />} />
             <Route path='/notifications' element={<Notifications />} />
+            <Route path='/notifications/:categorySlug' element={<Notifications />} />
           </Routes>
         </Layout>
       </BrowserRouter>
