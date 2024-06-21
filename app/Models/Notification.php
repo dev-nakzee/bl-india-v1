@@ -33,4 +33,8 @@ class Notification extends Model
     {
         return $this->belongsTo(NotificationCategory::class, 'notification_category_id');
     }
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'notification_product_maps');
+    }
 }

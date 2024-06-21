@@ -40,4 +40,8 @@ class Product extends Model
     {
         return $this->hasMany(ProductServiceMap::class);
     }
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class, 'notification_product_maps');
+    }
 }

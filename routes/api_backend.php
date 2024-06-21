@@ -81,6 +81,9 @@ Route::prefix('v1/cms')->group(function(){
         // Notifications Route
         Route::apiResource('notifications', \App\Http\Controllers\cms\NotificationController::class);
         Route::post('notifications/{id}', [\App\Http\Controllers\cms\NotificationController::class, 'update1']);
+        Route::get('/notifications/{id}/products', [NotificationController::class, 'getProducts']);
+        Route::post('/notifications/{id}/products', [NotificationController::class, 'attachProducts']);
+        Route::delete('/notifications/{notificationId}/products/{productId}', [NotificationController::class, 'detachProduct']);
 
         // Download Category Routes
         Route::apiResource('download-categories', \App\Http\Controllers\cms\DownloadCategoryController::class);

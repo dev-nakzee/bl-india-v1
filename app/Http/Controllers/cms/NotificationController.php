@@ -5,24 +5,27 @@ namespace App\Http\Controllers\cms;
 use App\Http\Controllers\Controller;
 
 use App\Models\Notification;
+use App\Models\Product;
+use App\Models\NoticeProductMap;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\JsonResponse;
 
 class NotificationController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $notifications = Notification::orderBy('id', 'desc')->with('category')->get();
         return response()->json($notifications);
     }
 
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $notification = Notification::with('category')->findOrFail($id);
         return response()->json($notification);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'notification_category_id' => 'required|exists:notification_categories,id',
@@ -47,7 +50,7 @@ class NotificationController extends Controller
         return response()->json($notification, 201);
     }
 
-    public function update1(Request $request, $id)
+    public function update1(Request $request, $id): JsonResponse
     {
         $notification = Notification::findOrFail($id);
 
@@ -80,7 +83,7 @@ class NotificationController extends Controller
         return response()->json($notification);
     }
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $notification = Notification::findOrFail($id);
         
@@ -92,5 +95,32 @@ class NotificationController extends Controller
 
         $notification->delete();
         return response()->json(null, 204);
+    }
+
+    public function getProducts(string $id): JsonResponse
+    {
+        $notification = Notification::with('products')->findOrFail($id);
+        $allProducts = Product::all(); // Fetch all products for attaching
+        return response()->json(['notification' => $notification, 'allProducts' => $allProducts]);
+    }
+
+    public function attachProducts(Request $request, $id): JsonResponse
+    {
+        $notification = Notification::findOrFail($id);
+        $productId = $request->product_id;
+
+        try {
+            $notification->products()->attach($productId);
+            return response()->json(['message' => 'Product attached successfully']);
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Product is already attached to this notification'], 400);
+        }
+    }
+
+    public function detachProduct($notificationId, $productId): JsonResponse
+    {
+        $notification = Notification::findOrFail($notificationId);
+        $notification->products()->detach($productId);
+        return response()->json(['message' => 'Product detached successfully']);
     }
 }

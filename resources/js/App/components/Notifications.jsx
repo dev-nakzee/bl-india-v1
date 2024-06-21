@@ -31,6 +31,8 @@ import apiClient from '../services/api'; // Ensure this is your configured axios
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [notification, setNotification] = useState({
@@ -43,14 +45,18 @@ const Notifications = () => {
     seo_tags: '',
     file_url: null,
     content: '',
-    date: '' // Add this line
+    date: ''
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [selectedNotificationId, setSelectedNotificationId] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     fetchNotifications();
     fetchCategories();
+    fetchProducts();
   }, []);
 
   const fetchNotifications = async () => {
@@ -71,6 +77,25 @@ const Notifications = () => {
     }
   };
 
+  const fetchProducts = async () => {
+    try {
+      const response = await apiClient.get('/products');
+      setProducts(response.data);
+      setFilteredProducts(response.data);
+    } catch (error) {
+      toast.error('Failed to fetch products');
+    }
+  };
+
+  const fetchRelatedProducts = async (notificationId) => {
+    try {
+      const response = await apiClient.get(`/notifications/${notificationId}/products`);
+      setRelatedProducts(response.data.notification.products);
+    } catch (error) {
+      toast.error('Failed to fetch related products');
+    }
+  };
+
   const handleClickOpen = () => {
     setNotification({
       notification_category_id: '',
@@ -82,7 +107,7 @@ const Notifications = () => {
       seo_tags: '',
       file_url: null,
       content: '',
-      date: '' // Add this line
+      date: ''
     });
     setEditing(false);
     setOpen(true);
@@ -165,6 +190,37 @@ const Notifications = () => {
     }
   };
 
+  const handleAttachProduct = async (productId) => {
+    try {
+      await apiClient.post(`/notifications/${selectedNotificationId}/products`, { product_id: productId });
+      fetchRelatedProducts(selectedNotificationId);
+      toast.success('Product attached successfully');
+    } catch (error) {
+      toast.error('Failed to attach product');
+    }
+  };
+
+  const handleDetachProduct = async (productId) => {
+    try {
+      await apiClient.delete(`/notifications/${selectedNotificationId}/products/${productId}`);
+      fetchRelatedProducts(selectedNotificationId);
+      toast.success('Product detached successfully');
+    } catch (error) {
+      toast.error('Failed to detach product');
+    }
+  };
+
+  const handleManageProducts = (notificationId) => {
+    setSelectedNotificationId(notificationId);
+    fetchRelatedProducts(notificationId);
+  };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearch(value);
+    setFilteredProducts(products.filter((product) => product.name.toLowerCase().includes(value)));
+  };
+
   const modules = {
     toolbar: [
       [{ header: '1'}, { header: '2'}],
@@ -205,7 +261,7 @@ const Notifications = () => {
               <TableCell>Name</TableCell>
               <TableCell>Category</TableCell>
               <TableCell>Slug</TableCell>
-              <TableCell>Date</TableCell> {/* Add this line */}
+              <TableCell>Date</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -216,7 +272,7 @@ const Notifications = () => {
                 <TableCell>{notification.name}</TableCell>
                 <TableCell>{notification.category.name}</TableCell>
                 <TableCell>{notification.slug}</TableCell>
-                <TableCell>{notification.date}</TableCell> {/* Add this line */}
+                <TableCell>{notification.date}</TableCell>
                 <TableCell>
                   <IconButton color="primary" onClick={() => handleEditClick(notification)}>
                     <EditIcon />
@@ -224,6 +280,9 @@ const Notifications = () => {
                   <IconButton color="secondary" onClick={() => handleDeleteClick(notification.id)}>
                     <DeleteIcon />
                   </IconButton>
+                  <Button color="primary" onClick={() => handleManageProducts(notification.id)}>
+                    Manage Products
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -361,6 +420,67 @@ const Notifications = () => {
           </Button>
           <Button onClick={handleDeleteConfirm} color="secondary" autoFocus>
             Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={Boolean(selectedNotificationId)} onClose={() => setSelectedNotificationId(null)} maxWidth="md" fullWidth>
+        <DialogTitle>Manage Products</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Attach or detach products related to this notification.
+          </DialogContentText>
+          <Box sx={{ marginBottom: 2 }}>
+            <TextField
+              label="Search Products"
+              value={search}
+              onChange={handleSearchChange}
+              fullWidth
+              margin="normal"
+            />
+            <Typography variant="h6">Attach Product</Typography>
+            <TextField
+              select
+              label="Product"
+              onChange={(e) => handleAttachProduct(e.target.value)}
+              fullWidth
+              margin="normal"
+            >
+              {filteredProducts.map((product) => (
+                <MenuItem key={product.id} value={product.id}>
+                  {product.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {relatedProducts.map((product) => (
+                  <TableRow key={product.id}>
+                    <TableCell>{product.id}</TableCell>
+                    <TableCell>{product.name}</TableCell>
+                    <TableCell>
+                      <IconButton color="secondary" onClick={() => handleDetachProduct(product.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setSelectedNotificationId(null)} color="primary">
+            Close
           </Button>
         </DialogActions>
       </Dialog>
