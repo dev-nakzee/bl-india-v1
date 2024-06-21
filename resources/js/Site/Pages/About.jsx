@@ -82,8 +82,8 @@ const AboutPage = () => {
             </AboutSection> */}
             <AboutMain />
             <AboutMissionVision />
-            <AboutTeam />
             <AboutFounder />
+            <AboutTeam />          
             <AboutCustomers />
         </>
         

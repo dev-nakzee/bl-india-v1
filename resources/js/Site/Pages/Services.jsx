@@ -21,8 +21,8 @@ const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
   padding: theme.spacing(4),
   backgroundColor: '#f5f5f5',
-  boxShadow: theme.shadows[5],
-  display: 'flex',
+  // boxShadow: theme.shadows[5],
+  // display: 'flex',
 }));
 
 const ServiceCard = styled(Card)(({ theme }) => ({
@@ -50,7 +50,9 @@ const ServiceCardContent = styled(CardContent)(({ theme }) => ({
 
 const Sidebar = styled(Box)(({ theme }) => ({
   width: '25%',
-  maxHeight: '400px',
+  height: 'fit-content',
+  position: 'sticky',
+  top: '20px',
   overflowY: 'auto',
   paddingRight: theme.spacing(2),
 }));
@@ -107,7 +109,17 @@ const Services = () => {
         <meta name="description" content={serviceData.page.seo_description} />
         <meta name="keywords" content={serviceData.page.seo_keywords} />
       </Helmet>
+      <Grid item xs={12}  display={'flex'} justifyContent={'space-between'} alignContent={'center'}marginBlock={3}>
+              <Typography variant="h2" sx={{ textAlign: 'left', fontWeight: 500, maxWidth: 280, color: '#0D629A', margin: 'auto', borderRadius: 20 }}>
+                {serviceData.page.name}
+              </Typography>
+              <Typography variant="h2" sx={{ textAlign: 'left', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                {serviceData.page.title}
+              </Typography>
+            </Grid>
       <ServiceSection className='Service-section'>
+     
+            <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
         <Sidebar className='Service-section-siderbar'>
           <Typography variant="h3" mb={2}>Service Categories</Typography>
           <List>
@@ -132,14 +144,7 @@ const Services = () => {
         </Sidebar>
         <ServicesList>
           <Grid container spacing={4} alignItems="center">
-            <Grid item xs={12}>
-              <Typography variant="h2" sx={{ textAlign: 'left', fontWeight: 500, maxWidth: 280, color: '#0D629A', margin: 'auto', borderRadius: 20 }}>
-                {serviceData.page.name}
-              </Typography>
-              <Typography variant="h2" sx={{ textAlign: 'left', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
-                {serviceData.page.title}
-              </Typography>
-            </Grid>
+           
             <Grid item xs={12}>
               <Grid container spacing={2}>
                 {filteredServices.map(service => (
@@ -171,6 +176,7 @@ const Services = () => {
             </Grid>
           </Grid>
         </ServicesList>
+        </Box>
       </ServiceSection>
     </>
   );
