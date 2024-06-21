@@ -24,9 +24,9 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/services/:slug" element={<ServiceDetails />} />
+            <Route path="/services/:categorySlug" element={<Services />} />
+            <Route path="/services/:categorySlug/:slug" element={<ServiceDetails />} />
             <Route path="/products/:slug" element={<ProductDetails />} />
-            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
           </Routes>
         </Layout>
       </BrowserRouter>

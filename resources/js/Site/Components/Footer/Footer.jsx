@@ -19,6 +19,8 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import PinterestIcon from "@mui/icons-material/Pinterest";
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import MailIcon from '@mui/icons-material/Mail';
 import logo from "../../Assets/logo.svg";
 import apiClient from "../../Services/api";
 
@@ -92,7 +94,7 @@ const Footer = () => {
                         Services
                     </Typography>
                     {footerData.service.map((service) => (
-                        <FooterLink key={service.id} href={`/${service.slug}`}>
+                        <FooterLink key={service.id} href={`/services/${service.slug}`}>
                             <Typography
                                 variant="body2"
                                 className="Service-list"
@@ -141,12 +143,21 @@ const Footer = () => {
                         Contact Us
                     </Typography>
                     <Typography
-                        variant="body2"
+                        variant="h3"
                         textAlign={"left"}
                         className="Service-list"
+                        sx={{ color: '#ffffff'}}
                     >
                         {footerData.contact.name}
                     </Typography>
+                    <Typography
+                        variant="body2"
+                        dangerouslySetInnerHTML={{
+                            __html: footerData.contact.address,
+                        }}
+                        textAlign={"left"}
+                        mb={2} 
+                    />
                     <Typography
                         variant="body2"
                         textAlign={"left"}
@@ -175,13 +186,6 @@ const Footer = () => {
                     >
                         {footerData.contact.phone3}
                     </Typography>
-                    <Typography
-                        variant="body2"
-                        dangerouslySetInnerHTML={{
-                            __html: footerData.contact.address,
-                        }}
-                        textAlign={"left"}
-                    />
                 </Grid>
             </Grid>
             <Divider sx={{ marginBlock: "25px", backgroundColor: "#fff" }} />

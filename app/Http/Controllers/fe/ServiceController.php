@@ -87,4 +87,11 @@ class ServiceController extends Controller
         return response()->json($products);
     }
 
+    public function productDetails(Request $request, string $slug): JsonResponse
+    {
+        $product = Product::where('slug', $slug)->with('service')->first();
+
+        return response()->json(['product' => $product]);
+    }
+
 }
