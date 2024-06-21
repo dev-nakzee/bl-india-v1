@@ -40,4 +40,9 @@ Route::prefix('v1/fe')->group(function(){
 
     // Products Page Routes
     Route::get('/products/{slug}', [ServiceController::class, 'productDetails']);
+
+    // Notifications Page Routes
+    Route::get('/notifications', [ServiceController::class, 'notifications']);
+    Route::get('/notifications/{slug}', [ServiceController::class, 'notificationDetails']);
+
 });
