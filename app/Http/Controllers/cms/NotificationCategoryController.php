@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\NotificationCategory;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class NotificationCategoryController extends Controller
 {

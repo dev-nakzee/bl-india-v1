@@ -6,6 +6,7 @@ use App\Http\Controllers\fe\LanguageController;
 use App\Http\Controllers\fe\LayoutController;
 use App\Http\Controllers\fe\AboutController;
 use App\Http\Controllers\fe\ServiceController;
+use App\Http\Controllers\fe\NotificationController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -40,4 +41,9 @@ Route::prefix('v1/fe')->group(function(){
 
     // Products Page Routes
     Route::get('/products/{slug}', [ServiceController::class, 'productDetails']);
+
+    // Notifications Page Routes
+    Route::get('/notifications', [NotificationController::class, 'notifications']);
+    Route::get('/notifications/{categorySlug}/{slug}', [NotificationController::class, 'notificationDetails']);
+
 });
