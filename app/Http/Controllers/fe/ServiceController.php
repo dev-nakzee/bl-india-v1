@@ -90,7 +90,7 @@ class ServiceController extends Controller
 
     public function productDetails(Request $request, string $slug): JsonResponse
     {
-        $product = Product::where('slug', $slug)->with('service')->first();
+        $product = Product::where('slug', $slug)->with('services')->first();
 
         return response()->json(['product' => $product]);
     }
