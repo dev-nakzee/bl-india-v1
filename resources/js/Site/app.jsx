@@ -10,6 +10,7 @@ import About from './Pages/About';
 import Services from './Pages/Services';
 import ServiceDetails from './Pages/ServiceDetails';
 import ProductDetails from './Pages/ProductDetails';
+import Notifications from './Pages/Notifications';
 import theme from './Layouts/Theme';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/services/:categorySlug" element={<Services />} />
             <Route path="/services/:categorySlug/:slug" element={<ServiceDetails />} />
             <Route path="/products/:slug" element={<ProductDetails />} />
+            <Route path='/notifications' element={<Notifications />} />
           </Routes>
         </Layout>
       </BrowserRouter>
