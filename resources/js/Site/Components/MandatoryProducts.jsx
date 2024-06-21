@@ -100,12 +100,10 @@ const MandatoryProducts = ({ serviceId }) => {
         onRowClick={handleRowClick}
         getRowId={(row) => row.product_slug} // Ensure unique row ID
         initialState={{
-          pagination: {
-            pageSize: 25,
-          },
-          sorting: {
-            sortModel: [{ field: 'category_id', sort: 'asc' }],
-          },
+            pagination: { paginationModel: { pageSize: 25 } },
+            sorting: {
+                sortModel: [{ field: 'category_id', sort: 'asc' }],
+            },
         }}
       />
     </Box>
