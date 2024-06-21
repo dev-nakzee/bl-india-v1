@@ -38,6 +38,7 @@ const Services = () => {
     slug: '',
     image: null,
     image_alt: '',
+    tagline: '',
     description: '',
     compliance_header: '',
     seo_title: '',
@@ -81,6 +82,7 @@ const Services = () => {
       slug: '',
       image: null,
       image_alt: '',
+      tagline: '',
       description: '',
       compliance_header: '',
       seo_title: '',
@@ -145,6 +147,7 @@ const Services = () => {
     formData.append('name', service.name);
     formData.append('slug', service.slug);
     formData.append('image_alt', service.image_alt);
+    formData.append('tagline', service.tagline);
     formData.append('description', service.description);
     formData.append('compliance_header', service.compliance_header);
     formData.append('seo_title', service.seo_title);
@@ -264,6 +267,14 @@ const Services = () => {
               label="Image Alt"
               name="image_alt"
               value={service.image_alt || ''}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Tagline"
+              name="tagline"
+              value={service.tagline || ''}
               onChange={handleChange}
               fullWidth
               margin="normal"
