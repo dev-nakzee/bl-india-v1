@@ -150,6 +150,13 @@ function Topbar() {
                     </Typography>
                     <Typography
                         component={Link}
+                        to="/blogs"
+                        sx={{ color: 'inherit', textDecoration: 'none', marginRight: 2 }}
+                    >
+                        Blogs
+                    </Typography>
+                    <Typography
+                        component={Link}
                         to="/gallery"
                         sx={{ color: 'inherit', textDecoration: 'none', marginRight: 2 }}
                     >

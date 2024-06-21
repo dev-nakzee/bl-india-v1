@@ -46,4 +46,8 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/notifications', [NotificationController::class, 'notifications']);
     Route::get('/notifications/{categorySlug}/{slug}', [NotificationController::class, 'notificationDetails']);
 
+    // Blogs Page Routes
+    Route::get('/blogs', [BlogController::class, 'blogs']);
+    Route::get('/blogs/{categorySlug}/{slug}', [BlogController::class, 'blogDetails']);
+
 });

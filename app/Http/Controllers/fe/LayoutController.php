@@ -32,7 +32,7 @@ class LayoutController extends Controller
         $companyCert = Sticker::orderBy('id')->where('image_type','Company Certificate')->get();
         $links = [
             ['title' => 'About', 'url' => '/about'],
-            ['title' => 'Blog', 'url' => '/blog'],
+            ['title' => 'Blogs', 'url' => '/blogs'],
             ['title' => 'Contact', 'url' => '/contact'],
             ['title' => 'Careers', 'url' => '/careers'],
             ['title' => 'Downloads', 'url' => '/downloads'],
