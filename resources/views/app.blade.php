@@ -8,7 +8,12 @@
 
         @viteReactRefresh
         @vite('resources/js/App/app.jsx')
-        @vite('resources/css/app.css')
+        <style type="text/css">
+            body {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
     </head>
     <body>
         <div id="app"></div>
