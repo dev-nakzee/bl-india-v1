@@ -72,11 +72,11 @@ const ProductDetails = () => {
               {productData.name}
             </Typography>
             {productData.technical_name && (
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h3" gutterBottom>
                 Technical Name: {productData.technical_name}
               </Typography>
             )}
-            <Typography variant="h5" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               Product Category: {productData.product_category.name}
             </Typography>
           </CardContent>
@@ -85,18 +85,39 @@ const ProductDetails = () => {
           <Typography variant="body1">
             {productData.description ? parse(productData.description) : 'No description available.'}
           </Typography>
-          <Typography variant="h4" gutterBottom>
-            Services
+          <Typography variant="h6" gutterBottom>
+            Compliances
           </Typography>
           {productData.services.length > 0 ? (
             <TabContext value={tabValue}>
               <Tabs value={tabValue} onChange={handleTabChange} aria-label="service tabs">
                 {productData.services.map((service, index) => (
-                  <Tab key={service.id} label={`Service ${index + 1}`} value={`${index}`} />
+                  <Tab
+                    key={service.id}
+                    label={service.is_mandatory ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
+                    value={`${index}`}
+                  />
                 ))}
               </Tabs>
               {productData.services.map((service, index) => (
                 <TabPanel key={service.id} value={`${index}`}>
+                    <Typography variant="h3" gutterBottom>
+                        {service.service.name} for {productData.name}
+                      </Typography>
+                  {service.service.compliance_header === 'Indian Standard' ? (
+                    <Typography variant="h6" gutterBottom>
+                      Indian Standard: {service.is}
+                    </Typography>
+                  ) : service.service.compliance_header === 'Group, Scheme' ? (
+                    <>
+                      <Typography variant="h6" gutterBottom>
+                        Group: {service.group}
+                      </Typography>
+                      <Typography variant="h6" gutterBottom>
+                        Scheme: {service.scheme}
+                      </Typography>
+                    </>
+                  ) : null}
                   {service.details ? parse(service.details) : 'No details available.'}
                 </TabPanel>
               ))}
