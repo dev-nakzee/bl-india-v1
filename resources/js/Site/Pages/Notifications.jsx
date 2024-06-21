@@ -118,18 +118,22 @@ const Notifications = () => {
               {pageData.name}
             </Typography>
             {paginatedNotifications.map(notification => (
-              <Accordion key={notification.id}>
-                <AccordionSummary
+              <Accordion key={notification.id}  sx={{marginBottom:2}}>
+                <AccordionSummary className='Accordian-summary'
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls={`panel${notification.id}-content`}
                   id={`panel${notification.id}-header`}
+                 
                 >
-                  <Typography>{notification.name}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography variant="body2" color="textSecondary">
+                
+                  <Typography className='Accordian-data'>{notification.name}</Typography>
+                  <Typography  className='Accordian-data1' variant="body2" color="textSecondary">
                     {notification.date}
                   </Typography>
+                 
+                </AccordionSummary>
+                <AccordionDetails>
+                 
                   <List>
                     {notification.products.length > 0 ? (
                       notification.products.map(product => (
@@ -153,7 +157,7 @@ const Notifications = () => {
                 </AccordionDetails>
               </Accordion>
             ))}
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'end', mt: 4 }}>
               <Pagination
                 count={Math.ceil(filteredNotifications.length / notificationsPerPage)}
                 page={currentPage}

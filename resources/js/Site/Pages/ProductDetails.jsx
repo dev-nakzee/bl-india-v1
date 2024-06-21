@@ -60,24 +60,24 @@ const ProductDetails = () => {
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
       <Box sx={{ padding: 4 }}>
-        <Card sx={{ display: 'flex', mb: 4 }}>
+        <Card  className="Product-card" sx={{ display: 'flex', mb: 4 }}>
           <CardMedia
             component="img"
-            sx={{ width: 300 }}
+            sx={{ width: '100%',maxWidth:'350px',backgroundColor:'#c3e7ff' }}
             image={`https://in.bl-india.com/${productData.image_url}`}
             alt={productData.image_alt}
           />
           <CardContent>
-            <Typography variant="h3" gutterBottom>
-              {productData.name}
+            <Typography variant="h4" gutterBottom>
+            <span className='font-bold'>Product Name: </span>&nbsp;&nbsp;&nbsp; {productData.name}
             </Typography>
             {productData.technical_name && (
-              <Typography variant="h3" gutterBottom>
-                Technical Name: {productData.technical_name}
+              <Typography variant="h4" gutterBottom>
+               <span className='font-bold'>Technical Name: </span>&nbsp;&nbsp;&nbsp;{productData.technical_name}
               </Typography>
             )}
-            <Typography variant="h3" gutterBottom>
-              Product Category: {productData.product_category.name}
+            <Typography variant="h4" gutterBottom>
+            <span className='font-bold'>Product Category:</span>&nbsp;&nbsp;&nbsp; {productData.product_category.name}
             </Typography>
           </CardContent>
         </Card>
@@ -89,12 +89,13 @@ const ProductDetails = () => {
             Compliances
           </Typography>
           {productData.services.length > 0 ? (
+            <Box className="ProductDetail-tab">
             <TabContext value={tabValue}>
               <Tabs value={tabValue} onChange={handleTabChange} aria-label="service tabs">
                 {productData.services.map((service, index) => (
                   <Tab
                     key={service.id}
-                    label={service.is_mandatory ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
+                    label={service.is_mandatory === true ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
                     value={`${index}`}
                   />
                 ))}
@@ -122,6 +123,7 @@ const ProductDetails = () => {
                 </TabPanel>
               ))}
             </TabContext>
+            </Box>
           ) : (
             <Typography>No services available for this product.</Typography>
           )}
