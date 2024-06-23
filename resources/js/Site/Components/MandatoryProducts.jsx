@@ -118,7 +118,7 @@ const MandatoryProducts = ({ serviceId }) => {
     return (
         <Box sx={{ width: "100%" }}>
           <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} marginBlock={3}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" gutterBottom>
         Mandatory Products
       </Typography>
             <TextField

@@ -72,18 +72,22 @@ const countryCodes = [
 ];
 
 const ScheduleCall = styled(Box)(({ theme }) => ({
-    textAlign: "left",
-    // padding: theme.spacing(4),
-    paddingLeft: "2%",
-    paddingRight: "2%",
-    paddingTop: "5%",
-    paddingBottom: "5%",
-    backgroundColor: "#C3E7FF",
-    // boxShadow: theme.shadows[3],
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-}));
+    textAlign: 'left',
+    paddingLeft: '2%',
+    paddingRight: '2%',
+    paddingTop: '5%',
+    paddingBottom: '5%',
+    backgroundColor: '#C3E7FF',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column', // Change flex direction to column on small screens
+      alignItems: 'stretch', // Stretch items vertically on small screens
+      paddingTop: theme.spacing(3), // Adjust top padding for small screens
+      paddingBottom: theme.spacing(3), // Adjust bottom padding for small screens
+    },
+  }));
 
 const ScheduleCallDrawer = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -145,14 +149,14 @@ const ScheduleCallDrawer = () => {
                         <PermPhoneMsgIcon
                             sx={{ color: "#ffffff", fontSize: 100 }}
                         />
-                        <Typography variant="h2" sx={{ fontWeight: 500 }}>
+                        <Typography variant="h3" sx={{ fontWeight: 500 }}>
                             +91-8130615678
                             <br />
                             +91-9250056788
                         </Typography>
                     </Box>
                     <Typography
-                        variant="h2"
+                        variant="h3"
                         sx={{
                             fontWeight: 400,
                             pl: 7,

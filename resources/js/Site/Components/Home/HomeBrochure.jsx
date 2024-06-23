@@ -16,24 +16,28 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const BrochureSection = styled(Box)(({ theme }) => ({
-    textAlign: "left",
+    textAlign: 'left',
     padding: theme.spacing(4),
-    backgroundColor: "#f5f5f5",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    mx: 6,
-}));
-
-const BrochureContent = styled(Box)(({ theme }) => ({
-    textAlign: "left",
+    backgroundColor: '#f5f5f5',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    mx: 6, // Use theme spacing or specific value for horizontal margins
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column', // Change flex direction to column on small screens
+      padding: theme.spacing(2), // Adjust padding for small screens
+    },
+  }));
+  
+  const BrochureContent = styled(Box)(({ theme }) => ({
+    textAlign: 'left',
     padding: theme.spacing(2),
-}));
-
-const BrochureImage = styled("img")(({ theme }) => ({
-    width: "90%",
-}));
-
+  }));
+  
+  const BrochureImage = styled('img')(({ theme }) => ({
+    width: '100%',
+    maxWidth: '100%', // Ensure the image scales to fit its container
+  }));
 const HomeBrochure = () => {
     const [brochureData, setBrochureData] = useState(null);
     const [services, setServices] = useState([]);
@@ -159,8 +163,8 @@ const HomeBrochure = () => {
                 <Grid item xs={12} md={6}>
                     <BrochureContent className="Brochure-section-data">
                         <Typography
-                            variant="h2"
-                            sx={{ mt: 2, fontWeight: 400 }}
+                            variant="h3"
+                            sx={{ mt: 2}}
                         >
                             {brochureData.title}
                         </Typography>

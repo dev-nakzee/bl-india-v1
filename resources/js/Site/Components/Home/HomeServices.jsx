@@ -41,7 +41,7 @@ const HomeServices = () => {
                     <Typography variant="subtitle1" sx={{ fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20}}>
                         {section.tag_line}
                     </Typography>
-                    <Typography variant="h2" sx={{ mt: 1, fontWeight: 400}}>
+                    <Typography variant="h3" sx={{ mt: 1}}>
                         {section.title}
                     </Typography>
                 </Box>
@@ -61,11 +61,11 @@ const HomeServices = () => {
                         }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
                                 <img src={'https://in.bl-india.com/' + service.thumbnail_url} alt={service.image_alt} style={{ width: '90px', borderRadius: '10px' }} />
-                                <Typography variant="h3" component="h3" sx={{ marginLeft: '15px', color: '#0D629A', fontWeight: 500 }}>
+                                <Typography variant="h5" component="h5" sx={{ marginLeft: '15px', color: '#0D629A', fontWeight: 500 }}>
                                     {service.name}
                                 </Typography>
                             </Box>
-                            <Typography variant="body2" sx={{ marginTop: '10px', flexGrow: 1 ,textAlign:'left' }}>
+                            <Typography variant="body2" sx={{ marginTop: '10px', flexGrow: 1 ,textAlign:'justify' }}>
                                 {service.description}
                             </Typography>
                             <Button  variant="outlined" component={Link} to={`/services/${service.slug}`}>

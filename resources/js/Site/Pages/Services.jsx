@@ -21,8 +21,9 @@ const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
   padding: theme.spacing(4),
   backgroundColor: '#f5f5f5',
-  // boxShadow: theme.shadows[5],
-  // display: 'flex',
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2), // Decrease padding on small screens
+  },
 }));
 
 const ServiceCard = styled(Card)(({ theme }) => ({
@@ -38,6 +39,10 @@ const ServiceImage = styled(CardMedia)(({ theme }) => ({
   backgroundSize: 'contain',
   objectFit: 'contain',
   marginRight: '20px',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '60px', // Adjust image size for small screens
+    marginRight: '10px', // Adjust margin for small screens
+  },
 }));
 
 const ServiceCardContent = styled(CardContent)(({ theme }) => ({
@@ -54,10 +59,20 @@ const Sidebar = styled(Box)(({ theme }) => ({
   top: '20px',
   overflowY: 'auto',
   paddingRight: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    width: '100%', // Make sidebar full width on small screens
+    position: 'static', // Remove sticky positioning on small screens
+    top: 'auto', // Reset top spacing on small screens
+    overflowY: 'visible', // Reset overflow on small screens
+    paddingRight: 0, // Reset right padding on small screens
+  },
 }));
 
 const ServicesList = styled(Box)(({ theme }) => ({
   width: '75%',
+  [theme.breakpoints.down('sm')]: {
+    width: '100%', // Make services list full width on small screens
+  },
 }));
 
 const Services = () => {
