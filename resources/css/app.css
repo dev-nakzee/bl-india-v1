@@ -1,32 +1,36 @@
+:root {
+    /* Define color variables */
+    --primary-color: #0d629a;
+    --secondary-color: #c3e7ff;
+    --text-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* overflow: scroll;
-    overflow-x: hidden;
-    scrollbar-width: none; */
 }
+
 #root {
     position: relative;
 }
+
 html {
     font-size: 62.5%;
-    font-family: "Roboto", "Raleway", "Poppins" sans-serif;
+    font-family: "Roboto", "Raleway", "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
-    /* 62.5% of 16px = 10px */
     width: 100%;
     height: 100%;
     text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    scrollbar-color: #0d629a #c3e7ff;
-    /* overflow: scroll;
-    overflow-x: hidden;
-    scrollbar-width: none; */
+    scrollbar-color: var(--primary-color) var(--secondary-color);
 }
+
 ::-webkit-scrollbar {
     width: 6px;
     border-radius: 6px;
@@ -38,7 +42,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--shadow-color);
     border-radius: 4px;
     height: 0px;
 }
@@ -49,14 +53,17 @@ body {
     margin: 0;
     padding: 0;
 }
+
 ul,
 ol {
     list-style: none;
 }
+
 li a {
     text-decoration: none;
-    color: #fff;
+    color: var(--text-color);
 }
+
 .font-bold {
     font-weight: 600;
 }
@@ -77,38 +84,43 @@ li a {
     margin: 0;
     list-style: none !important;
 }
+
 .about-content ul li {
     background: url("../js/Site/Assets/check-circle.svg") top left no-repeat;
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
     font-size: 1.25rem !important;
-    color: #0d629a;
+    color: var(--primary-color);
     font-weight: 300;
     height: 35px;
     padding-top: 0px;
     padding-left: 44px;
 }
+
 .about-content p {
     font-weight: 400;
     margin: 0;
     margin-bottom: 20px !important;
 }
+
 .Process-section {
     background-image: url(./images/bgarrow.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
 }
+
 .Testimonial-section .MuiPaper-root {
     background-color: transparent;
     box-shadow: none;
 }
+
 .Brochure-section-data {
     padding: 0 !important;
 }
 
 .Footer-section h4 {
     position: relative;
-    color: #ffffff !important;
+    color: var(--text-color) !important;
 }
 
 .Footer-section h4::after {
@@ -117,8 +129,9 @@ li a {
     left: 0;
     bottom: -10px;
     width: 15%;
-    border-bottom: 0.3rem solid #fff;
+    border-bottom: 0.3rem solid var(--text-color);
 }
+
 .Footer-section .Service-list {
     display: flex;
     flex-direction: column;
@@ -126,50 +139,57 @@ li a {
     align-items: flex-start;
     padding-bottom: 10px;
 }
+
 .Footer-section .footer-img {
     width: 100%;
     max-width: 150px;
 }
+
 .Footer-section .footer-certificates {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: 15px;
 }
+
 /* Service List Css */
 .Service-section-siderbar {
     padding: 20px;
-    border: 1px solid #0d629a;
+    border: 1px solid var(--primary-color);
     border-radius: 25px;
     margin-right: 40px;
-    /* margin-top:80px; */
 }
+
 .Service-section-siderbar {
     overflow: scroll;
     overflow-x: hidden;
     scrollbar-width: none;
 }
+
 .founder-section {
     background-image: url("../js/Site/Assets/founder_bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right;
 }
+
 .testimonial-quote svg {
     position: absolute;
     top: -67px;
     right: 0;
     font-size: 100px;
-    color: #0d629a;
+    color: var(--primary-color);
 }
+
 .Service-section h2,
 .Service-section h4 {
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
     font-size: 1.4rem !important;
-    color: #0d629a;
+    color: var(--primary-color);
     font-weight: 500;
     margin-block: 10px !important;
 }
+
 .Service-section p img {
     width: 100%;
 }
@@ -184,6 +204,7 @@ li a {
     align-items: center;
     gap: 20px;
 }
+
 .Product-card img {
     color: rgba(0, 0, 0, 0.87);
     -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -192,21 +213,26 @@ li a {
     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
         0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
+
 .ProductDetail-tab {
-    border: 3px solid #1c7cbc;
+    border: 3px solid var(--secondary-color);
 }
+
 .ProductDetail-tab button {
-    background-color: #c3e7ff;
-    border-right: 3px solid #1c7cbc;
+    background-color: var(--secondary-color);
+    border-right: 3px solid var(--primary-color);
 }
+
 /******** Product List ***********/
 .Accordian-summary {
     min-height: 70px !important;
 }
+
 .Accordian-summary .Accordian-data {
     width: 70%;
     font-weight: 500;
 }
+
 .Accordian-summary .Accordian-data1 {
     width: 30%;
     text-align: right;
@@ -218,65 +244,82 @@ li a {
     .box-hidden {
         display: none !important;
     }
+
     .Banner-section {
         background-image: none !important;
         height: 45vh !important;
-        background-color: #c3e7ff;
+        background-color: var(--secondary-color);
     }
+
     .Banner-section .Banner-section-content {
         margin-inline: 20px;
     }
+
     .Banner-section h2 {
         font-size: 36px;
         width: 100%;
     }
+
     .Banner-section p {
         margin-top: 16px;
     }
+
     .Services-section {
         margin-left: 20px !important;
         margin-right: 20px !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
+
     .Services-section .MuiGrid-root > .MuiGrid-item {
         padding-top: 20px;
     }
+
     .about-section {
         padding: 20px !important;
     }
+
     .about-section .MuiGrid-root.MuiGrid-container {
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
+
     .Blog-section .MuiGrid-root.MuiGrid-container {
         margin-left: 0 !important;
     }
+
     .about-section .MuiGrid-root.MuiGrid-container .MuiGrid-item,
     .Blog-section .MuiGrid-root.MuiGrid-container .MuiGrid-item {
         padding-left: 0 !important;
     }
+
     .Brochure-section .MuiGrid-root.MuiGrid-container .MuiGrid-item {
         padding-left: 20px !important;
     }
+
     .schedule-section {
         flex-direction: column;
     }
+
     .schedule-section-call-details {
         flex-direction: column;
         gap: 20px;
     }
+
     .schedule-section-call-details .MuiTypography-root.MuiTypography-h1 {
         border-left: none;
         font-size: 1.5rem;
         margin-bottom: 20px;
     }
+
     .schedule-section-call-details svg {
         font-size: 60px;
     }
+
     .Process-section {
         background-image: none;
     }
+
     .Process-section .Process-section-item {
         margin-bottom: 0;
     }

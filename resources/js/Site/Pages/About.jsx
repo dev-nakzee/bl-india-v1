@@ -12,21 +12,32 @@ import AboutCustomers from '../Components/About/AboutCustomers';
 const AboutSection = styled(Box)(({ theme }) => ({
     padding: theme.spacing(4),
     backgroundColor: '#f5f5f5',
-}));
-
-const AboutCard = styled(Card)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),  // Adjust padding for small screens
+    },
+  }));
+  
+  const AboutCard = styled(Card)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: theme.spacing(3),
     margin: theme.spacing(2),
     boxShadow: theme.shadows[1],
-}));
-
-const AboutContent = styled(Box)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'row',  // Example of changing flex direction on small screens
+      padding: theme.spacing(2),  // Adjust padding for small screens
+      margin: theme.spacing(1),  // Adjust margin for small screens
+    },
+  }));
+  
+  const AboutContent = styled(Box)(({ theme }) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
-}));
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'left',  // Example of changing text alignment on small screens
+    },
+  }));
 
 const AboutPage = () => {
     const [aboutData, setAboutData] = useState(null);

@@ -205,7 +205,7 @@ const theme = createTheme({
       fontSize: "1.4rem",
     },
     body2: {
-      fontWeight: 600,
+      fontWeight: 400,
       fontSize: "1.4rem",
     },
     caption: {
