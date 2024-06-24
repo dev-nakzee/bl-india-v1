@@ -10,29 +10,32 @@ const TestimonialSection = styled(Box)(({ theme }) => ({
     textAlign: 'center',
     padding: theme.spacing(4),
     backgroundColor: '#f5f5f5',
-    // boxShadow: theme.shadows[3],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-}));
-
-const TestimonialContent = styled(Box)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column', // Change flex direction to column on small screens
+      padding: theme.spacing(2), // Adjust padding for small screens
+    },
+  }));
+  
+  const TestimonialContent = styled(Box)(({ theme }) => ({
     padding: theme.spacing(2),
-}));
-
-const TestimonialImage = styled('img')(({ theme }) => ({
+  }));
+  
+  const TestimonialImage = styled('img')(({ theme }) => ({
     width: '100%',
     maxWidth: '500px',
     borderRadius: '10px',
-    // boxShadow: theme.shadows[3],
-}));
-
-const TestimonialCard = styled(Paper)(({ theme }) => ({
+  }));
+  
+  const TestimonialCard = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(3),
     margin: theme.spacing(2),
-    // boxShadow: theme.shadows[1],
-    // background: 'transparent',
-}));
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing(1), // Adjust margin for small screens
+    },
+  }));
 
 const Arrow = (props) => {
     const { className, style, onClick } = props;
@@ -97,7 +100,7 @@ const HomeTestimonials = () => {
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section.tag_line}
                     </Typography>
-                    <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                    <Typography variant="h3" sx={{  mt: 2}}>
                         {section.title}
                     </Typography>
                 </Grid>

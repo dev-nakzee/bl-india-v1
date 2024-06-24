@@ -3,13 +3,18 @@ import { Box, Typography, CircularProgress, Grid, Card, CardMedia, CardContent, 
 import { styled } from '@mui/system';
 import apiClient from '../../Services/api';
 
+
 const ProcessSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     padding: theme.spacing(4),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-}));
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column', // Change flex direction to column on small screens
+      padding: theme.spacing(2), // Adjust padding for small screens
+    },
+  }));
 
 const ProcessContent = styled(Box)(({ theme }) => ({
     textAlign: 'left',
@@ -65,7 +70,7 @@ const HomeProcess = () => {
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section[0].tag_line}
                     </Typography>
-                    <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                    <Typography variant="h3" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
                         {section[0].title}
                     </Typography>
                 </Grid>

@@ -16,12 +16,18 @@ const Banner = styled(Box)(({ theme }) => ({
     overflow: 'hidden', // Ensure the content stays within the bounds
     margin: 0, // Remove margins
     padding: 0, // Remove padding
-}));
-
-const Content = styled(Box)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      height: '50vh', // Adjust height for smaller screens
+    },
+  }));
+  
+  const Content = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     marginLeft: 40, // Add some left margin
-}));
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 20, // Adjust left margin for smaller screens
+    },
+  }));
 
 const HomeBanner = () => {
     const [bannerData, setBannerData] = useState(null);

@@ -16,19 +16,23 @@ const AboutSection = styled(Box)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-}));
-
-const AboutContent = styled(Box)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column', // Change flex direction to column on small screens
+      padding: theme.spacing(2), // Adjust padding for smaller screens
+    },
+  }));
+  
+  const AboutContent = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     padding: theme.spacing(2),
-}));
-
-const AboutImage = styled('img')(({ theme }) => ({
+  }));
+  
+  const AboutImage = styled('img')(({ theme }) => ({
     width: '100%',
     maxWidth: '500px',
     borderRadius: '10px',
     boxShadow: theme.shadows[3],
-}));
+  }));
 
 const HomeAbout = () => {
     const [aboutData, setAboutData] = useState(null);
@@ -75,7 +79,7 @@ const HomeAbout = () => {
                     </Typography>
                 </Grid>
                     <AboutContent>
-                        <Typography variant="h2" sx={{ mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase',  }}>
+                        <Typography variant="h3" sx={{ mt: 2 }}>
                             {aboutData.title}
                         </Typography>
                         <Typography variant="subtitle2" sx={{ mt: 2, mb: 2, borderLeft: '5px solid #0D629A', pl: 2, fontSize: '1rem', fontStyle: 'italic' }}>

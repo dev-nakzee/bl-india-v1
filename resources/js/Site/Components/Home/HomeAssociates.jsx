@@ -7,20 +7,21 @@ const AssociatesSection = styled(Box)(({ theme }) => ({
     textAlign: 'center',
     padding: theme.spacing(4),
     backgroundColor: '#C3E7FF',
-    // boxShadow: theme.shadows[3],
-}));
-
-const AssociatesContent = styled(Box)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2), // Adjust padding for smaller screens
+    },
+  }));
+  
+  const AssociatesContent = styled(Box)(({ theme }) => ({
     padding: theme.spacing(2),
-}));
-
-const AssociatesImage = styled('img')(({ theme }) => ({
+  }));
+  
+  const AssociatesImage = styled('img')(({ theme }) => ({
     width: '100%',
     maxWidth: '200px',
     margin: '0 auto',
     display: 'block',
-}));
-
+  }));
 const HomeAssociates = () => {
     const [associatesData, setAssociatesData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -61,7 +62,7 @@ const HomeAssociates = () => {
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section[0].tag_line}
                     </Typography>
-                    <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                    <Typography variant="h3" sx={{mt: 2}}>
                         {section[0].title}
                     </Typography>
                 </Grid>
