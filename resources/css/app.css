@@ -54,10 +54,13 @@ body {
     padding: 0;
 }
 
-ul,
+/* ul,
 ol {
     list-style: none;
-}
+} */
+ p{
+    margin-bottom: 1rem;
+ }
 
 li a {
     text-decoration: none;
