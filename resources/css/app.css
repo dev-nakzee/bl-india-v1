@@ -404,5 +404,32 @@ padding-bottom: 1rem;
   .my-masonry-grid_column > div {
     margin-bottom: 30px;
   }
+
+
+
+
+  /* Calendar.css */
+
+.react-calendar__tile {
+    text-align: center;
+    padding: 0.5em;
+  }
+  
+  .react-calendar__tile.saturday {
+    color: orange;
+  }
+  
+  .react-calendar__tile.sunday {
+    color: red;
+  }
+  
+  .react-calendar__tile.gazetted-holiday {
+    color: red;
+  }
+  
+  .react-calendar__tile.restricted-holiday {
+    color: orange;
+  }
+  
   
   
