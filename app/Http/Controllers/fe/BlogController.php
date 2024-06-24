@@ -23,4 +23,18 @@ class BlogController extends Controller
         }
         return response()->json(['page' => $page, 'category' => $category, 'blogs' => $blogs]);
     }
+
+    protected function getFirstParagraphContent(string $html): ?string
+    {
+        $dom = new \DOMDocument();
+        // Suppress warnings from malformed HTML
+        @$dom->loadHTML('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $html);
+        
+        $paragraphs = $dom->getElementsByTagName('p');
+        if ($paragraphs->length > 0) {
+            return $paragraphs->item(0)->textContent;
+        }
+
+        return null;
+    }
 }
