@@ -24,7 +24,6 @@ const FounderContent = styled(Box)(({ theme }) => ({
 const FounderImage = styled('img')(({ theme }) => ({
     width: '100%',
     maxWidth: '350px',
-    borderRadius: '10px',
     border: '6px solid #ffffff',
     borderRadius: '30px 85px 30px 95px',
     boxShadow: '0 20px 50px rgba(0, 0, 0, .25)',
