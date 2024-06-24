@@ -43,6 +43,7 @@ class LayoutController extends Controller
         $important = [
             ['title' => 'Privacy Policy', 'url' => '/privacy-policy'],
             ['title' => 'Terms & Conditions', 'url' => '/terms-conditions'],
+            ['title' => 'Website Disclaimer', 'url' => '/website-disclaimer'],
             ['title' => 'Knowledge Base', 'url' => '/knowledge-base']
         ];
         return response()->json(['contact' => $contact,'socialMedia' => $socialMedia, 'service' => $service, 'links' => $links, 'important' => $important, 'siteCert' => $siteCert, 'companyCert' => $companyCert]);
