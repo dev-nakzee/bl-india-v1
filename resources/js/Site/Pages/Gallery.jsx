@@ -5,7 +5,7 @@ import {
   CircularProgress
 } from '@mui/material';
 import Masonry from 'react-masonry-css';
-import apiClient from '../services/api'; // Ensure this is your configured axios instance
+import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const Gallery = () => {
   const [galleries, setGalleries] = useState([]);
