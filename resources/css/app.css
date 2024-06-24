@@ -287,7 +287,18 @@ color: #ffffff;
 font-size:xx-large;
 font-weight: 500; 
 text-transform: uppercase;}
+.privacy-policy ul, .privacy-policy ol{
+  list-style:decimal;
+  margin-left: 2rem;
+}
+.privacy-policy ul>li, .privacy-policy ol>li{
+    padding-left: 1rem;
+}  
+.ql-indent-1{
+    list-style:disc;
+    margin-left:3rem;
 
+}
 @media (max-width: 767px) {
     .box-hidden {
         display: none !important;
