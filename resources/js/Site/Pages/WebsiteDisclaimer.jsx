@@ -9,20 +9,20 @@ import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import parse from 'html-react-parser';
 
-const PrivacyPolicy = () => {
+const WebsiteDisclaimer = () => {
   const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchPrivacyPolicy();
+    fetchWebsiteDisclaimer();
   }, []);
 
-  const fetchPrivacyPolicy = async () => {
+  const fetchWebsiteDisclaimer = async () => {
     try {
-      const response = await apiClient.get('/privacy-policy');
+      const response = await apiClient.get('/website-disclaimer');
       setPageData(response.data);
     } catch (error) {
-      console.error('Error fetching privacy policy:', error);
+      console.error('Error fetching website disclaimer:', error);
     } finally {
       setLoading(false);
     }
@@ -61,4 +61,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default WebsiteDisclaimer;
