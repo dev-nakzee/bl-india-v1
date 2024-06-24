@@ -8,6 +8,8 @@ use App\Models\Sticker;
 use App\Models\SocialMedia;
 use App\Models\Contact;
 use App\Models\ServiceCategory;
+use App\Models\Page;
+use App\Models\PageSection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\App;
@@ -44,5 +46,12 @@ class LayoutController extends Controller
             ['title' => 'Knowledge Base', 'url' => '/knowledge-base']
         ];
         return response()->json(['contact' => $contact,'socialMedia' => $socialMedia, 'service' => $service, 'links' => $links, 'important' => $important, 'siteCert' => $siteCert, 'companyCert' => $companyCert]);
+    }
+
+    public function termsConditions(): JsonResponse
+    {
+        $page = Page::where('slug', 'terms-and-conditions')->first();
+        $section = PageSection::where('slug','terms-and-conditions')->first();
+        return response()->json(['page' => $page, 'section' => $section]);
     }
 }

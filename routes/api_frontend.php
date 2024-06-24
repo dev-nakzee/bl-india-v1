@@ -14,6 +14,7 @@ Route::prefix('v1/fe')->group(function(){
     // Layout Routes
     Route::get('/social', [LayoutController::class,'social']);
     Route::get('/footer', [LayoutController::class, 'footer']);
+    Route::get('/terms-conditions', [LayoutController::class, 'termsConditions']);
     // Set locale Routes
     Route::get('/set-locale/{locale}', [LanguageController::class, 'setSiteLocale']);
     // Search Page Routes
