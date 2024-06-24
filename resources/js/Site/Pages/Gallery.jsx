@@ -5,7 +5,7 @@ import {
   CircularProgress
 } from '@mui/material';
 import Masonry from 'react-masonry-css';
-import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+import apiClient from '../services/api'; // Ensure this is your configured axios instance
 
 const Gallery = () => {
   const [galleries, setGalleries] = useState([]);
@@ -50,7 +50,7 @@ const Gallery = () => {
             sx={{ cursor: 'pointer', marginBottom: 2 }}
           >
             <img
-              src={gallery.image}
+              src={gallery.image_url}
               alt={gallery.image_alt}
               style={{ width: '100%', display: 'block', borderRadius: '8px' }}
             />
