@@ -17,12 +17,11 @@ import Gallery from './Pages/Gallery';
 import TermCondition from './Pages/TermCondition';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
 import WebsiteDisclaimer from './Pages/WebsiteDisclaimer';
+import HolidayList from './Pages/HolidayList';
 import theme from './Layouts/Theme';
 
 function App() {
-  return (
-
-    
+  return (    
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
@@ -44,6 +43,7 @@ function App() {
             <Route path='/terms-conditions' element={<TermCondition />} />
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />
             <Route path='/website-disclaimer' element={<WebsiteDisclaimer />} />
+            <Route path='/holiday-list' element={<HolidayList />} />
           </Routes>
         </Layout>
       </BrowserRouter>
