@@ -8,6 +8,7 @@ use App\Http\Controllers\fe\AboutController;
 use App\Http\Controllers\fe\ServiceController;
 use App\Http\Controllers\fe\NotificationController;
 use App\Http\Controllers\fe\BlogController;
+use App\Http\Controllers\fe\GalleryController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -50,5 +51,8 @@ Route::prefix('v1/fe')->group(function(){
     // Blogs Page Routes
     Route::get('/blogs', [BlogController::class, 'blogs']);
     Route::get('/blogs/{categorySlug}/{slug}', [BlogController::class, 'blogDetails']);
+
+    // Gallery Pages Routes
+    Route::get('/galleries', [GalleryController::class, 'gallery']);
 
 });

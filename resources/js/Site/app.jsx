@@ -13,6 +13,7 @@ import ProductDetails from './Pages/ProductDetails';
 import Notifications from './Pages/Notifications';
 import NotificationDetails from './Pages/NotificationDetails';
 import Blogs from './Pages/Blogs';
+import Gallery from './Pages/Gallery';
 import theme from './Layouts/Theme';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path='/blogs' element={<Blogs />} />
             <Route path='/blogs/:categorySlug' element={<Blogs />} />
             <Route path='/blogs/:categorySlug/:slug' element={<Blogs />} />
+            <Route path='/gallery' element={<Gallery />} />
           </Routes>
         </Layout>
       </BrowserRouter>
