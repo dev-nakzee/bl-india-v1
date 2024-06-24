@@ -4,6 +4,7 @@ namespace App\Http\Controllers\fe;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Gallery;
 
 class GalleryController extends Controller
 {
