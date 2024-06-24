@@ -29,7 +29,7 @@ class GalleryController extends Controller
     {
         //
         $validated = $request->validate([
-            'tile' =>'required|string|max:255',
+            'title' =>'required|string|max:255',
             'description' =>'nullable|string',
             'image' =>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'image_alt' =>'nullable|string|max:255',
@@ -54,7 +54,7 @@ class GalleryController extends Controller
 
         $gallery = Gallery::create($validated);
 
-        return response()->json($blog, 201);
+        return response()->json($gallery, 201);
     }
 
     /**
@@ -76,7 +76,7 @@ class GalleryController extends Controller
         $gallery = Gallery::findOrFail($id);
 
         $validated = $request->validate([
-            'tile' =>'required|string|max:255',
+            'title' =>'required|string|max:255',
             'description' =>'nullable|string',
             'image' =>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'image_alt' =>'nullable|string|max:255',

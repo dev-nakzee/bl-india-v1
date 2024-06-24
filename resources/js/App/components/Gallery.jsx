@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
   Box,
   Typography,
@@ -10,14 +9,19 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  List,
-  ListItem,
-  ListItemText,
   IconButton,
-  CircularProgress
+  CircularProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper
 } from '@mui/material';
 import { Add, Edit, Delete } from '@mui/icons-material';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
+import FormData from 'form-data'; // Import form-data
 
 const Gallery = () => {
   const [galleries, setGalleries] = useState([]);
@@ -27,7 +31,7 @@ const Gallery = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    image: '',
+    image: null, // Change to null to handle file input
     image_alt: ''
   });
 
@@ -37,7 +41,7 @@ const Gallery = () => {
 
   const fetchGalleries = async () => {
     try {
-      const response = await apiClient.get('/api/galleries');
+      const response = await apiClient.get('/galleries');
       setGalleries(response.data);
     } catch (error) {
       console.error('Error fetching galleries:', error);
@@ -52,14 +56,14 @@ const Gallery = () => {
       setFormData({
         title: gallery.title,
         description: gallery.description,
-        image: gallery.image,
+        image: null, // Set to null for file input
         image_alt: gallery.image_alt
       });
     } else {
       setFormData({
         title: '',
         description: '',
-        image: '',
+        image: null,
         image_alt: ''
       });
     }
@@ -79,12 +83,33 @@ const Gallery = () => {
     });
   };
 
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      image: e.target.files[0]
+    });
+  };
+
   const handleSubmit = async () => {
+    const form = new FormData();
+    form.append('title', formData.title);
+    form.append('description', formData.description);
+    form.append('image', formData.image);
+    form.append('image_alt', formData.image_alt);
+
     try {
       if (currentGallery) {
-        await apiClient.put(`/api/galleries/${currentGallery.id}`, formData);
+        await apiClient.put(`/galleries/${currentGallery.id}`, form, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
       } else {
-        await apiClient.post('/api/galleries', formData);
+        await apiClient.post('/galleries', form, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
       }
       fetchGalleries();
       handleClose();
@@ -95,7 +120,7 @@ const Gallery = () => {
 
   const handleDelete = async (id) => {
     try {
-      await apiClient.delete(`/api/galleries/${id}`);
+      await apiClient.delete(`/galleries/${id}`);
       fetchGalleries();
     } catch (error) {
       console.error('Error deleting gallery:', error);
@@ -118,22 +143,44 @@ const Gallery = () => {
       <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => handleOpen()}>
         Add New Gallery
       </Button>
-      <List>
-        {galleries.map((gallery) => (
-          <ListItem key={gallery.id} sx={{ borderBottom: '1px solid #ddd' }}>
-            <ListItemText
-              primary={gallery.title}
-              secondary={gallery.description}
-            />
-            <IconButton edge="end" aria-label="edit" onClick={() => handleOpen(gallery)}>
-              <Edit />
-            </IconButton>
-            <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(gallery.id)}>
-              <Delete />
-            </IconButton>
-          </ListItem>
-        ))}
-      </List>
+      <TableContainer component={Paper} sx={{ marginTop: 4 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+                <TableCell>Image</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Description</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {galleries.map((gallery) => (
+              <TableRow key={gallery.id}>
+                <TableCell>
+                  {gallery.image_url && (
+                    <img
+                      src={gallery.image_url}
+                      alt={gallery.image_alt}
+                      style={{ width: '100px', height: 'auto' }}
+                    />
+                  )}
+                </TableCell>
+                <TableCell>{gallery.title}</TableCell>
+                <TableCell>{gallery.description}</TableCell>
+
+                <TableCell>
+                  <IconButton edge="end" aria-label="edit" onClick={() => handleOpen(gallery)}>
+                    <Edit />
+                  </IconButton>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(gallery.id)}>
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{currentGallery ? 'Edit Gallery' : 'Add New Gallery'}</DialogTitle>
         <DialogContent>
@@ -161,15 +208,6 @@ const Gallery = () => {
           />
           <TextField
             margin="dense"
-            name="image"
-            label="Image URL"
-            type="text"
-            fullWidth
-            value={formData.image}
-            onChange={handleChange}
-          />
-          <TextField
-            margin="dense"
             name="image_alt"
             label="Image Alt Text"
             type="text"
@@ -177,6 +215,23 @@ const Gallery = () => {
             value={formData.image_alt}
             onChange={handleChange}
           />
+          <input
+            accept="image/*"
+            style={{ display: 'none' }}
+            id="image-upload"
+            type="file"
+            onChange={handleFileChange}
+          />
+          <label htmlFor="image-upload">
+            <Button variant="contained" color="primary" component="span" sx={{ mt: 2 }}>
+              Upload Image
+            </Button>
+            {formData.image && (
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                {formData.image.name}
+              </Typography>
+            )}
+          </label>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
