@@ -20,6 +20,7 @@ use App\Http\Controllers\cms\DownloadCategoryController;
 use App\Http\Controllers\cms\DownloadController;
 use App\Http\Controllers\cms\DownloadFileController;
 use App\Http\Controllers\cms\GalleryController;
+use App\Http\Controllers\cms\HolidayController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -116,5 +117,7 @@ Route::prefix('v1/cms')->group(function(){
         Route::apiResource('galleries', \App\Http\Controllers\cms\GalleryController::class);
         Route::post('galleries/{id}', [\App\Http\Controllers\cms\GalleryController::class, 'update1']);
 
+        // Holiday routes
+        Route::apiResource('holidays', \App\Http\Controllers\cms\HolidayController::class);
     });
 });

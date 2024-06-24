@@ -257,6 +257,12 @@ const AdminLayout = () => {
             <ListItemText primary="Social Media" />
           </ListItem>
 
+          {/* Social Media Menu */}
+          <ListItem button component={Link} to="/cms/holidays">
+            <ListItemIcon><GalleryIcon /></ListItemIcon>
+            <ListItemText primary="Holiday List" />
+          </ListItem>
+
           {/* Customer Menu */}
           <ListItem button component={Link} to="/cms/customers">
             <ListItemIcon><GroupIcon /></ListItemIcon>

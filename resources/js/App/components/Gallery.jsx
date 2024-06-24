@@ -99,7 +99,7 @@ const Gallery = () => {
 
     try {
       if (currentGallery) {
-        await apiClient.put(`/galleries/${currentGallery.id}`, form, {
+        await apiClient.post(`/galleries/${currentGallery.id}`, form, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
