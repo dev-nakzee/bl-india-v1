@@ -30,6 +30,7 @@ import Downloads from './components/Downloads';
 import Customers from './components/Customers';
 import Teams from './components/Teams';
 import Gallery from './components/Gallery';
+import Holidays from './components/Holidays';
 
 function App() {
     return (
@@ -70,6 +71,7 @@ function App() {
               <Route path="downloads/categories" element={<DownloadCategories />} />
               <Route path="downloads/list" element={<Downloads />} />
               <Route path="gallery/list" element={<Gallery />} />
+              <Route path="holidays" element={<Holidays />} />
               {/* You can add more nested routes under /cms here */}
             </Route>
           </Routes>
