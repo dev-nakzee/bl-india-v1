@@ -22,11 +22,13 @@ import {
   InputLabel,
   Select,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  TablePagination
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import CategoryIcon from '@mui/icons-material/Category';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ReactQuill from 'react-quill';
@@ -66,6 +68,9 @@ const Products = () => {
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     fetchProducts();
@@ -277,6 +282,25 @@ const Products = () => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase()) ||
+    product.slug.toLowerCase().includes(search.toLowerCase()) ||
+    product.product_category.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <Box sx={{ margin: 2 }}>
       <Typography variant="h6">Products Management</Typography>
@@ -289,6 +313,14 @@ const Products = () => {
       >
         Add Product
       </Button>
+      <TextField
+        label="Search"
+        variant="outlined"
+        value={search}
+        onChange={handleSearchChange}
+        fullWidth
+        sx={{ marginBottom: 2 }}
+      />
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -302,7 +334,7 @@ const Products = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => (
+            {filteredProducts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((product) => (
               <TableRow key={product.id}>
                 <TableCell>{product.id}</TableCell>
                 <TableCell><img src={product.thumbnail_url} alt={product.image_alt} /></TableCell>
@@ -317,7 +349,7 @@ const Products = () => {
                     <DeleteIcon />
                   </IconButton>
                   <Button color="primary" onClick={() => handleManageServices(product.id)}>
-                    Manage Services
+                    <CategoryIcon />
                   </Button>
                 </TableCell>
               </TableRow>
@@ -325,7 +357,15 @@ const Products = () => {
           </TableBody>
         </Table>
       </TableContainer>
-
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 50]}
+        component="div"
+        count={filteredProducts.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editing ? 'Edit Product' : 'Add Product'}</DialogTitle>
         <DialogContent>
@@ -445,7 +485,6 @@ const Products = () => {
           </form>
         </DialogContent>
       </Dialog>
-
       <Dialog
         open={serviceDialogOpen}
         onClose={() => setServiceDialogOpen(false)}
@@ -581,7 +620,6 @@ const Products = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
       <Dialog open={confirmDeleteOpen} onClose={handleDeleteCancel}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
@@ -596,7 +634,6 @@ const Products = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
       <ToastContainer />
     </Box>
   );
