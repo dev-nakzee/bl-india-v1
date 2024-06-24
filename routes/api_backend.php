@@ -21,6 +21,8 @@ use App\Http\Controllers\cms\DownloadController;
 use App\Http\Controllers\cms\DownloadFileController;
 use App\Http\Controllers\cms\GalleryController;
 use App\Http\Controllers\cms\HolidayController;
+use App\Http\Controllers\cms\KnowledgeBaseCategoryController;
+use App\Http\Controllers\cms\KnowledgeBaseController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -119,5 +121,15 @@ Route::prefix('v1/cms')->group(function(){
 
         // Holiday routes
         Route::apiResource('holidays', \App\Http\Controllers\cms\HolidayController::class);
+
+        // Knowledge Category routes
+        Route::apiResource('knowledge-categories', KnowledgeBaseCategoryController::class);
+        Route::post('knowledge-categories/{id}', [KnowledgeBaseCategoryController::class, 'update1']);
+
+        // Knowledge routes
+        Route::apiResource('knowledge-base', KnowledgeBaseController::class);
+        Route::post('knowledge-base/{id}', [KnowledgeBaseController::class, 'update1']);
+
+
     });
 });
