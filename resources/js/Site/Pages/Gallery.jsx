@@ -50,7 +50,7 @@ const Gallery = () => {
             sx={{ cursor: 'pointer', marginBottom: 2 }}
           >
             <img
-              src={gallery.image_url}
+              src={'https://in.bl-india.com/' +gallery.image_url}
               alt={gallery.image_alt}
               style={{ width: '100%', display: 'block', borderRadius: '8px' }}
             />

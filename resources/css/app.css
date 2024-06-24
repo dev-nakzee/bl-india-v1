@@ -88,12 +88,12 @@ li a {
 .about-content ul li {
     background: url("../js/Site/Assets/check-circle.svg") top left no-repeat;
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
-    font-size: 1.25rem !important;
     color: var(--primary-color);
-    font-weight: 300;
+    font-weight: 500;
     height: 35px;
-    padding-top: 0px;
+    padding-top: 2px;
     padding-left: 44px;
+    font-size: 1.6rem !important;
 }
 
 .about-content p {
@@ -107,6 +107,32 @@ li a {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+}
+.Process-section .process-steps{
+    /* position: absolute;
+    top: 0; */
+    /* left:-2px; */
+    width:50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+.cardmedia{
+    background-size: contain !important;
+    object-fit: contain !important;
+    width: 100%;
+}
+
+.Process-section .MuiBadge-badge {       
+        font-weight: 600 !important;
+        font-size: 20px !important;
+        min-width: 50px !important;
+        line-height: 3 !important;
+        padding: 0 16px !important;
+        height: 50px !important;
+        border-radius: 50% !important;
+        top: 23px !important;
+        right: 60px !important;
 }
 
 .Testimonial-section .MuiPaper-root {
@@ -224,9 +250,9 @@ li a {
 }
 
 /******** Product List ***********/
-.Accordian-summary {
+/* .Accordian-summary {
     min-height: 70px !important;
-}
+} */
 
 .Accordian-summary .Accordian-data {
     width: 70%;
@@ -239,7 +265,41 @@ li a {
     margin-right: 15px;
     font-weight: 500;
 }
+.MuiAccordionSummary-root.Mui-expanded{background-color: var(--secondary-color);}
+.about-section{position: relative;}
+.box-about {
+    position: absolute;
+    top: 50%; /* adjust the vertical position */
+    left: 40%; /* adjust the horizontal position */
+    transform: translate(-50%, -50%);
+    background-color: #0D629A; /* white background */
+    padding: 10px;
+    width: 122px;
+    height: 213px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box-about p {
+    writing-mode: vertical-lr;
+    text-orientation:sideways; 
+color: #ffffff;
+font-size:xx-large;
+font-weight: 500; 
+text-transform: uppercase;}
+.privacy-policy ul, .privacy-policy ol{
+  list-style:decimal;
+  margin-left: 2rem;
+}
+.privacy-policy ul>li, .privacy-policy ol>li{
+    padding-left: 1rem;
+padding-bottom: 1rem;
+}  
+.ql-indent-1{
+    list-style:disc;
+    margin-left:3rem;
 
+}
 @media (max-width: 767px) {
     .box-hidden {
         display: none !important;

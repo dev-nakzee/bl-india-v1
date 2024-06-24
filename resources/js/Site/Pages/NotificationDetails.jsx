@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DownloadIcon from '@mui/icons-material/Download';
+import { Share } from '@mui/icons-material';
 
 const NotificationDetails = () => {
   const { categorySlug, slug } = useParams();
@@ -64,6 +65,11 @@ const NotificationDetails = () => {
           <MuiLink href={notification.file_url} target="_blank" download>
             <IconButton>
               <DownloadIcon />
+            </IconButton>
+          </MuiLink>
+          <MuiLink href={notification.file_url} target="_blank" download>
+            <IconButton>
+              <Share />
             </IconButton>
           </MuiLink>
         </Box>

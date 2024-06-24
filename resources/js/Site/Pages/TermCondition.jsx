@@ -47,16 +47,16 @@ const TermCondition = () => {
         <meta name="description" content={pageData.page.seo_description} />
         <meta name="keywords" content={pageData.page.seo_keywords} />
       </Helmet>
-      <Container>
-        <Box sx={{ padding: 4 }}>
-          <Typography variant="h3" gutterBottom>
-            {pageData.page.name}
+     
+        <Box sx={{ padding: 4 }} className="privacy-policy">
+        <Typography variant="h4" gutterBottom textAlign={"center"}>
+        {pageData.page.name}
           </Typography>
           <Box sx={{ marginTop: 2 }}>
             {parse(pageData.section.content)}
           </Box>
         </Box>
-      </Container>
+     
     </>
   );
 };

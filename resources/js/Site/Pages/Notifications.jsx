@@ -114,7 +114,7 @@ const Notifications = () => {
             </List>
           </Grid>
           <Grid item xs={12} md={9}>
-            <Typography variant="h3" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               {pageData.name}
             </Typography>
             {paginatedNotifications.map(notification => (

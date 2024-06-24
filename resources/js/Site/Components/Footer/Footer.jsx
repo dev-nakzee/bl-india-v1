@@ -90,7 +90,7 @@ const Footer = () => {
         <FooterContainer className="Footer-section">
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={3}>
-                    <Typography variant="h4" textAlign={"left"} mb={3}>
+                    <Typography variant="h6" textAlign={"left"} mb={3}  color={"white"}>
                         Services
                     </Typography>
                     {footerData.service.map((service) => (
@@ -105,7 +105,7 @@ const Footer = () => {
                     ))}
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                    <Typography variant="h4" textAlign={"left"} mb={3}>
+                    <Typography variant="h6" textAlign={"left"} mb={3}  color={"white"}>
                         Quick Links
                     </Typography>
                     <Box>
@@ -122,7 +122,7 @@ const Footer = () => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                    <Typography variant="h4" textAlign={"left"} mb={3}>
+                    <Typography variant="h6" textAlign={"left"} mb={3}  color={"white"}>
                         Important Links
                     </Typography>
                     <Box>
@@ -139,11 +139,11 @@ const Footer = () => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                    <Typography variant="h4" textAlign={"left"} mb={3}>
+                    <Typography variant="h6" textAlign={"left"} mb={3} color={"white"}>
                         Contact Us
                     </Typography>
                     <Typography
-                        variant="h3"
+                        variant="body2"
                         textAlign={"left"}
                         className="Service-list"
                         sx={{ color: '#ffffff'}}
