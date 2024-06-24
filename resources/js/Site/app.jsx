@@ -14,6 +14,9 @@ import Notifications from './Pages/Notifications';
 import NotificationDetails from './Pages/NotificationDetails';
 import Blogs from './Pages/Blogs';
 import Gallery from './Pages/Gallery';
+import TermCondition from './Pages/TermCondition';
+import PrivacyPolicy from './Pages/PrivacyPolicy';
+import WebsiteDisclaimer from './Pages/WebsiteDisclaimer';
 import theme from './Layouts/Theme';
 
 function App() {
@@ -38,6 +41,9 @@ function App() {
             <Route path='/blogs/:categorySlug' element={<Blogs />} />
             <Route path='/blogs/:categorySlug/:slug' element={<Blogs />} />
             <Route path='/gallery' element={<Gallery />} />
+            <Route path='/terms-conditions' element={<TermCondition />} />
+            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+            <Route path='/website-disclaimer' element={<WebsiteDisclaimer />} />
           </Routes>
         </Layout>
       </BrowserRouter>

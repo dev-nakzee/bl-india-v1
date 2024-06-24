@@ -8,6 +8,8 @@ use App\Models\Sticker;
 use App\Models\SocialMedia;
 use App\Models\Contact;
 use App\Models\ServiceCategory;
+use App\Models\Page;
+use App\Models\PageSection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\App;
@@ -41,8 +43,29 @@ class LayoutController extends Controller
         $important = [
             ['title' => 'Privacy Policy', 'url' => '/privacy-policy'],
             ['title' => 'Terms & Conditions', 'url' => '/terms-conditions'],
+            ['title' => 'Website Disclaimer', 'url' => '/website-disclaimer'],
             ['title' => 'Knowledge Base', 'url' => '/knowledge-base']
         ];
         return response()->json(['contact' => $contact,'socialMedia' => $socialMedia, 'service' => $service, 'links' => $links, 'important' => $important, 'siteCert' => $siteCert, 'companyCert' => $companyCert]);
+    }
+    public function termsConditions(): JsonResponse
+    {
+        $page = Page::where('slug', 'terms-and-conditions')->first();
+        $section = PageSection::where('slug','terms-and-conditions')->first();
+        return response()->json(['page' => $page, 'section' => $section]);
+    }
+
+    public function privacyPolicy(): JsonResponse
+    {
+        $page = Page::where('slug', 'privacy-policy')->first();
+        $section = PageSection::where('slug','privacy-policy')->first();
+        return response()->json(['page' => $page,'section' => $section]);
+    }
+
+    public function websiteDisclaimer(): JsonResponse
+    {
+        $page = Page::where('slug', 'website-disclaimer')->first();
+        $section = PageSection::where('slug','website-disclaimer')->first();
+        return response()->json(['page' => $page,'section' => $section]);
     }
 }
