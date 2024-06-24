@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Box, Menu, MenuItem } from '@mui/material';
-import { Link } from 'react-router-dom';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import PinterestIcon from '@mui/icons-material/Pinterest';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import LanguageIcon from '@mui/icons-material/Language';
-import apiClient from '../../Services/api';
+import React, { useState, useEffect } from "react";
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    IconButton,
+    Box,
+    Menu,
+    MenuItem,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import PinterestIcon from "@mui/icons-material/Pinterest";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import LanguageIcon from "@mui/icons-material/Language";
+import apiClient from "../../Services/api";
 
 function Topbar() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -17,43 +25,43 @@ function Topbar() {
     useEffect(() => {
         const determineLanguages = () => {
             const hostname = window.location.hostname;
-            const subdomain = hostname.split('.')[0];
+            const subdomain = hostname.split(".")[0];
 
             const globalLanguages = [
-                { name: 'English', locale: 'en' },
-                { name: 'French', locale: 'fr' },
-                { name: 'Spanish', locale: 'es' },
-                { name: 'Italian', locale: 'it' },
-                { name: 'Chinese (Simplified)', locale: 'zh-Hans' },
-                { name: 'Chinese (Traditional)', locale: 'zh-Hant' },
-                { name: 'Deutsch', locale: 'de' },
-                { name: 'Arabic', locale: 'ar' },
-                { name: 'Japanese', locale: 'ja' },
-                { name: 'Korean', locale: 'ko' },
-                { name: 'Russian', locale: 'ru' },
-                { name: 'Malay', locale: 'ms' },
-                { name: 'Vietnamese', locale: 'vi' },
-                { name: 'Thai', locale: 'th' },
-                { name: 'Polish', locale: 'pl' },
-                { name: 'Portuguese', locale: 'pt' }
+                { name: "English", locale: "en" },
+                { name: "French", locale: "fr" },
+                { name: "Spanish", locale: "es" },
+                { name: "Italian", locale: "it" },
+                { name: "Chinese (Simplified)", locale: "zh-Hans" },
+                { name: "Chinese (Traditional)", locale: "zh-Hant" },
+                { name: "Deutsch", locale: "de" },
+                { name: "Arabic", locale: "ar" },
+                { name: "Japanese", locale: "ja" },
+                { name: "Korean", locale: "ko" },
+                { name: "Russian", locale: "ru" },
+                { name: "Malay", locale: "ms" },
+                { name: "Vietnamese", locale: "vi" },
+                { name: "Thai", locale: "th" },
+                { name: "Polish", locale: "pl" },
+                { name: "Portuguese", locale: "pt" },
             ];
 
             const inSubdomainLanguages = [
-                { name: 'English', locale: 'en' },
-                { name: 'Hindi', locale: 'hi' },
-                { name: 'Marathi', locale: 'mr' },
-                { name: 'Bangali', locale: 'bn' },
-                { name: 'Telegu', locale: 'te' },
-                { name: 'Tamil', locale: 'ta' },
-                { name: 'Kanada', locale: 'kn' },
-                { name: 'Malayalam', locale: 'ml' },
-                { name: 'Gujarati', locale: 'gu' },
-                { name: 'Punjabi', locale: 'pa' }
+                { name: "English", locale: "en" },
+                { name: "Hindi", locale: "hi" },
+                { name: "Marathi", locale: "mr" },
+                { name: "Bangali", locale: "bn" },
+                { name: "Telegu", locale: "te" },
+                { name: "Tamil", locale: "ta" },
+                { name: "Kanada", locale: "kn" },
+                { name: "Malayalam", locale: "ml" },
+                { name: "Gujarati", locale: "gu" },
+                { name: "Punjabi", locale: "pa" },
             ];
 
-            if (subdomain === 'global') {
+            if (subdomain === "global") {
                 setLanguages(globalLanguages);
-            } else if (subdomain === 'in') {
+            } else if (subdomain === "in") {
                 setLanguages(inSubdomainLanguages);
             } else {
                 setLanguages(globalLanguages); // default to global if subdomain is neither 'global' nor 'in'
@@ -72,18 +80,20 @@ function Topbar() {
         if (locale) {
             try {
                 await apiClient.get(`/set-locale/${locale}`);
-                localStorage.setItem('selectedLanguage', locale);
+                localStorage.setItem("selectedLanguage", locale);
                 // window.location.reload();
             } catch (error) {
-                console.error('Error setting locale:', error);
+                console.error("Error setting locale:", error);
             }
         }
     };
 
     return (
-        <AppBar position="static" className='Topbar-section'>
-            <Toolbar sx={{ background: '#0D629A' }}>
-                <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+        <AppBar position="static" className="Topbar-section">
+            <Toolbar sx={{ background: "#0D629A" }}>
+                <Box
+                    sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
+                >
                     <IconButton
                         component="a"
                         href="https://www.facebook.com"
@@ -133,53 +143,83 @@ function Topbar() {
                         <YouTubeIcon />
                     </IconButton>
                 </Box>
-                <Box className="box-hidden" sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box
+                    className="box-hidden"
+                    sx={{ display: "flex", alignItems: "center" }}
+                >
                     <Typography
+                        variant="bodytext"
                         component={Link}
                         to="/about"
-                        sx={{ color: 'inherit', textDecoration: 'none', marginRight: 2 }}
+                        sx={{
+                            color: "inherit",
+                            textDecoration: "none",
+                            marginRight: 2,
+                        }}
                     >
                         About
                     </Typography>
                     <Typography
+                        variant="bodytext"
                         component={Link}
                         to="/downloads"
-                        sx={{ color: 'inherit', textDecoration: 'none', marginRight: 2 }}
+                        sx={{
+                            color: "inherit",
+                            textDecoration: "none",
+                            marginRight: 2,
+                        }}
                     >
                         Downloads
                     </Typography>
                     <Typography
+                        variant="bodytext"
                         component={Link}
                         to="/blogs"
-                        sx={{ color: 'inherit', textDecoration: 'none', marginRight: 2 }}
+                        sx={{
+                            color: "inherit",
+                            textDecoration: "none",
+                            marginRight: 2,
+                        }}
                     >
                         Blogs
                     </Typography>
                     <Typography
+                        variant="bodytext"
                         component={Link}
                         to="/gallery"
-                        sx={{ color: 'inherit', textDecoration: 'none', marginRight: 2 }}
+                        sx={{
+                            color: "inherit",
+                            textDecoration: "none",
+                            marginRight: 2,
+                        }}
                     >
                         Gallery
                     </Typography>
                     <Typography
+                        variant="bodytext"
                         component={Link}
                         to="/careers"
-                        sx={{ color: 'inherit', textDecoration: 'none', marginRight: 2 }}
+                        sx={{
+                            color: "inherit",
+                            textDecoration: "none",
+                            marginRight: 2,
+                        }}
                     >
                         Careers
                     </Typography>
                     <Typography
+                        variant="bodytext"
                         component={Link}
                         to="/contact"
-                        sx={{ color: 'inherit', textDecoration: 'none', marginRight: 2 }}
+                        sx={{
+                            color: "inherit",
+                            textDecoration: "none",
+                            marginRight: 2,
+                        }}
                     >
                         Contact
                     </Typography>
-                    <IconButton
-                        color="inherit"
-                        onClick={handleLanguageClick}
-                    >
+                    <IconButton color="inherit" onClick={handleLanguageClick}>
                         <LanguageIcon />
                     </IconButton>
                     <Menu
@@ -188,9 +228,11 @@ function Topbar() {
                         onClose={() => handleLanguageClose(null)}
                     >
                         {languages.map((language) => (
-                            <MenuItem 
-                                key={language.locale} 
-                                onClick={() => handleLanguageClose(language.locale)}
+                            <MenuItem
+                                key={language.locale}
+                                onClick={() =>
+                                    handleLanguageClose(language.locale)
+                                }
                             >
                                 {language.name}
                             </MenuItem>
