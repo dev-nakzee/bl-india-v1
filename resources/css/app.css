@@ -293,6 +293,7 @@ text-transform: uppercase;}
 }
 .privacy-policy ul>li, .privacy-policy ol>li{
     padding-left: 1rem;
+padding-bottom: 1rem;
 }  
 .ql-indent-1{
     list-style:disc;
