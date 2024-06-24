@@ -117,6 +117,11 @@ li a {
     background-color: var(--primary-color);
     border-radius: 50%;
 }
+.cardmedia{
+    background-size: contain !important;
+    object-fit: contain !important;
+    width: 100%;
+}
 
 .Process-section .MuiBadge-badge {       
         font-weight: 600 !important;

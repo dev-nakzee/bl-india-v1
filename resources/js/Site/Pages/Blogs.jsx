@@ -26,7 +26,7 @@ const Blogs = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const blogsPerPage = 5;
+  const blogsPerPage = 6;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -117,19 +117,20 @@ const Blogs = () => {
             <Typography variant="h3" gutterBottom>
               {pageData.name}
             </Typography>
-            <Grid container spacing={4}>
+            <Grid container spacing={2}>
               {paginatedBlogs.map(blog => (
                 <Grid item xs={12} sm={6} md={4} key={blog.id}>
-                  <Card>
-                    <CardActionArea component={MuiLink} href={`/blogs/${blog.slug}`}>
+                                <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' ,borderRadius:'20px'}}>
+                                <CardActionArea component={MuiLink} href={`/blogs/${blog.slug}`}>
                       <CardMedia
                         component="img"
                         height="140"
                         image={'https://in.bl-india.com/' + blog.image_url}
                         alt={blog.image_alt}
+                        className='cardmedia'
                       />
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
+                        <Typography gutterBottom variant="subtitle1" component="h6">
                           {blog.name}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">

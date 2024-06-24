@@ -35,7 +35,7 @@ class NotificationController extends Controller
             'seo_description' => 'nullable|string',
             'seo_keywords' => 'nullable|string',
             'seo_tags' => 'nullable|string',
-            'file_url' => 'nullable|file|mimes:pdf|max:2048', // max 2MB
+            'file_url' => 'nullable|file|mimes:pdf|max:20480', // max 2MB
             'content' => 'nullable|string',
             'date' => 'required|date', // Add validation rule for date
         ]);
@@ -62,7 +62,7 @@ class NotificationController extends Controller
             'seo_description' => 'nullable|string',
             'seo_keywords' => 'nullable|string',
             'seo_tags' => 'nullable|string',
-            'file_url' => 'nullable|file|mimes:pdf|max:2048', // max 2MB
+            'file_url' => 'nullable|file|mimes:pdf|max:20480', // max 2MB
             'content' => 'nullable|string',
             'date' => 'required|date', // Add validation rule for date
         ]);

@@ -19,6 +19,7 @@ use App\Http\Controllers\cms\NotificationController;
 use App\Http\Controllers\cms\DownloadCategoryController;
 use App\Http\Controllers\cms\DownloadController;
 use App\Http\Controllers\cms\DownloadFileController;
+use App\Http\Controllers\cms\GalleryController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -110,6 +111,10 @@ Route::prefix('v1/cms')->group(function(){
         // Teams routes
         Route::apiResource('teams', \App\Http\Controllers\cms\TeamController::class);
         Route::post('teams/{id}', [\App\Http\Controllers\cms\TeamController::class, 'update1']);
+
+        // Gallery routes
+        Route::apiResource('galleries', \App\Http\Controllers\cms\GalleryController::class);
+        Route::post('galleries/{id}', [\App\Http\Controllers\cms\GalleryController::class, 'update1']);
 
     });
 });
