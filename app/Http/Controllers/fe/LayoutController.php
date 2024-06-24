@@ -47,11 +47,24 @@ class LayoutController extends Controller
         ];
         return response()->json(['contact' => $contact,'socialMedia' => $socialMedia, 'service' => $service, 'links' => $links, 'important' => $important, 'siteCert' => $siteCert, 'companyCert' => $companyCert]);
     }
-
     public function termsConditions(): JsonResponse
     {
         $page = Page::where('slug', 'terms-and-conditions')->first();
         $section = PageSection::where('slug','terms-and-conditions')->first();
         return response()->json(['page' => $page, 'section' => $section]);
+    }
+
+    public function privacyPolicy(): JsonResponse
+    {
+        $page = Page::where('slug', 'privacy-policy')->first();
+        $section = PageSection::where('slug','privacy-policy')->first();
+        return response()->json(['page' => $page,'section' => $section]);
+    }
+
+    public function websiteDisclaimer(): JsonResponse
+    {
+        $page = Page::where('slug', 'website-disclaimer')->first();
+        $section = PageSection::where('slug','website-disclaimer')->first();
+        return response()->json(['page' => $page,'section' => $section]);
     }
 }
