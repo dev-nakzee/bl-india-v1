@@ -125,7 +125,7 @@ const Blogs = () => {
                       <CardMedia
                         component="img"
                         height="140"
-                        image={blog.image_url}
+                        image={'https://in.bl-india.com/' + blog.image_url}
                         alt={blog.image_alt}
                       />
                       <CardContent>
@@ -141,7 +141,7 @@ const Blogs = () => {
                 </Grid>
               ))}
             </Grid>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'end', mt: 4 }}>
               <Pagination
                 count={Math.ceil(filteredBlogs.length / blogsPerPage)}
                 page={currentPage}

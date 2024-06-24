@@ -118,8 +118,7 @@ li a {
     border-radius: 50%;
 }
 
-.MuiBadge-badge {
-       
+.Process-section .MuiBadge-badge {       
         font-weight: 600 !important;
         font-size: 20px !important;
         min-width: 50px !important;
