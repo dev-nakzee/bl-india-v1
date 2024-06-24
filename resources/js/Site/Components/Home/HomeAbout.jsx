@@ -71,6 +71,7 @@ const HomeAbout = () => {
                
                 <Grid item xs={12} md={6}>
                     <AboutImage src={'https://in.bl-india.com/' + aboutData.image_url} alt={aboutData.image_alt} sx={{}}/>
+                    <Box className="box-about"><p>Since 2010</p></Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
                 <Grid item xs={12} md={12}>

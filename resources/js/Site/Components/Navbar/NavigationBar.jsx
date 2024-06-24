@@ -63,7 +63,7 @@ const NavigationBar = () => {
                                 style={{ height: 50, marginRight: 15 }}
                             />
                             <Box sx={{ textAlign: "left" }}>
-                                <Typography variant="iconMenu">
+                                <Typography variant="iconMenu" >
                                     Approval Services
                                 </Typography>
                                 <Typography variant="subtitle2" display="block">

@@ -239,6 +239,20 @@ li a {
     margin-right: 15px;
     font-weight: 500;
 }
+.box-about {
+    position: absolute;
+    top: 50%; /* adjust the vertical position */
+    left: 50%; /* adjust the horizontal position */
+    transform: translate(-50%, -50%);
+    background-color: #fff; /* white background */
+    padding: 10px;
+    border: 1px solid #ddd; /* light gray border */
+    width: 150px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 @media (max-width: 767px) {
     .box-hidden {
