@@ -54,12 +54,14 @@ body {
     padding: 0;
 }
 
-/* ul,
+ul,
 ol {
-    list-style: none;
-} */
+    list-style:disc;
+    margin-left:1.5rem;
+}
  p{
     margin-bottom: 1rem;
+    margin-top:1rem;
  }
 
 li a {
@@ -210,14 +212,14 @@ li a {
     color: var(--primary-color);
 }
 
-.Service-section h2,
+/* .Service-section h2,
 .Service-section h4 {
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
     font-size: 1.4rem !important;
     color: var(--primary-color);
     font-weight: 500;
     margin-block: 10px !important;
-}
+} */
 
 .Service-section p img {
     width: 100%;

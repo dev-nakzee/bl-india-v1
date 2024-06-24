@@ -66,7 +66,7 @@ const AboutTeam = () => {
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: '30%', color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section.tag_line}
                     </Typography>
-                    <Typography variant="h2" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                    <Typography variant="h4" sx={{ textAlign: 'center', mt: 2}}>
                         {section.title}
                     </Typography>
                 </Grid>
@@ -79,7 +79,7 @@ const AboutTeam = () => {
                                     title={member.image_alt}
                                 />
                                 <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
+                                    <Typography gutterBottom variant="subtitle1" component="div">
                                         {member.name}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">

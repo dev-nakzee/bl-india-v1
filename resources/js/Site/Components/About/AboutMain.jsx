@@ -21,7 +21,7 @@ const AboutMainContent = styled(Box)(({ theme }) => ({
 
 const AboutMainImage = styled('img')(({ theme }) => ({
     width: '100%',
-    maxWidth: '500px',
+    maxWidth: '390px',
     borderRadius: '10px',
     boxShadow: theme.shadows[3],
 }));
@@ -59,21 +59,19 @@ const AboutMain = () => {
 
     return (
         <section>
-                    <Typography variant="h2" sx={{ textAlign: 'center', marginBlock:'40px', fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                    <Typography variant="h3" sx={{ textAlign: 'center',marginBlock:"4rem" }}>
                         {aboutData.title}
                     </Typography>
         <AboutMainSection>
              
-            <Grid container spacing={2} alignItems="center">
-                
-                <Grid item xs={12} md={5}>
-                    <AboutMainImage src={'https://in.bl-india.com/' + aboutData.image_url} alt={aboutData.image_alt} />
+            <Grid container spacing={2} alignItems="center" position={'relative'}>   
+                <Grid item xs={12} md={5} sx={{display:'flex',justifyContent:'center'}} >
+                    <AboutMainImage src={'https://in.bl-india.com/' + aboutData.image_url} alt={aboutData.image_alt}  />
+                    <Box className="box-about" sx={{left:'36%'}}><p>Since 2010</p></Box>
+
                 </Grid>
-                <Grid item xs={12} md={7}>
-                
-                    
-              
-                    <AboutMainContent>
+                <Grid item xs={12} md={7}>              
+                     <AboutMainContent>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth:'80%',padding:'10px', color: '#ffffff', borderRadius: 20 ,mb:3}}>
                         {aboutData.tag_line}
                     </Typography>
