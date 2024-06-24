@@ -79,7 +79,7 @@ const HomeAbout = () => {
                         {aboutData.name}
                     </Typography>
                 </Grid>
-                    <AboutContent>
+                    <AboutContent className=''>
                         <Typography variant="h3" sx={{ mt: 2 }}>
                             {aboutData.title}
                         </Typography>
