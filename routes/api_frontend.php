@@ -17,6 +17,7 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/terms-conditions', [LayoutController::class, 'termsConditions']);
     Route::get('/privacy-policy', [LayoutController::class, 'privacyPolicy']);
     Route::get('/website-disclaimer', [LayoutController::class, 'websiteDisclaimer']);
+    Route::get('/holiday-list', [LayoutController::class, 'holidayList']);
     // Set locale Routes
     Route::get('/set-locale/{locale}', [LanguageController::class, 'setSiteLocale']);
     // Search Page Routes
@@ -57,5 +58,4 @@ Route::prefix('v1/fe')->group(function(){
 
     // Gallery Pages Routes
     Route::get('/galleries', [GalleryController::class, 'gallery']);
-
 });

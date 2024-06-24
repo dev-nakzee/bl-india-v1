@@ -10,6 +10,7 @@ use App\Models\Contact;
 use App\Models\ServiceCategory;
 use App\Models\Page;
 use App\Models\PageSection;
+use App\Models\Holiday;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\App;
@@ -44,7 +45,8 @@ class LayoutController extends Controller
             ['title' => 'Privacy Policy', 'url' => '/privacy-policy'],
             ['title' => 'Terms & Conditions', 'url' => '/terms-conditions'],
             ['title' => 'Website Disclaimer', 'url' => '/website-disclaimer'],
-            ['title' => 'Knowledge Base', 'url' => '/knowledge-base']
+            ['title' => 'Knowledge Base', 'url' => '/knowledge-base'],
+            ['title' => 'Holiday List', 'url' => '/holiday-list'],
         ];
         return response()->json(['contact' => $contact,'socialMedia' => $socialMedia, 'service' => $service, 'links' => $links, 'important' => $important, 'siteCert' => $siteCert, 'companyCert' => $companyCert]);
     }
@@ -67,5 +69,12 @@ class LayoutController extends Controller
         $page = Page::where('slug', 'website-disclaimer')->first();
         $section = PageSection::where('slug','website-disclaimer')->first();
         return response()->json(['page' => $page,'section' => $section]);
+    }
+
+    public function holidayList(): JsonResponse
+    {
+        $page = Page::where('slug', 'list-of-holidays')->first();
+        $holidays = Holiday::all();
+        return response()->json(['page' => $page, 'holidays' => $holidays]);
     }
 }
