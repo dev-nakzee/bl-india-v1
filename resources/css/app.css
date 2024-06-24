@@ -250,9 +250,9 @@ li a {
 }
 
 /******** Product List ***********/
-.Accordian-summary {
+/* .Accordian-summary {
     min-height: 70px !important;
-}
+} */
 
 .Accordian-summary .Accordian-data {
     width: 70%;
@@ -265,6 +265,7 @@ li a {
     margin-right: 15px;
     font-weight: 500;
 }
+.MuiAccordionSummary-root.Mui-expanded{background-color: var(--secondary-color);}
 .about-section{position: relative;}
 .box-about {
     position: absolute;
