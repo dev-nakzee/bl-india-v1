@@ -12,9 +12,13 @@ import {
   InputAdornment,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
+  Drawer,
+  IconButton
 } from '@mui/material';
-import { Search, ExpandMore } from '@mui/icons-material';
+import { Search, ExpandMore, Close } from '@mui/icons-material';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const Careers = () => {
@@ -22,6 +26,16 @@ const Careers = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    resume: null,
+    coverLetter: null,
+    jobOpeningId: '',
+    status: 'Applied'
+  });
 
   useEffect(() => {
     fetchJobs();
@@ -45,6 +59,58 @@ const Careers = () => {
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleApplyNowClick = (jobId) => {
+    setFormData({ ...formData, jobOpeningId: jobId });
+    setDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setDrawerOpen(false);
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      resume: null,
+      coverLetter: null,
+      jobOpeningId: '',
+      status: 'Applied'
+    });
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFileChange = (event) => {
+    const { name, files } = event.target;
+    setFormData({ ...formData, [name]: files[0] });
+  };
+
+  const handleSubmit = async () => {
+    const data = new FormData();
+    data.append('name', formData.name);
+    data.append('email', formData.email);
+    data.append('phone', formData.phone);
+    data.append('resume', formData.resume);
+    data.append('cover_letter', formData.coverLetter || ''); // If cover_letter is not selected, send an empty string
+    data.append('job_opening_id', formData.jobOpeningId);
+    data.append('status', formData.status);
+
+    try {
+      await apiClient.post('https://hrm.bl-india.com/api/v1/apply', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      handleCloseDrawer();
+      toast.success('Application submitted successfully');
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      toast.error('Error submitting application');
+    }
   };
 
   const filteredJobs = jobs.filter(job =>
@@ -71,6 +137,7 @@ const Careers = () => {
 
   return (
     <Box sx={{ padding: 4 }}>
+      <ToastContainer />
       <Typography variant="h3" gutterBottom>
         Careers
       </Typography>
@@ -100,6 +167,12 @@ const Careers = () => {
                 <Typography variant="body2" color="textSecondary">
                   Positions: {job.positions}
                 </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Postings: {job.postings}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Status: {job.status}
+                </Typography>
                 <Accordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
                     <Typography>Job Description</Typography>
@@ -118,7 +191,7 @@ const Careers = () => {
                 </Accordion>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={() => handleApplyNowClick(job.id)}>
                   Apply Now
                 </Button>
               </CardActions>
@@ -126,6 +199,79 @@ const Careers = () => {
           </Grid>
         ))}
       </Grid>
+      <Drawer anchor="right" open={drawerOpen} onClose={handleCloseDrawer}>
+        <Box sx={{ width: 400, padding: 4 }}>
+          <IconButton onClick={handleCloseDrawer} sx={{ mb: 2 }}>
+            <Close />
+          </IconButton>
+          <Typography variant="h5" gutterBottom>
+            Application Form
+          </Typography>
+          <TextField
+            label="Name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <input
+            accept="application/pdf"
+            style={{ display: 'none' }}
+            id="resume-upload"
+            type="file"
+            name="resume"
+            onChange={handleFileChange}
+          />
+          <label htmlFor="resume-upload">
+            <Button variant="contained" component="span" fullWidth sx={{ mt: 2 }}>
+              Upload Resume
+            </Button>
+            {formData.resume && (
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                {formData.resume.name}
+              </Typography>
+            )}
+          </label>
+          <input
+            accept="application/pdf"
+            style={{ display: 'none' }}
+            id="cover-letter-upload"
+            type="file"
+            name="coverLetter"
+            onChange={handleFileChange}
+          />
+          <label htmlFor="cover-letter-upload">
+            <Button variant="contained" component="span" fullWidth sx={{ mt: 2 }}>
+              Upload Cover Letter (Optional)
+            </Button>
+            {formData.coverLetter && (
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                {formData.coverLetter.name}
+              </Typography>
+            )}
+          </label>
+          <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
+            Submit Application
+          </Button>
+        </Box>
+      </Drawer>
     </Box>
   );
 };
