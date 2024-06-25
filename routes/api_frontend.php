@@ -58,4 +58,8 @@ Route::prefix('v1/fe')->group(function(){
 
     // Gallery Pages Routes
     Route::get('/galleries', [GalleryController::class, 'gallery']);
+
+    // Knowledge Resources Routes
+    Route::get('/knowledge-base', [KnowledgeBaseController::class, 'knowledgeBase']);
+    Route::get('/knowledge-base/{slug}', [KnowledgeBaseController::class, 'knowledgeBaseCategory']);
 });
