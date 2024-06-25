@@ -149,6 +149,46 @@ li a {
         right: 60px !important;
 }
 
+.testimonial {
+    position: relative;
+    padding: 20px;
+    margin: 20px;
+    max-width: 100%; /* Adjust width as needed */
+  }
+  
+  .rating {
+    font-size: 40px; /* Adjust size of stars */
+    color: #f1c40f; /* Color of stars */
+    margin-bottom: 10px;
+    text-align: left;
+    margin-left: 4rem;
+  }
+  
+  .quote {
+    font-size: 78px; /* Adjust size of quote */
+    color:var(--primary-color);
+    position: relative;
+  }
+   .slick-prev{
+    left:22px !important;
+  }
+  .slick-next{
+    right: 0 !important;
+    left:127px !important;
+   
+  }
+  .slick-prev,.slick-next{bottom: -43px;
+top:unset !important}
+.MuiSvgIcon-root.MuiSvgIcon-colorSecondary{font-size: 6rem;}
+  .quote::before {
+    content: "\201C"; /* Unicode for opening double quote */
+    font-size: 4em; /* Size of the quote mark */
+    position: absolute;
+    top: -178px; /* Adjust vertically */
+    right: -20px; /* Adjust horizontally */
+    color:var(--primary-color); /* Color of the quote mark */
+  }
+
 .Testimonial-section .MuiPaper-root {
     background-color: transparent;
     box-shadow: none;
