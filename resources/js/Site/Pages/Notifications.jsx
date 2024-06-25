@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { styled } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
@@ -28,6 +29,22 @@ const Notifications = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const notificationsPerPage = 5;
   const navigate = useNavigate();
+
+  const Sidebar = styled(Box)(({ theme }) => ({
+    width: 'auto',
+    height: 'fit-content',
+    position: 'sticky',
+    top: '20px',
+    overflowY: 'auto',
+    paddingRight: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%', // Make sidebar full width on small screens
+      position: 'static', // Remove sticky positioning on small screens
+      top: 'auto', // Reset top spacing on small screens
+      overflowY: 'visible', // Reset overflow on small screens
+      paddingRight: 0, // Reset right padding on small screens
+    },
+  }));
 
   useEffect(() => {
     const fetchNotificationData = async () => {
@@ -93,6 +110,8 @@ const Notifications = () => {
             <Typography variant="h6" gutterBottom>
               Categories
             </Typography>
+            <Sidebar className='Service-section-siderbar'>
+
             <List>
               <ListItem
                 button
@@ -112,9 +131,10 @@ const Notifications = () => {
                 </ListItem>
               ))}
             </List>
+            </Sidebar>
           </Grid>
-          <Grid item xs={12} md={9}>
-            <Typography variant="h4" gutterBottom textAlign={"center"} marginBottom={2}>
+          <Grid item xs={12} md={9} marginBottom={3}>
+            <Typography variant="h4" className="page-heading"  gutterBottom textAlign={"center"} marginBottom={2}>
               {pageData.name}
             </Typography>
             {paginatedNotifications.map(notification => (

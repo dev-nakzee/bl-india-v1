@@ -12,9 +12,10 @@ import {
   List,
   ListItem,
   ListItemText,
-  Link as MuiLink
+  Link as MuiLink,
+  Button
 } from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate,Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { styled } from '@mui/system';
 
@@ -108,8 +109,9 @@ const Blogs = () => {
       </Helmet>
       <Box sx={{ padding: 4 }}>
         <Grid container spacing={4} >
-        <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
-        <Sidebar className='Service-section-siderbar' marginTop={8}>
+        <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'} margin={4}>
+        <Grid item xs={12} md={3}>
+        <Sidebar className='Service-section-siderbar' marginTop={8}sx={{width:'auto'}}>
           <Typography variant="h6" mb={2}>Blog Categories</Typography>
           <List>
               <ListItem
@@ -131,9 +133,9 @@ const Blogs = () => {
               ))}
             </List>
         </Sidebar>
-          
+         </Grid> 
           <Grid item xs={12} md={9}>
-            <Typography variant="h4" gutterBottom textAlign={'center'} marginBottom={4}>
+            <Typography className="page-heading" variant="h4" gutterBottom textAlign={'center'} marginBottom={4}>
               {pageData.name}
             </Typography>
             <Grid container spacing={2}>
@@ -155,6 +157,9 @@ const Blogs = () => {
                         <Typography variant="body2" color="textSecondary">
                           {blog.seo_description}
                         </Typography>
+                        <Button sx={{marginTop:'15px'}} variant="outlined" component={MuiLink} href={`/blogs/${blog.blog_category.slug}/${blog.slug}`}>
+                            Read More
+                        </Button>
                       </CardContent>
                     </CardActionArea>
                   </Card>
