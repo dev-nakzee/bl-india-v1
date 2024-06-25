@@ -28,6 +28,14 @@ const KnowledgeBase = () => {
     fetchKnowledgeBase();
   }, []);
 
+  useEffect(() => {
+    if (searchQuery) {
+      fetchSearchResults(searchQuery);
+    } else {
+      fetchKnowledgeBase();
+    }
+  }, [searchQuery]);
+
   const fetchKnowledgeBase = async (retryCount = 3) => {
     try {
       const response = await apiClient.get('/knowledge-base');
@@ -45,6 +53,20 @@ const KnowledgeBase = () => {
     }
   };
 
+  const fetchSearchResults = async (query, retryCount = 3) => {
+    try {
+      const response = await apiClient.get(`/knowledge-base/find/${query}`);
+      setCategories(response.data.categories);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      if (retryCount > 0) {
+        setTimeout(() => fetchSearchResults(query, retryCount - 1), 3000); // Retry after 3 seconds
+      } else {
+        setError(true);
+      }
+    }
+  };
+
   const handleCategoryClick = (slug) => {
     navigate(`/knowledge-base/${slug}`);
   };
@@ -52,10 +74,6 @@ const KnowledgeBase = () => {
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
-
-  const filteredCategories = categories.filter(category =>
-    category.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   if (loading) {
     return (
@@ -106,7 +124,7 @@ const KnowledgeBase = () => {
           }}
         />
         <Grid container spacing={4}>
-          {filteredCategories.map((category) => (
+          {categories.map((category) => (
             <Grid item xs={12} sm={6} md={3} key={category.id}>
               <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%', borderRadius: '20px' }}>
                 <CardActionArea onClick={() => handleCategoryClick(category.slug)}>
