@@ -7,12 +7,10 @@ import {
   List,
   ListItem,
   ListItemText,
-  Link as MuiLink
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { styled } from '@mui/system';
-
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const BlogDetails = () => {
@@ -42,13 +40,11 @@ const BlogDetails = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await apiClient.get(`/blogs/${categorySlug}/${blogSlug}`);
-        setBlog(response.data.blog);
+        const response = await apiClient.get(`/blogs/${blogSlug}`);
+        setBlog(response.data.blog[0]);
+        setCategories(response.data.category);
 
-        const categoryResponse = await apiClient.get('/blog-categories');
-        setCategories(categoryResponse.data.categories);
-
-        const category = categoryResponse.data.categories.find(cat => cat.slug === categorySlug);
+        const category = response.data.category.find(cat => cat.slug === categorySlug);
         setSelectedCategory(category ? category.id : 'all');
       } catch (error) {
         console.error('Error fetching blog data:', error);
@@ -92,8 +88,8 @@ const BlogDetails = () => {
       </Helmet>
       <Box sx={{ padding: 4 }}>
         <Grid container spacing={4}>
-          <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
-            <Sidebar className='Service-section-siderbar' marginTop={8}>
+          <Grid item xs={12} md={3}>
+            <Sidebar>
               <Typography variant="h6" mb={2}>Blog Categories</Typography>
               <List>
                 <ListItem
@@ -115,23 +111,23 @@ const BlogDetails = () => {
                 ))}
               </List>
             </Sidebar>
-            <Grid item xs={12} md={9}>
-              <Typography variant="h4" gutterBottom textAlign={'center'} marginBottom={4}>
-                {blog.name}
-              </Typography>
-              <img
-                src={'https://in.bl-india.com/' + blog.image_url}
-                alt={blog.image_alt}
-                style={{ width: '100%', borderRadius: '20px', marginBottom: '20px' }}
-              />
-              <Typography variant="body1" gutterBottom>
-                {blog.content}
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                {`Posted on ${new Date(blog.created_at).toLocaleDateString()}`}
-              </Typography>
-            </Grid>
-          </Box>
+          </Grid>
+          <Grid item xs={12} md={9}>
+            <Typography variant="h4" gutterBottom textAlign={'center'} marginBottom={4}>
+              {blog.name}
+            </Typography>
+            <img
+              src={'https://in.bl-india.com/' + blog.image_url}
+              alt={blog.image_alt}
+              style={{ width: '100%', borderRadius: '20px', marginBottom: '20px' }}
+            />
+            <Typography variant="body1" gutterBottom>
+              <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              {`Posted on ${new Date(blog.created_at).toLocaleDateString()}`}
+            </Typography>
+          </Grid>
         </Grid>
       </Box>
     </>

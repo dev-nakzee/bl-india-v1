@@ -23,7 +23,7 @@ class BlogController extends Controller
         return response()->json(['page' => $page, 'category' => $category, 'blogs' => $blogs]);
     }
 
-    public function blogDetails(string $categorySlug, string $slug): JsonResponse
+    public function blogDetails(string $slug): JsonResponse
     {
         $blog = Blog::where('slug', $slug)->get();
         $category = BlogCategory::orderBy('id', 'asc')->get();
