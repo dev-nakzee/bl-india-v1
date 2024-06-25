@@ -57,7 +57,7 @@ const Gallery = () => {
 
   return (
     <Box sx={{ padding: 4 }}>
-      <Typography variant="h4" textAlign="center" gutterBottom>
+      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
         Gallery
       </Typography>
       <Masonry

@@ -9,6 +9,7 @@ use App\Http\Controllers\fe\ServiceController;
 use App\Http\Controllers\fe\NotificationController;
 use App\Http\Controllers\fe\BlogController;
 use App\Http\Controllers\fe\GalleryController;
+use App\Http\Controllers\fe\KnowledgeBaseController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -58,4 +59,8 @@ Route::prefix('v1/fe')->group(function(){
 
     // Gallery Pages Routes
     Route::get('/galleries', [GalleryController::class, 'gallery']);
+
+    // Knowledge Resources Routes
+    Route::get('/knowledge-base', [KnowledgeBaseController::class, 'knowledgeBase']);
+    Route::get('/knowledge-base/{slug}', [KnowledgeBaseController::class, 'knowledgeBaseCategory']);
 });

@@ -81,6 +81,15 @@ li a {
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
 }
+.page-heading{position: relative;}
+.page-heading::after{
+    content: " ";
+    position: absolute;
+    bottom: -10px;
+    left: 47%;
+    width: 60px;
+    border-bottom: 4px solid var(--primary-color);
+}
 
 /* Home Page All Section CSS */
 
