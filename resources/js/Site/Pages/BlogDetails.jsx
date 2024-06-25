@@ -7,6 +7,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Paper
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -42,9 +43,9 @@ const BlogDetails = () => {
       try {
         const response = await apiClient.get(`/blogs/${categorySlug}/${blogSlug}`);
         setBlog(response.data.blog[0]);
-        setCategories(response.data.category);
+        setCategories(response.data.categories);
 
-        const category = response.data.category.find(cat => cat.slug === categorySlug);
+        const category = response.data.categories.find(cat => cat.slug === categorySlug);
         setSelectedCategory(category ? category.id : 'all');
       } catch (error) {
         console.error('Error fetching blog data:', error);
@@ -91,25 +92,27 @@ const BlogDetails = () => {
           <Grid item xs={12} md={3}>
             <Sidebar>
               <Typography variant="h6" mb={2}>Blog Categories</Typography>
-              <List>
-                <ListItem
-                  button
-                  selected={selectedCategory === 'all'}
-                  onClick={() => handleCategoryClick('all', '')}
-                >
-                  <ListItemText primary="All Blogs" />
-                </ListItem>
-                {categories.map(category => (
+              <Paper>
+                <List>
                   <ListItem
-                    key={category.id}
                     button
-                    selected={category.id === selectedCategory}
-                    onClick={() => handleCategoryClick(category.id, category.slug)}
+                    selected={selectedCategory === 'all'}
+                    onClick={() => handleCategoryClick('all', '')}
                   >
-                    <ListItemText primary={category.name} />
+                    <ListItemText primary="All Blogs" />
                   </ListItem>
-                ))}
-              </List>
+                  {categories.map(category => (
+                    <ListItem
+                      key={category.id}
+                      button
+                      selected={category.id === selectedCategory}
+                      onClick={() => handleCategoryClick(category.id, category.slug)}
+                    >
+                      <ListItemText primary={category.name} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Paper>
             </Sidebar>
           </Grid>
           <Grid item xs={12} md={9}>
@@ -117,7 +120,7 @@ const BlogDetails = () => {
               {blog.name}
             </Typography>
             <img
-              src={'https://in.bl-india.com/' + blog.image_url}
+              src={'https://in.bl-india.com' + blog.image_url}
               alt={blog.image_alt}
               style={{ width: '100%', borderRadius: '20px', marginBottom: '20px' }}
             />
