@@ -23,6 +23,7 @@ import apiClient from '../Services/api'; // Ensure this is your configured axios
 
 const Careers = () => {
   const [jobs, setJobs] = useState([]);
+  const [pageData, setPageData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -38,8 +39,20 @@ const Careers = () => {
   });
 
   useEffect(() => {
-    fetchJobs();
+    fetchPageData();
   }, []);
+
+  const fetchPageData = async () => {
+    try {
+      const pageResponse = await apiClient.get('/careers');
+      setPageData(pageResponse.data);
+      await fetchJobs();
+    } catch (error) {
+      console.error('Error fetching page data:', error);
+      setError(true);
+      setLoading(false);
+    }
+  };
 
   const fetchJobs = async (retryCount = 3) => {
     try {
@@ -139,7 +152,10 @@ const Careers = () => {
     <Box sx={{ padding: 4 }}>
       <ToastContainer />
       <Typography variant="h3" gutterBottom>
-        Careers
+        {pageData.title || 'Careers'}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {pageData.description}
       </Typography>
       <TextField
         label="Search Jobs"
