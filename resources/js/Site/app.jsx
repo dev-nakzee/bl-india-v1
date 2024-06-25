@@ -13,6 +13,7 @@ import ProductDetails from './Pages/ProductDetails';
 import Notifications from './Pages/Notifications';
 import NotificationDetails from './Pages/NotificationDetails';
 import Blogs from './Pages/Blogs';
+import BlogDetails from './Pages/BlogDetails';
 import Gallery from './Pages/Gallery';
 import TermCondition from './Pages/TermCondition';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
@@ -38,7 +39,7 @@ function App() {
             <Route path='/notifications/:categorySlug/:slug' element={<NotificationDetails />} />
             <Route path='/blogs' element={<Blogs />} />
             <Route path='/blogs/:categorySlug' element={<Blogs />} />
-            <Route path='/blogs/:categorySlug/:slug' element={<Blogs />} />
+            <Route path='/blogs/:categorySlug/:slug' element={<BlogDetails />} />
             <Route path='/gallery' element={<Gallery />} />
             <Route path='/terms-conditions' element={<TermCondition />} />
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />

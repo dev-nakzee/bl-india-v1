@@ -15,7 +15,7 @@ class BlogController extends Controller
     public function blogs(): JsonResponse
     {
         $page = Page::where('slug', 'blogs')->first();
-        $blogs = Blog::orderBy('id', 'desc')->get();
+        $blogs = Blog::orderBy('id', 'desc')->with('blogCategory')->get();
         $category = BlogCategory::orderBy('id', 'asc')->get();
         foreach ($blogs as $blog) {
             $blog->content = mb_strimwidth($this->getFirstParagraphContent($blog->content), 0, 250, '...');
@@ -23,6 +23,12 @@ class BlogController extends Controller
         return response()->json(['page' => $page, 'category' => $category, 'blogs' => $blogs]);
     }
 
+    public function blogDetails(string $slug): JsonResponse
+    {
+        $blog = Blog::where('slug', $slug)->get();
+        $category = BlogCategory::orderBy('id', 'asc')->get();
+        return response()->json(['blog' => $blog, 'category' => $category]);
+    }
     protected function getFirstParagraphContent(string $html): ?string
     {
         $dom = new \DOMDocument();

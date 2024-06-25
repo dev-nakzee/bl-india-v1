@@ -54,7 +54,7 @@ Route::prefix('v1/fe')->group(function(){
 
     // Blogs Page Routes
     Route::get('/blogs', [BlogController::class, 'blogs']);
-    Route::get('/blogs/{categorySlug}/{slug}', [BlogController::class, 'blogDetails']);
+    Route::get('/blogs/{slug}', [BlogController::class, 'blogDetails']);
 
     // Gallery Pages Routes
     Route::get('/galleries', [GalleryController::class, 'gallery']);
