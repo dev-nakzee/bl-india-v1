@@ -16,6 +16,8 @@ import {
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { styled } from '@mui/system';
+
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const Blogs = () => {
@@ -28,6 +30,23 @@ const Blogs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 6;
   const navigate = useNavigate();
+
+  const Sidebar = styled(Box)(({ theme }) => ({
+    width: '25%',
+    height: 'fit-content',
+    position: 'sticky',
+    top: '20px',
+    overflowY: 'auto',
+    paddingRight: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%', // Make sidebar full width on small screens
+      position: 'static', // Remove sticky positioning on small screens
+      top: 'auto', // Reset top spacing on small screens
+      overflowY: 'visible', // Reset overflow on small screens
+      paddingRight: 0, // Reset right padding on small screens
+    },
+  }));
+  
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -88,12 +107,11 @@ const Blogs = () => {
         <meta name="keywords" content={pageData.seo_keywords} />
       </Helmet>
       <Box sx={{ padding: 4 }}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={3}>
-            <Typography variant="h4" gutterBottom>
-              Categories
-            </Typography>
-            <List>
+        <Grid container spacing={4} >
+        <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
+        <Sidebar className='Service-section-siderbar' marginTop={8}>
+          <Typography variant="h6" mb={2}>Blog Categories</Typography>
+          <List>
               <ListItem
                 button
                 selected={selectedCategory === 'all'}
@@ -112,9 +130,10 @@ const Blogs = () => {
                 </ListItem>
               ))}
             </List>
-          </Grid>
+        </Sidebar>
+          
           <Grid item xs={12} md={9}>
-            <Typography variant="h3" gutterBottom>
+            <Typography variant="h4" gutterBottom textAlign={'center'} marginBottom={4}>
               {pageData.name}
             </Typography>
             <Grid container spacing={2}>
@@ -151,6 +170,7 @@ const Blogs = () => {
               />
             </Box>
           </Grid>
+          </Box>
         </Grid>
       </Box>
     </>

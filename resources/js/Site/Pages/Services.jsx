@@ -20,7 +20,7 @@ import apiClient from '../Services/api'; // Ensure this is your configured axios
 const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
   padding: theme.spacing(4),
-  backgroundColor: '#f5f5f5',
+  // backgroundColor: '#f5f5f5',
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(2), // Decrease padding on small screens
   },
@@ -129,19 +129,22 @@ const Services = () => {
         <meta name="description" content={serviceData.page.seo_description} />
         <meta name="keywords" content={serviceData.page.seo_keywords} />
       </Helmet>
-      <Grid item xs={12}  display={'flex'} justifyContent={'space-between'} alignContent={'center'}marginBlock={3}>
-              <Typography variant="h2" sx={{ textAlign: 'left', fontWeight: 500, maxWidth: 280, color: '#0D629A', margin: 'auto', borderRadius: 20 }}>
-                {serviceData.page.name}
+      <Grid item xs={12}  display={'flex'} justifyContent={'center'} alignContent={'center'}marginBlock={3}>
+      <Box flexDirection={'column'}>
+              <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, backgroundColor: '#0D629A',color: '#fff', margin: 'auto', borderRadius: 20 }}>
+              {serviceData.page.title} 
               </Typography>
-              <Typography variant="h2" sx={{ textAlign: 'left', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
-                {serviceData.page.title}
+              <Typography variant="h4" sx={{ textAlign: 'center' }}>
+                         {serviceData.page.name}
+
               </Typography>
+             </Box>
             </Grid>
       <ServiceSection className='Service-section'>
      
             <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
         <Sidebar className='Service-section-siderbar'>
-          <Typography variant="h3" mb={2}>Service Categories</Typography>
+          <Typography variant="h6" mb={2}>Service Categories</Typography>
           <List>
             <ListItem
               button
@@ -176,7 +179,7 @@ const Services = () => {
                         image={`https://in.bl-india.com/${service.thumbnail_url}`}
                         alt={service.image_alt}
                       />
-                        <Typography gutterBottom variant="h5" component="div">
+                        <Typography gutterBottom variant="heading" component="div">
                           {service.name}
                         </Typography>
                         </Box>

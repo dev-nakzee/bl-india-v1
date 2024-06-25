@@ -112,9 +112,7 @@ const HomeProcess = () => {
                         sx={{
                             textAlign: "center",
                             mt: 2,
-                            fontSize: "1.75rem",
-                            fontWeight: 500,
-                            textTransform: "uppercase",
+                            
                         }}
                     >
                         {section[0].title}

@@ -83,7 +83,7 @@ const HomeAbout = () => {
                         <Typography variant="h3" sx={{ mt: 2 }}>
                             {aboutData.title}
                         </Typography>
-                        <Typography variant="subtitle2" sx={{ mt: 2, mb: 2, borderLeft: '5px solid #0D629A', pl: 2, fontSize: '1rem', fontStyle: 'italic' }}>
+                        <Typography variant="subtitle2" sx={{mb: 2, borderLeft: '5px solid #0D629A', pl: 2, fontSize: '1rem', fontStyle: 'italic' }}>
                             {aboutData.tag_line}
                         </Typography>
                         <Box className="about-content">

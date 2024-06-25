@@ -90,7 +90,7 @@ const Notifications = () => {
       <Box sx={{ padding: 4 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={3}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h6" gutterBottom>
               Categories
             </Typography>
             <List>
@@ -114,7 +114,7 @@ const Notifications = () => {
             </List>
           </Grid>
           <Grid item xs={12} md={9}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" gutterBottom textAlign={"center"} marginBottom={2}>
               {pageData.name}
             </Typography>
             {paginatedNotifications.map(notification => (

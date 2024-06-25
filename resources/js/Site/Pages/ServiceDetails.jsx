@@ -137,10 +137,10 @@ const ServiceDetails = () => {
                 alt={serviceData.service.image_alt}
               />
               <Box flexDirection={'column'}>
-              <Typography variant="h6" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, backgroundColor: '#0D629A',color: '#fff', margin: 'auto', borderRadius: 20 }}>
+              <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, backgroundColor: '#0D629A',color: '#fff', margin: 'auto', borderRadius: 20 }}>
                 {serviceData.service.tagline}
               </Typography>
-              <Typography variant="h5" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+              <Typography variant="h4" sx={{ textAlign: 'center', mt: 2, textTransform: 'uppercase' }}>
                 {serviceData.service.name}
               </Typography>
               </Box>
@@ -148,7 +148,7 @@ const ServiceDetails = () => {
             </Grid>
             <Grid item xs={12} display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
       <Sidebar className='Service-section-siderbar'>
-          <Typography variant="h3" mb={2}>{serviceData.service.name}</Typography>
+          <Typography variant="h6" mb={2}>{serviceData.service.name}</Typography>
           <List>
             {serviceData.sections.map((section) => (
               <ListItem
@@ -168,7 +168,7 @@ const ServiceDetails = () => {
             <Grid item xs={12}>
               {selectedSection && (
                 <Box sx={{ mt: 1 }}>
-                  <Typography variant="h4" gutterBottom>
+                  <Typography variant="h6" gutterBottom>
                     {selectedSection.name}
                   </Typography>
                   {selectedSection.slug === 'mandatory-products' ? (

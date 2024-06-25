@@ -179,7 +179,7 @@ const theme = createTheme({
     },
     h5: {
       fontSize: "2.2rem",
-      fontWeight: 400,
+      fontWeight: 600,
       color: "#0D629A",
 
     },
@@ -191,7 +191,7 @@ const theme = createTheme({
     },
     heading: {
       fontSize: "1.8rem",
-      fontWeight: 400,
+      fontWeight: 500,
     },
     subtitle1: {
       fontSize: "1.6rem",

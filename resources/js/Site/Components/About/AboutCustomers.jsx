@@ -103,16 +103,7 @@ const AboutCustomers = () => {
                 >
                     {customersData.section.tag_line}
                 </Typography>
-                <Typography
-                    variant="h2"
-                    sx={{
-                        textAlign: "center",
-                        mt: 2,
-                        fontSize: "1.75rem",
-                        fontWeight: 500,
-                        textTransform: "uppercase",
-                    }}
-                >
+                <Typography variant="h4" sx={{ textAlign: 'center', mt: 2}}>
                     {customersData.section.title}
                 </Typography>
             </Grid>
