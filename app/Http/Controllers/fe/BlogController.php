@@ -23,11 +23,11 @@ class BlogController extends Controller
         return response()->json(['page' => $page, 'category' => $category, 'blogs' => $blogs]);
     }
 
-    public function blogDetails(string $slug): JsonResponse
+    public function blogDetails(string $categorySlug, string $slug): JsonResponse
     {
         $blog = Blog::where('slug', $slug)->get();
         $category = BlogCategory::orderBy('id', 'asc')->get();
-        return response()->json(['blog' => $blog, 'category' => $category]);
+        return response()->json(['blog' => $blog, 'categories' => $category]);
     }
     protected function getFirstParagraphContent(string $html): ?string
     {

@@ -40,7 +40,7 @@ const BlogDetails = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await apiClient.get(`/blogs/${blogSlug}`);
+        const response = await apiClient.get(`/blogs/${categorySlug}/${blogSlug}`);
         setBlog(response.data.blog[0]);
         setCategories(response.data.category);
 
