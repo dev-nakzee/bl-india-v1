@@ -21,6 +21,7 @@ import WebsiteDisclaimer from './Pages/WebsiteDisclaimer';
 import HolidayList from './Pages/HolidayList';
 import theme from './Layouts/Theme';
 import KnowledgeBase from './Pages/KnowledgeBase';
+import KnowledgeBaseCategory from './Pages/KnowledgeBaseCategory';
 
 function App() {
   return (    
@@ -47,7 +48,7 @@ function App() {
             <Route path='/website-disclaimer' element={<WebsiteDisclaimer />} />
             <Route path='/holiday-list' element={<HolidayList />} />
             <Route path="/knowledge-base" element={<KnowledgeBase />} />
-            <Route path="/knowledge-base/:categorySlug" element={<KnowledgeBase />} />
+            <Route path="/knowledge-base/:categorySlug" element={<KnowledgeBaseCategory />} />
           </Routes>
         </Layout>
       </BrowserRouter>

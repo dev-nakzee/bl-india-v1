@@ -12,7 +12,8 @@ import {
   InputAdornment,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
+  Link
 } from '@mui/material';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
@@ -143,23 +144,29 @@ const KnowledgeBase = () => {
           <Grid container spacing={4}>
             {categories.map((category) => (
               <Grid item xs={12} sm={6} md={3} key={category.id}>
-                <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%', borderRadius: '20px' }}>
-                  <CardActionArea onClick={() => handleCategoryClick(category.slug)}>
-                    {category.is_featured && (
+                {category.is_featured ? (
+                  <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%', borderRadius: '20px' }}>
+                    <CardActionArea onClick={() => handleCategoryClick(category.slug)}>
                       <CardMedia
                         component="img"
                         height="140"
                         image={'https://in.bl-india.com' + category.image_url}
                         alt={category.image_alt}
                       />
-                    )}
-                    <CardContent>
-                      <Typography gutterBottom variant="h6" component="div">
-                        {category.name}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
+                      <CardContent>
+                        <Typography gutterBottom variant="h6" component="div">
+                          {category.name}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                ) : (
+                  <Typography variant="h6">
+                    <Link href="#" onClick={() => handleCategoryClick(category.slug)}>
+                      {category.name}
+                    </Link>
+                  </Typography>
+                )}
               </Grid>
             ))}
           </Grid>

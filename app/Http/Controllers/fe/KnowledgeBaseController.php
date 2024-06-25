@@ -15,7 +15,7 @@ class KnowledgeBaseController extends Controller
     public function knowledgeBase(): JsonResponse
     {
         $page = Page::where('slug', 'knowledge-base')->first();
-        $categories = KnowledgeBaseCategory::orderBy('is_featured', 'asc')->get();
+        $categories = KnowledgeBaseCategory::orderBy('is_featured', 'desc')->get();
         return response()->json([
             'page' => $page,
             'categories' => $categories,
