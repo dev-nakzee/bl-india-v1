@@ -32,16 +32,8 @@ class KnowledgeBaseController extends Controller
         $category = KnowledgeBaseCategory::where('slug', $slug)->first();
         $knowledgeBases = KnowledgeBase::where('knowledge_base_category_id', $category->id)->get();
         return response()->json([
-            'page' => $page,
             'category' => $category,
             'knowledgeBases' => $knowledgeBases,
         ]);
-    }
-
-    public function knowledgeBasesCategorySearch ($slug, $searchKeywords): JsonResponse
-    {
-        $category = KnowledgeBaseCategory::where('slug', $slug)->first();
-        $knowledgeBases = KnowledgeBase::where('knowledge_base_category_id', $category->id)->where('question', 'like', '%'. $searchKeywords. '%')->get();
-        return response()->json($knowledgeBases);
     }
 }

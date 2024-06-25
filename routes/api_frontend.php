@@ -64,5 +64,4 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/knowledge-base', [KnowledgeBaseController::class, 'knowledgeBase']);
     Route::get('/knowledge-base/find/{searchKeywords}', [KnowledgeBaseController::class, 'knowledgeBaseSearch']);
     Route::get('/knowledge-base/{slug}', [KnowledgeBaseController::class, 'knowledgeBaseCategory']);
-    Route::get('/knowledge-base/find/{slug}/{searchKeywords}', [KnowledgeBaseController::class, 'knowledgeBasesCategorySearch']);
 });

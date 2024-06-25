@@ -47,6 +47,7 @@ function App() {
             <Route path='/website-disclaimer' element={<WebsiteDisclaimer />} />
             <Route path='/holiday-list' element={<HolidayList />} />
             <Route path="/knowledge-base" element={<KnowledgeBase />} />
+            <Route path="/knowledge-base/:categorySlug" element={<KnowledgeBase />} />
           </Routes>
         </Layout>
       </BrowserRouter>

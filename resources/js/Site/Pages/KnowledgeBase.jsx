@@ -9,16 +9,20 @@ import {
   CardContent,
   CardActionArea,
   TextField,
-  InputAdornment
+  InputAdornment,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from '@mui/material';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
-import { Search } from '@mui/icons-material';
+import { Search, ExpandMore } from '@mui/icons-material';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const KnowledgeBase = () => {
   const [pageData, setPageData] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -41,6 +45,7 @@ const KnowledgeBase = () => {
       const response = await apiClient.get('/knowledge-base');
       setPageData(response.data.page);
       setCategories(response.data.categories);
+      setSearchResults([]);
     } catch (error) {
       console.error('Error fetching knowledge base:', error);
       if (retryCount > 0) {
@@ -56,7 +61,7 @@ const KnowledgeBase = () => {
   const fetchSearchResults = async (query, retryCount = 3) => {
     try {
       const response = await apiClient.get(`/knowledge-base/find/${query}`);
-      setCategories(response.data.categories);
+      setSearchResults(response.data);
     } catch (error) {
       console.error('Error fetching search results:', error);
       if (retryCount > 0) {
@@ -123,29 +128,42 @@ const KnowledgeBase = () => {
             ),
           }}
         />
-        <Grid container spacing={4}>
-          {categories.map((category) => (
-            <Grid item xs={12} sm={6} md={3} key={category.id}>
-              <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%', borderRadius: '20px' }}>
-                <CardActionArea onClick={() => handleCategoryClick(category.slug)}>
-                  {category.is_featured && (
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={'https://in.bl-india.com' + category.image_url}
-                      alt={category.image_alt}
-                    />
-                  )}
-                  <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
-                      {category.name}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+        {searchQuery && searchResults.length > 0 ? (
+          searchResults.map((result) => (
+            <Accordion key={result.id}>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography>{result.question}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>{result.answer}</Typography>
+              </AccordionDetails>
+            </Accordion>
+          ))
+        ) : (
+          <Grid container spacing={4}>
+            {categories.map((category) => (
+              <Grid item xs={12} sm={6} md={3} key={category.id}>
+                <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%', borderRadius: '20px' }}>
+                  <CardActionArea onClick={() => handleCategoryClick(category.slug)}>
+                    {category.is_featured && (
+                      <CardMedia
+                        component="img"
+                        height="140"
+                        image={'https://in.bl-india.com' + category.image_url}
+                        alt={category.image_alt}
+                      />
+                    )}
+                    <CardContent>
+                      <Typography gutterBottom variant="h6" component="div">
+                        {category.name}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Box>
     </>
   );
