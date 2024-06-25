@@ -140,7 +140,7 @@ const Blogs = () => {
               {paginatedBlogs.map(blog => (
                 <Grid item xs={12} sm={6} md={4} key={blog.id}>
                                 <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' ,borderRadius:'20px'}}>
-                                <CardActionArea component={MuiLink} href={`/blogs/${blog.slug}`}>
+                                <CardActionArea component={MuiLink} href={`/blogs/${blog.blog_category.slug}/${blog.slug}`}>
                       <CardMedia
                         component="img"
                         height="140"

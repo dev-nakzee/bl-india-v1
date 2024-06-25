@@ -7,7 +7,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  Link as MuiLink,
+  Link as MuiLink
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -42,7 +42,7 @@ const BlogDetails = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await apiClient.get(`/blogs/${blogSlug}`);
+        const response = await apiClient.get(`/blogs/${categorySlug}/${blogSlug}`);
         setBlog(response.data.blog);
 
         const categoryResponse = await apiClient.get('/blog-categories');
