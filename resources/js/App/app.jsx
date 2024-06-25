@@ -31,6 +31,8 @@ import Customers from './components/Customers';
 import Teams from './components/Teams';
 import Gallery from './components/Gallery';
 import Holidays from './components/Holidays';
+import KnowledgeBaseCategory from './components/KnowledgeBaseCategory';
+import KnowledgeBase from './components/KnowledgeBase';
 
 function App() {
     return (
@@ -72,6 +74,8 @@ function App() {
               <Route path="downloads/list" element={<Downloads />} />
               <Route path="gallery/list" element={<Gallery />} />
               <Route path="holidays" element={<Holidays />} />
+              <Route path="knowledge-base/categories" element={<KnowledgeBaseCategory />} />
+              <Route path="knowledge-base/faqs" element={<KnowledgeBase />} />
               {/* You can add more nested routes under /cms here */}
             </Route>
           </Routes>

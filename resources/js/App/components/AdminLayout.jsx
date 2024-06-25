@@ -41,6 +41,8 @@ import MiscellaneousIcon from '@mui/icons-material/Category';
 import ProcessIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
 import GroupsIcon from '@mui/icons-material/Groups';
+import HelpIcon from '@mui/icons-material/Help';
+import CategoryIcon from '@mui/icons-material/Category';
 
 const drawerWidth = 240;
 
@@ -57,6 +59,7 @@ const AdminLayout = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [miscellaneousOpen, setMiscellaneousOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [knowledgeBaseOpen, setKnowledgeBaseOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -275,6 +278,25 @@ const AdminLayout = () => {
             <ListItemText primary="Teams" />
           </ListItem>
           
+          {/* Knowledge Base Menu */}
+          <ListItem button onClick={() => handleMenuToggle(setKnowledgeBaseOpen)}>
+            <ListItemIcon><HelpIcon /></ListItemIcon>
+            <ListItemText primary="Knowledge Base" />
+            {knowledgeBaseOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={knowledgeBaseOpen} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button component={Link} to="/cms/knowledge-base/categories" sx={{ pl: 4 }}>
+                <ListItemIcon><CategoryIcon /></ListItemIcon>
+                <ListItemText primary="Categories" />
+              </ListItem>
+              <ListItem button component={Link} to="/cms/knowledge-base/faqs" sx={{ pl: 4 }}>
+                <ListItemIcon><HelpIcon /></ListItemIcon>
+                <ListItemText primary="FAQs" />
+              </ListItem>
+            </List>
+          </Collapse>
+
           {/* Miscellaneous Menu */}
           <ListItem button onClick={() => handleMenuToggle(setMiscellaneousOpen)}>
             <ListItemIcon><MiscellaneousIcon /></ListItemIcon>

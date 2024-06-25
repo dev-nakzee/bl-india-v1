@@ -67,7 +67,7 @@ const HomeBlog = () => {
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section[0].tag_line}
                     </Typography>
-                    <Typography variant="h3" sx={{ textAlign: 'center', mt: 2, fontSize: '1.75rem', fontWeight: 500, textTransform: 'uppercase' }}>
+                    <Typography variant="h3" sx={{ textAlign: 'center', mt: 2}}>
                         {section[0].title}
                     </Typography>
                 </Grid>
