@@ -33,6 +33,8 @@ const KnowledgeBaseCategory = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -100,6 +102,16 @@ const KnowledgeBaseCategory = () => {
     setCurrentCategory(null);
   };
 
+  const handleConfirmOpen = (id) => {
+    setDeleteId(id);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmClose = () => {
+    setDeleteId(null);
+    setConfirmOpen(false);
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -153,11 +165,12 @@ const KnowledgeBaseCategory = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     try {
-      await apiClient.delete(`/knowledge-categories/${id}`);
+      await apiClient.delete(`/knowledge-categories/${deleteId}`);
       fetchCategories();
       toast.success('Category deleted successfully');
+      handleConfirmClose();
     } catch (error) {
       toast.error('Error deleting category');
       console.error('Error deleting category:', error);
@@ -238,7 +251,7 @@ const KnowledgeBaseCategory = () => {
                   <IconButton edge="end" aria-label="edit" onClick={() => handleOpen(category)}>
                     <Edit />
                   </IconButton>
-                  <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(category.id)}>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleConfirmOpen(category.id)}>
                     <Delete />
                   </IconButton>
                 </TableCell>
@@ -376,6 +389,22 @@ const KnowledgeBaseCategory = () => {
           </Button>
           <Button onClick={handleSubmit} color="primary">
             {currentCategory ? 'Update' : 'Add'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={confirmOpen} onClose={handleConfirmClose}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this category?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleConfirmClose} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="primary">
+            Delete
           </Button>
         </DialogActions>
       </Dialog>

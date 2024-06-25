@@ -38,6 +38,8 @@ const KnowledgeBase = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const [currentKB, setCurrentKB] = useState(null);
   const [formData, setFormData] = useState({
     knowledge_base_category_id: '',
@@ -117,6 +119,16 @@ const KnowledgeBase = () => {
     setCurrentKB(null);
   };
 
+  const handleConfirmOpen = (id) => {
+    setDeleteId(id);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmClose = () => {
+    setDeleteId(null);
+    setConfirmOpen(false);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -142,11 +154,12 @@ const KnowledgeBase = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     try {
-      await apiClient.delete(`/knowledge-base/${id}`);
+      await apiClient.delete(`/knowledge-base/${deleteId}`);
       fetchKnowledgeBases();
       toast.success('Knowledge base deleted successfully');
+      handleConfirmClose();
     } catch (error) {
       toast.error('Error deleting knowledge base');
       console.error('Error deleting knowledge base:', error);
@@ -227,7 +240,7 @@ const KnowledgeBase = () => {
                   <IconButton edge="end" aria-label="edit" onClick={() => handleOpen(kb)}>
                     <Edit />
                   </IconButton>
-                  <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(kb.id)}>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleConfirmOpen(kb.id)}>
                     <Delete />
                   </IconButton>
                 </TableCell>
@@ -357,6 +370,22 @@ const KnowledgeBase = () => {
           </Button>
           <Button onClick={handleSubmit} color="primary">
             {currentKB ? 'Update' : 'Add'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={confirmOpen} onClose={handleConfirmClose}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this knowledge base item? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleConfirmClose} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="primary">
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
