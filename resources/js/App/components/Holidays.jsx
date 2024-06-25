@@ -21,6 +21,7 @@ import {
   Paper,
   IconButton,
   CircularProgress,
+  DialogContentText,
 } from '@mui/material';
 import { Add, Edit, Delete } from '@mui/icons-material';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
@@ -29,6 +30,8 @@ const Holidays = () => {
   const [holidays, setHolidays] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const [currentHoliday, setCurrentHoliday] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
@@ -74,6 +77,16 @@ const Holidays = () => {
     setCurrentHoliday(null);
   };
 
+  const handleConfirmOpen = (id) => {
+    setDeleteId(id);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmClose = () => {
+    setDeleteId(null);
+    setConfirmOpen(false);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -96,10 +109,11 @@ const Holidays = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     try {
-      await apiClient.delete(`/holidays/${id}`);
+      await apiClient.delete(`/holidays/${deleteId}`);
       fetchHolidays();
+      handleConfirmClose();
     } catch (error) {
       console.error('Error deleting holiday:', error);
     }
@@ -141,7 +155,7 @@ const Holidays = () => {
                   <IconButton onClick={() => handleOpen(holiday)}>
                     <Edit />
                   </IconButton>
-                  <IconButton onClick={() => handleDelete(holiday.id)}>
+                  <IconButton onClick={() => handleConfirmOpen(holiday.id)}>
                     <Delete />
                   </IconButton>
                 </TableCell>
@@ -195,6 +209,22 @@ const Holidays = () => {
           </Button>
           <Button onClick={handleSubmit} color="primary">
             {currentHoliday ? 'Update' : 'Add'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={confirmOpen} onClose={handleConfirmClose}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this holiday?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleConfirmClose} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="primary">
+            Delete
           </Button>
         </DialogActions>
       </Dialog>

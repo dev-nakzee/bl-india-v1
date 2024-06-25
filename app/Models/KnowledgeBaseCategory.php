@@ -16,6 +16,10 @@ class KnowledgeBaseCategory extends Model
         'image_url',
         'image_alt',
         'is_featured',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+        'seo_tags',
     ];
 
     protected $hidden = [

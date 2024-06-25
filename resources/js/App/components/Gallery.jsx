@@ -27,6 +27,8 @@ const Gallery = () => {
   const [galleries, setGalleries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const [currentGallery, setCurrentGallery] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
@@ -75,6 +77,16 @@ const Gallery = () => {
     setCurrentGallery(null);
   };
 
+  const handleConfirmOpen = (id) => {
+    setDeleteId(id);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmClose = () => {
+    setDeleteId(null);
+    setConfirmOpen(false);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -118,10 +130,11 @@ const Gallery = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     try {
-      await apiClient.delete(`/galleries/${id}`);
+      await apiClient.delete(`/galleries/${deleteId}`);
       fetchGalleries();
+      handleConfirmClose();
     } catch (error) {
       console.error('Error deleting gallery:', error);
     }
@@ -147,9 +160,9 @@ const Gallery = () => {
         <Table>
           <TableHead>
             <TableRow>
-                <TableCell>Image</TableCell>
-                <TableCell>Title</TableCell>
-                <TableCell>Description</TableCell>
+              <TableCell>Image</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Description</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -167,12 +180,11 @@ const Gallery = () => {
                 </TableCell>
                 <TableCell>{gallery.title}</TableCell>
                 <TableCell>{gallery.description}</TableCell>
-
                 <TableCell>
                   <IconButton edge="end" aria-label="edit" onClick={() => handleOpen(gallery)}>
                     <Edit />
                   </IconButton>
-                  <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(gallery.id)}>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleConfirmOpen(gallery.id)}>
                     <Delete />
                   </IconButton>
                 </TableCell>
@@ -239,6 +251,22 @@ const Gallery = () => {
           </Button>
           <Button onClick={handleSubmit} color="primary">
             {currentGallery ? 'Update' : 'Add'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={confirmOpen} onClose={handleConfirmClose}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this gallery item? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleConfirmClose} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="primary">
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
