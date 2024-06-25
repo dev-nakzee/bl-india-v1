@@ -163,8 +163,7 @@ const ServiceDetails = () => {
           </List>
         </Sidebar>
         <ServicesList>
-          <Grid container spacing={4} alignItems="center" >
-          
+          <Grid container spacing={4} alignItems="center">          
             <Grid item xs={12}>
               {selectedSection && (
                 <Box sx={{ mt: 1 }}>

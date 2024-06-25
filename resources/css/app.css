@@ -366,11 +366,11 @@ li a {
     list-style: disc;
     margin-left: 3rem;
 }
-.knowledge_bg{
+/* .knowledge_bg{
     background-image: url('../js/Site/Assets/help_bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-}
+} */
 @media (max-width: 767px) {
     .box-hidden {
         display: none !important;

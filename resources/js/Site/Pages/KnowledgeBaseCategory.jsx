@@ -94,6 +94,7 @@ const KnowledgeBaseCategory = () => {
         <TextField
           label="Search Questions"
           variant="outlined"
+          marginBottom={4}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           fullWidth
