@@ -10,6 +10,7 @@ use App\Http\Controllers\fe\NotificationController;
 use App\Http\Controllers\fe\BlogController;
 use App\Http\Controllers\fe\GalleryController;
 use App\Http\Controllers\fe\KnowledgeBaseController;
+use App\Http\Controllers\fe\CareerController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
