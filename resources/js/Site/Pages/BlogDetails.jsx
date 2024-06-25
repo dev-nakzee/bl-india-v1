@@ -7,7 +7,10 @@ import {
   List,
   ListItem,
   ListItemText,
-  Paper
+  Paper,
+  TextField,
+  Button,
+  Alert
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -20,6 +23,13 @@ const BlogDetails = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [commentData, setCommentData] = useState({
+    name: '',
+    email: '',
+    comment: ''
+  });
+  const [commentError, setCommentError] = useState('');
+  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
   const Sidebar = styled(Box)(({ theme }) => ({
@@ -44,6 +54,7 @@ const BlogDetails = () => {
         const response = await apiClient.get(`/blogs/${categorySlug}/${blogSlug}`);
         setBlog(response.data.blog[0]);
         setCategories(response.data.categories);
+        setComments(response.data.blog[0].comments);
 
         const category = response.data.categories.find(cat => cat.slug === categorySlug);
         setSelectedCategory(category ? category.id : 'all');
@@ -56,6 +67,32 @@ const BlogDetails = () => {
 
     fetchBlogData();
   }, [categorySlug, blogSlug]);
+
+  const handleCommentChange = (e) => {
+    const { name, value } = e.target;
+    setCommentData({
+      ...commentData,
+      [name]: value
+    });
+  };
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    if (!commentData.name || !commentData.email || !commentData.comment) {
+      setCommentError('All fields are required.');
+      return;
+    }
+
+    try {
+      const response = await apiClient.post(`/blogs/${categorySlug}/${blogSlug}/comments`, commentData);
+      setComments([...comments, response.data]);
+      setCommentData({ name: '', email: '', comment: '' });
+      setCommentError('');
+    } catch (error) {
+      console.error('Error submitting comment:', error);
+      setCommentError('Failed to submit comment.');
+    }
+  };
 
   if (loading) {
     return (
@@ -130,6 +167,57 @@ const BlogDetails = () => {
             <Typography variant="subtitle1" color="textSecondary">
               {`Posted on ${new Date(blog.created_at).toLocaleDateString()}`}
             </Typography>
+
+            <Box mt={4}>
+              <Typography variant="h5" gutterBottom>Comments</Typography>
+              <List>
+                {comments.map(comment => (
+                  <ListItem key={comment.id}>
+                    <ListItemText
+                      primary={comment.name}
+                      secondary={comment.comment}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+              <Box mt={4}>
+                <Typography variant="h6" gutterBottom>Add a Comment</Typography>
+                <form onSubmit={handleCommentSubmit}>
+                  <TextField
+                    fullWidth
+                    label="Name"
+                    name="name"
+                    value={commentData.name}
+                    onChange={handleCommentChange}
+                    margin="normal"
+                  />
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    name="email"
+                    value={commentData.email}
+                    onChange={handleCommentChange}
+                    margin="normal"
+                  />
+                  <TextField
+                    fullWidth
+                    label="Comment"
+                    name="comment"
+                    value={commentData.comment}
+                    onChange={handleCommentChange}
+                    margin="normal"
+                    multiline
+                    rows={4}
+                  />
+                  {commentError && (
+                    <Alert severity="error" sx={{ mt: 2 }}>{commentError}</Alert>
+                  )}
+                  <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+                    Submit Comment
+                  </Button>
+                </form>
+              </Box>
+            </Box>
           </Grid>
         </Grid>
       </Box>
