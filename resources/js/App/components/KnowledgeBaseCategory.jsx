@@ -40,6 +40,10 @@ const KnowledgeBaseCategory = () => {
     image: null,
     image_alt: '',
     is_featured: false,
+    seo_title: '',
+    seo_description: '',
+    seo_keywords: '',
+    seo_tags: '',
   });
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
@@ -70,6 +74,10 @@ const KnowledgeBaseCategory = () => {
         image: null,
         image_alt: category.image_alt,
         is_featured: category.is_featured,
+        seo_title: category.seo_title || '',
+        seo_description: category.seo_description || '',
+        seo_keywords: category.seo_keywords || '',
+        seo_tags: category.seo_tags || '',
       });
     } else {
       setFormData({
@@ -78,6 +86,10 @@ const KnowledgeBaseCategory = () => {
         image: null,
         image_alt: '',
         is_featured: false,
+        seo_title: '',
+        seo_description: '',
+        seo_keywords: '',
+        seo_tags: '',
       });
     }
     setOpen(true);
@@ -112,6 +124,10 @@ const KnowledgeBaseCategory = () => {
     }
     data.append('image_alt', formData.image_alt);
     data.append('is_featured', formData.is_featured ? 'true' : 'false');
+    data.append('seo_title', formData.seo_title);
+    data.append('seo_description', formData.seo_description);
+    data.append('seo_keywords', formData.seo_keywords);
+    data.append('seo_tags', formData.seo_tags);
 
     try {
       if (currentCategory) {
@@ -306,6 +322,50 @@ const KnowledgeBaseCategory = () => {
                   />
                 }
                 label="Featured"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                margin="dense"
+                name="seo_title"
+                label="SEO Title"
+                type="text"
+                fullWidth
+                value={formData.seo_title}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                margin="dense"
+                name="seo_description"
+                label="SEO Description"
+                type="text"
+                fullWidth
+                value={formData.seo_description}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                margin="dense"
+                name="seo_keywords"
+                label="SEO Keywords"
+                type="text"
+                fullWidth
+                value={formData.seo_keywords}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                margin="dense"
+                name="seo_tags"
+                label="SEO Tags"
+                type="text"
+                fullWidth
+                value={formData.seo_tags}
+                onChange={handleChange}
               />
             </Grid>
           </Grid>

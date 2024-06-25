@@ -20,6 +20,7 @@ import PrivacyPolicy from './Pages/PrivacyPolicy';
 import WebsiteDisclaimer from './Pages/WebsiteDisclaimer';
 import HolidayList from './Pages/HolidayList';
 import theme from './Layouts/Theme';
+import KnowledgeBase from './Pages/KnowledgeBase';
 
 function App() {
   return (    
@@ -45,6 +46,7 @@ function App() {
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />
             <Route path='/website-disclaimer' element={<WebsiteDisclaimer />} />
             <Route path='/holiday-list' element={<HolidayList />} />
+            <Route path="/knowledge-base" element={<KnowledgeBase />} />
           </Routes>
         </Layout>
       </BrowserRouter>

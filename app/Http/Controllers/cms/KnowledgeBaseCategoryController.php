@@ -34,6 +34,10 @@ class KnowledgeBaseCategoryController extends Controller
             'image' =>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'image_alt' =>'nullable|string|max:255',
             'is_featured' => 'required',
+            'seo_title' =>'nullable|string|max:255',
+            'seo_description' =>'nullable|string',
+            'seo_keywords' =>'nullable|string',
+            'seo_tags' =>'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
@@ -69,7 +73,7 @@ class KnowledgeBaseCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): JsonResponse
+    public function update1(Request $request, string $id): JsonResponse
     {
         //
         $category = KnowledgeBaseCategory::findOrFail($id);
@@ -79,6 +83,10 @@ class KnowledgeBaseCategoryController extends Controller
             'image' =>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'image_alt' =>'nullable|string|max:255',
             'is_featured' => 'required',
+            'seo_title' =>'nullable|string|max:255',
+            'seo_description' =>'nullable|string',
+            'seo_keywords' =>'nullable|string',
+            'seo_tags' =>'nullable|string',
         ]);
         if ($request->hasFile('image')) {
             if ($category->image_url) {
