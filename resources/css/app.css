@@ -56,13 +56,13 @@ body {
 
 ul,
 ol {
-    list-style:disc;
-    margin-left:1.5rem;
+    list-style: disc;
+    margin-left: 1.5rem;
 }
- p{
+p {
     margin-bottom: 1rem;
-    margin-top:1rem;
- }
+    margin-top: 1rem;
+}
 
 li a {
     text-decoration: none;
@@ -81,8 +81,10 @@ li a {
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
 }
-.page-heading{position: relative;}
-.page-heading::after{
+.page-heading {
+    position: relative;
+}
+.page-heading::after {
     content: " ";
     position: absolute;
     bottom: -10px;
@@ -122,31 +124,31 @@ li a {
     background-position: center;
     background-size: contain;
 }
-.Process-section .process-steps{
+.Process-section .process-steps {
     /* position: absolute;
     top: 0; */
     /* left:-2px; */
-    width:50px;
+    width: 50px;
     height: 50px;
     background-color: var(--primary-color);
     border-radius: 50%;
 }
-.cardmedia{
+.cardmedia {
     background-size: contain !important;
     object-fit: contain !important;
     width: 100%;
 }
 
-.Process-section .MuiBadge-badge {       
-        font-weight: 600 !important;
-        font-size: 20px !important;
-        min-width: 50px !important;
-        line-height: 3 !important;
-        padding: 0 16px !important;
-        height: 50px !important;
-        border-radius: 50% !important;
-        top: 23px !important;
-        right: 60px !important;
+.Process-section .MuiBadge-badge {
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    min-width: 50px !important;
+    line-height: 3 !important;
+    padding: 0 16px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    top: 23px !important;
+    right: 60px !important;
 }
 
 .testimonial {
@@ -154,40 +156,44 @@ li a {
     padding: 20px;
     margin: 20px;
     max-width: 100%; /* Adjust width as needed */
-  }
-  
-  .rating {
+}
+
+.rating {
     font-size: 40px; /* Adjust size of stars */
     color: #f1c40f; /* Color of stars */
     margin-bottom: 10px;
     text-align: left;
     margin-left: 4rem;
-  }
-  
-  .quote {
+}
+
+.quote {
     font-size: 78px; /* Adjust size of quote */
-    color:var(--primary-color);
+    color: var(--primary-color);
     position: relative;
-  }
-   .slick-prev{
-    left:22px !important;
-  }
-  .slick-next{
+}
+.slick-prev {
+    left: 22px !important;
+}
+.slick-next {
     right: 0 !important;
-    left:127px !important;
-   
-  }
-  .slick-prev,.slick-next{bottom: -43px;
-top:unset !important}
-.MuiSvgIcon-root.MuiSvgIcon-colorSecondary{font-size: 6rem;}
-  .quote::before {
+    left: 127px !important;
+}
+.slick-prev,
+.slick-next {
+    bottom: -43px;
+    top: unset !important;
+}
+.MuiSvgIcon-root.MuiSvgIcon-colorSecondary {
+    font-size: 6rem;
+}
+.quote::before {
     content: "\201C"; /* Unicode for opening double quote */
     font-size: 4em; /* Size of the quote mark */
     position: absolute;
     top: -178px; /* Adjust vertically */
     right: -20px; /* Adjust horizontally */
-    color:var(--primary-color); /* Color of the quote mark */
-  }
+    color: var(--primary-color); /* Color of the quote mark */
+}
 
 .Testimonial-section .MuiPaper-root {
     background-color: transparent;
@@ -319,16 +325,20 @@ top:unset !important}
     margin-right: 15px;
     font-weight: 500;
 }
-.MuiAccordionSummary-root.Mui-expanded{background-color: var(--secondary-color);}
-.about-section{position: relative;}
+.MuiAccordionSummary-root.Mui-expanded {
+    background-color: var(--secondary-color);
+}
+.about-section {
+    position: relative;
+}
 .box-about {
     position: absolute;
     top: 50%; /* adjust the vertical position */
     left: 40%; /* adjust the horizontal position */
     transform: translate(-50%, -50%);
-    background-color: #0D629A; /* white background */
+    background-color: #0d629a; /* white background */
     padding: 10px;
-    width: 122px;
+    width: 85px;
     height: 213px;
     display: flex;
     justify-content: center;
@@ -336,23 +346,30 @@ top:unset !important}
 }
 .box-about p {
     writing-mode: vertical-lr;
-    text-orientation:sideways; 
-color: #ffffff;
-font-size:xx-large;
-font-weight: 500; 
-text-transform: uppercase;}
-.privacy-policy ul, .privacy-policy ol{
-  list-style:decimal;
-  margin-left: 2rem;
+    text-orientation: sideways;
+    color: #ffffff;
+    font-size: xx-large;
+    font-weight: 500;
+    text-transform: uppercase;
 }
-.privacy-policy ul>li, .privacy-policy ol>li{
+.privacy-policy ul,
+.privacy-policy ol {
+    list-style: decimal;
+    margin-left: 2rem;
+}
+.privacy-policy ul > li,
+.privacy-policy ol > li {
     padding-left: 1rem;
-padding-bottom: 1rem;
-}  
-.ql-indent-1{
-    list-style:disc;
-    margin-left:3rem;
-
+    padding-bottom: 1rem;
+}
+.ql-indent-1 {
+    list-style: disc;
+    margin-left: 3rem;
+}
+.knowledge_bg{
+    background-image: url('../js/Site/Assets/help_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 @media (max-width: 767px) {
     .box-hidden {
@@ -439,48 +456,40 @@ padding-bottom: 1rem;
     }
 }
 
-
-
 .my-masonry-grid {
     display: flex;
     margin-left: -30px; /* gutter size offset */
     width: auto;
-  }
-  .my-masonry-grid_column {
+}
+.my-masonry-grid_column {
     padding-left: 30px; /* gutter size */
     background-clip: padding-box;
-  }
-  
-  /* Style your items */
-  .my-masonry-grid_column > div {
+}
+
+/* Style your items */
+.my-masonry-grid_column > div {
     margin-bottom: 30px;
-  }
+}
 
-
-
-
-  /* Calendar.css */
+/* Calendar.css */
 
 .react-calendar__tile {
     text-align: center;
     padding: 0.5em;
-  }
-  
-  .react-calendar__tile.saturday {
+}
+
+.react-calendar__tile.saturday {
     color: orange;
-  }
-  
-  .react-calendar__tile.sunday {
+}
+
+.react-calendar__tile.sunday {
     color: red;
-  }
-  
-  .react-calendar__tile.gazetted-holiday {
+}
+
+.react-calendar__tile.gazetted-holiday {
     color: red;
-  }
-  
-  .react-calendar__tile.restricted-holiday {
+}
+
+.react-calendar__tile.restricted-holiday {
     color: orange;
-  }
-  
-  
-  
+}

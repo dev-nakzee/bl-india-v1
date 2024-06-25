@@ -116,8 +116,8 @@ const HolidayList = () => {
       </Helmet>
       <Container>
         <Box sx={{ padding: 4 }}>
-          <Typography variant="h3" gutterBottom>
-            {pageData.name}
+        <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
+        {pageData.name}
           </Typography>
           <Grid container spacing={4}>
             <Grid item xs={12} md={3}>
