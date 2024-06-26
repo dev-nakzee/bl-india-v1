@@ -108,6 +108,10 @@ const Blogs = () => {
         <meta name="keywords" content={pageData.seo_keywords} />
       </Helmet>
       <Box sx={{ padding: 4 }}>
+      <Box sx={{display:"flex", justifyContent:'center', alignContent:'center'}}>
+        <Typography className="page-heading" variant="h4" gutterBottom textAlign={'center'} marginBottom={5}>
+              {pageData.name}
+            </Typography></Box>
         <Grid container spacing={4} >
         <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'} margin={4}>
         <Grid item xs={12} md={3}>
@@ -135,9 +139,7 @@ const Blogs = () => {
         </Sidebar>
          </Grid> 
           <Grid item xs={12} md={9}>
-            <Typography className="page-heading" variant="h4" gutterBottom textAlign={'center'} marginBottom={4}>
-              {pageData.name}
-            </Typography>
+          
             <Grid container spacing={2}>
               {paginatedBlogs.map(blog => (
                 <Grid item xs={12} sm={6} md={4} key={blog.id}>

@@ -134,8 +134,8 @@ const Services = () => {
               <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, backgroundColor: '#0D629A',color: '#fff', margin: 'auto', borderRadius: 20 }}>
               {serviceData.page.title} 
               </Typography>
-              <Typography variant="h4" sx={{ textAlign: 'center' }}>
-                         {serviceData.page.name}
+              <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom >
+              {serviceData.page.name}
 
               </Typography>
              </Box>

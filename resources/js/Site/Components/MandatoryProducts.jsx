@@ -118,9 +118,9 @@ const MandatoryProducts = ({ serviceId }) => {
     return (
         <Box sx={{ width: "100%" }}>
           <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} marginBlock={3}>
-            <Typography variant="h3" gutterBottom>
+            {/* <Typography variant="h6" gutterBottom>
         Mandatory Products
-      </Typography>
+      </Typography> */}
             <TextField
                 variant="outlined"
                 placeholder="Search..."
@@ -129,7 +129,7 @@ const MandatoryProducts = ({ serviceId }) => {
                 sx={{
                     backgroundColor: "white",
                     borderRadius: "5px",
-                   width: { xs: "100%", md: "50%" }
+                   width: { xs: "100%", md: "100%" }
                 }}
                 InputProps={{
                   endAdornment: (
@@ -143,6 +143,7 @@ const MandatoryProducts = ({ serviceId }) => {
             <DataGrid
                 rows={filteredProducts}
                 color="primary"
+                backgroundColor="secondary"
                 columns={getColumns()}
                 pageSize={25}
                 rowsPerPageOptions={[25]}

@@ -85,9 +85,9 @@ const ProductDetails = () => {
           <Typography variant="body1">
             {productData.description ? parse(productData.description) : 'No description available.'}
           </Typography>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             Compliances
-          </Typography>
+          </Typography >
           {productData.services.length > 0 ? (
             <Box className="ProductDetail-tab">
             <TabContext value={tabValue}>
@@ -102,7 +102,7 @@ const ProductDetails = () => {
               </Tabs>
               {productData.services.map((service, index) => (
                 <TabPanel key={service.id} value={`${index}`}>
-                    <Typography variant="h3" gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                         {service.service.name} for {productData.name}
                       </Typography>
                   {service.service.compliance_header === 'Indian Standard' ? (

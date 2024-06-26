@@ -151,7 +151,7 @@ const Careers = () => {
   return (
     <Box sx={{ padding: 4 }}>
       <ToastContainer />
-      <Typography variant="h3" gutterBottom>
+      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
         {pageData.title || 'Careers'}
       </Typography>
       <Typography variant="body1" gutterBottom>
@@ -172,7 +172,7 @@ const Careers = () => {
           ),
         }}
       />
-      <Grid container spacing={4}>
+      <Grid container spacing={4} marginTop={2}>
         {filteredJobs.map((job) => (
           <Grid item xs={12} sm={6} md={4} key={job.id}>
             <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -180,37 +180,40 @@ const Careers = () => {
                 <Typography variant="h6" component="div">
                   {job.designation.name}
                 </Typography>
+                <Box sx={{ display: 'flex', justifyContent:'space-between', alignItems: 'center' ,marginBlock:2}}>
                 <Typography variant="body2" color="textSecondary">
-                  Positions: {job.positions}
+                <Typography variant='bodytext'>Positions:</Typography>  {job.positions}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Postings: {job.postings}
+                <Typography variant='bodytext'>Postings:</Typography> {job.postings}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Status: {job.status}
-                </Typography>
+                  <Typography variant='bodytext'>Status:</Typography> {job.status}
+                </Typography></Box>
+                <Box marginBottom={2}>
                 <Accordion>
-                  <AccordionSummary expandIcon={<ExpandMore />}>
-                    <Typography>Job Description</Typography>
+                  <AccordionSummary expandIcon={<ExpandMore />} >
+                    <Typography variant='bodytext' color="secondary">Job Description</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Typography>{job.designation.description}</Typography>
+                    <Typography >{job.designation.description}</Typography>
                   </AccordionDetails>
                 </Accordion>
+                </Box>
                 <Accordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
-                    <Typography>Responsibilities</Typography>
+                    <Typography variant='bodytext' color="secondary">Responsibilities</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography>{job.designation.responsibility}</Typography>
                   </AccordionDetails>
                 </Accordion>
-              </CardContent>
-              <CardActions>
-                <Button size="small" color="primary" onClick={() => handleApplyNowClick(job.id)}>
+                <Box marginTop={2}>
+                <Button size="large" color="primary"  variant="outlined" onClick={() => handleApplyNowClick(job.id)}>
                   Apply Now
-                </Button>
-              </CardActions>
+                </Button></Box>
+              </CardContent>
+             
             </Card>
           </Grid>
         ))}

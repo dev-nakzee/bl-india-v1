@@ -2,6 +2,7 @@
     /* Define color variables */
     --primary-color: #0d629a;
     --secondary-color: #c3e7ff;
+    --third-color:#3078C0;
     --text-color: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.4);
 }
@@ -472,24 +473,60 @@ li a {
 }
 
 /* Calendar.css */
-
+.react-calendar {
+    width: 100% !important;
+    max-width: 100%;
+    background: white;
+    border-color: var(--primary-color) !important;
+    border-radius: 25px;
+    font-family: "Roboto", "Raleway", "Poppins", sans-serif !important;
+    line-height: 1.125em;
+    font-size: 2.3rem !important;
+    text-decoration: none !important;
+    padding:2.5rem;
+}
+.MuiListItemText-root span{font-weight: 500;
+font-size: 1.5rem;}
+.MuiListItemText-multiline ,.MuiListItemText-multiline p{color: #FF0000}
+.react-calendar__navigation button {
+    font-size: 2.3rem !important;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+.react-calendar__month-view__weekdays__weekday {
+    color: var(--primary-color);
+}
+.react-calendar__month-view__days{font-weight: 700;}
 .react-calendar__tile {
     text-align: center;
     padding: 0.5em;
 }
 
-.react-calendar__tile.saturday {
-    color: orange;
+.react-calendar__tile.saturday{
+    color: #ed6c02;
 }
 
 .react-calendar__tile.sunday {
-    color: red;
+    color: #ed6c02;
 }
-
-.react-calendar__tile.gazetted-holiday {
-    color: red;
+.react-calendar__tile{  border-radius: 15px;}
+.react-calendar__tile--now {
+    background: none !important;
+    border: 2px solid #2e7d32 !important;
+    color: #2e7d32;
+    border-radius: 15px;
 }
-
 .react-calendar__tile.restricted-holiday {
-    color: orange;
+    color: #e65100;
+    border: 2px solid #e65100  !important;
+
 }
+
+.react-calendar__tile.gazetted-holiday{
+    /* color:var(--third-color); */
+    color:#FF0000;
+    border: 2px solid #FF0000;
+   font-weight:700;
+}
+
+
