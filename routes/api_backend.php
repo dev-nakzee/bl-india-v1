@@ -92,20 +92,13 @@ Route::prefix('v1/cms')->group(function(){
         // Download Category Routes
         Route::apiResource('download-categories', \App\Http\Controllers\cms\DownloadCategoryController::class);
 
-        // Routes for Download operations
-        Route::get('/downloads', [DownloadController::class, 'index']);
-        Route::get('/downloads/{id}', [DownloadController::class, 'show']);
-        Route::post('/downloads', [DownloadController::class, 'store']);
-        Route::post('/downloads/{id}', [DownloadController::class, 'update']);
-        Route::delete('/downloads/{id}', [DownloadController::class, 'destroy']);
+        // Routes for Downloads
+        Route::apiResource('/downloads', DownloadController::class);
+        Route::post('downloads/{id}', [\App\Http\Controllers\cms\DownloadController::class, 'update1']);
 
-        // Routes for attaching and detaching files to a download
-        Route::post('/downloads/{downloadId}/files', [DownloadController::class, 'attachFile']);
-        Route::delete('/downloads/{downloadId}/files/{fileId}', [DownloadController::class, 'detachFile']);
-
-        // Routes for DownloadFile operations
-        Route::get('/downloads/{downloadId}/files', [DownloadFileController::class, 'index']);
-        Route::get('/downloads/{downloadId}/files/{fileId}', [DownloadFileController::class, 'show']);
+        // Routes for Download Files
+        Route::apiResource('download-files', DownloadFileController::class);
+        Route::post('download-files/{id}', [\App\Http\Controllers\cms\DownloadFileController::class, 'update1']);
 
         // Customer routes
         Route::apiResource('customers', \App\Http\Controllers\cms\CustomerController::class);

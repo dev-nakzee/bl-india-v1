@@ -21,6 +21,6 @@ class Download extends Model
 
     public function files()
     {
-        return $this->hasMany(DownloadFile::class);
+        return $this->hasMany(DownloadFile::class, 'download_id');
     }
 }
