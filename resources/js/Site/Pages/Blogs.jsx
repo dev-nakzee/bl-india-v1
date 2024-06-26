@@ -115,7 +115,7 @@ const Blogs = () => {
         <Grid container spacing={4} >
         <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'} margin={4}>
         <Grid item xs={12} md={3}>
-        <Sidebar className='Service-section-siderbar' marginTop={8}sx={{width:'auto'}}>
+        <Sidebar className='Service-section-siderbar' sx={{width:'auto'}}>
           <Typography variant="h6" mb={2}>Blog Categories</Typography>
           <List>
               <ListItem

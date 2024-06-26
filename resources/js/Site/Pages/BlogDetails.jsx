@@ -146,6 +146,15 @@ const BlogDetails = () => {
                 <meta name="keywords" content={blog.seo_keywords} />
             </Helmet>
             <Box sx={{ padding: 4 }}>
+            <Typography
+                            className="page-heading"
+                                variant="h4"
+                                gutterBottom
+                                textAlign={"center"}
+                                marginBottom={4}
+                            >
+                                Blog Details
+                            </Typography>
                 <Grid container spacing={4}>
                     <Box
                         display={"flex"}
@@ -156,7 +165,7 @@ const BlogDetails = () => {
                         <Grid item xs={12} md={3}>
                             <Sidebar
                                 className="Service-section-siderbar"
-                                marginTop={8}
+                          
                                 sx={{ width: "auto" }}
                             >
                                 <Typography variant="h6" mb={2}>
@@ -196,15 +205,7 @@ const BlogDetails = () => {
                             </Sidebar>
                         </Grid>
                         <Grid item xs={12} md={9}>
-                            <Typography
-                            className="page-heading"
-                                variant="h4"
-                                gutterBottom
-                                textAlign={"center"}
-                                marginBottom={4}
-                            >
-                                Blog Details
-                            </Typography>
+                            
                             <img
                                 src={"https://in.bl-india.com" + blog.image_url}
                                 alt={blog.image_alt}

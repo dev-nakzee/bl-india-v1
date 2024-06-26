@@ -184,7 +184,7 @@ li a {
     bottom: -43px;
     top: unset !important;
 }
-.MuiSvgIcon-root.MuiSvgIcon-colorSecondary {
+.testimonial .MuiSvgIcon-root.MuiSvgIcon-colorSecondary {
     font-size: 6rem;
 }
 .quote::before {
@@ -230,6 +230,8 @@ li a {
 .Footer-section .footer-img {
     width: 100%;
     max-width: 150px;
+    height: 6rem;
+    padding:1rem;
 }
 
 .Footer-section .footer-certificates {
@@ -314,7 +316,10 @@ li a {
 /* .Accordian-summary {
     min-height: 70px !important;
 } */
-
+ .notification .MuiTypography-root.MuiLink-root{color: var(--primary-color);font-weight: 500;}
+.MuiAccordionDetails-root.notification-list ul li{
+    list-style-type: square !important;   
+}
 .Accordian-summary .Accordian-data {
     width: 70%;
     font-weight: 500;

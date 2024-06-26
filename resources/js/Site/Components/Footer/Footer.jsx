@@ -19,8 +19,8 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import PinterestIcon from "@mui/icons-material/Pinterest";
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import MailIcon from '@mui/icons-material/Mail';
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import MailIcon from "@mui/icons-material/Mail";
 import logo from "../../Assets/logo.svg";
 import apiClient from "../../Services/api";
 
@@ -90,11 +90,19 @@ const Footer = () => {
         <FooterContainer className="Footer-section">
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={3}>
-                    <Typography variant="h6" textAlign={"left"} mb={3}  color={"white"}>
+                    <Typography
+                        variant="h6"
+                        textAlign={"left"}
+                        mb={3}
+                        color={"white"}
+                    >
                         Services
                     </Typography>
                     {footerData.service.map((service) => (
-                        <FooterLink key={service.id} href={`/services/${service.slug}`}>
+                        <FooterLink
+                            key={service.id}
+                            href={`/services/${service.slug}`}
+                        >
                             <Typography
                                 variant="body2"
                                 className="Service-list"
@@ -105,7 +113,12 @@ const Footer = () => {
                     ))}
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                    <Typography variant="h6" textAlign={"left"} mb={3}  color={"white"}>
+                    <Typography
+                        variant="h6"
+                        textAlign={"left"}
+                        mb={3}
+                        color={"white"}
+                    >
                         Quick Links
                     </Typography>
                     <Box>
@@ -122,7 +135,12 @@ const Footer = () => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                    <Typography variant="h6" textAlign={"left"} mb={3}  color={"white"}>
+                    <Typography
+                        variant="h6"
+                        textAlign={"left"}
+                        mb={3}
+                        color={"white"}
+                    >
                         Important Links
                     </Typography>
                     <Box>
@@ -139,14 +157,19 @@ const Footer = () => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                    <Typography variant="h6" textAlign={"left"} mb={3} color={"white"}>
+                    <Typography
+                        variant="h6"
+                        textAlign={"left"}
+                        mb={3}
+                        color={"white"}
+                    >
                         Contact Us
                     </Typography>
                     <Typography
                         variant="body2"
                         textAlign={"left"}
                         className="Service-list"
-                        sx={{ color: '#ffffff'}}
+                        sx={{ color: "#ffffff" }}
                     >
                         {footerData.contact.name}
                     </Typography>
@@ -156,7 +179,7 @@ const Footer = () => {
                             __html: footerData.contact.address,
                         }}
                         textAlign={"left"}
-                        mb={2} 
+                        mb={2}
                     />
                     <Typography
                         variant="body2"
@@ -165,20 +188,29 @@ const Footer = () => {
                     >
                         {footerData.contact.email}
                     </Typography>
-                    <Typography
-                        variant="body2"
-                        textAlign={"left"}
-                        className="Service-list"
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                        }}
                     >
-                        {footerData.contact.phone1}
-                    </Typography>
-                    <Typography
-                        variant="body2"
-                        textAlign={"left"}
-                        className="Service-list"
-                    >
-                        {footerData.contact.phone2}
-                    </Typography>
+                        <Typography
+                            variant="body2"
+                            textAlign={"left"}
+                            className="Service-list"
+                        >
+                            {footerData.contact.phone1}
+                        </Typography>
+                        &nbsp; &nbsp;
+                        <Typography
+                            variant="body2"
+                            textAlign={"left"}
+                            className="Service-list"
+                        >
+                            {footerData.contact.phone2}
+                        </Typography>
+                    </Box>
                     <Typography
                         variant="body2"
                         textAlign={"left"}
@@ -192,31 +224,45 @@ const Footer = () => {
 
             <Grid container fluid>
                 <Grid item className="footer-certificates" xs={12} sm={6}>
-                    <Box sx={{ display: "flex" }}>
-                        <img
-                            src={logo}
-                            alt="Brand Logo"
-                            style={{ width: "30%" }}
-                        />
+                    <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
+                        {footerData.companyCert.map((link) => (
+                            <FooterLink key={link.url} href={link.url}>
+                                <img
+                                    src={
+                                        "https://in.bl-india.com/" +
+                                       link.image_url
+                                    }
+                                    alt={link.image_alt}
+                                    className="footer-img"
+                                />
+                            </FooterLink>
+                        ))}
+                       
                     </Box>
-                    <img
-                        src={
-                            "https://in.bl-india.com/" +
-                            footerData.companyCert[0].image_url
-                        }
-                        alt={footerData.companyCert[0].image_alt}
-                        className="footer-img"
-                    />
-                     {/* <img
-                        src={
-                            "https://in.bl-india.com/" +
-                            footerData.companyCert[1].image_url
-                        }
-                        alt={footerData.companyCert[1].image_alt}
-                        className="footer-img"
-                    /> */}
                 </Grid>
                 <Grid item className="footer-certificates" xs={12} sm={6}>
+                    <Box sx={{ display: "flex", justifyContent: "end" }}>
+                        <img
+                            src={
+                                "https://in.bl-india.com/" +
+                                footerData.siteCert[0].image_url
+                            }
+                            alt={footerData.siteCert[0].image_alt}
+                            className="footer-img"
+                        />
+                    </Box>
+                </Grid>
+            </Grid>
+            <Typography variant="body2" sx={{ mt: 4 }}>
+                © {new Date().getFullYear()} Brand Liaison. All rights reserved.
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginTop: "10px",
+                    }}
+                >
                     <SocialMediaIcons>
                         {footerData.socialMedia.map((social) => {
                             const icons = {
@@ -240,21 +286,7 @@ const Footer = () => {
                             );
                         })}
                     </SocialMediaIcons>
-                    <Box sx={{ display: "flex",justifyContent:'end' }}>
-                        <img
-                            src={
-                                "https://in.bl-india.com/" +
-                                footerData.siteCert[0].image_url
-                            }
-                            alt={footerData.siteCert[0].image_alt}
-                            className="footer-img"
-                        />
-                        
-                    </Box>
-                </Grid>
-            </Grid>
-            <Typography variant="body2" sx={{ mt: 4 }}>
-                © {new Date().getFullYear()} Brand Liaison. All rights reserved.
+                </Box>
             </Typography>
         </FooterContainer>
     );
