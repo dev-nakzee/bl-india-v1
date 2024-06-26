@@ -113,7 +113,7 @@ const KnowledgeBase = () => {
       {/* <img src={know_bg} alt="careers_bg" className='knowledge_bg' /> */}
 
       <Box sx={{ padding: 4 }}>
-      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
+      <Typography className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={4}>
           {pageData.name}
         </Typography>
         <TextField
@@ -143,27 +143,28 @@ const KnowledgeBase = () => {
             </Accordion>
           ))
         ) : (
-          <Grid container spacing={4}>
+          <Grid container spacing={4} marginTop={2}>
             {categories.map((category) => (
               <Grid item xs={12} sm={6} md={3} key={category.id}>
                 {category.is_featured ? (
-                  <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%', borderRadius: '20px' }}>
+                  <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%', borderRadius: '20px',boxShadow:'none' }}>
                     <CardActionArea onClick={() => handleCategoryClick(category.slug)}>
-                      <CardMedia
+                      <CardMedia  
+                      sx={{backgroundSize:'contain',objectFit: 'contain' }}
                         component="img"
-                        height="140"
+                        height="100"
                         image={'https://in.bl-india.com' + category.image_url}
                         alt={category.image_alt}
                       />
                       <CardContent>
-                        <Typography gutterBottom variant="h6" component="div">
+                        <Typography gutterBottom variant="h6" component="div" textAlign={'center'}>
                           {category.name}
                         </Typography>
                       </CardContent>
                     </CardActionArea>
                   </Card>
                 ) : (
-                  <Typography variant="h6">
+                  <Typography variant="h6" textAlign={'center'}>
                     <Link href="#" onClick={() => handleCategoryClick(category.slug)}>
                       {category.name}
                     </Link>

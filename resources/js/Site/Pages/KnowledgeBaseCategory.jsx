@@ -88,7 +88,7 @@ const KnowledgeBaseCategory = () => {
         <meta name="keywords" content={categoryData.seo_keywords || categoryData.name} />
       </Helmet>
       <Box sx={{ padding: 4 }}>
-      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
+      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={4}>
           Knowledgebase - {categoryData.name}
         </Typography>
         <TextField
@@ -107,12 +107,12 @@ const KnowledgeBaseCategory = () => {
             ),
           }}
         />
-        <Grid container spacing={4}>
+        <Grid container spacing={4} marginTop={1}>
           {filteredKnowledgeBases.map((kb) => (
             <Grid item xs={12} key={kb.id}>
               <Accordion>
                 <AccordionSummary expandIcon={<ExpandMore />}>
-                  <Typography>{kb.question}</Typography>
+                  <Typography variant='bodytext' color="secondary">{kb.question}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>{kb.answer}</Typography>
