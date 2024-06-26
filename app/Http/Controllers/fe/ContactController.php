@@ -14,7 +14,7 @@ class ContactController extends Controller
     public function contact(): JsonResponse
     {
         $page = Page::where('slug', 'contact')->first();
-        $contacts = Contact::first();
+        $contact = Contact::first();
         return response()->json([
             'page' => $page,
             'contact' => $contact
