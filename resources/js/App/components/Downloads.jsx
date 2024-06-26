@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box,
   Typography,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
+  Box,
   Table,
   TableBody,
   TableCell,
@@ -17,8 +11,14 @@ import {
   TableRow,
   Paper,
   IconButton,
-  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
   MenuItem,
+  CircularProgress,
   Select,
   InputLabel,
   FormControl
@@ -41,7 +41,6 @@ const Downloads = () => {
     name: '',
   });
   const [fileData, setFileData] = useState({
-    download_id: '',
     name: '',
     file: null
   });
@@ -58,7 +57,6 @@ const Downloads = () => {
       setDownloads(response.data);
     } catch (error) {
       toast.error('Error fetching downloads');
-      console.error('Error fetching downloads:', error);
     } finally {
       setLoading(false);
     }
@@ -66,21 +64,19 @@ const Downloads = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await apiClient.get('/download-categories'); // Assuming this endpoint exists
+      const response = await apiClient.get('/download-categories');
       setCategories(response.data);
     } catch (error) {
       toast.error('Error fetching categories');
-      console.error('Error fetching categories:', error);
     }
   };
 
   const fetchFiles = async (downloadId) => {
     try {
-      const response = await apiClient.get(`/download-files?download_id=${downloadId}`);
+      const response = await apiClient.get(`/downloads/${downloadId}/files`);
       setFiles(response.data);
     } catch (error) {
       toast.error('Error fetching files');
-      console.error('Error fetching files:', error);
     }
   };
 
@@ -115,7 +111,6 @@ const Downloads = () => {
     setFilesDialogOpen(false);
     setCurrentDownload(null);
     setFileData({
-      download_id: '',
       name: '',
       file: null
     });
@@ -136,7 +131,7 @@ const Downloads = () => {
     form.append('file', fileData.file);
 
     try {
-      await apiClient.post('/download-files', form, {
+      await apiClient.post(`/downloads/${currentDownload.id}/files`, form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -146,18 +141,16 @@ const Downloads = () => {
       handleFilesDialogClose();
     } catch (error) {
       toast.error('Error adding file');
-      console.error('Error adding file:', error);
     }
   };
 
   const handleFilesDelete = async (fileId) => {
     try {
-      await apiClient.delete(`/download-files/${fileId}`);
+      await apiClient.delete(`/downloads/${currentDownload.id}/files/${fileId}`);
       toast.success('File deleted successfully');
       fetchFiles(currentDownload.id);
     } catch (error) {
       toast.error('Error deleting file');
-      console.error('Error deleting file:', error);
     }
   };
 
@@ -182,7 +175,6 @@ const Downloads = () => {
       handleClose();
     } catch (error) {
       toast.error('Error saving download');
-      console.error('Error saving download:', error);
     }
   };
 
@@ -195,7 +187,6 @@ const Downloads = () => {
       setCurrentDownload(null);
     } catch (error) {
       toast.error('Error deleting download');
-      console.error('Error deleting download:', error);
     }
   };
 
@@ -331,7 +322,7 @@ const Downloads = () => {
             onChange={handleFileChange}
           />
           <input
-            accept="*"
+            accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation"
             style={{ display: 'none' }}
             id="file-upload"
             type="file"

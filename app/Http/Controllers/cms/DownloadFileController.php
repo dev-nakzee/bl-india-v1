@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\cms;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\DownloadFile;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -11,16 +10,15 @@ use Illuminate\Support\Facades\Storage;
 
 class DownloadFileController extends Controller
 {
-    public function index(): JsonResponse
+    public function index($downloadId): JsonResponse
     {
-        $downloadFiles = DownloadFile::with('download')->get();
+        $downloadFiles = DownloadFile::where('download_id', $downloadId)->with('download')->get();
         return response()->json($downloadFiles);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(Request $request, $downloadId): JsonResponse
     {
         $request->validate([
-            'download_id' => 'required|exists:downloads,id',
             'name' => 'required|string|max:255',
             'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:2048',
         ]);
@@ -28,7 +26,7 @@ class DownloadFileController extends Controller
         $filePath = $request->file('file')->store('public/download_files');
 
         $downloadFile = DownloadFile::create([
-            'download_id' => $request->download_id,
+            'download_id' => $downloadId,
             'name' => $request->name,
             'file_url' => Storage::url($filePath),
         ]);
@@ -36,18 +34,17 @@ class DownloadFileController extends Controller
         return response()->json($downloadFile, 201);
     }
 
-    public function show($id): JsonResponse
+    public function show($downloadId, $fileId): JsonResponse
     {
-        $downloadFile = DownloadFile::with('download')->findOrFail($id);
+        $downloadFile = DownloadFile::where('download_id', $downloadId)->findOrFail($fileId);
         return response()->json($downloadFile);
     }
 
-    public function update(Request $request, $id): JsonResponse
+    public function update(Request $request, $downloadId, $fileId): JsonResponse
     {
-        $downloadFile = DownloadFile::findOrFail($id);
+        $downloadFile = DownloadFile::where('download_id', $downloadId)->findOrFail($fileId);
 
         $request->validate([
-            'download_id' => 'required|exists:downloads,id',
             'name' => 'sometimes|string|max:255',
             'file' => 'sometimes|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:2048',
         ]);
@@ -58,14 +55,14 @@ class DownloadFileController extends Controller
             $downloadFile->file_url = Storage::url($filePath);
         }
 
-        $downloadFile->update($request->only(['download_id', 'name', 'file_url']));
+        $downloadFile->update($request->only(['name', 'file_url']));
 
         return response()->json($downloadFile);
     }
 
-    public function destroy($id): JsonResponse
+    public function destroy($downloadId, $fileId): JsonResponse
     {
-        $downloadFile = DownloadFile::findOrFail($id);
+        $downloadFile = DownloadFile::where('download_id', $downloadId)->findOrFail($fileId);
         Storage::delete(str_replace('/storage/', 'public/', $downloadFile->file_url));
         $downloadFile->delete();
 

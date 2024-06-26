@@ -16,7 +16,7 @@ class PageController extends Controller
      */
     public function index(): JsonResponse
     {
-        $pages = Page::all();
+        $pages = Page::orderBy('id')->get();
         return response()->json($pages);
     }
 

@@ -96,9 +96,13 @@ Route::prefix('v1/cms')->group(function(){
         Route::apiResource('/downloads', DownloadController::class);
         Route::post('downloads/{id}', [\App\Http\Controllers\cms\DownloadController::class, 'update1']);
 
-        // Routes for Download Files
-        Route::apiResource('download-files', DownloadFileController::class);
-        Route::post('download-files/{id}', [\App\Http\Controllers\cms\DownloadFileController::class, 'update1']);
+        Route::prefix('downloads/{downloadId}')->group(function () {
+            Route::get('files', [DownloadFileController::class, 'index']);
+            Route::post('files', [DownloadFileController::class, 'store']);
+            Route::get('files/{fileId}', [DownloadFileController::class, 'show']);
+            Route::put('files/{fileId}', [DownloadFileController::class, 'update']);
+            Route::delete('files/{fileId}', [DownloadFileController::class, 'destroy']);
+        });
 
         // Customer routes
         Route::apiResource('customers', \App\Http\Controllers\cms\CustomerController::class);

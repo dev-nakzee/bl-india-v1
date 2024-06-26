@@ -20,10 +20,13 @@ import {
   FormControlLabel,
   Checkbox,
   MenuItem,
+  TablePagination,
+  InputAdornment,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
@@ -50,6 +53,9 @@ const Services = () => {
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [pageIndex, setPageIndex] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
     fetchServices();
@@ -184,18 +190,51 @@ const Services = () => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPageIndex(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPageIndex(0);
+  };
+
+  const filteredServices = services.filter((service) =>
+    service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    service.slug.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <Box sx={{ margin: 2 }}>
+      <ToastContainer />
       <Typography variant="h6">Services Management</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginY: 2 }}
-        onClick={handleClickOpen}
-      >
-        Add Service
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginY: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
+          Add Service
+        </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -210,7 +249,7 @@ const Services = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {services.map((service) => (
+            {filteredServices.slice(pageIndex * rowsPerPage, pageIndex * rowsPerPage + rowsPerPage).map((service) => (
               <TableRow key={service.id}>
                 <TableCell>{service.id}</TableCell>
                 <TableCell><img src={service.thumbnail_url} alt={service.image_alt} /></TableCell>
@@ -237,6 +276,15 @@ const Services = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredServices.length}
+        rowsPerPage={rowsPerPage}
+        page={pageIndex}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editing ? 'Edit Service' : 'Add Service'}</DialogTitle>
@@ -395,8 +443,6 @@ const Services = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
-      <ToastContainer />
     </Box>
   );
 };

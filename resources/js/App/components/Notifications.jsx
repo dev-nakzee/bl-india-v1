@@ -17,11 +17,14 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
-  MenuItem
+  MenuItem,
+  InputAdornment,
+  TablePagination,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ReactQuill from 'react-quill';
@@ -52,6 +55,9 @@ const Notifications = () => {
   const [selectedNotificationId, setSelectedNotificationId] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [search, setSearch] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [pageIndex, setPageIndex] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
     fetchNotifications();
@@ -221,6 +227,24 @@ const Notifications = () => {
     setFilteredProducts(products.filter((product) => product.name.toLowerCase().includes(value)));
   };
 
+  const handleSearchQueryChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPageIndex(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPageIndex(0);
+  };
+
+  const filteredNotifications = notifications.filter((notification) =>
+    notification.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    notification.slug.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const modules = {
     toolbar: [
       [{ header: '1'}, { header: '2'}],
@@ -243,16 +267,31 @@ const Notifications = () => {
 
   return (
     <Box sx={{ margin: 2 }}>
+      <ToastContainer />
       <Typography variant="h6">Notifications Management</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginY: 2 }}
-        onClick={handleClickOpen}
-      >
-        Add Notification
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginY: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
+          Add Notification
+        </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -266,28 +305,39 @@ const Notifications = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {notifications.map((notification) => (
-              <TableRow key={notification.id}>
-                <TableCell>{notification.id}</TableCell>
-                <TableCell>{notification.name}</TableCell>
-                <TableCell>{notification.category.name}</TableCell>
-                <TableCell>{notification.slug}</TableCell>
-                <TableCell>{notification.date}</TableCell>
-                <TableCell>
-                  <IconButton color="primary" onClick={() => handleEditClick(notification)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton color="secondary" onClick={() => handleDeleteClick(notification.id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                  <Button color="primary" onClick={() => handleManageProducts(notification.id)}>
-                    Manage Products
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {filteredNotifications
+              .slice(pageIndex * rowsPerPage, pageIndex * rowsPerPage + rowsPerPage)
+              .map((notification) => (
+                <TableRow key={notification.id}>
+                  <TableCell>{notification.id}</TableCell>
+                  <TableCell>{notification.name}</TableCell>
+                  <TableCell>{notification.category.name}</TableCell>
+                  <TableCell>{notification.slug}</TableCell>
+                  <TableCell>{notification.date}</TableCell>
+                  <TableCell>
+                    <IconButton color="primary" onClick={() => handleEditClick(notification)}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton color="secondary" onClick={() => handleDeleteClick(notification.id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                    <Button color="primary" onClick={() => handleManageProducts(notification.id)}>
+                      Manage Products
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={filteredNotifications.length}
+          rowsPerPage={rowsPerPage}
+          page={pageIndex}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
 
       <Dialog open={open} onClose={handleClose}>
@@ -484,8 +534,6 @@ const Notifications = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
-      <ToastContainer />
     </Box>
   );
 };
