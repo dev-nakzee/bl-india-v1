@@ -207,6 +207,14 @@ const Footer = () => {
                         alt={footerData.companyCert[0].image_alt}
                         className="footer-img"
                     />
+                     {/* <img
+                        src={
+                            "https://in.bl-india.com/" +
+                            footerData.companyCert[1].image_url
+                        }
+                        alt={footerData.companyCert[1].image_alt}
+                        className="footer-img"
+                    /> */}
                 </Grid>
                 <Grid item className="footer-certificates" xs={12} sm={6}>
                     <SocialMediaIcons>
@@ -241,6 +249,7 @@ const Footer = () => {
                             alt={footerData.siteCert[0].image_alt}
                             className="footer-img"
                         />
+                        
                     </Box>
                 </Grid>
             </Grid>

@@ -104,14 +104,16 @@ const KnowledgeBase = () => {
   }
 
   return (
-    <>
+    <section className='knowledge_bg' >
       <Helmet>
         <title>{pageData.seo_title}</title>
         <meta name="description" content={pageData.seo_description} />
         <meta name="keywords" content={pageData.seo_keywords} />
       </Helmet>
+      {/* <img src={know_bg} alt="careers_bg" className='knowledge_bg' /> */}
+
       <Box sx={{ padding: 4 }}>
-        <Typography variant="h3" gutterBottom>
+      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
           {pageData.name}
         </Typography>
         <TextField
@@ -172,7 +174,7 @@ const KnowledgeBase = () => {
           </Grid>
         )}
       </Box>
-    </>
+    </section>
   );
 };
 
