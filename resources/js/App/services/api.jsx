@@ -5,8 +5,10 @@ const getBaseURL = () => {
   const hostname = window.location.hostname;
   if (hostname.startsWith('global')) {
     return 'https://global.bl-india.com/api/v1/cms';
+    // return 'http://global.localhost:8000/api/v1/cms';
   } else if (hostname.startsWith('in')) {
     return 'https://in.bl-india.com/api/v1/cms';
+    // return 'http://in.localhost:8000/api/v1/cms';
   }
   return 'http://localhost:8000/api/v1/cms'; // Default to local
 };
@@ -48,9 +50,10 @@ apiClient.interceptors.response.use(
 
 export const login = async (credentials) => {
   const response = await apiClient.post('/login', credentials);
-  const token = response.data.token;
+  const { token, user } = response.data;
   apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   localStorage.setItem('authToken', token);
+  localStorage.setItem('user', JSON.stringify(user)); // Store user details
   return response;
 };
 
@@ -58,6 +61,7 @@ export const logout = async () => {
   await apiClient.post('/logout');
   delete apiClient.defaults.headers.common['Authorization'];
   localStorage.removeItem('authToken');
+  localStorage.removeItem('user'); // Remove user details
 };
 
 export const checkTokenValidity = async () => {

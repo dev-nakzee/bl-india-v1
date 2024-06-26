@@ -24,4 +24,9 @@ class DownloadCategory extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function downloads()
+    {
+        return $this->hasMany(Download::class);
+    }
 }

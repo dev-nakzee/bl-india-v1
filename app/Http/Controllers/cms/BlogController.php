@@ -18,7 +18,7 @@ class BlogController extends Controller
      */
     public function index(): JsonResponse
     {
-        $blogs = Blog::with('blogCategory')->get();
+        $blogs = Blog::orderBy('id', 'asc')->with('blogCategory')->get();
         return response()->json($blogs);
     }
 

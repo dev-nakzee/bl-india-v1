@@ -5,88 +5,51 @@ namespace App\Http\Controllers\cms;
 use App\Http\Controllers\Controller;
 
 use App\Models\Download;
-use App\Models\DownloadFile;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class DownloadController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        $downloads = Download::with('category', 'files')->get();
+        $downloads = Download::with('category')->get();
         return response()->json($downloads);
     }
 
-    public function show($id)
+    public function store(Request $request): JsonResponse
     {
-        $download = Download::with('category', 'files')->findOrFail($id);
-        return response()->json($download);
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
+        $validatedData = $request->validate([
             'download_category_id' => 'required|exists:download_categories,id',
             'name' => 'required|string|max:255',
         ]);
 
-        $download = Download::create($request->all());
+        $download = Download::create($validatedData);
         return response()->json($download, 201);
     }
 
-    public function update(Request $request, $id)
+    public function show($id): JsonResponse
+    {
+        $download = Download::with('category')->findOrFail($id);
+        return response()->json($download);
+    }
+
+    public function update(Request $request, $id): JsonResponse
     {
         $download = Download::findOrFail($id);
 
-        $request->validate([
+        $validatedData = $request->validate([
             'download_category_id' => 'required|exists:download_categories,id',
             'name' => 'required|string|max:255',
         ]);
 
-        $download->update($request->all());
+        $download->update($validatedData);
         return response()->json($download);
     }
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $download = Download::findOrFail($id);
         $download->delete();
         return response()->json(null, 204);
     }
-
-    public function attachFile(Request $request, $downloadId)
-    {
-        return response()->json($request->file, 200);
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'file_url' => 'required|file|mimes:pdf',
-        ]);
-
-        $download = Download::findOrFail($downloadId);
-
-        if ($request->hasFile('file_url')) {
-            $filePath = $request->file('file_url')->store('notifications', 'public');
-            $data['file_url'] = Storage::url($filePath);
-        }
-        if ($request->hasFile('file_url')) {
-            $filePath = $request->file('file_url')->store('downloads');
-            $file = new DownloadFile([
-                'name' => $request->name,
-                'file_url' => $filePath,
-            ]);
-
-            $download->files()->save($file);
-        }
-
-        return response()->json($file, 201);
-    }
-
-    public function detachFile($downloadId, $fileId)
-    {
-        $download = Download::findOrFail($downloadId);
-        $file = $download->files()->findOrFail($fileId);
-        $file->delete();
-
-        return response()->json(null, 204);
-    }
 }
-

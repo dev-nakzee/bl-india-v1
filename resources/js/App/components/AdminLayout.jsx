@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Drawer,
@@ -61,6 +61,15 @@ const AdminLayout = () => {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [knowledgeBaseOpen, setKnowledgeBaseOpen] = useState(false);
 
+  const [user, setUser] = useState({ name: '', user_type: '' });
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -73,6 +82,7 @@ const AdminLayout = () => {
     try {
       await logout(); // Assuming logout function clears the session on the server
       localStorage.removeItem('authToken'); // Clear local storage or cookie
+      localStorage.removeItem('user'); // Clear user data from local storage
       navigate('/cms/login'); // Redirect to login page
     } catch (error) {
       console.error('Logout failed:', error);
@@ -93,6 +103,9 @@ const AdminLayout = () => {
         <Toolbar>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Admin Panel
+          </Typography>
+          <Typography variant="body2" noWrap component="div">
+            {user.name}
           </Typography>
           <IconButton color="inherit" onClick={() => navigate('/cms/profile')}>
             <AccountCircle />
@@ -118,7 +131,7 @@ const AdminLayout = () => {
           </ListItem>
 
           {/* Services Menu */}
-          <ListItem button onClick={() => handleMenuToggle(setServicesOpen)}>
+          <ListItem button onClick={() => handleMenuToggle(setServicesOpen)} >
             <ListItemIcon><SettingsApplicationsIcon /></ListItemIcon>
             <ListItemText primary="Services" />
             {servicesOpen ? <ExpandLess /> : <ExpandMore />}
