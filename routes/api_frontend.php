@@ -11,6 +11,7 @@ use App\Http\Controllers\fe\BlogController;
 use App\Http\Controllers\fe\GalleryController;
 use App\Http\Controllers\fe\KnowledgeBaseController;
 use App\Http\Controllers\fe\CareerController;
+use App\Http\Controllers\fe\ContactController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -68,4 +69,8 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/knowledge-base', [KnowledgeBaseController::class, 'knowledgeBase']);
     Route::get('/knowledge-base/find/{searchKeywords}', [KnowledgeBaseController::class, 'knowledgeBaseSearch']);
     Route::get('/knowledge-base/{slug}', [KnowledgeBaseController::class, 'knowledgeBaseCategory']);
+
+    // Contact Page Routes
+    Route::get('/contact', [ContactController::class, 'contact']);
+    Route::post('/contact', [ContactController::class,'store']);
 });
