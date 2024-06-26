@@ -20,7 +20,7 @@ class DownloadFileController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:2048',
+            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:20480',
         ]);
 
         $filePath = $request->file('file')->store('public/download_files');
@@ -46,7 +46,7 @@ class DownloadFileController extends Controller
 
         $request->validate([
             'name' => 'sometimes|string|max:255',
-            'file' => 'sometimes|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:2048',
+            'file' => 'sometimes|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:20480',
         ]);
 
         if ($request->hasFile('file')) {
