@@ -46,7 +46,7 @@ const NotificationDetails = () => {
         <meta name="description" content={notification.seo_description} />
         <meta name="keywords" content={notification.seo_keywords} />
       </Helmet>
-      <Box sx={{ padding: 4 }}>
+      <Box className="notification-details" sx={{ padding: 4 }}>
       <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
           {notification.name}
         </Typography>
@@ -58,23 +58,23 @@ const NotificationDetails = () => {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', marginY: 2 }}>
           <MuiLink href={notification.file_url} target="_blank" rel="noopener noreferrer">
-            <IconButton>
+            <IconButton color='secondary'>
               <PictureAsPdfIcon />
             </IconButton>
           </MuiLink>
           <MuiLink href={notification.file_url} target="_blank" download>
-            <IconButton>
+            <IconButton color='secondary'>
               <DownloadIcon />
             </IconButton>
           </MuiLink>
           <MuiLink href={notification.file_url} target="_blank" download>
-            <IconButton>
+            <IconButton color='secondary'>
               <Share />
             </IconButton>
           </MuiLink>
         </Box>
         <Box sx={{ marginY: 2 }}>
-          <Typography variant="h6">Products</Typography>
+          <Typography variant="h6">Product Category</Typography>
           {notification.products.length > 0 ? (
             <List>
               {notification.products.map((product) => (

@@ -117,7 +117,7 @@ const Notifications = () => {
                 <meta name="description" content={pageData.seo_description} />
                 <meta name="keywords" content={pageData.seo_keywords} />
             </Helmet>
-            <Box sx={{ padding: 4 }}>
+            <Box  className="notification" sx={{ padding: 4 }}>
               <Box sx={{display: 'flex' ,alignItems: 'center',justifyContent: 'center'}} marginBottom={4}>
               <Typography
                     variant="h4"
@@ -188,12 +188,12 @@ const Notifications = () => {
                                         {notification.date}
                                     </Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
-                                    <List>
+                                <AccordionDetails className="notification-list">
+                                    <List  >
                                         {notification.products.length > 0 ? (
                                             notification.products.map(
                                                 (product) => (
-                                                    <ListItem key={product.id}>
+                                                    <ListItem  key={product.id}>
                                                         <MuiLink
                                                             href={`/products/${product.slug}`}
                                                             target="_blank"
