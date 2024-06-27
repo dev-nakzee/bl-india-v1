@@ -9,9 +9,19 @@ import {
   List,
   ListItem,
   ListItemText,
+  TextField,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TablePagination,
+  IconButton,
   ListItemIcon,
-  Link as MuiLink,
+  InputAdornment
 } from '@mui/material';
+import { Search } from '@mui/icons-material';
 import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api';
 import { toast, ToastContainer } from 'react-toastify';
@@ -21,6 +31,10 @@ import DownloadIcon from '@mui/icons-material/Download';
 const Downloads = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
     fetchData();
@@ -30,6 +44,9 @@ const Downloads = () => {
     try {
       const response = await apiClient.get('/downloads');
       setData(response.data);
+      if (response.data.downloadCategories.length > 0) {
+        setSelectedCategory(response.data.downloadCategories[0].id);
+      }
     } catch (error) {
       toast.error('Error fetching downloads data');
       console.error('Error fetching downloads data:', error);
@@ -37,6 +54,33 @@ const Downloads = () => {
       setLoading(false);
     }
   };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleCategorySelect = (categoryId) => {
+    setSelectedCategory(categoryId);
+    setPage(0);
+    setSearchTerm('');
+  };
+
+  const filteredDownloads = data
+    ? data.downloads.filter(
+        (download) =>
+          download.download_category_id === selectedCategory &&
+          download.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   if (loading) {
     return (
@@ -62,40 +106,87 @@ const Downloads = () => {
         <Typography variant="h3" gutterBottom>{data.page.seo_title}</Typography>
         <Typography variant="body1" gutterBottom>{data.page.seo_description}</Typography>
         <Grid container spacing={4}>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={4} md={3}>
             <Paper elevation={3} sx={{ padding: 2 }}>
-              <img
-                src={data.page.image_url}
-                alt={data.page.image_alt}
-                style={{ width: '100%', height: 'auto' }}
+              <Typography variant="h6">Categories</Typography>
+              <List>
+                {data.downloadCategories.map((category) => (
+                  <ListItem
+                    button
+                    key={category.id}
+                    selected={category.id === selectedCategory}
+                    onClick={() => handleCategorySelect(category.id)}
+                  >
+                    <ListItemText primary={category.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={8} md={9}>
+            <Paper elevation={3} sx={{ padding: 2 }}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                placeholder="Search downloads"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ marginBottom: 2 }}
+              />
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Files</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {filteredDownloads.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((download) => (
+                      <TableRow key={download.id}>
+                        <TableCell>{download.name}</TableCell>
+                        <TableCell>
+                          <List>
+                            {download.files.map((file) => (
+                              <ListItem
+                                key={file.id}
+                                button
+                                component="a"
+                                href={file.file_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <ListItemIcon>
+                                  <DownloadIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={file.name} />
+                              </ListItem>
+                            ))}
+                          </List>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                component="div"
+                count={filteredDownloads.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </Paper>
           </Grid>
         </Grid>
-        <Box sx={{ marginTop: 4 }}>
-          {data.downloadCategories.map((category) => (
-            <Box key={category.id} sx={{ marginBottom: 4 }}>
-              <Typography variant="h4" gutterBottom>{category.name}</Typography>
-              {data.downloads
-                .filter((download) => download.download_category_id === category.id)
-                .map((download) => (
-                  <Paper key={download.id} elevation={3} sx={{ marginBottom: 4, padding: 2 }}>
-                    <Typography variant="h5" gutterBottom>{download.name}</Typography>
-                    <List>
-                      {download.files.map((file) => (
-                        <ListItem key={file.id} button component="a" href={file.file_url} target="_blank" rel="noopener noreferrer">
-                          <ListItemIcon>
-                            <DownloadIcon />
-                          </ListItemIcon>
-                          <ListItemText primary={file.name} />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </Paper>
-                ))}
-            </Box>
-          ))}
-        </Box>
       </Box>
     </Container>
   );
