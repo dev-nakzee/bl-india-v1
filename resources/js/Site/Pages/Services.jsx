@@ -15,7 +15,9 @@ import {
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { Helmet } from 'react-helmet';
+import DownloadBrochure from '../Components/DownloadBrochure';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+import RequestCallBack from '../Components/RequestCallBack';
 
 const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
@@ -164,6 +166,8 @@ const Services = () => {
               </ListItem>
             ))}
           </List>
+          <DownloadBrochure />
+          <RequestCallBack />
         </Sidebar>
         <ServicesList>
           <Grid container spacing={4} alignItems="center">
