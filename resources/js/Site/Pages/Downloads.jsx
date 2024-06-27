@@ -61,22 +61,39 @@ const Downloads = () => {
       <Box sx={{ paddingTop: 4 }}>
         <Typography variant="h3" gutterBottom>{data.page.seo_title}</Typography>
         <Typography variant="body1" gutterBottom>{data.page.seo_description}</Typography>
-        <Box sx={{ marginTop: 4 }}>
-          {data.downloads.map((download) => (
-            <Paper key={download.id} elevation={3} sx={{ marginBottom: 4, padding: 2 }}>
-              <Typography variant="h5" gutterBottom>{download.name}</Typography>
-              <Typography variant="subtitle1" gutterBottom>{download.category.name}</Typography>
-              <List>
-                {download.files.map((file) => (
-                  <ListItem key={file.id} button component="a" href={file.file_url} target="_blank" rel="noopener noreferrer">
-                    <ListItemIcon>
-                      <DownloadIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={file.name} />
-                  </ListItem>
-                ))}
-              </List>
+        <Grid container spacing={4}>
+          <Grid item xs={12}>
+            <Paper elevation={3} sx={{ padding: 2 }}>
+              <img
+                src={data.page.image_url}
+                alt={data.page.image_alt}
+                style={{ width: '100%', height: 'auto' }}
+              />
             </Paper>
+          </Grid>
+        </Grid>
+        <Box sx={{ marginTop: 4 }}>
+          {data.downloadCategories.map((category) => (
+            <Box key={category.id} sx={{ marginBottom: 4 }}>
+              <Typography variant="h4" gutterBottom>{category.name}</Typography>
+              {data.downloads
+                .filter((download) => download.download_category_id === category.id)
+                .map((download) => (
+                  <Paper key={download.id} elevation={3} sx={{ marginBottom: 4, padding: 2 }}>
+                    <Typography variant="h5" gutterBottom>{download.name}</Typography>
+                    <List>
+                      {download.files.map((file) => (
+                        <ListItem key={file.id} button component="a" href={file.file_url} target="_blank" rel="noopener noreferrer">
+                          <ListItemIcon>
+                            <DownloadIcon />
+                          </ListItemIcon>
+                          <ListItemText primary={file.name} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Paper>
+                ))}
+            </Box>
           ))}
         </Box>
       </Box>
