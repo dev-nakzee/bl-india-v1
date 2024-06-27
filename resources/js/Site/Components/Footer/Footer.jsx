@@ -23,6 +23,7 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import MailIcon from "@mui/icons-material/Mail";
 import logo from "../../Assets/logo.svg";
 import apiClient from "../../Services/api";
+import PartnerWithUsLink from "./PartnerWithUsLink";
 
 const FooterContainer = styled(Box)(({ theme }) => ({
     backgroundColor: "#0D629A",
@@ -155,6 +156,9 @@ const Footer = () => {
                                 </Typography>
                             </FooterLink>
                         ))}
+                        <FooterLink>
+                            <PartnerWithUsLink />
+                        </FooterLink>
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={3}>
