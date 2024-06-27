@@ -16,7 +16,7 @@ class DownloadController extends Controller
     {
         $page = Page::where('slug', 'downloads')->first();
         $downloadCategories = DownloadCategory::orderBy('id', 'asc')->get();
-        $downloads = Download::with('category', 'files')->get();
+        $downloads = Download::with('category', 'files')->limit(1)->get();
         return response()->json([
             'page' => $page,
             'downloadCategories' => $downloadCategories,
