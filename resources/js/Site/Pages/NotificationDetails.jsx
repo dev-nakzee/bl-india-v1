@@ -74,7 +74,7 @@ const NotificationDetails = () => {
           </MuiLink>
         </Box>
         <Box sx={{ marginY: 2 }}>
-          <Typography variant="h6">Product Category</Typography>
+          <Typography variant="h6">Applicable Products</Typography>
           {notification.products.length > 0 ? (
             <List>
               {notification.products.map((product) => (
