@@ -24,6 +24,8 @@ const Contact = () => {
     name: '',
     email: '',
     message: '',
+    phone: '',
+    organization: '',
   });
 
   useEffect(() => {
@@ -59,11 +61,21 @@ const Contact = () => {
         name: '',
         email: '',
         message: '',
+        phone: '',
+        organization: '',
       });
     } catch (error) {
       toast.error('Error sending message');
       console.error('Error sending message:', error);
     }
+  };
+
+  const renderAddress = (address) => {
+    return address.split('\n').map((line, index) => (
+      <Typography key={index} variant="body2">
+        {line}
+      </Typography>
+    ));
   };
 
   if (loading) {
@@ -89,43 +101,59 @@ const Contact = () => {
       <Box sx={{ paddingTop: 4 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
-          <Box sx={{ marginTop: 4 }}>
-          <Typography variant="h4" gutterBottom>Contact Us</Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <TextField
-              label="Email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <TextField
-              label="Message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              multiline
-              rows={4}
-              required
-            />
-            <Button type="submit" variant="contained" color="primary">Send</Button>
-          </form>
-        </Box>
-
+            <Box sx={{ marginTop: 4 }}>
+              <Typography variant="h4" gutterBottom>Contact Us</Typography>
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  label="Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Organization"
+                  name="organization"
+                  value={formData.organization}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                  multiline
+                  rows={4}
+                  required
+                />
+                <Button type="submit" variant="contained" color="primary">Send</Button>
+              </form>
+            </Box>
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper elevation={3} sx={{ padding: 2 }}>
@@ -146,9 +174,7 @@ const Contact = () => {
                   <ListItemText primary="Phone 3" secondary={data.contact.phone3} />
                 </ListItem>
                 <ListItem>
-                  <ListItemText primary="Address" secondary={
-                    <div dangerouslySetInnerHTML={{ __html: data.contact.address }} />
-                  } />
+                  <ListItemText primary="Address" secondary={renderAddress(data.contact.address)} />
                 </ListItem>
               </List>
             </Paper>
@@ -160,9 +186,11 @@ const Contact = () => {
           <Paper elevation={3} sx={{ padding: 2 }}>
             <iframe
               title="Google Maps"
-              src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(data.contact.address)}`}
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.772255150437!2d77.28261647620775!3d28.63658707566256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfca9ee9d65df%3A0x993a638ba380a2a8!2sBrand%20Liaison%20India%20Private%20Limited!5e0!3m2!1sen!2sin!4v1719484146902!5m2!1sen!2sin"
               style={{ border: 0, width: '100%', height: '400px' }}
               allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
             />
           </Paper>
         </Box>
