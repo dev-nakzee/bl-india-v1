@@ -516,10 +516,10 @@ li a {
     font-weight: 500;
     font-size: 1.5rem;
 }
-.MuiListItemText-multiline,
-.MuiListItemText-multiline p {
+.holiday-list .MuiListItemText-multiline,
+.holiday-list .MuiListItemText-multiline p {
     color: #ff0000;
-}
+} 
 .react-calendar__navigation button {
     font-size: 2.3rem !important;
     color: var(--primary-color);

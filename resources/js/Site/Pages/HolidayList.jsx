@@ -160,7 +160,7 @@ const HolidayList = () => {
                 <meta name="keywords" content={pageData.seo_keywords} />
             </Helmet>
             <>
-                <Box sx={{ padding: 4 }}>
+                <Box sx={{ padding: 4 }} className="holiday-list">
                     <Typography
                         className="page-heading"
                         variant="h4"
