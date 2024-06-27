@@ -87,6 +87,7 @@ const Footer = () => {
     }
 
     return (
+        <>
         <FooterContainer className="Footer-section">
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={3}>
@@ -222,7 +223,7 @@ const Footer = () => {
             </Grid>
             <Divider sx={{ marginBlock: "25px", backgroundColor: "#fff" }} />
 
-            <Grid container fluid>
+            <Grid container>
                 <Grid item className="footer-certificates" xs={12} sm={6}>
                     <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
                         {footerData.companyCert.map((link) => (
@@ -289,6 +290,7 @@ const Footer = () => {
                 </Box>
             </Typography>
         </FooterContainer>
+        </>
     );
 };
 
