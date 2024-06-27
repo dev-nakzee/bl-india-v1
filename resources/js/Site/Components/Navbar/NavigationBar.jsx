@@ -37,12 +37,12 @@ const NavigationBar = () => {
       className="box-hidden"
     >
       <Toolbar>
-        <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+        <Box sx={{ display: "flex", alignItems: "center", width:'20%' }}>
           <Link to="/">
             <img src={logo} alt="Brand Logo" style={{ height: "70px" }} />
           </Link>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ display: "flex", alignItems: "center",width:'80%',justifyContent:'flex-end' }}>
           <Box
             sx={{
               display: "flex",

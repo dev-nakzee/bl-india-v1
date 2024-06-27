@@ -172,6 +172,7 @@ li a {
     color: var(--primary-color);
     position: relative;
 }
+.testimonial .slick-prev:hover, .testimonial .slick-prev:focus, .testimonial .slick-next:hover, .testimonial .slick-next:focus{color:var(--primary-color);outline:inherit;background: inherit;}
 .slick-prev {
     left: 22px !important;
 }
@@ -185,7 +186,8 @@ li a {
     top: unset !important;
 }
 .testimonial .MuiSvgIcon-root.MuiSvgIcon-colorSecondary {
-    font-size: 6rem;
+    width: 3em;
+    height: 1.5em;
 }
 .quote::before {
     content: "\201C"; /* Unicode for opening double quote */
