@@ -14,7 +14,7 @@ class DownloadController extends Controller
     public function download(): JsonResponse
     {
         $page = Page::where('slug', 'downloads')->first();
-        $downloads = Download::with('category')->get();
+        $downloads = Download::with('category', 'files')->get();
         return response()->json([
             'page' => $page,
             'downloads' => $downloads
