@@ -69,7 +69,7 @@ const HomeServices = () => {
                                 {service.description}
                             </Typography>
                             <Button  variant="outlined" component={Link} to={`/services/${service.slug}`}>
-                                Read More
+                                learn about {service.name}
                             </Button>
                         </Box>
                     </Grid>

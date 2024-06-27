@@ -33,7 +33,7 @@ const HolidayList = () => {
         position: "sticky",
         top: "20px",
         overflowY: "auto",
-        height:'100%',
+        // height:'100%',
         paddingRight: theme.spacing(2),
         [theme.breakpoints.down("sm")]: {
             width: "100%", // Make sidebar full width on small screens
