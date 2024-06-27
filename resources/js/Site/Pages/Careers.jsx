@@ -20,6 +20,7 @@ import { Search, ExpandMore, Close } from '@mui/icons-material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+import PartnerWithUs from '../Components/PartnerWithUs';
 
 const Careers = () => {
   const [jobs, setJobs] = useState([]);
@@ -218,6 +219,7 @@ const Careers = () => {
           </Grid>
         ))}
       </Grid>
+      <PartnerWithUs />
       <Drawer anchor="right" open={drawerOpen} onClose={handleCloseDrawer}>
         <Box sx={{ width: 400, padding: 4 }}>
           <IconButton onClick={handleCloseDrawer} sx={{ mb: 2 }}>
