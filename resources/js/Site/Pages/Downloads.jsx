@@ -26,6 +26,7 @@ import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { styled } from '@mui/system';
 import DownloadIcon from '@mui/icons-material/Download';
 
 const Downloads = () => {
@@ -39,6 +40,22 @@ const Downloads = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const Sidebar = styled(Box)(({ theme }) => ({
+    width: 'auto',
+    height: 'fit-content',
+    position: 'sticky',
+    top: '20px',
+    overflowY: 'auto',
+    paddingRight: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%', // Make sidebar full width on small screens
+      position: 'static', // Remove sticky positioning on small screens
+      top: 'auto', // Reset top spacing on small screens
+      overflowY: 'visible', // Reset overflow on small screens
+      paddingRight: 0, // Reset right padding on small screens
+    },
+  }));
 
   const fetchData = async () => {
     try {
@@ -95,19 +112,22 @@ const Downloads = () => {
   }
 
   return (
-    <Container>
+    <>
       <ToastContainer />
       <Helmet>
         <title>{data.page.seo_title}</title>
         <meta name="description" content={data.page.seo_description} />
         <meta name="keywords" content={data.page.seo_keywords} />
       </Helmet>
-      <Box sx={{ paddingTop: 4 }}>
-        <Typography variant="h3" gutterBottom>{data.page.seo_title}</Typography>
-        <Typography variant="body1" gutterBottom>{data.page.seo_description}</Typography>
+      <Box sx={{ padding: 4 }}>
+      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
+          {data.page.seo_title}
+
+        </Typography>
+        {/* <Typography variant="body1" gutterBottom>{data.page.seo_description}</Typography> */}
         <Grid container spacing={4}>
           <Grid item xs={12} sm={4} md={3}>
-            <Paper elevation={3} sx={{ padding: 2 }}>
+          <Sidebar className='Service-section-siderbar'>
               <Typography variant="h6">Categories</Typography>
               <List>
                 {data.downloadCategories.map((category) => (
@@ -121,10 +141,10 @@ const Downloads = () => {
                   </ListItem>
                 ))}
               </List>
-            </Paper>
+            </Sidebar>
           </Grid>
           <Grid item xs={12} sm={8} md={9}>
-            <Paper elevation={3} sx={{ padding: 2 }}>
+            <Box sx={{display:'flex',justifyContent:'flex-end',alignItems:'center'}}>
               <TextField
                 variant="outlined"
                 fullWidth
@@ -138,12 +158,15 @@ const Downloads = () => {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ marginBottom: 2 }}
+                sx={{ marginBottom: 2 ,width:'50%'}}
               />
-              <TableContainer>
-                <Table>
+              </Box>
+               <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer>
+        <Table className='product-download'>
+          
                   <TableHead>
-                    <TableRow>
+                    <TableRow className='table-row'>
                       <TableCell>Name</TableCell>
                       <TableCell>Files</TableCell>
                     </TableRow>
@@ -177,6 +200,7 @@ const Downloads = () => {
                 </Table>
               </TableContainer>
               <TablePagination
+              className='table-pagination'
                 component="div"
                 count={filteredDownloads.length}
                 page={page}
@@ -188,7 +212,7 @@ const Downloads = () => {
           </Grid>
         </Grid>
       </Box>
-    </Container>
+    </>
   );
 };
 
