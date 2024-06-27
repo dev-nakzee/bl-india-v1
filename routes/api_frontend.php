@@ -73,4 +73,7 @@ Route::prefix('v1/fe')->group(function(){
     // Contact Page Routes
     Route::get('/contact', [ContactController::class, 'contact']);
     Route::post('/contact', [ContactController::class,'store']);
+
+    // Download Page Routes
+    Route::get('/downloads', [DownloadController::class, 'download']);
 });
