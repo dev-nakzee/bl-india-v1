@@ -181,12 +181,30 @@ const theme = createTheme({
       fontSize: "2.2rem",
       fontWeight: 600,
       color: "#0D629A",
+      "@media (min-width: 360px)": {
+        fontSize: "1.4rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1.6rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.8rem", // Font size for h1 on large devices (e.g., desktop)
+      },
 
     },
     h6: {
       fontSize: "1.8rem",
       fontWeight: 600,
       color: "#0D629A",
+      "@media (min-width: 360px)": {
+        fontSize: "1.2rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1.4rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.6rem", // Font size for h1 on large devices (e.g., desktop)
+      },
 
     },
     heading: {
@@ -198,11 +216,30 @@ const theme = createTheme({
       fontWeight: 600,
       color: "#3078C0",
       lineHeight: 1.5,
+      "@media (min-width: 360px)": {
+        fontSize: "1rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1.2rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.4rem", // Font size for h1 on large devices (e.g., desktop)
+      },
+
 
     },
     subtitle2: {
       fontSize: "1.6rem",
       fontWeight: 400,
+      "@media (min-width: 360px)": {
+        fontSize: "1rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1.2rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.4rem", // Font size for h1 on large devices (e.g., desktop)
+      },
     },
     bodytext: {
       fontWeight: 500,
