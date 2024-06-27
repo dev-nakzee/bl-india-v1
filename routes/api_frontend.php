@@ -12,6 +12,7 @@ use App\Http\Controllers\fe\GalleryController;
 use App\Http\Controllers\fe\KnowledgeBaseController;
 use App\Http\Controllers\fe\CareerController;
 use App\Http\Controllers\fe\ContactController;
+use App\Http\Controllers\fe\DownloadController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
