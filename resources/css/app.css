@@ -2,7 +2,7 @@
     /* Define color variables */
     --primary-color: #0d629a;
     --secondary-color: #c3e7ff;
-    --third-color:#3078C0;
+    --third-color: #3078c0;
     --text-color: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.4);
 }
@@ -172,6 +172,14 @@ li a {
     color: var(--primary-color);
     position: relative;
 }
+.testimonial .slick-prev:hover,
+.testimonial .slick-prev:focus,
+.testimonial .slick-next:hover,
+.testimonial .slick-next:focus {
+    color: var(--primary-color);
+    outline: inherit;
+    background: inherit;
+}
 .slick-prev {
     left: 22px !important;
 }
@@ -185,7 +193,8 @@ li a {
     top: unset !important;
 }
 .testimonial .MuiSvgIcon-root.MuiSvgIcon-colorSecondary {
-    font-size: 6rem;
+    width: 3em;
+    height: 1.5em;
 }
 .quote::before {
     content: "\201C"; /* Unicode for opening double quote */
@@ -231,7 +240,7 @@ li a {
     width: 100%;
     max-width: 150px;
     height: 6rem;
-    padding:1rem;
+    padding: 1rem;
 }
 
 .Footer-section .footer-certificates {
@@ -316,9 +325,12 @@ li a {
 /* .Accordian-summary {
     min-height: 70px !important;
 } */
- .notification .MuiTypography-root.MuiLink-root{color: var(--primary-color);font-weight: 500;}
-.MuiAccordionDetails-root.notification-list ul li{
-    list-style-type: square !important;   
+.notification .MuiTypography-root.MuiLink-root {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+.MuiAccordionDetails-root.notification-list ul li {
+    list-style-type: square !important;
 }
 .Accordian-summary .Accordian-data {
     width: 70%;
@@ -336,6 +348,10 @@ li a {
 }
 .about-section {
     position: relative;
+}
+.navbar-icon {
+    height: 50px ;
+    margin-right: 1.5rem ;
 }
 .box-about {
     position: absolute;
@@ -378,13 +394,17 @@ li a {
     background-size: cover;
 } */
 @media (max-width: 767px) {
-    .box-hidden {
+    /* .box-hidden {
         display: none !important;
+    } */
+  .navbar-icon {
+        height: 35px ;
+        margin-right: 1rem ;
     }
 
     .Banner-section {
         background-image: none !important;
-        height: 45vh !important;
+        height: 30vh !important;
         background-color: var(--secondary-color);
     }
 
@@ -488,11 +508,16 @@ li a {
     line-height: 1.125em;
     font-size: 2.3rem !important;
     text-decoration: none !important;
-    padding:2.5rem;
+    padding: 2.5rem;
 }
-.MuiListItemText-root span{font-weight: 500;
-font-size: 1.5rem;}
-.MuiListItemText-multiline ,.MuiListItemText-multiline p{color: #FF0000}
+.MuiListItemText-root span {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+.MuiListItemText-multiline,
+.MuiListItemText-multiline p {
+    color: #ff0000;
+}
 .react-calendar__navigation button {
     font-size: 2.3rem !important;
     color: var(--primary-color);
@@ -501,20 +526,24 @@ font-size: 1.5rem;}
 .react-calendar__month-view__weekdays__weekday {
     color: var(--primary-color);
 }
-.react-calendar__month-view__days{font-weight: 700;}
+.react-calendar__month-view__days {
+    font-weight: 700;
+}
 .react-calendar__tile {
     text-align: center;
     padding: 0.5em;
 }
 
-.react-calendar__tile.saturday{
+.react-calendar__tile.saturday {
     color: #ed6c02;
 }
 
 .react-calendar__tile.sunday {
     color: #ed6c02;
 }
-.react-calendar__tile{  border-radius: 15px;}
+.react-calendar__tile {
+    border-radius: 15px;
+}
 .react-calendar__tile--now {
     background: none !important;
     border: 2px solid #2e7d32 !important;
@@ -523,15 +552,12 @@ font-size: 1.5rem;}
 }
 .react-calendar__tile.restricted-holiday {
     color: #e65100;
-    border: 2px solid #e65100  !important;
-
+    border: 2px solid #e65100 !important;
 }
 
-.react-calendar__tile.gazetted-holiday{
+.react-calendar__tile.gazetted-holiday {
     /* color:var(--third-color); */
-    color:#FF0000;
-    border: 2px solid #FF0000;
-   font-weight:700;
+    color: #ff0000;
+    border: 2px solid #ff0000;
+    font-weight: 700;
 }
-
-

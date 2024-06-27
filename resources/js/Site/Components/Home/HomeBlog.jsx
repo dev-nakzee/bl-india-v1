@@ -90,7 +90,7 @@ const HomeBlog = () => {
                                         <Typography variant="body2" color="text.secondary" sx={{mt:1}}>
                                             {blog.content}
                                         </Typography>
-                                        <Button component={Link} to={`/blog/${blog.slug}`} sx={{ mt: 2 }} variant="outlined" color="primary">
+                                        <Button component={Link} to={`/blogs/${blog.slug}`} sx={{ mt: 2 }} variant="outlined" color="primary">
                                             Read More
                                         </Button>
                                     </CardContent>
