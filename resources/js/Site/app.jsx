@@ -23,6 +23,8 @@ import theme from './Layouts/Theme';
 import KnowledgeBase from './Pages/KnowledgeBase';
 import KnowledgeBaseCategory from './Pages/KnowledgeBaseCategory';
 import Careers from './Pages/Careers';
+import Contact from './Pages/Contact';
+import Downloads from './Pages/Downloads';
 
 function App() {
   return (    
@@ -51,6 +53,8 @@ function App() {
             <Route path="/knowledge-base" element={<KnowledgeBase />} />
             <Route path="/knowledge-base/:categorySlug" element={<KnowledgeBaseCategory />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/downloads" element={<Downloads />} />
           </Routes>
         </Layout>
       </BrowserRouter>

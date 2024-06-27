@@ -4,20 +4,28 @@ import {
     Typography,
     CircularProgress,
     Grid,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
     List,
     ListItem,
     ListItemText,
     Pagination,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    TextField,
+    InputAdornment,
     Link as MuiLink,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Search } from "@mui/icons-material";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { styled } from "@mui/system";
 import { Helmet } from "react-helmet";
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Notifications = () => {
     const { categorySlug } = useParams();
@@ -27,6 +35,7 @@ const Notifications = () => {
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
     const notificationsPerPage = 6;
     const navigate = useNavigate();
 
@@ -97,13 +106,18 @@ const Notifications = () => {
         setCurrentPage(value);
     };
 
-    const filteredNotifications =
-        selectedCategory === "all"
-            ? notifications
-            : notifications.filter(
-                  (notification) =>
-                      notification.notification_category_id === selectedCategory
-              );
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredNotifications = notifications.filter((notification) => {
+        return (
+            (selectedCategory === "all" ||
+                notification.notification_category_id === selectedCategory) &&
+            (notification.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                notification.date.includes(searchTerm))
+        );
+    });
 
     const paginatedNotifications = filteredNotifications.slice(
         (currentPage - 1) * notificationsPerPage,
@@ -117,18 +131,21 @@ const Notifications = () => {
                 <meta name="description" content={pageData.seo_description} />
                 <meta name="keywords" content={pageData.seo_keywords} />
             </Helmet>
-            <Box  className="notification" sx={{ padding: 4 }}>
-              <Box sx={{display: 'flex' ,alignItems: 'center',justifyContent: 'center'}} marginBottom={4}>
-              <Typography
-                    variant="h4"
-                    className="page-heading"
-                    gutterBottom
-                    textAlign={"center"}
+            <Box className="notification" sx={{ padding: 4 }}>
+                <Box
+                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    marginBottom={4}
                 >
-                    {pageData.name}
-                </Typography>
-              </Box>
-               
+                    <Typography
+                        variant="h4"
+                        className="page-heading"
+                        gutterBottom
+                        textAlign={"center"}
+                    >
+                        {pageData.name}
+                    </Typography>
+                </Box>
+
                 <Grid container spacing={4}>
                     <Grid item xs={12} md={3}>
                         <Sidebar className="Service-section-siderbar">
@@ -139,9 +156,7 @@ const Notifications = () => {
                                 <ListItem
                                     button
                                     selected={selectedCategory === "all"}
-                                    onClick={() =>
-                                        handleCategoryClick("all", "")
-                                    }
+                                    onClick={() => handleCategoryClick("all", "")}
                                 >
                                     <ListItemText primary="All Notifications" />
                                 </ListItem>
@@ -149,15 +164,8 @@ const Notifications = () => {
                                     <ListItem
                                         key={category.id}
                                         button
-                                        selected={
-                                            category.id === selectedCategory
-                                        }
-                                        onClick={() =>
-                                            handleCategoryClick(
-                                                category.id,
-                                                category.slug
-                                            )
-                                        }
+                                        selected={category.id === selectedCategory}
+                                        onClick={() => handleCategoryClick(category.id, category.slug)}
                                     >
                                         <ListItemText primary={category.name} />
                                     </ListItem>
@@ -165,60 +173,49 @@ const Notifications = () => {
                             </List>
                         </Sidebar>
                     </Grid>
-                    <Grid item xs={12} md={9} marginBottom={3}>
-                        {paginatedNotifications.map((notification) => (
-                            <Accordion
-                                key={notification.id}
-                                sx={{ marginBottom: 2 }}
-                            >
-                                <AccordionSummary
-                                    className="Accordian-summary"
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls={`panel${notification.id}-content`}
-                                    id={`panel${notification.id}-header`}
-                                >
-                                    <Typography className="Accordian-data">
-                                        {notification.name}
-                                    </Typography>
-                                    <Typography
-                                        className="Accordian-data1"
-                                        variant="body2"
-                                        color="textSecondary"
-                                    >
-                                        {notification.date}
-                                    </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails className="notification-list">
-                                    <List  >
-                                        {notification.products.length > 0 ? (
-                                            notification.products.map(
-                                                (product) => (
-                                                    <ListItem  key={product.id}>
-                                                        <MuiLink
-                                                            href={`/products/${product.slug}`}
-                                                            target="_blank"
-                                                        >
-                                                            {product.name}
-                                                        </MuiLink>
-                                                    </ListItem>
-                                                )
-                                            )
-                                        ) : (
-                                            <Typography variant="body1">
-                                                No products available.
-                                            </Typography>
-                                        )}
-                                    </List>
-                                    <MuiLink
-                                        component={Link}
-                                        to={`/notifications/${notification.category.slug}/${notification.slug}`}
-                                        sx={{ mt: 2 }}
-                                    >
-                                        View Notification Details
-                                    </MuiLink>
-                                </AccordionDetails>
-                            </Accordion>
-                        ))}
+                    <Grid item xs={12} md={9}>
+                        <TextField
+                            label="Search"
+                            variant="outlined"
+                            fullWidth
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Search />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            sx={{ marginBottom: 3 }}
+                        />
+                        <TableContainer component={Paper}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Name</TableCell>
+                                        <TableCell>Date</TableCell>
+                                        <TableCell>Details</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {paginatedNotifications.map((notification) => (
+                                        <TableRow key={notification.id}>
+                                            <TableCell>{notification.name}</TableCell>
+                                            <TableCell>{notification.date}</TableCell>
+                                            <TableCell>
+                                                <MuiLink
+                                                    component={Link}
+                                                    to={`/notifications/${notification.category.slug}/${notification.slug}`}
+                                                >
+                                                    View Notification Details
+                                                </MuiLink>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                         <Box
                             sx={{
                                 display: "flex",
@@ -228,8 +225,7 @@ const Notifications = () => {
                         >
                             <Pagination
                                 count={Math.ceil(
-                                    filteredNotifications.length /
-                                        notificationsPerPage
+                                    filteredNotifications.length / notificationsPerPage
                                 )}
                                 page={currentPage}
                                 onChange={handlePageChange}
@@ -239,6 +235,7 @@ const Notifications = () => {
                     </Grid>
                 </Grid>
             </Box>
+            <ToastContainer />
         </>
     );
 };

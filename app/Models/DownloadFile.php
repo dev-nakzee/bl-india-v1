@@ -16,6 +16,12 @@ class DownloadFile extends Model
         'file_url',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function download()
     {
         return $this->belongsTo(Download::class, 'download_id');
