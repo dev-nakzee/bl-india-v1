@@ -64,6 +64,10 @@ p {
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
+.Footer-section p{
+    margin-bottom: 0;
+    margin-top: 0;
+}
 
 li a {
     text-decoration: none;

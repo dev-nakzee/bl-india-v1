@@ -24,7 +24,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import logo from "../../Assets/logo.svg";
 import apiClient from "../../Services/api";
 import PartnerWithUsLink from "./PartnerWithUsLink";
-import { FmdGoodOutlined } from "@mui/icons-material";
+import { EmailOutlined, FmdGoodOutlined, PhoneOutlined } from "@mui/icons-material";
 
 const FooterContainer = styled(Box)(({ theme }) => ({
     backgroundColor: "#0D629A",
@@ -179,8 +179,8 @@ const Footer = () => {
                     >
                         {footerData.contact.name}
                     </Typography>
-                    <Box sx={{display:'flex',alignItems:'flex-start'}}>
-                    <FmdGoodOutlined color="info" />
+                    <Box sx={{display:'flex',alignItems:'flex-start',gap:'10px'}}>
+                    <FmdGoodOutlined color= "#fff" />
                     <Typography 
                         variant="body2"
                         dangerouslySetInnerHTML={{
@@ -189,6 +189,8 @@ const Footer = () => {
                         textAlign={"left"}
                         mb={2}
                     /></Box>
+                     <Box sx={{display:'flex',alignItems:'flex-start',gap:'10px'}}>
+                     <EmailOutlined color= "#fff" />
                     <Typography 
                         variant="body2"
                         textAlign={"left"}
@@ -196,6 +198,7 @@ const Footer = () => {
                     >
                         {footerData.contact.email}
                     </Typography>
+                    </Box>
                     <Box
                         sx={{
                             display: "flex",
@@ -203,13 +206,15 @@ const Footer = () => {
                             alignItems: "center",
                         }}
                     >
+                         <Box sx={{display:'flex',alignItems:'flex-start',gap:'10px'}}>
+                         <PhoneOutlined color= "#fff" />
                         <Typography 
                             variant="body2"
                             textAlign={"left"}
                             className="Service-list"
                         >
                             {footerData.contact.phone1}
-                        </Typography>
+                        </Typography></Box>
                         &nbsp; &nbsp;
                         <Typography 
                             variant="body2"
@@ -219,6 +224,8 @@ const Footer = () => {
                             {footerData.contact.phone2}
                         </Typography>
                     </Box>
+                    <Box sx={{display:'flex',alignItems:'flex-start',gap:'10px'}}>
+                    <PhoneOutlined color= "#fff" />
                     <Typography 
                         variant="body2"
                         textAlign={"left"}
@@ -226,6 +233,7 @@ const Footer = () => {
                     >
                         {footerData.contact.phone3}
                     </Typography>
+                    </Box>
                 </Grid>
             </Grid>
             <Divider sx={{ marginBlock: "25px", backgroundColor: "#fff" }} />
