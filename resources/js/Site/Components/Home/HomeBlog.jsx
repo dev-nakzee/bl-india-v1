@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, CircularProgress, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
+import { Box, Typography, CircularProgress, Grid, Card, CardMedia, CardContent, Button, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import apiClient from '../../Services/api';
@@ -90,9 +90,12 @@ const HomeBlog = () => {
                                         <Typography variant="body2" color="text.secondary" sx={{mt:1}}>
                                             {blog.content}
                                         </Typography>
+                                        <CardActions>
                                         <Button component={Link} to={`/blogs/${blog.slug}`} sx={{ mt: 2 }} variant="outlined" color="primary">
                                             Read More
                                         </Button>
+                                </CardActions>
+                                       
                                     </CardContent>
                                 </Card>
                             </Grid>

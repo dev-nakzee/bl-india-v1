@@ -64,6 +64,9 @@ p {
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
+.Blog-section p{
+    min-height: 97px;
+}
 .Footer-section p{
     margin-bottom: 0;
     margin-top: 0;
@@ -328,9 +331,7 @@ li a {
 }
 
 /******** Product List ***********/
-/* .Accordian-summary {
-    min-height: 70px !important;
-} */
+
 .notification .MuiTypography-root.MuiLink-root {
     color: var(--primary-color);
     font-weight: 500;
@@ -349,9 +350,7 @@ li a {
     margin-right: 15px;
     font-weight: 500;
 }
-.MuiAccordionSummary-root.Mui-expanded {
-    background-color: var(--secondary-color);
-}
+
 .about-section {
     position: relative;
 }

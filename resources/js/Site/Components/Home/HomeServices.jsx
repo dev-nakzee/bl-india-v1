@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Grid, CircularProgress, Button } from "@mui/material";
+import {
+    Box,
+    Typography,
+    Grid,
+    CircularProgress,
+    Button,
+    CardActions,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import apiClient from "../../Services/api";
 
@@ -116,21 +123,23 @@ const HomeServices = () => {
                                 <Typography
                                     variant="body2"
                                     sx={{
-                                        marginBlock: "10px",
+                                        marginBlock: "5px",
                                         flexGrow: 1,
                                         textAlign: "left",
                                     }}
                                 >
                                     {service.description}
                                 </Typography>
-                                <Button
-                             
-                                    variant="outlined"
-                                    component={Link}
-                                    to={`/services/${service.slug}`}
-                                >
-                                    Read More {/* {service.name} */}
-                                </Button>
+                                <CardActions>
+                                    <Button
+                                        size="large"
+                                        variant="outlined"
+                                        component={Link}
+                                        to={`/services/${service.slug}`}
+                                    >
+                                        Read More {/* {service.name} */}
+                                    </Button>
+                                </CardActions>
                             </Box>
                         </Grid>
                     ))}
