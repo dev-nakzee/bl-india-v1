@@ -71,7 +71,7 @@ class StickerController extends Controller
         if ($request->hasFile('image')) {
             // Delete the old image if exists
             if ($service->image_url) {
-                Storage::disk('public')->delete($service->image_url);
+                Storage::disk('public')->delete($sticker->image_url);
             }
 
             $imageWebp  = Image::read($request->file('image'));
