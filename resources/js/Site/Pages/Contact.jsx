@@ -3,7 +3,6 @@ import {
     Box,
     Typography,
     CircularProgress,
-    Paper,
     Container,
     Grid,
     List,
@@ -15,8 +14,13 @@ import {
 import { Helmet } from "react-helmet";
 import apiClient from "../Services/api";
 import { toast, ToastContainer } from "react-toastify";
+import parse from 'html-react-parser';
 import "react-toastify/dist/ReactToastify.css";
-import { AddLocation, Call, Email, EmailOutlined, FmdGoodOutlined, PhoneOutlined } from "@mui/icons-material";
+import {
+    EmailOutlined,
+    FmdGoodOutlined,
+    PhoneOutlined,
+} from "@mui/icons-material";
 
 const Contact = () => {
     const [data, setData] = useState(null);
@@ -71,14 +75,6 @@ const Contact = () => {
         }
     };
 
-    const renderAddress = (address) => {
-        return address.split("\n").map((line, index) => (
-            <Typography key={index} variant="body2">
-                {line}
-            </Typography>
-        ));
-    };
-
     if (loading) {
         return (
             <Box
@@ -123,44 +119,59 @@ const Contact = () => {
                             <Typography variant="h6" gutterBottom>
                                 Get in Touch
                             </Typography>
-                            <Typography variant="subtitle1" gutterBottom>
+                            <Typography variant="h4" gutterBottom>
                                 {data.contact.name}
                             </Typography>
 
                             <List>
-                                <ListItem sx={{paddingLeft:0}}>
-                                <FmdGoodOutlined className="contact-icon" color="secondary" />
+                                <ListItem sx={{ paddingLeft: 0 }}>
+                                    <FmdGoodOutlined
+                                        className="contact-icon"
+                                        color="secondary"
+                                    />
                                     <ListItemText
                                         primary="Address"
-                                        secondary={renderAddress(
-                                            data.contact.address
-                                        )}
+                                        secondary={parse(data.contact.address)}
                                     />
                                 </ListItem>
-                                <ListItem sx={{paddingLeft:0}}>
-                                    <Box sx={{ paddingRight: 2 ,display:'flex',alignItems:'center' }}>
-                                  <EmailOutlined className="contact-icon" color="secondary" />
-                                    <ListItemText
-                                        primary="Email"
-                                        secondary={data.contact.email}
-                                    />
+                                <ListItem sx={{ paddingLeft: 0 }}>
+                                    <Box
+                                        sx={{
+                                            paddingRight: 2,
+                                            display: "flex",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <EmailOutlined
+                                            className="contact-icon"
+                                            color="secondary"
+                                        />
+                                        <ListItemText
+                                            primary="Email"
+                                            secondary={data.contact.email}
+                                        />
                                     </Box>
                                 </ListItem>
-                                <ListItem sx={{paddingLeft:0}}>
-                                <PhoneOutlined className="contact-icon" color="secondary" />
+                                <ListItem sx={{ paddingLeft: 0 }}>
+                                    <PhoneOutlined
+                                        className="contact-icon"
+                                        color="secondary"
+                                    />
                                     <ListItemText
                                         primary="Mobile No"
                                         secondary={data.contact.phone1}
                                     />
-                                  
-                                      <ListItemText
+                                    <ListItemText
                                         primary="Mobile No"
                                         secondary={data.contact.phone2}
                                     />
                                 </ListItem>
-                               
-                                <ListItem sx={{paddingLeft:0}}>
-                                <PhoneOutlined className="contact-icon" color="secondary" />
+
+                                <ListItem sx={{ paddingLeft: 0 }}>
+                                    <PhoneOutlined
+                                        className="contact-icon"
+                                        color="secondary"
+                                    />
                                     <ListItemText
                                         primary="Office No"
                                         secondary={data.contact.phone3}
@@ -171,7 +182,7 @@ const Contact = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Box sx={{ marginTop: 4 }}>
-                            <Typography  variant="h6" gutterBottom>
+                            <Typography variant="h6" gutterBottom>
                                 Feel Free to message
                             </Typography>
                             <form onSubmit={handleSubmit}>
