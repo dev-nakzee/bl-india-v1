@@ -24,6 +24,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import logo from "../../Assets/logo.svg";
 import apiClient from "../../Services/api";
 import PartnerWithUsLink from "./PartnerWithUsLink";
+import { FmdGoodOutlined } from "@mui/icons-material";
 
 const FooterContainer = styled(Box)(({ theme }) => ({
     backgroundColor: "#0D629A",
@@ -178,15 +179,17 @@ const Footer = () => {
                     >
                         {footerData.contact.name}
                     </Typography>
-                    <Typography
+                    <Box sx={{display:'flex',alignItems:'flex-start'}}>
+                    <FmdGoodOutlined color="info" />
+                    <Typography 
                         variant="body2"
                         dangerouslySetInnerHTML={{
                             __html: footerData.contact.address,
                         }}
                         textAlign={"left"}
                         mb={2}
-                    />
-                    <Typography
+                    /></Box>
+                    <Typography 
                         variant="body2"
                         textAlign={"left"}
                         className="Service-list"
@@ -200,7 +203,7 @@ const Footer = () => {
                             alignItems: "center",
                         }}
                     >
-                        <Typography
+                        <Typography 
                             variant="body2"
                             textAlign={"left"}
                             className="Service-list"
@@ -208,7 +211,7 @@ const Footer = () => {
                             {footerData.contact.phone1}
                         </Typography>
                         &nbsp; &nbsp;
-                        <Typography
+                        <Typography 
                             variant="body2"
                             textAlign={"left"}
                             className="Service-list"
@@ -216,7 +219,7 @@ const Footer = () => {
                             {footerData.contact.phone2}
                         </Typography>
                     </Box>
-                    <Typography
+                    <Typography 
                         variant="body2"
                         textAlign={"left"}
                         className="Service-list"

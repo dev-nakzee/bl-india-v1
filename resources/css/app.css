@@ -235,6 +235,7 @@ li a {
     align-items: flex-start;
     padding-bottom: 10px;
 }
+.Footer-section .Service-list {margin: 0 !important;}
 
 .Footer-section .footer-img {
     /* width: 100%; */
