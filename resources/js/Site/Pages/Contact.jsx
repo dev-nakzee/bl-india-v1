@@ -16,6 +16,7 @@ import { Helmet } from "react-helmet";
 import apiClient from "../Services/api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AddLocation, Call, Email } from "@mui/icons-material";
 
 const Contact = () => {
     const [data, setData] = useState(null);
@@ -128,6 +129,7 @@ const Contact = () => {
 
                             <List>
                                 <ListItem>
+                                <AddLocation/>
                                     <ListItemText
                                         primary="Address"
                                         secondary={renderAddress(
@@ -136,24 +138,27 @@ const Contact = () => {
                                     />
                                 </ListItem>
                                 <ListItem>
+                                  <Email/>
                                     <ListItemText
                                         primary="Email"
                                         secondary={data.contact.email}
                                     />
                                 </ListItem>
                                 <ListItem>
+                                <Email/>
                                     <ListItemText
                                         primary="Mobile No"
                                         secondary={data.contact.phone1}
                                     />
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText
+                                     <Email/>
+                                      <ListItemText
                                         primary="Mobile No"
                                         secondary={data.contact.phone2}
                                     />
                                 </ListItem>
+                               
                                 <ListItem>
+                                <Call/>
                                     <ListItemText
                                         primary="Office No"
                                         secondary={data.contact.phone3}
@@ -220,7 +225,7 @@ const Contact = () => {
                                     variant="contained"
                                     color="primary"
                                 >
-                                    Send
+                                    Send Message
                                 </Button>
                             </form>
                         </Box>
