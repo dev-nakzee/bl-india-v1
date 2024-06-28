@@ -331,7 +331,9 @@ li a {
 }
 
 /******** Product List ***********/
-
+/* .Accordian-summary {
+    min-height: 70px !important;
+} */
 .notification .MuiTypography-root.MuiLink-root {
     color: var(--primary-color);
     font-weight: 500;
@@ -350,7 +352,13 @@ li a {
     margin-right: 15px;
     font-weight: 500;
 }
-
+.Footer-section .MuiPaper-root.MuiAccordion-root {background-color: var(--third-color);}
+/* .MuiAccordionSummary-root.Mui-expanded {
+    background-color: var(--primary-color);
+} */
+.Footer-section .MuiGrid-root>.MuiGrid-item {
+    padding-top: 16px;
+}
 .about-section {
     position: relative;
 }
