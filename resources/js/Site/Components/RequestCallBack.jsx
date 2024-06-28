@@ -7,7 +7,8 @@ import {
   TextField,
   Typography,
   IconButton,
-  MenuItem
+  MenuItem,
+  Divider
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { toast, ToastContainer } from 'react-toastify';
@@ -65,11 +66,15 @@ const RequestCallBack = () => {
   };
 
   return (
-    <Container>
+    <>
       <ToastContainer />
-      <Box sx={{ textAlign: 'center', padding: 4 }}>
-        <Typography variant="h4" gutterBottom>
+      <Divider/>
+      <Box sx={{ textAlign: 'left', padding: 2 }}>
+      <Typography variant="h6" mb={1}>
           Request a Callback
+        </Typography>
+        <Typography variant="body1" mb={1}>
+          Fill out the form for the call back and learn more about our services.
         </Typography>
         <Button variant="contained" color="primary" onClick={toggleDrawer(true)}>
           Request Callback
@@ -128,7 +133,7 @@ const RequestCallBack = () => {
           </form>
         </Box>
       </Drawer>
-    </Container>
+    </>
   );
 };
 

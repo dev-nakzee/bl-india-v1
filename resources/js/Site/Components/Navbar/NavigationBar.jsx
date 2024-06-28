@@ -211,11 +211,11 @@ const NavigationBar = () => {
           </>
         ) : (
           <>
-            <Stack direction={'column'}>
-           <Stack direction={'row'}>
+           <Box sx={{ display: "flex",flexDirection:'column'}}>
+           <Stack direction={'row'} sx={{ display: "flex",justifyContent:'space-between'}}>
            <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
           <Link to="/">
-            <img src={logo} alt="Brand Logo" style={{ height: "70px" }} />
+            <img src={logo} alt="Brand Logo" style={{ height: "35px" }} />
           </Link>
         </Box>
           <Box sx={{ display: "flex", alignItems: "center" ,justifyContent:'space-between'}}>
@@ -228,28 +228,30 @@ const NavigationBar = () => {
           </Box>
          </Stack>
        
-             <Box sx={{ display: "flex", alignItems: "center",justifyContent:'space-between' }}>
           
-             <IconButton component={Link} to="/services" color="inherit">
-               <img src={ServicesIcon} alt="Services"  className="navbar-icon" />
-               <Box sx={{ textAlign: "left" }}>
-                 <Typography variant="h6">Approval Services</Typography>
-                 <Typography variant="subtitle2" display="block">
-                   provided by BL-India
-                 </Typography>
-               </Box>
-             </IconButton>
-             <IconButton component={Link} to="/notifications" color="inherit">
-               <img src={NotificationIcon} alt="Notifications" className="navbar-icon" />
-               <Box sx={{ textAlign: "left" }}>
-                 <Typography variant="h6">Notifications</Typography>
-                 <Typography variant="subtitle2" display="block">
-                   Government Notifications
-                 </Typography>
-               </Box>
-               </IconButton>
-               </Box>
-               </Stack>
+            <Box sx={{ display: "flex",justifyContent:'space-between' }}>
+          
+          <IconButton component={Link} to="/services" color="inherit">
+            <img src={ServicesIcon} alt="Services"  className="navbar-icon" />
+            <Box sx={{ textAlign: "left" }}>
+              <Typography variant="h6">Approval Services</Typography>
+              <Typography variant="subtitle2" display="block">
+                provided by BL-India
+              </Typography>
+            </Box>
+          </IconButton>
+          <IconButton component={Link} to="/notifications" color="inherit">
+            <img src={NotificationIcon} alt="Notifications" className="navbar-icon" />
+            <Box sx={{ textAlign: "left" }}>
+              <Typography variant="h6">Notifications</Typography>
+              <Typography variant="subtitle2" display="block">
+                Government Notifications
+              </Typography>
+            </Box>
+            </IconButton>
+            </Box>
+            </Box>
+            
                </>
         )}
       </Toolbar>

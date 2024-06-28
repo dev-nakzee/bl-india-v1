@@ -64,6 +64,13 @@ p {
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
+.Blog-section p{
+    min-height: 97px;
+}
+.Footer-section p{
+    margin-bottom: 0;
+    margin-top: 0;
+}
 
 li a {
     text-decoration: none;
@@ -235,12 +242,14 @@ li a {
     align-items: flex-start;
     padding-bottom: 10px;
 }
+.Footer-section .Service-list {margin: 0 !important;}
 
 .Footer-section .footer-img {
-    width: 100%;
+    /* width: 100%; */
     max-width: 150px;
     height: 6rem;
-    padding: 1rem;
+    margin-right: 1.5rem;
+    border-radius: 5px;
 }
 
 .Footer-section .footer-certificates {
@@ -343,8 +352,12 @@ li a {
     margin-right: 15px;
     font-weight: 500;
 }
-.MuiAccordionSummary-root.Mui-expanded {
-    background-color: var(--secondary-color);
+.Footer-section .MuiPaper-root.MuiAccordion-root {background-color: var(--third-color);}
+/* .MuiAccordionSummary-root.Mui-expanded {
+    background-color: var(--primary-color);
+} */
+.Footer-section .MuiGrid-root>.MuiGrid-item {
+    padding-top: 16px;
 }
 .about-section {
     position: relative;
@@ -394,6 +407,15 @@ li a {
     font-size: 1.8rem !important;
 
 }
+.contact-icon{
+    background-color:var(--secondary-color);
+    color: var(--primary-color);
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 4rem !important;
+    margin-right: 10px;
+}
+.MuiTypography-root.MuiTypography-subtitle1{padding:4px}
 .product-download .MuiSvgIcon-root{color:var(--primary-color)}
 @media (max-width: 767px) {
     /* .box-hidden {

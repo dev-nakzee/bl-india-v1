@@ -133,9 +133,9 @@ const Services = () => {
       </Helmet>
       <Grid item xs={12}  display={'flex'} justifyContent={'center'} alignContent={'center'}marginBlock={3}>
       <Box flexDirection={'column'}>
-              <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, backgroundColor: '#0D629A',color: '#fff', margin: 'auto', borderRadius: 20 }}>
+              {/* <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, backgroundColor: '#0D629A',color: '#fff', margin: 'auto', borderRadius: 20 }}>
               {serviceData.page.title} 
-              </Typography>
+              </Typography> */}
               <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom >
               {serviceData.page.name}
 

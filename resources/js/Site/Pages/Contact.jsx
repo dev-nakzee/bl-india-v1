@@ -16,7 +16,7 @@ import { Helmet } from "react-helmet";
 import apiClient from "../Services/api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AddLocation, Call, Email } from "@mui/icons-material";
+import { AddLocation, Call, Email, EmailOutlined, FmdGoodOutlined, PhoneOutlined } from "@mui/icons-material";
 
 const Contact = () => {
     const [data, setData] = useState(null);
@@ -120,16 +120,16 @@ const Contact = () => {
                 <Grid container spacing={4}>
                     <Grid item xs={12} md={6}>
                         <Box sx={{ padding: 2 }}>
-                            <Typography variant="body2" gutterBottom>
+                            <Typography variant="h6" gutterBottom>
                                 Get in Touch
                             </Typography>
-                            <Typography variant="body1" gutterBottom>
+                            <Typography variant="subtitle1" gutterBottom>
                                 {data.contact.name}
                             </Typography>
 
                             <List>
-                                <ListItem>
-                                <AddLocation/>
+                                <ListItem sx={{paddingLeft:0}}>
+                                <FmdGoodOutlined className="contact-icon" color="secondary" />
                                     <ListItemText
                                         primary="Address"
                                         secondary={renderAddress(
@@ -137,28 +137,30 @@ const Contact = () => {
                                         )}
                                     />
                                 </ListItem>
-                                <ListItem>
-                                  <Email/>
+                                <ListItem sx={{paddingLeft:0}}>
+                                    <Box sx={{ paddingRight: 2 ,display:'flex',alignItems:'center' }}>
+                                  <EmailOutlined className="contact-icon" color="secondary" />
                                     <ListItemText
                                         primary="Email"
                                         secondary={data.contact.email}
                                     />
+                                    </Box>
                                 </ListItem>
-                                <ListItem>
-                                <Email/>
+                                <ListItem sx={{paddingLeft:0}}>
+                                <PhoneOutlined className="contact-icon" color="secondary" />
                                     <ListItemText
                                         primary="Mobile No"
                                         secondary={data.contact.phone1}
                                     />
-                                     <Email/>
+                                  
                                       <ListItemText
                                         primary="Mobile No"
                                         secondary={data.contact.phone2}
                                     />
                                 </ListItem>
                                
-                                <ListItem>
-                                <Call/>
+                                <ListItem sx={{paddingLeft:0}}>
+                                <PhoneOutlined className="contact-icon" color="secondary" />
                                     <ListItemText
                                         primary="Office No"
                                         secondary={data.contact.phone3}
@@ -169,7 +171,7 @@ const Contact = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Box sx={{ marginTop: 4 }}>
-                            <Typography variant="body2" gutterBottom>
+                            <Typography  variant="h6" gutterBottom>
                                 Feel Free to message
                             </Typography>
                             <form onSubmit={handleSubmit}>
@@ -236,7 +238,7 @@ const Contact = () => {
                 <iframe
                     title="Google Maps"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.772255150437!2d77.28261647620775!3d28.63658707566256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfca9ee9d65df%3A0x993a638ba380a2a8!2sBrand%20Liaison%20India%20Private%20Limited!5e0!3m2!1sen!2sin!4v1719484146902!5m2!1sen!2sin"
-                    style={{ border: 0, width: "100%", height: "400px" }}
+                    style={{ border: 0, width: "100%", height: "410px" }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
