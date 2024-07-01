@@ -16,7 +16,7 @@ use App\Http\Controllers\fe\DownloadController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
-    Route::get('/social', [LayoutController::class,'social']);
+    Route::get('/top-bar', [LayoutController::class,'topBar']);
     Route::get('/footer', [LayoutController::class, 'footer']);
     Route::get('/terms-conditions', [LayoutController::class, 'termsConditions']);
     Route::get('/privacy-policy', [LayoutController::class, 'privacyPolicy']);

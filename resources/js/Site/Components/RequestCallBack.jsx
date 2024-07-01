@@ -8,11 +8,64 @@ import {
   Typography,
   IconButton,
   MenuItem,
-  Divider
+  Divider,
+  Grid
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+const countryCodes = [
+  { code: "+1", country: "USA" },
+  { code: "+91", country: "India" },
+  { code: "+44", country: "UK" },
+  { code: "+61", country: "Australia" },
+  { code: "+81", country: "Japan" },
+  { code: "+49", country: "Germany" },
+  { code: "+86", country: "China" },
+  { code: "+33", country: "France" },
+  { code: "+39", country: "Italy" },
+  { code: "+7", country: "Russia" },
+  { code: "+55", country: "Brazil" },
+  { code: "+27", country: "South Africa" },
+  { code: "+34", country: "Spain" },
+  { code: "+82", country: "South Korea" },
+  { code: "+971", country: "UAE" },
+  { code: "+52", country: "Mexico" },
+  { code: "+62", country: "Indonesia" },
+  { code: "+60", country: "Malaysia" },
+  { code: "+65", country: "Singapore" },
+  { code: "+66", country: "Thailand" },
+  { code: "+64", country: "New Zealand" },
+  { code: "+31", country: "Netherlands" },
+  { code: "+46", country: "Sweden" },
+  { code: "+41", country: "Switzerland" },
+  { code: "+48", country: "Poland" },
+  { code: "+45", country: "Denmark" },
+  { code: "+47", country: "Norway" },
+  { code: "+92", country: "Pakistan" },
+  { code: "+63", country: "Philippines" },
+  { code: "+20", country: "Egypt" },
+  { code: "+98", country: "Iran" },
+  { code: "+90", country: "Turkey" },
+  { code: "+58", country: "Venezuela" },
+  { code: "+56", country: "Chile" },
+  { code: "+51", country: "Peru" },
+  { code: "+57", country: "Colombia" },
+  { code: "+54", country: "Argentina" },
+  { code: "+964", country: "Iraq" },
+  { code: "+880", country: "Bangladesh" },
+  { code: "+94", country: "Sri Lanka" },
+  { code: "+32", country: "Belgium" },
+  { code: "+353", country: "Ireland" },
+  { code: "+386", country: "Slovenia" },
+  { code: "+357", country: "Cyprus" },
+  { code: "+358", country: "Finland" },
+  { code: "+961", country: "Lebanon" },
+  { code: "+359", country: "Bulgaria" },
+  { code: "+385", country: "Croatia" },
+  { code: "+380", country: "Ukraine" },
+];
 
 const schedules = [
   'Morning (9am - 12pm)',
@@ -26,6 +79,7 @@ const RequestCallBack = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    countryCode: '+1',
     schedule: '',
   });
 
@@ -56,6 +110,7 @@ const RequestCallBack = () => {
       setFormData({
         name: '',
         phone: '',
+        countryCode: '+1',
         schedule: '',
       });
       setIsDrawerOpen(false);
@@ -82,7 +137,7 @@ const RequestCallBack = () => {
       </Box>
       <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <Box
-          sx={{ width: 350, padding: 4 }}
+          sx={{ width: 500, padding: 4 }}
           role="presentation"
           onKeyDown={toggleDrawer(false)}
         >
@@ -102,15 +157,40 @@ const RequestCallBack = () => {
               margin="normal"
               required
             />
-            <TextField
-              label="Phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            />
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs={4}>
+                <TextField
+                  select
+                  label="Code"
+                  name="countryCode"
+                  value={formData.countryCode}
+                  onChange={handleChange}
+                  fullWidth
+                  SelectProps={{
+                    MenuProps: {
+                      sx: { zIndex: 2000 },
+                    },
+                  }}
+                >
+                  {countryCodes.map((code) => (
+                    <MenuItem key={code.code} value={code.code}>
+                      {code.code} ({code.country})
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={8}>
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+              </Grid>
+            </Grid>
             <TextField
               select
               label="Preferred Schedule"

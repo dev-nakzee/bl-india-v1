@@ -20,10 +20,19 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 class LayoutController extends Controller
 {
     //
-    public function social(): JsonResponse
+    public function topBar(): JsonResponse
     {
         $socialMedia = SocialMedia::all();
-        return response()->json($socialMedia);
+        $topMenu = [
+            ['title' => 'About', 'url' => '/about'],
+            ['title' => 'Blogs', 'url' => '/blogs'],
+            ['title' => 'Downloads', 'url' => '/downloads'],
+            ['title' => 'Gallery', 'url' => '/gallery'],
+            ['title' => 'Careers', 'url' => '/careers'],
+            ['title' => 'Contact', 'url' => '/contact'],
+
+        ];
+        return response()->json(['socialMedia' => $socialMedia, 'topMenu' => $topMenu]);
     }
     //
     public function footer(): JsonResponse

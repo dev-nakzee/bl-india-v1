@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import apiClient from "../../Services/api";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ArrowCircleLeftOutlined, ArrowCircleRightOutlined, FormatQuoteOutlined } from "@mui/icons-material";
+import { ArrowCircleLeftOutlined, ArrowCircleRightOutlined } from "@mui/icons-material";
 
 const TestimonialSection = styled(Box)(({ theme }) => ({
     textAlign: "center",
@@ -15,8 +15,8 @@ const TestimonialSection = styled(Box)(({ theme }) => ({
     alignItems: "center",
     justifyContent: "space-between",
     [theme.breakpoints.down("sm")]: {
-        flexDirection: "column", // Change flex direction to column on small screens
-        padding: theme.spacing(2), // Adjust padding for small screens
+        flexDirection: "column",
+        padding: theme.spacing(2),
     },
 }));
 
@@ -34,7 +34,7 @@ const TestimonialCard = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(3),
     margin: theme.spacing(2),
     [theme.breakpoints.down("sm")]: {
-        margin: theme.spacing(1), // Adjust margin for small screens
+        margin: theme.spacing(1),
     },
 }));
 
@@ -48,7 +48,6 @@ const Arrow = (props) => {
                 display: "block",
                 background: "#0D629A",
                 borderRadius: "50%",
-               
             }}
             onClick={onClick}
         />
@@ -90,7 +89,7 @@ const HomeTestimonials = () => {
     }
 
     if (!testimonialsData) {
-        return null; // Or return a fallback UI if needed
+        return null;
     }
 
     const settings = {
@@ -101,8 +100,8 @@ const HomeTestimonials = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 6500,
-        nextArrow: <ArrowCircleRightOutlined  color="secondary" />,
-        prevArrow: <ArrowCircleLeftOutlined  color="secondary" />,
+        nextArrow: <Arrow className="slick-arrow slick-next" />,
+        prevArrow: <Arrow className="slick-arrow slick-prev" />,
     };
 
     const section = testimonialsData.section[0];
@@ -144,33 +143,39 @@ const HomeTestimonials = () => {
                     </TestimonialContent>
                 </Grid>
                 <Grid item xs={12} md={7} className="testimonial-quto">
-                    <div class="testimonial">
-                        <div class="rating">★★★★☆</div>
-                        <blockquote class="quote"> </blockquote>
-                            <Slider {...settings}>
-                                {testimonialsData.testimonials &&
-                                    testimonialsData.testimonials.map(
-                                        (testimonial) => (
-                                            <TestimonialCard padding={{sm:1,md:2}}
-                                                key={testimonial.id}
+                    <div className="testimonial">
+                        <div className="rating">★★★★☆</div>
+                        <blockquote className="quote"> </blockquote>
+                        <Slider {...settings}>
+                            {testimonialsData.testimonials &&
+                                testimonialsData.testimonials.map(
+                                    (testimonial) => (
+                                        <TestimonialCard
+                                            key={testimonial.id}
+                                            padding={{ sm: 1, md: 2 }}
+                                        >
+                                            <Typography
+                                                variant="body1"
+                                                sx={{
+                                                    textAlign: "left",
+                                                    marginBottom: 3,
+                                                }}
                                             >
-                                                <Typography
-                                                    variant="body1"
-                                                    sx={{textAlign:"left" ,marginBottom:3 }}
-                                                >
-                                                    {testimonial.text}
-                                                </Typography>
-                                                <Typography
-                                                    variant="h6"
-                                                    sx={{textAlign:"left" ,marginBottom:3 }}
-                                                >
-                                                    {testimonial.name}
-                                                </Typography>
-                                            </TestimonialCard>
-                                        )
-                                    )}
-                            </Slider>
-                       
+                                                {testimonial.text}
+                                            </Typography>
+                                            <Typography
+                                                variant="h6"
+                                                sx={{
+                                                    textAlign: "left",
+                                                    marginBottom: 3,
+                                                }}
+                                            >
+                                                {testimonial.name}
+                                            </Typography>
+                                        </TestimonialCard>
+                                    )
+                                )}
+                        </Slider>
                     </div>
                 </Grid>
             </Grid>

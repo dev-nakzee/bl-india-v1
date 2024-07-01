@@ -80,7 +80,7 @@ const AboutFounder = () => {
                         <Box className="founder-content">                       
                             {parse(founderData.content)}
                         </Box>
-                        <Box class="testimonial-quote"><FormatQuoteOutlinedIcon className=''/></Box>
+                        <Box className="testimonial-quote"><FormatQuoteOutlinedIcon className=''/></Box>
                     </FounderContent>
                 </Grid>
                 <Grid item xs={12} md={2}></Grid>
