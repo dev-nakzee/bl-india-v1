@@ -557,6 +557,9 @@ th {
     .testimonial-quto{padding-top: 10px;}
     .slick-prev, .slick-next {
         bottom: 0;}
+        .MuiTypography-subtitle1{
+            width:100% !important;
+        }
 }
 
 .my-masonry-grid {
