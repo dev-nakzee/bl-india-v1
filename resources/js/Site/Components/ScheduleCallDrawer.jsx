@@ -6,7 +6,6 @@ import {
     TextField,
     Drawer,
     IconButton,
-    Grid,
     InputAdornment,
     MenuItem,
 } from "@mui/material";
@@ -58,10 +57,8 @@ const countryCodes = [
     { code: "+964", country: "Iraq" },
     { code: "+880", country: "Bangladesh" },
     { code: "+94", country: "Sri Lanka" },
-    { code: "+64", country: "New Zealand" },
     { code: "+32", country: "Belgium" },
     { code: "+353", country: "Ireland" },
-    { code: "+48", country: "Poland" },
     { code: "+386", country: "Slovenia" },
     { code: "+357", country: "Cyprus" },
     { code: "+358", country: "Finland" },
@@ -82,10 +79,10 @@ const ScheduleCall = styled(Box)(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column', // Change flex direction to column on small screens
-      alignItems: 'stretch', // Stretch items vertically on small screens
-      paddingTop: theme.spacing(3), // Adjust top padding for small screens
-      paddingBottom: theme.spacing(3), // Adjust bottom padding for small screens
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
     },
   }));
 
