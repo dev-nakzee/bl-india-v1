@@ -8,6 +8,7 @@ import {
     IconButton,
     InputAdornment,
     MenuItem,
+    Grid,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
@@ -84,7 +85,7 @@ const ScheduleCall = styled(Box)(({ theme }) => ({
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(3),
     },
-  }));
+}));
 
 const ScheduleCallDrawer = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -127,8 +128,9 @@ const ScheduleCallDrawer = () => {
 
     return (
         <>
-            <ScheduleCall className='schedule-section'>
-                <Box  className="schedule-section-call-details"
+            <ScheduleCall className="schedule-section">
+                <Box
+                    className="schedule-section-call-details"
                     sx={{
                         display: "flex",
                         justifyContent: "space-between",
@@ -140,7 +142,7 @@ const ScheduleCallDrawer = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            marginRight:'60px'
+                            marginRight: "60px",
                         }}
                     >
                         <PermPhoneMsgIcon
@@ -177,15 +179,16 @@ const ScheduleCallDrawer = () => {
                 anchor="right"
                 open={drawerOpen}
                 onClose={handleDrawerClose}
-                sx={{ zIndex: 1301 }}
+                sx={{ zIndex: 2000 }}
             >
-                <Box sx={{ width: 350, p: 3 }}>
+                <Box sx={{ width: 400, p: 3, position: 'relative' }}>
                     <IconButton onClick={handleDrawerClose} sx={{ mb: 2 }}>
                         <CloseIcon />
                     </IconButton>
                     <Typography variant="h5" sx={{ mb: 3 }}>
                         Schedule a Call
                     </Typography>
+                    
                     <Box component="form" onSubmit={handleSubmit}>
                         <TextField
                             label="Name"
@@ -196,37 +199,44 @@ const ScheduleCallDrawer = () => {
                             required
                             sx={{ mb: 2 }}
                         />
-                        <TextField
-                            label="Phone"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            sx={{ mb: 2 }}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <TextField
-                                            select
-                                            name="countryCode"
-                                            value={formData.countryCode}
-                                            onChange={handleInputChange}
-                                            sx={{ width: "100px", mr: 1 }}
+                        <Grid container spacing={2} alignItems="center">
+                            <Grid item xs={4}>
+                                <TextField
+                                    select
+                                    label="Code"
+                                    name="countryCode"
+                                    value={formData.countryCode}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    SelectProps={{
+                                        MenuProps: {
+                                            sx: {
+                                                zIndex: 2100,
+                                            },
+                                        },
+                                    }}
+                                >
+                                    {countryCodes.map((code) => (
+                                        <MenuItem
+                                            key={code.code}
+                                            value={code.code}
                                         >
-                                            {countryCodes.map((code) => (
-                                                <MenuItem
-                                                    key={code.code}
-                                                    value={code.code}
-                                                >
-                                                    {code.code} ({code.country})
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
+                                            {code.code} ({code.country})
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <TextField
+                                    label="Phone"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    required
+                                />
+                            </Grid>
+                        </Grid>
                         <TextField
                             label="Schedule (Date and Time)"
                             name="schedule"
@@ -238,7 +248,7 @@ const ScheduleCallDrawer = () => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            sx={{ mb: 2 }}
+                            sx={{ mt: 2, mb: 2 }}
                         />
                         <Button
                             variant="contained"
@@ -249,6 +259,14 @@ const ScheduleCallDrawer = () => {
                             Schedule Call
                         </Button>
                     </Box>
+                    <Typography variant="h5" sx={{ mt: 4 }}>
+                        Call or Whatapp now:
+                        <br />
+                        <br />
+                    +91-8130615678
+                    <br />
+                    +91-9250056788
+                    </Typography>
                 </Box>
             </Drawer>
             <ToastContainer />
