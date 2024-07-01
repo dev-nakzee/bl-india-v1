@@ -1,252 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import {
-//     AppBar,
-//     Toolbar,
-//     Typography,
-//     IconButton,
-//     Box,
-//     Menu,
-//     MenuItem,
-// } from "@mui/material";
-// import { Link } from "react-router-dom";
-// import FacebookIcon from "@mui/icons-material/Facebook";
-// import TwitterIcon from "@mui/icons-material/Twitter";
-// import LinkedInIcon from "@mui/icons-material/LinkedIn";
-// import PinterestIcon from "@mui/icons-material/Pinterest";
-// import InstagramIcon from "@mui/icons-material/Instagram";
-// import YouTubeIcon from "@mui/icons-material/YouTube";
-// import LanguageIcon from "@mui/icons-material/Language";
-// import apiClient from "../../Services/api";
-
-// function Topbar() {
-//     const [anchorEl, setAnchorEl] = useState(null);
-//     const [languages, setLanguages] = useState([]);
-
-//     useEffect(() => {
-//         const determineLanguages = () => {
-//             const hostname = window.location.hostname;
-//             const subdomain = hostname.split(".")[0];
-
-//             const globalLanguages = [
-//                 { name: "English", locale: "en" },
-//                 { name: "French", locale: "fr" },
-//                 { name: "Spanish", locale: "es" },
-//                 { name: "Italian", locale: "it" },
-//                 { name: "Chinese (Simplified)", locale: "zh-Hans" },
-//                 { name: "Chinese (Traditional)", locale: "zh-Hant" },
-//                 { name: "Deutsch", locale: "de" },
-//                 { name: "Arabic", locale: "ar" },
-//                 { name: "Japanese", locale: "ja" },
-//                 { name: "Korean", locale: "ko" },
-//                 { name: "Russian", locale: "ru" },
-//                 { name: "Malay", locale: "ms" },
-//                 { name: "Vietnamese", locale: "vi" },
-//                 { name: "Thai", locale: "th" },
-//                 { name: "Polish", locale: "pl" },
-//                 { name: "Portuguese", locale: "pt" },
-//             ];
-
-//             const inSubdomainLanguages = [
-//                 { name: "English", locale: "en" },
-//                 { name: "Hindi", locale: "hi" },
-//                 { name: "Marathi", locale: "mr" },
-//                 { name: "Bangali", locale: "bn" },
-//                 { name: "Telegu", locale: "te" },
-//                 { name: "Tamil", locale: "ta" },
-//                 { name: "Kanada", locale: "kn" },
-//                 { name: "Malayalam", locale: "ml" },
-//                 { name: "Gujarati", locale: "gu" },
-//                 { name: "Punjabi", locale: "pa" },
-//             ];
-
-//             if (subdomain === "global") {
-//                 setLanguages(globalLanguages);
-//             } else if (subdomain === "in") {
-//                 setLanguages(inSubdomainLanguages);
-//             } else {
-//                 setLanguages(globalLanguages); // default to global if subdomain is neither 'global' nor 'in'
-//             }
-//         };
-
-//         determineLanguages();
-//     }, []);
-
-//     const handleLanguageClick = (event) => {
-//         setAnchorEl(event.currentTarget);
-//     };
-
-//     const handleLanguageClose = async (locale) => {
-//         setAnchorEl(null);
-//         if (locale) {
-//             try {
-//                 await apiClient.get(`/set-locale/${locale}`);
-//                 localStorage.setItem("selectedLanguage", locale);
-//                 // window.location.reload();
-//             } catch (error) {
-//                 console.error("Error setting locale:", error);
-//             }
-//         }
-//     };
-
-//     return (
-//         <AppBar position="static" className="Topbar-section">
-//             <Toolbar sx={{ background: "#0D629A" }}>
-//                 <Box
-//                     sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
-//                 >
-//                     <IconButton
-//                         component="a"
-//                         href="https://www.facebook.com"
-//                         target="_blank"
-//                         color="inherit"
-//                     >
-//                         <FacebookIcon />
-//                     </IconButton>
-//                     <IconButton
-//                         component="a"
-//                         href="https://www.twitter.com"
-//                         target="_blank"
-//                         color="inherit"
-//                     >
-//                         <TwitterIcon />
-//                     </IconButton>
-//                     <IconButton
-//                         component="a"
-//                         href="https://www.linkedin.com"
-//                         target="_blank"
-//                         color="inherit"
-//                     >
-//                         <LinkedInIcon />
-//                     </IconButton>
-//                     <IconButton
-//                         component="a"
-//                         href="https://www.pinterest.com"
-//                         target="_blank"
-//                         color="inherit"
-//                     >
-//                         <PinterestIcon />
-//                     </IconButton>
-//                     <IconButton
-//                         component="a"
-//                         href="https://www.instagram.com"
-//                         target="_blank"
-//                         color="inherit"
-//                     >
-//                         <InstagramIcon />
-//                     </IconButton>
-//                     <IconButton
-//                         component="a"
-//                         href="https://www.youtube.com"
-//                         target="_blank"
-//                         color="inherit"
-//                     >
-//                         <YouTubeIcon />
-//                     </IconButton>
-//                 </Box>
-//                 <Box
-//                     className="box-hidden"
-//                     sx={{ display: "flex", alignItems: "center" }}
-//                 >
-//                     <Typography
-//                         variant="bodytext"
-//                         component={Link}
-//                         to="/about"
-//                         sx={{
-//                             color: "inherit",
-//                             textDecoration: "none",
-//                             marginRight: 2,
-//                         }}
-//                     >
-//                         About
-//                     </Typography>
-//                     <Typography
-//                         variant="bodytext"
-//                         component={Link}
-//                         to="/downloads"
-//                         sx={{
-//                             color: "inherit",
-//                             textDecoration: "none",
-//                             marginRight: 2,
-//                         }}
-//                     >
-//                         Downloads
-//                     </Typography>
-//                     <Typography
-//                         variant="bodytext"
-//                         component={Link}
-//                         to="/blogs"
-//                         sx={{
-//                             color: "inherit",
-//                             textDecoration: "none",
-//                             marginRight: 2,
-//                         }}
-//                     >
-//                         Blogs
-//                     </Typography>
-//                     <Typography
-//                         variant="bodytext"
-//                         component={Link}
-//                         to="/gallery"
-//                         sx={{
-//                             color: "inherit",
-//                             textDecoration: "none",
-//                             marginRight: 2,
-//                         }}
-//                     >
-//                         Gallery
-//                     </Typography>
-//                     <Typography
-//                         variant="bodytext"
-//                         component={Link}
-//                         to="/careers"
-//                         sx={{
-//                             color: "inherit",
-//                             textDecoration: "none",
-//                             marginRight: 2,
-//                         }}
-//                     >
-//                         Careers
-//                     </Typography>
-//                     <Typography
-//                         variant="bodytext"
-//                         component={Link}
-//                         to="/contact"
-//                         sx={{
-//                             color: "inherit",
-//                             textDecoration: "none",
-//                             marginRight: 2,
-//                         }}
-//                     >
-//                         Contact
-//                     </Typography>
-//                     <IconButton color="inherit" onClick={handleLanguageClick}>
-//                         <LanguageIcon />
-//                     </IconButton>
-//                     <Menu
-//                         anchorEl={anchorEl}
-//                         open={Boolean(anchorEl)}
-//                         onClose={() => handleLanguageClose(null)}
-//                     >
-//                         {languages.map((language) => (
-//                             <MenuItem
-//                                 key={language.locale}
-//                                 onClick={() =>
-//                                     handleLanguageClose(language.locale)
-//                                 }
-//                             >
-//                                 {language.name}
-//                             </MenuItem>
-//                         ))}
-//                     </Menu>
-//                 </Box>
-//             </Toolbar>
-//         </AppBar>
-//     );
-// }
-
-// export default Topbar;
-
-
 import React, { useState, useEffect } from "react";
 import {
   AppBar,
@@ -273,48 +24,60 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import LanguageIcon from "@mui/icons-material/Language";
 import apiClient from "../../Services/api";
 
+const socialIcons = {
+  Facebook: <FacebookIcon />,
+  Twitter: <TwitterIcon />,
+  LinkedIn: <LinkedInIcon />,
+  Pinterest: <PinterestIcon />,
+  Instagram: <InstagramIcon />,
+  YouTube: <YouTubeIcon />,
+};
+
+const globalLanguages = [
+  { name: "English", locale: "en" },
+  { name: "French", locale: "fr" },
+  { name: "Spanish", locale: "es" },
+  { name: "Italian", locale: "it" },
+  { name: "Chinese (Simplified)", locale: "zh-Hans" },
+  { name: "Chinese (Traditional)", locale: "zh-Hant" },
+  { name: "Deutsch", locale: "de" },
+  { name: "Arabic", locale: "ar" },
+  { name: "Japanese", locale: "ja" },
+  { name: "Korean", locale: "ko" },
+  { name: "Russian", locale: "ru" },
+  { name: "Malay", locale: "ms" },
+  { name: "Vietnamese", locale: "vi" },
+  { name: "Thai", locale: "th" },
+  { name: "Polish", locale: "pl" },
+  { name: "Portuguese", locale: "pt" },
+];
+
+const inSubdomainLanguages = [
+  { name: "English", locale: "en" },
+  { name: "Hindi", locale: "hi" },
+  { name: "Marathi", locale: "mr" },
+  { name: "Bangali", locale: "bn" },
+  { name: "Telegu", locale: "te" },
+  { name: "Tamil", locale: "ta" },
+  { name: "Kanada", locale: "kn" },
+  { name: "Malayalam", locale: "ml" },
+  { name: "Gujarati", locale: "gu" },
+  { name: "Punjabi", locale: "pa" },
+];
+
 function Topbar() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [languages, setLanguages] = useState([]);
+  const [languages, setLanguages] = useState(globalLanguages);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [socialMedia, setSocialMedia] = useState([]);
+  const [topMenu, setTopMenu] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   useEffect(() => {
     const determineLanguages = () => {
       const hostname = window.location.hostname;
       const subdomain = hostname.split(".")[0];
-
-      const globalLanguages = [
-        { name: "English", locale: "en" },
-        { name: "French", locale: "fr" },
-        { name: "Spanish", locale: "es" },
-        { name: "Italian", locale: "it" },
-        { name: "Chinese (Simplified)", locale: "zh-Hans" },
-        { name: "Chinese (Traditional)", locale: "zh-Hant" },
-        { name: "Deutsch", locale: "de" },
-        { name: "Arabic", locale: "ar" },
-        { name: "Japanese", locale: "ja" },
-        { name: "Korean", locale: "ko" },
-        { name: "Russian", locale: "ru" },
-        { name: "Malay", locale: "ms" },
-        { name: "Vietnamese", locale: "vi" },
-        { name: "Thai", locale: "th" },
-        { name: "Polish", locale: "pl" },
-        { name: "Portuguese", locale: "pt" },
-      ];
-
-      const inSubdomainLanguages = [
-        { name: "English", locale: "en" },
-        { name: "Hindi", locale: "hi" },
-        { name: "Marathi", locale: "mr" },
-        { name: "Bangali", locale: "bn" },
-        { name: "Telegu", locale: "te" },
-        { name: "Tamil", locale: "ta" },
-        { name: "Kanada", locale: "kn" },
-        { name: "Malayalam", locale: "ml" },
-        { name: "Gujarati", locale: "gu" },
-        { name: "Punjabi", locale: "pa" },
-      ];
 
       if (subdomain === "global") {
         setLanguages(globalLanguages);
@@ -325,7 +88,29 @@ function Topbar() {
       }
     };
 
+    const fetchTopbarData = async () => {
+      try {
+        const response = await apiClient.get("/top-bar");
+        setSocialMedia(response.data.socialMedia);
+        setTopMenu(response.data.topMenu);
+      } catch (error) {
+        console.error("Error fetching topbar data:", error);
+      }
+    };
+
+    const fetchLocale = async () => {
+      const storedLocale = localStorage.getItem("selectedLanguage") || "en";
+      setSelectedLanguage(storedLocale);
+      try {
+        await apiClient.get(`/set-locale/${storedLocale}`);
+      } catch (error) {
+        console.error("Error setting locale:", error);
+      }
+    };
+
     determineLanguages();
+    fetchTopbarData();
+    fetchLocale();
   }, []);
 
   const handleLanguageClick = (event) => {
@@ -338,7 +123,7 @@ function Topbar() {
       try {
         await apiClient.get(`/set-locale/${locale}`);
         localStorage.setItem("selectedLanguage", locale);
-        // window.location.reload();
+        setSelectedLanguage(locale);
       } catch (error) {
         console.error("Error setting locale:", error);
       }
@@ -357,54 +142,17 @@ function Topbar() {
             <Box
               sx={{ display: "flex", flexGrow: 1, justifyContent: "flex-start" }}
             >
-              <IconButton
-                component="a"
-                href="https://www.facebook.com"
-                target="_blank"
-                color="inherit"
-              >
-                <FacebookIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.twitter.com"
-                target="_blank"
-                color="inherit"
-              >
-                <TwitterIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.linkedin.com"
-                target="_blank"
-                color="inherit"
-              >
-                <LinkedInIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.pinterest.com"
-                target="_blank"
-                color="inherit"
-              >
-                <PinterestIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.instagram.com"
-                target="_blank"
-                color="inherit"
-              >
-                <InstagramIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.youtube.com"
-                target="_blank"
-                color="inherit"
-              >
-                <YouTubeIcon />
-              </IconButton>
+              {socialMedia && socialMedia.map((social) => (
+                <IconButton
+                  key={social.id}
+                  component="a"
+                  href={social.url}
+                  target="_blank"
+                  color="inherit"
+                >
+                  {socialIcons[social.icon]}
+                </IconButton>
+              ))}
             </Box>
             <IconButton
               edge="start"
@@ -426,26 +174,13 @@ function Topbar() {
                 onKeyDown={toggleDrawer(false)}
               >
                 <List>
-                  <ListItem button component={Link} to="/about">
-                    <ListItemText primary="About" />
-                  </ListItem>
-                  <ListItem button component={Link} to="/downloads">
-                    <ListItemText primary="Downloads" />
-                  </ListItem>
-                  <ListItem button component={Link} to="/blogs">
-                    <ListItemText primary="Blogs" />
-                  </ListItem>
-                  <ListItem button component={Link} to="/gallery">
-                    <ListItemText primary="Gallery" />
-                  </ListItem>
-                  <ListItem button component={Link} to="/careers">
-                    <ListItemText primary="Careers" />
-                  </ListItem>
-                  <ListItem button component={Link} to="/contact">
-                    <ListItemText primary="Contact" />
-                  </ListItem>
+                  {topMenu && topMenu.map((menuItem) => (
+                    <ListItem button component={Link} to={menuItem.url} key={menuItem.url}>
+                      <ListItemText primary={menuItem.title} />
+                    </ListItem>
+                  ))}
                   <ListItem button onClick={handleLanguageClick}>
-                    <ListItemText primary="Language" />
+                    <ListItemText primary={`Language: ${selectedLanguage.toUpperCase()}`} />
                     <LanguageIcon />
                   </ListItem>
                 </List>
@@ -469,133 +204,42 @@ function Topbar() {
         ) : (
           <>
             <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
-              <IconButton
-                component="a"
-                href="https://www.facebook.com"
-                target="_blank"
-                color="inherit"
-              >
-                <FacebookIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.twitter.com"
-                target="_blank"
-                color="inherit"
-              >
-                <TwitterIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.linkedin.com"
-                target="_blank"
-                color="inherit"
-              >
-                <LinkedInIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.pinterest.com"
-                target="_blank"
-                color="inherit"
-              >
-                <PinterestIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.instagram.com"
-                target="_blank"
-                color="inherit"
-              >
-                <InstagramIcon />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://www.youtube.com"
-                target="_blank"
-                color="inherit"
-              >
-                <YouTubeIcon />
-              </IconButton>
+              {socialMedia && socialMedia.map((social) => (
+                <IconButton
+                  key={social.id}
+                  component="a"
+                  href={social.url}
+                  target="_blank"
+                  color="inherit"
+                >
+                  {socialIcons[social.icon]}
+                </IconButton>
+              ))}
             </Box>
             <Box
               className="box-hidden"
               sx={{ display: "flex", alignItems: "center" }}
             >
-              <Typography
-                variant="bodytext"
-                component={Link}
-                to="/about"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  marginRight: 2,
-                }}
-              >
-                About
-              </Typography>
-              <Typography
-                variant="bodytext"
-                component={Link}
-                to="/downloads"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  marginRight: 2,
-                }}
-              >
-                Downloads
-              </Typography>
-              <Typography
-                variant="bodytext"
-                component={Link}
-                to="/blogs"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  marginRight: 2,
-                }}
-              >
-                Blogs
-              </Typography>
-              <Typography
-                variant="bodytext"
-                component={Link}
-                to="/gallery"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  marginRight: 2,
-                }}
-              >
-                Gallery
-              </Typography>
-              <Typography
-                variant="bodytext"
-                component={Link}
-                to="/careers"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  marginRight: 2,
-                }}
-              >
-                Careers
-              </Typography>
-              <Typography
-                variant="bodytext"
-                component={Link}
-                to="/contact"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  marginRight: 2,
-                }}
-              >
-                Contact
-              </Typography>
+              {topMenu && topMenu.map((menuItem) => (
+                <Typography
+                  key={menuItem.url}
+                  variant="bodytext"
+                  component={Link}
+                  to={menuItem.url}
+                  sx={{
+                    color: "inherit",
+                    textDecoration: "none",
+                    marginRight: 2,
+                  }}
+                >
+                  {menuItem.title}
+                </Typography>
+              ))}
               <IconButton color="inherit" onClick={handleLanguageClick}>
                 <LanguageIcon />
+                <Typography variant="body2" sx={{ marginLeft: 1 }}>
+                  {selectedLanguage.toUpperCase()}
+                </Typography>
               </IconButton>
               <Menu
                 anchorEl={anchorEl}
