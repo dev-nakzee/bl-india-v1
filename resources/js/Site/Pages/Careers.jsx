@@ -220,7 +220,9 @@ const Careers = () => {
         ))}
       </Grid>
       <PartnerWithUs />
-      <Drawer anchor="right" open={drawerOpen} onClose={handleCloseDrawer}>
+      <Drawer anchor="right" open={drawerOpen}
+      //  onClose={handleCloseDrawer}
+       >
         <Box sx={{ width: 400, padding: 4 }}>
           <IconButton onClick={handleCloseDrawer} sx={{ mb: 2 }}>
             <Close />

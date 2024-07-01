@@ -136,6 +136,7 @@ import {
   ListItem,
   ListItemText,
   Stack,
+  Grid,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -211,8 +212,9 @@ const NavigationBar = () => {
           </>
         ) : (
           <>
-           <Box sx={{ display: "flex",flexDirection:'column'}}>
-           <Stack direction={'row'} sx={{ display: "flex",justifyContent:'space-between'}}>
+          
+          <Grid container spacing={4} margin={1}>
+           <Stack direction={'row'} sx={{ display: "flex",justifyContent:'space-between',width:'100%'}}>
            <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
           <Link to="/">
             <img src={logo} alt="Brand Logo" style={{ height: "35px" }} />
@@ -228,8 +230,7 @@ const NavigationBar = () => {
           </Box>
          </Stack>
        
-          
-            <Box sx={{ display: "flex",justifyContent:'space-between' }}>
+         <Stack direction={'row'} sx={{ display: "flex",justifyContent:'space-between',width:'100%'}}>         
           
           <IconButton component={Link} to="/services" color="inherit">
             <img src={ServicesIcon} alt="Services"  className="navbar-icon" />
@@ -249,9 +250,9 @@ const NavigationBar = () => {
               </Typography>
             </Box>
             </IconButton>
-            </Box>
-            </Box>
-            
+        
+            </Stack>  
+           </Grid> 
                </>
         )}
       </Toolbar>

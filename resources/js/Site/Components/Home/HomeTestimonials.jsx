@@ -143,7 +143,7 @@ const HomeTestimonials = () => {
                         )}
                     </TestimonialContent>
                 </Grid>
-                <Grid item xs={12} md={7}>
+                <Grid item xs={12} md={7} className="testimonial-quto">
                     <div class="testimonial">
                         <div class="rating">★★★★☆</div>
                         <blockquote class="quote"> </blockquote>
@@ -151,7 +151,7 @@ const HomeTestimonials = () => {
                                 {testimonialsData.testimonials &&
                                     testimonialsData.testimonials.map(
                                         (testimonial) => (
-                                            <TestimonialCard
+                                            <TestimonialCard padding={{sm:1,md:2}}
                                                 key={testimonial.id}
                                             >
                                                 <Typography

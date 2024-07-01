@@ -13,7 +13,8 @@ import {
   ListItem,
   ListItemText,
   Link as MuiLink,
-  Button
+  Button,
+  CardActions
 } from '@mui/material';
 import { useParams, useNavigate,Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -112,7 +113,7 @@ const Blogs = () => {
         <Typography className="page-heading" variant="h4" gutterBottom textAlign={'center'} marginBottom={5}>
               {pageData.name}
             </Typography></Box>
-        <Grid container spacing={4} >
+        <Grid container spacing={{sm:1,md:4}} >
         <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'} margin={4}>
         <Grid item xs={12} md={3}>
         <Sidebar className='Service-section-siderbar' sx={{width:'auto'}}>
@@ -159,9 +160,12 @@ const Blogs = () => {
                         <Typography variant="body2" color="textSecondary">
                           {blog.seo_description}
                         </Typography>
+                        <CardActions>
                         <Button sx={{marginTop:'15px'}} variant="outlined" component={MuiLink} href={`/blogs/${blog.blog_category.slug}/${blog.slug}`}>
                             Read More
                         </Button>
+                                </CardActions>
+                      
                       </CardContent>
                     </CardActionArea>
                   </Card>

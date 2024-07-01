@@ -64,10 +64,10 @@ p {
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
-.Blog-section p{
+.Blog-section p {
     min-height: 97px;
 }
-.Footer-section p{
+.Footer-section p {
     margin-bottom: 0;
     margin-top: 0;
 }
@@ -100,9 +100,10 @@ li a {
     width: 60px;
     border-bottom: 4px solid var(--primary-color);
 }
-.services-page .page-heading::after ,.blog-page .page-heading::after {   
+.services-page .page-heading::after,
+.blog-page .page-heading::after {
     left: 22%;
-   }
+}
 
 /* Home Page All Section CSS */
 
@@ -245,7 +246,9 @@ li a {
     align-items: flex-start;
     padding-bottom: 10px;
 }
-.Footer-section .Service-list {margin: 0 !important;}
+.Footer-section .Service-list {
+    margin: 0 !important;
+}
 
 .Footer-section .footer-img {
     /* width: 100%; */
@@ -355,19 +358,21 @@ li a {
     margin-right: 15px;
     font-weight: 500;
 }
-.Footer-section .MuiPaper-root.MuiAccordion-root {background-color: var(--third-color);}
+.Footer-section .MuiPaper-root.MuiAccordion-root {
+    background-color: var(--third-color);
+}
 /* .MuiAccordionSummary-root.Mui-expanded {
     background-color: var(--primary-color);
 } */
-.Footer-section .MuiGrid-root>.MuiGrid-item {
+.Footer-section .MuiGrid-root > .MuiGrid-item {
     padding-top: 16px;
 }
 .about-section {
     position: relative;
 }
 .navbar-icon {
-    height: 50px ;
-    margin-right: 1.5rem ;
+    height: 50px;
+    margin-right: 1.5rem;
 }
 .box-about {
     position: absolute;
@@ -404,35 +409,43 @@ li a {
     list-style: disc;
     margin-left: 3rem;
 }
-.table-row,.table-pagination,th{
+.table-row,
+.table-pagination,
+th {
     background-color: var(--secondary-color);
     color: var(--primary-color) !important;
     font-size: 1.8rem !important;
-
 }
-.contact-icon{
-    background-color:var(--secondary-color);
+.contact-icon {
+    background-color: var(--secondary-color);
     color: var(--primary-color);
     border-radius: 50%;
     padding: 5px;
     font-size: 4rem !important;
     margin-right: 10px;
 }
-.MuiTypography-root.MuiTypography-subtitle1{padding:4px}
-.product-download .MuiSvgIcon-root{color:var(--primary-color)}
+.MuiTypography-root.MuiTypography-subtitle1 {
+    padding: 4px;
+}
+.product-download .MuiSvgIcon-root {
+    color: var(--primary-color);
+}
 @media (max-width: 767px) {
     /* .box-hidden {
         display: none !important;
     } */
-  .navbar-icon {
-        height: 35px ;
-        margin-right: 1rem ;
+    .navbar-icon {
+        height: 35px;
+        margin-right: 1rem;
     }
 
     .Banner-section {
         background-image: none !important;
-        height: 30vh !important;
+        height: 40vh !important;
         background-color: var(--secondary-color);
+    }
+    .Banner-section h1 {
+        width: 100%;
     }
 
     .Banner-section .Banner-section-content {
@@ -446,6 +459,9 @@ li a {
 
     .Banner-section p {
         margin-top: 16px;
+    }
+    .box-about {
+        display: none;
     }
 
     .Services-section {
@@ -471,15 +487,23 @@ li a {
     .Blog-section .MuiGrid-root.MuiGrid-container {
         margin-left: 0 !important;
     }
+    .Blog-section {
+        padding: 2rem !important;
+    }
 
     .about-section .MuiGrid-root.MuiGrid-container .MuiGrid-item,
     .Blog-section .MuiGrid-root.MuiGrid-container .MuiGrid-item {
-        padding-left: 0 !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
-
+    .Blog-section .MuiGrid-root.MuiGrid-container .MuiGrid-item {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    /* 
     .Brochure-section .MuiGrid-root.MuiGrid-container .MuiGrid-item {
         padding-left: 20px !important;
-    }
+    } */
 
     .schedule-section {
         flex-direction: column;
@@ -488,6 +512,10 @@ li a {
     .schedule-section-call-details {
         flex-direction: column;
         gap: 20px;
+    }
+    .schedule-section-call-details h3 {
+        border-left: 0;
+        margin-bottom: 15px;
     }
 
     .schedule-section-call-details .MuiTypography-root.MuiTypography-h1 {
@@ -507,6 +535,18 @@ li a {
     .Process-section .Process-section-item {
         margin-bottom: 0;
     }
+    .testimonial {
+        padding: 0;
+        margin: 0;
+    }
+    .quote::before {
+       font-size: 2em;
+        top: -123px;
+        right: 0;
+    }
+    .testimonial-quto{padding-top: 10px;}
+    .slick-prev, .slick-next {
+        bottom: 0;}
 }
 
 .my-masonry-grid {
@@ -544,7 +584,7 @@ li a {
 .holiday-list .MuiListItemText-multiline,
 .holiday-list .MuiListItemText-multiline p {
     color: #ff0000;
-} 
+}
 .react-calendar__navigation button {
     font-size: 2.3rem !important;
     color: var(--primary-color);
