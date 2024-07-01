@@ -100,6 +100,9 @@ li a {
     width: 60px;
     border-bottom: 4px solid var(--primary-color);
 }
+.services-page .page-heading::after ,.blog-page .page-heading::after {   
+    left: 22%;
+   }
 
 /* Home Page All Section CSS */
 

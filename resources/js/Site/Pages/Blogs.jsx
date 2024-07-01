@@ -107,7 +107,7 @@ const Blogs = () => {
         <meta name="description" content={pageData.seo_description} />
         <meta name="keywords" content={pageData.seo_keywords} />
       </Helmet>
-      <Box sx={{ padding: 4 }}>
+      <Box sx={{ padding: 4 }} className="blog-page">
       <Box sx={{display:"flex", justifyContent:'center', alignContent:'center'}}>
         <Typography className="page-heading" variant="h4" gutterBottom textAlign={'center'} marginBottom={5}>
               {pageData.name}
