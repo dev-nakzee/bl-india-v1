@@ -88,7 +88,9 @@ const PartnerWithUs = () => {
           Become a Partner
         </Button>
       </Box>
-      <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
+      <Drawer anchor="right" open={isDrawerOpen} 
+      // onClose={toggleDrawer(false)}
+      >
         <Box
           sx={{ width: 500, padding: 4 }}
           role="presentation"

@@ -131,7 +131,7 @@ const Services = () => {
         <meta name="description" content={serviceData.page.seo_description} />
         <meta name="keywords" content={serviceData.page.seo_keywords} />
       </Helmet>
-      <Grid item xs={12}  display={'flex'} justifyContent={'center'} alignContent={'center'}marginBlock={3}>
+      <Grid item xs={12}  display={'flex'} justifyContent={'center'} alignContent={'center'}marginBlock={3} className='services-page'>
       <Box flexDirection={'column'}>
               {/* <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: 280, backgroundColor: '#0D629A',color: '#fff', margin: 'auto', borderRadius: 20 }}>
               {serviceData.page.title} 

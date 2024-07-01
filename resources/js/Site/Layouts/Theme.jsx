@@ -153,13 +153,13 @@ const theme = createTheme({
       textTransform:"capitalize",
       color: "#0D629A",
       "@media (min-width: 360px)": {
-        fontSize: "2.4rem", // Font size for h2 on small devices (e.g., mobile)
+        fontSize: "2.1rem", // Font size for h2 on small devices (e.g., mobile)
       },
       "@media (min-width: 960px)": {
-        fontSize: "2.9rem", // Font size for h2 on medium devices (e.g., tablets)
+        fontSize: "2.6rem", // Font size for h2 on medium devices (e.g., tablets)
       },
       "@media (min-width: 1280px)": {
-        fontSize: "3.1rem", // Font size for h2 on large devices (e.g., desktop)
+        fontSize: "3rem", // Font size for h2 on large devices (e.g., desktop)
       },
     },
     h4: {
