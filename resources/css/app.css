@@ -435,8 +435,8 @@ th {
         display: none !important;
     } */
     .navbar-icon {
-        height: 35px;
-        margin-right: 1rem;
+        height: 30px;
+        margin-right: 0.5rem;
     }
 
     .Banner-section {
@@ -462,6 +462,10 @@ th {
     }
     .box-about {
         display: none;
+    }
+    .page-heading::after {       
+        left: 47%;
+        width: 50px;
     }
 
     .Services-section {
