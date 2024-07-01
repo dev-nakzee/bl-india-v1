@@ -8,6 +8,7 @@ import {
     IconButton,
     InputAdornment,
     MenuItem,
+    Grid,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
@@ -84,7 +85,7 @@ const ScheduleCall = styled(Box)(({ theme }) => ({
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(3),
     },
-  }));
+}));
 
 const ScheduleCallDrawer = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -127,8 +128,9 @@ const ScheduleCallDrawer = () => {
 
     return (
         <>
-            <ScheduleCall className='schedule-section'>
-                <Box  className="schedule-section-call-details"
+            <ScheduleCall className="schedule-section">
+                <Box
+                    className="schedule-section-call-details"
                     sx={{
                         display: "flex",
                         justifyContent: "space-between",
@@ -140,7 +142,7 @@ const ScheduleCallDrawer = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            marginRight:'60px'
+                            marginRight: "60px",
                         }}
                     >
                         <PermPhoneMsgIcon
@@ -196,37 +198,38 @@ const ScheduleCallDrawer = () => {
                             required
                             sx={{ mb: 2 }}
                         />
-                        <TextField
-                            label="Phone"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            sx={{ mb: 2 }}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <TextField
-                                            select
-                                            name="countryCode"
-                                            value={formData.countryCode}
-                                            onChange={handleInputChange}
-                                            sx={{ width: "100px", mr: 1 }}
+                        <Grid container spacing={2} alignItems="center">
+                            <Grid item xs={4} sx={{ zIndex: 1302 }}>
+                                <TextField
+                                    select
+                                    label="Code"
+                                    name="countryCode"
+                                    value={formData.countryCode}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    sx={{ zIndex: 1303}}
+                                >
+                                    {countryCodes.map((code) => (
+                                        <MenuItem
+                                            key={code.code}
+                                            value={code.code}
                                         >
-                                            {countryCodes.map((code) => (
-                                                <MenuItem
-                                                    key={code.code}
-                                                    value={code.code}
-                                                >
-                                                    {code.code} ({code.country})
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
+                                            {code.code} ({code.country})
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <TextField
+                                    label="Phone"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    required
+                                />
+                            </Grid>
+                        </Grid>
                         <TextField
                             label="Schedule (Date and Time)"
                             name="schedule"
@@ -238,7 +241,7 @@ const ScheduleCallDrawer = () => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            sx={{ mb: 2 }}
+                            sx={{ mt: 2, mb: 2 }}
                         />
                         <Button
                             variant="contained"
