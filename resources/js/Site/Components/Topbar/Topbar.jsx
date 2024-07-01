@@ -33,50 +33,51 @@ const socialIcons = {
   YouTube: <YouTubeIcon />,
 };
 
+const globalLanguages = [
+  { name: "English", locale: "en" },
+  { name: "French", locale: "fr" },
+  { name: "Spanish", locale: "es" },
+  { name: "Italian", locale: "it" },
+  { name: "Chinese (Simplified)", locale: "zh-Hans" },
+  { name: "Chinese (Traditional)", locale: "zh-Hant" },
+  { name: "Deutsch", locale: "de" },
+  { name: "Arabic", locale: "ar" },
+  { name: "Japanese", locale: "ja" },
+  { name: "Korean", locale: "ko" },
+  { name: "Russian", locale: "ru" },
+  { name: "Malay", locale: "ms" },
+  { name: "Vietnamese", locale: "vi" },
+  { name: "Thai", locale: "th" },
+  { name: "Polish", locale: "pl" },
+  { name: "Portuguese", locale: "pt" },
+];
+
+const inSubdomainLanguages = [
+  { name: "English", locale: "en" },
+  { name: "Hindi", locale: "hi" },
+  { name: "Marathi", locale: "mr" },
+  { name: "Bangali", locale: "bn" },
+  { name: "Telegu", locale: "te" },
+  { name: "Tamil", locale: "ta" },
+  { name: "Kanada", locale: "kn" },
+  { name: "Malayalam", locale: "ml" },
+  { name: "Gujarati", locale: "gu" },
+  { name: "Punjabi", locale: "pa" },
+];
+
 function Topbar() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [languages, setLanguages] = useState([]);
+  const [languages, setLanguages] = useState(globalLanguages);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [socialMedia, setSocialMedia] = useState([]);
   const [topMenu, setTopMenu] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   useEffect(() => {
     const determineLanguages = () => {
       const hostname = window.location.hostname;
       const subdomain = hostname.split(".")[0];
-
-      const globalLanguages = [
-        { name: "English", locale: "en" },
-        { name: "French", locale: "fr" },
-        { name: "Spanish", locale: "es" },
-        { name: "Italian", locale: "it" },
-        { name: "Chinese (Simplified)", locale: "zh-Hans" },
-        { name: "Chinese (Traditional)", locale: "zh-Hant" },
-        { name: "Deutsch", locale: "de" },
-        { name: "Arabic", locale: "ar" },
-        { name: "Japanese", locale: "ja" },
-        { name: "Korean", locale: "ko" },
-        { name: "Russian", locale: "ru" },
-        { name: "Malay", locale: "ms" },
-        { name: "Vietnamese", locale: "vi" },
-        { name: "Thai", locale: "th" },
-        { name: "Polish", locale: "pl" },
-        { name: "Portuguese", locale: "pt" },
-      ];
-
-      const inSubdomainLanguages = [
-        { name: "English", locale: "en" },
-        { name: "Hindi", locale: "hi" },
-        { name: "Marathi", locale: "mr" },
-        { name: "Bangali", locale: "bn" },
-        { name: "Telegu", locale: "te" },
-        { name: "Tamil", locale: "ta" },
-        { name: "Kanada", locale: "kn" },
-        { name: "Malayalam", locale: "ml" },
-        { name: "Gujarati", locale: "gu" },
-        { name: "Punjabi", locale: "pa" },
-      ];
 
       if (subdomain === "global") {
         setLanguages(globalLanguages);
@@ -86,8 +87,6 @@ function Topbar() {
         setLanguages(globalLanguages); // default to global if subdomain is neither 'global' nor 'in'
       }
     };
-
-    determineLanguages();
 
     const fetchTopbarData = async () => {
       try {
@@ -99,7 +98,19 @@ function Topbar() {
       }
     };
 
+    const fetchLocale = async () => {
+      const storedLocale = localStorage.getItem("selectedLanguage") || "en";
+      setSelectedLanguage(storedLocale);
+      try {
+        await apiClient.get(`/set-locale/${storedLocale}`);
+      } catch (error) {
+        console.error("Error setting locale:", error);
+      }
+    };
+
+    determineLanguages();
     fetchTopbarData();
+    fetchLocale();
   }, []);
 
   const handleLanguageClick = (event) => {
@@ -112,7 +123,7 @@ function Topbar() {
       try {
         await apiClient.get(`/set-locale/${locale}`);
         localStorage.setItem("selectedLanguage", locale);
-        // window.location.reload();
+        setSelectedLanguage(locale);
       } catch (error) {
         console.error("Error setting locale:", error);
       }
@@ -131,7 +142,7 @@ function Topbar() {
             <Box
               sx={{ display: "flex", flexGrow: 1, justifyContent: "flex-start" }}
             >
-              {socialMedia.map((social) => (
+              {socialMedia && socialMedia.map((social) => (
                 <IconButton
                   key={social.id}
                   component="a"
@@ -163,13 +174,13 @@ function Topbar() {
                 onKeyDown={toggleDrawer(false)}
               >
                 <List>
-                  {topMenu.map((menuItem) => (
+                  {topMenu && topMenu.map((menuItem) => (
                     <ListItem button component={Link} to={menuItem.url} key={menuItem.url}>
                       <ListItemText primary={menuItem.title} />
                     </ListItem>
                   ))}
                   <ListItem button onClick={handleLanguageClick}>
-                    <ListItemText primary="Language" />
+                    <ListItemText primary={`Language: ${selectedLanguage.toUpperCase()}`} />
                     <LanguageIcon />
                   </ListItem>
                 </List>
@@ -193,7 +204,7 @@ function Topbar() {
         ) : (
           <>
             <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
-              {socialMedia.map((social) => (
+              {socialMedia && socialMedia.map((social) => (
                 <IconButton
                   key={social.id}
                   component="a"
@@ -209,7 +220,7 @@ function Topbar() {
               className="box-hidden"
               sx={{ display: "flex", alignItems: "center" }}
             >
-              {topMenu.map((menuItem) => (
+              {topMenu && topMenu.map((menuItem) => (
                 <Typography
                   key={menuItem.url}
                   variant="bodytext"
@@ -226,6 +237,9 @@ function Topbar() {
               ))}
               <IconButton color="inherit" onClick={handleLanguageClick}>
                 <LanguageIcon />
+                <Typography variant="body2" sx={{ marginLeft: 1 }}>
+                  {selectedLanguage.toUpperCase()}
+                </Typography>
               </IconButton>
               <Menu
                 anchorEl={anchorEl}
