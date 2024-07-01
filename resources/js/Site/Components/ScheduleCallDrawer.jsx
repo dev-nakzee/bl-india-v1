@@ -179,15 +179,16 @@ const ScheduleCallDrawer = () => {
                 anchor="right"
                 open={drawerOpen}
                 onClose={handleDrawerClose}
-                sx={{ zIndex: 1301 }}
+                sx={{ zIndex: 2000 }}
             >
-                <Box sx={{ width: 350, p: 3 }}>
+                <Box sx={{ width: 350, p: 3, position: 'relative' }}>
                     <IconButton onClick={handleDrawerClose} sx={{ mb: 2 }}>
                         <CloseIcon />
                     </IconButton>
                     <Typography variant="h5" sx={{ mb: 3 }}>
                         Schedule a Call
                     </Typography>
+                    
                     <Box component="form" onSubmit={handleSubmit}>
                         <TextField
                             label="Name"
@@ -199,7 +200,7 @@ const ScheduleCallDrawer = () => {
                             sx={{ mb: 2 }}
                         />
                         <Grid container spacing={2} alignItems="center">
-                            <Grid item xs={4} sx={{ zIndex: 1302 }}>
+                            <Grid item xs={4}>
                                 <TextField
                                     select
                                     label="Code"
@@ -207,7 +208,13 @@ const ScheduleCallDrawer = () => {
                                     value={formData.countryCode}
                                     onChange={handleInputChange}
                                     fullWidth
-                                    sx={{ zIndex: 1303}}
+                                    SelectProps={{
+                                        MenuProps: {
+                                            sx: {
+                                                zIndex: 2100,
+                                            },
+                                        },
+                                    }}
                                 >
                                     {countryCodes.map((code) => (
                                         <MenuItem
@@ -252,6 +259,14 @@ const ScheduleCallDrawer = () => {
                             Schedule Call
                         </Button>
                     </Box>
+                    <Typography variant="h5" sx={{ mt: 4 }}>
+                        Call or Whatapp now:
+                        <br />
+                        <br />
+                    +91-8130615678
+                    <br />
+                    +91-9250056788
+                    </Typography>
                 </Box>
             </Drawer>
             <ToastContainer />
