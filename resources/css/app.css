@@ -70,7 +70,9 @@ p {
 .Footer-section p {
     margin-bottom: 0;
     margin-top: 0;
+    color:#ffffff;
 }
+
 
 li a {
     text-decoration: none;
@@ -508,10 +510,14 @@ th {
     .Brochure-section .MuiGrid-root.MuiGrid-container .MuiGrid-item {
         padding-left: 20px !important;
     } */
+    .MuiAccordion-region .MuiSvgIcon-root.MuiSvgIcon-color#fff{
+        color: #ffffff;
+    }
 
     .schedule-section {
         flex-direction: column;
     }
+    .mcertificate{justify-content: center !important;}
 
     .schedule-section-call-details {
         flex-direction: column;
