@@ -121,7 +121,7 @@ const Downloads = () => {
       </Helmet>
       <Box sx={{ padding: 4 }}>
       <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
-          {data.page.seo_title}
+          {data.page.name}
 
         </Typography>
         {/* <Typography variant="body1" gutterBottom>{data.page.seo_description}</Typography> */}
