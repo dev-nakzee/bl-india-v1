@@ -28,4 +28,9 @@ class LanguageController extends Controller
 
         return response()->json(['error' => 'Invalid locale'], 400);
     }
+
+    public function getSiteLocale(): JsonResponse
+    {
+        return response()->json(['locale' => session()->get('locale')]);
+    }
 }

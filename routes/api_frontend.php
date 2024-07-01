@@ -23,6 +23,7 @@ Route::prefix('v1/fe')->group(function(){
     Route::get('/website-disclaimer', [LayoutController::class, 'websiteDisclaimer']);
     Route::get('/holiday-list', [LayoutController::class, 'holidayList']);
     // Set locale Routes
+    Route::get('/get-locale', [LanguageController::class, 'getSiteLocale']);
     Route::get('/set-locale/{locale}', [LanguageController::class, 'setSiteLocale']);
     // Search Page Routes
     Route::get('/search', [SearchController::class,'search']);
