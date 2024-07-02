@@ -91,8 +91,8 @@ const PartnerWithUs = () => {
       <Drawer anchor="right" open={isDrawerOpen} 
       // onClose={toggleDrawer(false)}
       >
-        <Box
-          sx={{ width: 500, padding: 4 }}
+        <Box 
+          sx={{ width: 380, padding: 2 }}
           role="presentation"
           onKeyDown={toggleDrawer(false)}
         >

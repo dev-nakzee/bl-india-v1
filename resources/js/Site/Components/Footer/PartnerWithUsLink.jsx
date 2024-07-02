@@ -89,7 +89,7 @@ const PartnerWithUsLink = () => {
       </Typography>
       <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <Box
-          sx={{ width: 500, padding: 4 }}
+          sx={{ width: 380, padding: 2 }}
           role="presentation"
           onKeyDown={toggleDrawer(false)}
         >
@@ -213,7 +213,7 @@ const PartnerWithUsLink = () => {
                 />
               </>
             )}
-            <Button type="submit" variant="contained" color="primary" fullWidth>
+            <Button type="submit" variant="contained" color="primary" fullWidth sx={{marginTop:1}}>
               Submit
             </Button>
           </form>
