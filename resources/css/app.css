@@ -428,6 +428,7 @@ th {
 }
 .MuiTypography-root.MuiTypography-subtitle1 {
     padding: 4px;
+
 }
 .product-download .MuiSvgIcon-root {
     color: var(--primary-color);
@@ -436,6 +437,14 @@ th {
     /* .box-hidden {
         display: none !important;
     } */
+    .MuiTypography-root.MuiTypography-subtitle1 {
+        padding: 4px;
+        max-width: 100%;
+        width: 100%;
+    }
+    .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12{
+    padding-left: 12px;
+    }
     .navbar-icon {
         height: 30px;
         margin-right: 0.5rem;
