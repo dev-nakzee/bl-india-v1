@@ -83,6 +83,20 @@ const AboutCustomers = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 1000,
+        responsive: [
+            {
+              breakpoint: 991,
+              settings: {
+                slidesToShow: 3,
+              }
+            },
+            {
+              breakpoint: 767,
+              settings: {
+                slidesToShow: 2,
+              }
+            }
+          ]
     };
 
     return (

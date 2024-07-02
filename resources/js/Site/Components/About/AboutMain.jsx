@@ -59,7 +59,7 @@ const AboutMain = () => {
 
     return (
         <section>
-      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
+      <Typography  className="page-heading" variant="h4" textAlign="center" marginTop={{xs:2}}  marginBottom={{xs:2,md:5}}>
       {aboutData.title}
                     </Typography>
         <AboutMainSection>

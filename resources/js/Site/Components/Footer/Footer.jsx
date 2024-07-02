@@ -235,7 +235,7 @@ const Footer = () => {
                         </Box>
                     </Grid>
                     <Grid item className="footer-certificates" xs={12} sm={6}>
-                        <Box sx={{ display: "flex", justifyContent: "end" }}>
+                        <Box className="mcertificate" sx={{ display: "flex", justifyContent: "end" }}>
                             <img
                                 src={"https://in.bl-india.com/" + footerData.siteCert[0].image_url}
                                 alt={footerData.siteCert[0].image_alt}
