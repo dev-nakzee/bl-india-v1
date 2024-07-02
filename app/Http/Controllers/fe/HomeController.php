@@ -18,12 +18,13 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HomeController extends Controller
 {
+
     protected $translator;
 
     public function __construct(Request $request)
     {
-        $locale = session()->get('locale'); // Default to 'en' if no locale is set
-        $this->translator = new GoogleTranslate('en');
+        $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
+        $this->translator = new GoogleTranslate($locale);
     }
      /**
      * Handle the home request.
@@ -81,7 +82,7 @@ class HomeController extends Controller
     public function blog(): JsonResponse
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->get();
-        $blogs = Blog::orderBy('id', 'desc')->limit(3)->get();
+        $blogs = Blog::orderBy('id', 'desc')->with('blogCategory')->limit(3)->get();
         foreach ($blogs as $blog) {
             $blog->content = mb_strimwidth($this->getFirstParagraphContent($blog->content), 0, 250, '...');
         }
