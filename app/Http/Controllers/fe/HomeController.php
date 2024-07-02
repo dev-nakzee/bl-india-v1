@@ -66,8 +66,8 @@ class HomeController extends Controller
     {
         $sections = PageSection::where('page_id', 1)->where('slug', 'home-about')->get();
         foreach ($sections as $section) {
-            $section[0]->title = $this->translator->translate($section[0]->title);
-            $section[0]->tagline = $this->translator->translate($section[0]->tagline);
+            $section->title = $this->translator->translate($section->title);
+            $section->tagline = $this->translator->translate($section->tagline);
         }
         return response()->json(['section' => $sections]);
     }
