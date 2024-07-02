@@ -14,8 +14,5 @@
     </head>
     <body>
         <div id="app"></div>
-        @php 
-        dd(session()->get('locale'))
-        @endphp
     </body>
 </html>
