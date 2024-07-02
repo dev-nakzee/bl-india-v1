@@ -155,7 +155,7 @@ function Topbar() {
                 </IconButton>
               ))}
             </Box>
-            <IconButton
+            {/* <IconButton
               edge="start"
               color="inherit"
               aria-label="menu"
@@ -200,7 +200,7 @@ function Topbar() {
                   ))}
                 </Menu>
               </Box>
-            </Drawer>
+            </Drawer> */}
           </>
         ) : (
           <>
