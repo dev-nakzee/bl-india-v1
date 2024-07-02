@@ -64,12 +64,12 @@ class HomeController extends Controller
 
     public function about(): JsonResponse
     {
-        $section = PageSection::where('page_id', 1)->where('slug', 'home-about')->get();
-        // foreach ($section as $section) {
-        //     $section[0]->title = $this->translator->translate($section[0]->title);
-        //     $section[0]->tagline = $this->translator->translate($section[0]->tagline);
-        // }
-        return response()->json(['section' => $section]);
+        $sections = PageSection::where('page_id', 1)->where('slug', 'home-about')->get();
+        foreach ($sections as $section) {
+            $section[0]->title = $this->translator->translate($section[0]->title);
+            $section[0]->tagline = $this->translator->translate($section[0]->tagline);
+        }
+        return response()->json(['section' => $sections]);
     }
 
     public function brochure(): JsonResponse
