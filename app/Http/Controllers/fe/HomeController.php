@@ -18,12 +18,13 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HomeController extends Controller
 {
+
     protected $translator;
 
     public function __construct(Request $request)
     {
-        $locale = session()->get('locale'); // Default to 'en' if no locale is set
-        $this->translator = new GoogleTranslate('en');
+        $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
+        $this->translator = new GoogleTranslate($locale);
     }
      /**
      * Handle the home request.
