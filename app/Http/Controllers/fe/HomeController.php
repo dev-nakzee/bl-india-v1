@@ -65,10 +65,6 @@ class HomeController extends Controller
     public function about(): JsonResponse
     {
         $sections = PageSection::where('page_id', 1)->where('slug', 'home-about')->get();
-        foreach ($sections as $section) {
-            $section->title = $this->translator->translate($section->title);
-            $section->tagline = $this->translator->translate($section->tagline);
-        }
         return response()->json(['section' => $sections]);
     }
 
