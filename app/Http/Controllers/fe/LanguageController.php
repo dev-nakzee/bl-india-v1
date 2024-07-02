@@ -20,17 +20,13 @@ class LanguageController extends Controller
      */
     public function setSiteLocale(string $locale): JsonResponse
     {
-        if (in_array($locale, config('app.locales'))) {
-            if(session()->put('locale', $locale))
-            {
-                App::setLocale($locale);
-
-                return response()->json(['message' => 'Locale set successfully to '. session()->get('locale')]);
-            }
-          
-        }
-        else {
+        if (!in_array($locale, config('app.locales'))) {
             return response()->json(['error' => 'Invalid locale'], 400);
+        }
+        if(session()->put('locale', $locale))
+        {
+            App::setLocale($locale);
+            return response()->json(['message' => 'Locale set successfully to '. session()->get('locale')]);
         }
 
         return response()->json(['error' => 'Failed to set locale'], 500);
