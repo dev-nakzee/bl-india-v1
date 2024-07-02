@@ -52,7 +52,7 @@ class HomeController extends Controller
     public function services(): JsonResponse
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-services')->get();
-        $services = Service::with('serviceCategory')->orderBy('id')->limit(4)->get();
+        $services = Service::with('serviceCategory')->orderBy('id')->limit(8)->get();
         foreach ($services as $service) {
             $service->description = $this->translator->translate($service->description);
         }
