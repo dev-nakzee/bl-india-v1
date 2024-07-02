@@ -70,20 +70,20 @@ const countryCodes = [
 ];
 
 const ScheduleCall = styled(Box)(({ theme }) => ({
-    textAlign: 'left',
-    paddingLeft: '2%',
-    paddingRight: '2%',
-    paddingTop: '5%',
-    paddingBottom: '5%',
-    backgroundColor: '#C3E7FF',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      alignItems: 'stretch',
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3),
+    textAlign: "left",
+    paddingLeft: "2%",
+    paddingRight: "2%",
+    paddingTop: "5%",
+    paddingBottom: "5%",
+    backgroundColor: "#C3E7FF",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+        alignItems: "stretch",
+        paddingTop: theme.spacing(3),
+        paddingBottom: theme.spacing(3),
     },
 }));
 
@@ -167,13 +167,15 @@ const ScheduleCallDrawer = () => {
                         FOR FREE CONSULTATION
                     </Typography>
                 </Box>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleDrawerOpen}
-                >
-                    Connect with us
-                </Button>
+                <Box className="mobile-schedule">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleDrawerOpen}
+                    >
+                        Connect with us
+                    </Button>
+                </Box>
             </ScheduleCall>
             <Drawer
                 anchor="right"
@@ -181,14 +183,14 @@ const ScheduleCallDrawer = () => {
                 onClose={handleDrawerClose}
                 sx={{ zIndex: 2000 }}
             >
-                <Box sx={{ width: 400, p: 3, position: 'relative' }}>
+                <Box sx={{ width: 400, p: 3, position: "relative" }}>
                     <IconButton onClick={handleDrawerClose} sx={{ mb: 2 }}>
                         <CloseIcon />
                     </IconButton>
                     <Typography variant="h5" sx={{ mb: 3 }}>
                         Schedule a Call
                     </Typography>
-                    
+
                     <Box component="form" onSubmit={handleSubmit}>
                         <TextField
                             label="Name"
@@ -263,9 +265,9 @@ const ScheduleCallDrawer = () => {
                         Call or Whatapp now:
                         <br />
                         <br />
-                    +91-8130615678
-                    <br />
-                    +91-9250056788
+                        +91-8130615678
+                        <br />
+                        +91-9250056788
                     </Typography>
                 </Box>
             </Drawer>

@@ -93,7 +93,7 @@ const PartnerWithUsLink = () => {
           role="presentation"
           onKeyDown={toggleDrawer(false)}
         >
-          <IconButton onClick={toggleDrawer(false)}>
+          <IconButton onClick={toggleDrawer(false)} sx={{display:'flex',justifyContent:'flex-end',alignItems:'center'}}>
             <CloseIcon />
           </IconButton>
           <Typography variant="h5" gutterBottom>
