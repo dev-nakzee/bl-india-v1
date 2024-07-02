@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
     
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
+// use Illuminate\Support\Facades\Session;
+use Illuminate\Session\SessionManager;
 use Illuminate\Http\JsonResponse;
 
 class LanguageController extends Controller
