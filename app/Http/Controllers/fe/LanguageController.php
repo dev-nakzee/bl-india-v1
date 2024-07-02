@@ -25,7 +25,7 @@ class LanguageController extends Controller
         }
         if(session()->put('locale', $locale))
         {
-            App::setLocale($locale);
+            // App::setLocale($locale);
             return response()->json(['message' => 'Locale set successfully to '. session()->get('locale')]);
         }
 
