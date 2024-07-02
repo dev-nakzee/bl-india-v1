@@ -11,7 +11,7 @@ const getBaseURL = () => {
 };
 
 const getLocale = () => {
-  return localStorage.getItem('locale') || 'en'; // Default to 'en' if locale is not set
+  return localStorage.getItem('selectedLanguage') || 'en'; // Default to 'en' if locale is not set
 };
 
 const apiClient = axios.create({
