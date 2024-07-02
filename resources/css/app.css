@@ -442,9 +442,9 @@ th {
         max-width: 100%;
         width: 100%;
     }
-    .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12{
+    /* .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12{
     padding-left: 12px;
-    }
+    } */
     .navbar-icon {
         height: 30px;
         margin-right: 0.5rem;
