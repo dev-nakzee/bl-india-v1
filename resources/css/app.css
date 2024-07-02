@@ -437,6 +437,9 @@ th {
     /* .box-hidden {
         display: none !important;
     } */
+     .ql-align-justify img{
+        width:100%;
+     }
     .MuiTypography-root.MuiTypography-subtitle1 {
         padding: 4px;
         max-width: 100%;
@@ -602,6 +605,7 @@ th {
 .MuiListItemText-root span {
     font-weight: 500;
     font-size: 1.5rem;
+    color:#000;
 }
 .holiday-list .MuiListItemText-multiline,
 .holiday-list .MuiListItemText-multiline p {
