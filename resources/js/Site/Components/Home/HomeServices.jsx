@@ -135,7 +135,7 @@ const HomeServices = () => {
                                         size="large"
                                         variant="outlined"
                                         component={Link}
-                                        to={`/services/${service.slug}`}
+                                        to={`/services/${service.service_category.slug}/${service.slug}`}
                                     >
                                         Read More {/* {service.name} */}
                                     </Button>

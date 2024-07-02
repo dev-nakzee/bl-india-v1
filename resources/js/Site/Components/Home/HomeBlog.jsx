@@ -91,7 +91,7 @@ const HomeBlog = () => {
                                             {blog.content}
                                         </Typography>
                                         <CardActions>
-                                        <Button component={Link} to={`/blogs/${blog.slug}`} sx={{ mt: 2 }} variant="outlined" color="primary">
+                                        <Button component={Link} to={`/blogs/${blog.blogCategory.slug}/${blog.slug}`} sx={{ mt: 2 }} variant="outlined" color="primary">
                                             Read More
                                         </Button>
                                 </CardActions>
