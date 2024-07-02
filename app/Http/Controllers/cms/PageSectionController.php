@@ -15,7 +15,7 @@ class PageSectionController extends Controller
      */
     public function index(): JsonResponse
     {
-        $pageSections = PageSection::with('page')->get();
+        $pageSections = PageSection::with('page')->orderBy('id')->get();
         return response()->json($pageSections);
     }
 
