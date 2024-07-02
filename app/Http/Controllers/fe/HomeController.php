@@ -80,8 +80,8 @@ class HomeController extends Controller
 
     public function blog(): JsonResponse
     {
-        $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->with('blogCategory')->get();
-        $blogs = Blog::orderBy('id', 'desc')->limit(3)->get();
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->get();
+        $blogs = Blog::orderBy('id', 'desc')->with('blogCategory')->limit(3)->get();
         foreach ($blogs as $blog) {
             $blog->content = mb_strimwidth($this->getFirstParagraphContent($blog->content), 0, 250, '...');
         }
