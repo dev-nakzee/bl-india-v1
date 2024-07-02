@@ -12,13 +12,10 @@ use App\Models\Blog;
 use App\Models\Testimonial;
 use App\Models\Sticker;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\App;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HomeController extends Controller
 {
-
     protected $translator;
 
     public function __construct(Request $request)
@@ -26,7 +23,8 @@ class HomeController extends Controller
         $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
         $this->translator = new GoogleTranslate($locale);
     }
-     /**
+
+    /**
      * Handle the home request.
      */
     public function home(): JsonResponse
@@ -53,7 +51,6 @@ class HomeController extends Controller
      */
     public function services(): JsonResponse
     {
-        // $translator = new GoogleTranslate(session()->get('locale'));
         $section = PageSection::where('page_id', 1)->where('slug', 'home-services')->get();
         $services = Service::with('serviceCategory')->orderBy('id')->limit(4)->get();
         foreach ($services as $service) {
@@ -65,6 +62,11 @@ class HomeController extends Controller
     public function about(): JsonResponse
     {
         $sections = PageSection::where('page_id', 1)->where('slug', 'home-about')->get();
+        foreach ($sections as $section) {
+            $section->title = $this->translator->translate($section->title);
+            $section->tag_line = $this->translator->translate($section->tag_line);
+            $section->content = $this->translator->translate($section->content);
+        }
         return response()->json(['section' => $sections]);
     }
 
