@@ -319,7 +319,7 @@ const NavigationBar = () => {
           <>
           
           <Grid container spacing={{xs:0,md:4}} margin={{xs:0,md:1}}>
-           <Stack direction={'row'} sx={{ display: "flex",justifyContent:'space-between',width:'100%'}}>
+           <Stack direction={'row'} sx={{ display: "flex",justifyContent:'space-between',alignItems: "center" ,width:'100%'}}>
            <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
           <Link to="/">
             <img src={logo} alt="Brand Logo" style={{ height: "35px" }} />
@@ -339,7 +339,7 @@ const NavigationBar = () => {
               aria-label="menu"
               onClick={toggleDrawer(true)}
             >
-              <MenuIcon fontSize="medium" />
+              <MenuIcon fontSize="medium" sx={{marginLeft:'10px'}}/>
             </IconButton>
             <Drawer
               anchor="left"
@@ -362,7 +362,7 @@ const NavigationBar = () => {
                     <ListItemText primary={`Language: ${selectedLanguage.toUpperCase()}`} />
                     <LanguageIcon />
                   </ListItem>
-                </List>
+                
                 <Menu
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
@@ -377,6 +377,14 @@ const NavigationBar = () => {
                     </MenuItem>
                   ))}
                 </Menu>
+            
+                <ListItem component={Link} to="/services" color="inherit">
+                    <ListItemText primary="Approval Services" />
+                     </ListItem>
+                     <ListItem  component={Link} to="/notifications" color="inherit">
+                    <ListItemText primary="Notifications" />
+                     </ListItem>
+                </List>              
               </Box>
             </Drawer>
             </Box>
