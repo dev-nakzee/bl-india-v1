@@ -11,7 +11,7 @@ import {
   Link as MuiLink,
 } from '@mui/material';
 import { TabContext, TabPanel } from '@mui/lab';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import parse from 'html-react-parser';
@@ -19,6 +19,7 @@ import parse from 'html-react-parser';
 const ProductDetails = () => {
   const { slug } = useParams();
   const [productData, setProductData] = useState(null);
+  const [notificationData, setNotificationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tabValue, setTabValue] = useState('0');
 
@@ -27,6 +28,7 @@ const ProductDetails = () => {
       try {
         const response = await apiClient.get(`/products/${slug}`);
         setProductData(response.data.product);
+        setNotificationData(response.data.notification);
       } catch (error) {
         console.error('Error fetching product data:', error);
       } finally {
@@ -133,20 +135,20 @@ const ProductDetails = () => {
             <Typography>No services available for this product.</Typography>
           )}
         </Box>
-        {productData.notification && productData.notification.length > 0 && (
+        {notificationData && notificationData.length > 0 && (
           <Box sx={{ marginTop: 4 }}>
             <Typography variant="h4" gutterBottom>
-              Notifications
+              Related Notifications
             </Typography>
-            {productData.notification.map((notif) => (
+            {notificationData.map((notif) => (
               <Box key={notif.id} sx={{ marginBottom: 2 }}>
                 <Typography variant="h6">
-                  <MuiLink href={`https://in.bl-india.com${notif.notification.file_url}`} target="_blank" rel="noopener noreferrer">
+                  <MuiLink 
+                    component={Link}
+                    to={`/notifications/${notif.notification.category.slug}/${notif.notification.slug}`}
+                  >
                     {notif.notification.name}
                   </MuiLink>
-                </Typography>
-                <Typography variant="body2">
-                  {parse(notif.notification.content)}
                 </Typography>
               </Box>
             ))}
