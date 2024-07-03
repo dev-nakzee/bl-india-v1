@@ -573,6 +573,9 @@ th {
         .MuiTypography-subtitle1{
             width:100% !important;
         }
+        .mobile-gallery{
+            width: 95%;
+        }
 }
 
 .my-masonry-grid {
@@ -655,3 +658,5 @@ th {
     border: 2px solid #ff0000;
     font-weight: 700;
 }
+
+
