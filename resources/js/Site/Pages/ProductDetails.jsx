@@ -86,7 +86,7 @@ const ProductDetails = () => {
             {productData.description ? parse(productData.description) : 'No description available.'}
           </Typography>
           <Typography variant="h4" gutterBottom>
-            Compliances
+            Applicable Compliances
           </Typography >
           {productData.services.length > 0 ? (
             <Box className="ProductDetail-tab">
@@ -95,7 +95,7 @@ const ProductDetails = () => {
                 {productData.services.map((service, index) => (
                   <Tab
                     key={service.id}
-                    label={service.is_mandatory === true ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
+                    label={service.is_mandatory === true ? `${service.service.name} (Voluntary)` : `${service.service.name} (Mandatory)`}
                     value={`${index}`}
                   />
                 ))}
@@ -107,15 +107,15 @@ const ProductDetails = () => {
                       </Typography>
                   {service.service.compliance_header === 'Indian Standard' ? (
                     <Typography variant="h6" gutterBottom>
-                      Indian Standard: {service.is}
+                      Indian Standard: <strong>{service.is}</strong>
                     </Typography>
                   ) : service.service.compliance_header === 'Group, Scheme' ? (
                     <>
                       <Typography variant="h6" gutterBottom>
-                        Group: {service.group}
+                        Group: <strong>{service.group}</strong>
                       </Typography>
                       <Typography variant="h6" gutterBottom>
-                        Scheme: {service.scheme}
+                        Scheme: <strong>{service.scheme}</strong>
                       </Typography>
                     </>
                   ) : null}
