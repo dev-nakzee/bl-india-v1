@@ -351,7 +351,7 @@ const NavigationBar = () => {
             <IconButton component={Link} to="/login" color="inherit">
               <AccountCircleIcon fontSize="large" />
             </IconButton>
-            <IconButton color="inherit" onClick={handleSearchOpen}>
+            <IconButton color="inherit" aria-label="Search" onClick={handleSearchOpen}>
               <SearchIcon fontSize="large" color="primary" />
             </IconButton>
           </Box>
