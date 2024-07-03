@@ -9,7 +9,7 @@ class NoticeProductMap extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'notice_id',
+        'notification_id',
         'product_id',
     ];
     protected $hidden = [
