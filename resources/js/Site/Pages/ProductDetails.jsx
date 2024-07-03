@@ -8,6 +8,7 @@ import {
   CardMedia,
   Tabs,
   Tab,
+  Link as MuiLink,
 } from '@mui/material';
 import { TabContext, TabPanel } from '@mui/lab';
 import { useParams } from 'react-router-dom';
@@ -49,7 +50,11 @@ const ProductDetails = () => {
   }
 
   if (!productData) {
-    return null; // Or return a fallback UI if needed
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Typography variant="h6">Product not found.</Typography>
+      </Box>
+    );
   }
 
   return (
@@ -60,24 +65,24 @@ const ProductDetails = () => {
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
       <Box sx={{ padding: 4 }}>
-        <Card  className="Product-card" sx={{ display: 'flex', mb: 4 }}>
+        <Card className="Product-card" sx={{ display: 'flex', mb: 4 }}>
           <CardMedia
             component="img"
-            sx={{ width: '100%',maxWidth:'350px',backgroundColor:'#c3e7ff' }}
+            sx={{ width: { xs: '100%', sm: '350px' }, backgroundColor: '#c3e7ff' }}
             image={`https://in.bl-india.com/${productData.image_url}`}
             alt={productData.image_alt}
           />
           <CardContent>
             <Typography variant="h4" gutterBottom>
-            <span className='font-bold'>Product Name: </span>&nbsp;&nbsp;&nbsp; {productData.name}
+              <span className='font-bold'>Product Name:</span> &nbsp;&nbsp;&nbsp; {productData.name}
             </Typography>
             {productData.technical_name && (
               <Typography variant="h4" gutterBottom>
-               <span className='font-bold'>Technical Name: </span>&nbsp;&nbsp;&nbsp;{productData.technical_name}
+                <span className='font-bold'>Technical Name:</span> &nbsp;&nbsp;&nbsp; {productData.technical_name}
               </Typography>
             )}
             <Typography variant="h4" gutterBottom>
-            <span className='font-bold'>Product Category:</span>&nbsp;&nbsp;&nbsp; {productData.product_category.name}
+              <span className='font-bold'>Product Category:</span> &nbsp;&nbsp;&nbsp; {productData.product_category.name}
             </Typography>
           </CardContent>
         </Card>
@@ -87,47 +92,66 @@ const ProductDetails = () => {
           </Typography>
           <Typography variant="h4" gutterBottom>
             Applicable Compliances
-          </Typography >
+          </Typography>
           {productData.services.length > 0 ? (
             <Box className="ProductDetail-tab">
-            <TabContext value={tabValue}>
-              <Tabs value={tabValue} onChange={handleTabChange} aria-label="service tabs">
+              <TabContext value={tabValue}>
+                <Tabs value={tabValue} onChange={handleTabChange} aria-label="service tabs">
+                  {productData.services.map((service, index) => (
+                    <Tab
+                      key={service.id}
+                      label={service.is_mandatory ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
+                      value={`${index}`}
+                    />
+                  ))}
+                </Tabs>
                 {productData.services.map((service, index) => (
-                  <Tab
-                    key={service.id}
-                    label={service.is_mandatory === true ? `${service.service.name} (Voluntary)` : `${service.service.name} (Mandatory)`}
-                    value={`${index}`}
-                  />
-                ))}
-              </Tabs>
-              {productData.services.map((service, index) => (
-                <TabPanel key={service.id} value={`${index}`}>
+                  <TabPanel key={service.id} value={`${index}`}>
                     <Typography variant="h5" gutterBottom>
-                        {service.service.name} for {productData.name}
-                      </Typography>
-                  {service.service.compliance_header === 'Indian Standard' ? (
-                    <Typography variant="body" gutterBottom>
-                      Indian Standard: <strong>{service.is}</strong>
+                      {service.service.name} for {productData.name}
                     </Typography>
-                  ) : service.service.compliance_header === 'Group, Scheme' ? (
-                    <>
-                      <Typography variant="body" gutterBottom>
-                        Group: <strong>{service.group}</strong>
+                    {service.service.compliance_header === 'Indian Standard' ? (
+                      <Typography variant="body1" gutterBottom>
+                        Indian Standard: <strong>{service.is}</strong>
                       </Typography>
-                      <Typography variant="body" gutterBottom>
-                        Scheme: <strong>{service.scheme}</strong>
-                      </Typography>
-                    </>
-                  ) : null}
-                  {service.details ? parse(service.details) : 'No details available.'}
-                </TabPanel>
-              ))}
-            </TabContext>
+                    ) : service.service.compliance_header === 'Group, Scheme' ? (
+                      <>
+                        <Typography variant="body1" gutterBottom>
+                          Group: <strong>{service.group}</strong>
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                          Scheme: <strong>{service.scheme}</strong>
+                        </Typography>
+                      </>
+                    ) : null}
+                    {service.details ? parse(service.details) : 'No details available.'}
+                  </TabPanel>
+                ))}
+              </TabContext>
             </Box>
           ) : (
             <Typography>No services available for this product.</Typography>
           )}
         </Box>
+        {productData.notification && productData.notification.length > 0 && (
+          <Box sx={{ marginTop: 4 }}>
+            <Typography variant="h4" gutterBottom>
+              Notifications
+            </Typography>
+            {productData.notification.map((notif) => (
+              <Box key={notif.id} sx={{ marginBottom: 2 }}>
+                <Typography variant="h6">
+                  <MuiLink href={`https://in.bl-india.com${notif.notification.file_url}`} target="_blank" rel="noopener noreferrer">
+                    {notif.notification.name}
+                  </MuiLink>
+                </Typography>
+                <Typography variant="body2">
+                  {parse(notif.notification.content)}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        )}
       </Box>
     </>
   );
