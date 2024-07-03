@@ -6,7 +6,7 @@ import apiClient from '../../Services/api';
 
 const Banner = styled(Box)(({ theme }) => ({
     position: 'relative',
-    height: '75vh', // Set height to full viewport height
+    height: '50vh', // Set height to full viewport height
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     display: 'flex',
@@ -68,7 +68,9 @@ const HomeBanner = () => {
     };
 
     return (
-        <Banner className="Banner-section" sx={{ backgroundImage: `url(${bannerData.image_url})` }}>
+        <Banner className="Banner-section"
+         sx={{ backgroundImage: `url(${bannerData.image_url})` }}
+         >
             <Content className='Banner-section-content'>
                 <Typography variant="h1" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 56, width: '60%' }}>{bannerData.title}</Typography>
                 <Typography variant="subtitle1" component="p" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 18, mt: 4 }}>{bannerData.tag_line}</Typography>

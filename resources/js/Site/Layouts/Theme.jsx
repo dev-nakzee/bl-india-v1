@@ -210,6 +210,16 @@ const theme = createTheme({
     heading: {
       fontSize: "1.8rem",
       fontWeight: 500,
+      "@media (min-width: 360px)": {
+        fontSize: "1.2rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1.4rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.6rem", // Font size for h1 on large devices (e.g., desktop)
+      },
+
     },
     subtitle1: {
       fontSize: "1.6rem",
@@ -244,22 +254,68 @@ const theme = createTheme({
     bodytext: {
       fontWeight: 500,
       fontSize: "1.4rem",
+      "@media (min-width: 360px)": {
+        fontSize: "1.1rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1.2rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.3rem", // Font size for h1 on large devices (e.g., desktop)
+      },
+
     },
     body1: {
       fontWeight: 300,
       fontSize: "1.4rem",
+      "@media (min-width: 360px)": {
+        fontSize: "1.1rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1.2rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.3rem", // Font size for h1 on large devices (e.g., desktop)
+      },
     },
     body2: {
       fontWeight: 400,
       fontSize: "1.4rem",
+      "@media (min-width: 360px)": {
+        fontSize: "1.1rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1.2rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.3rem", // Font size for h1 on large devices (e.g., desktop)
+      },
     },
     caption: {
       fontWeight: 300,
       fontSize: "1.2rem",
+      "@media (min-width: 360px)": {
+        fontSize: "0.9rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.1rem", // Font size for h1 on large devices (e.g., desktop)
+      },
     },
     captionbold: {
       fontWeight: 600,
       fontSize: "1.2rem",
+      "@media (min-width: 360px)": {
+        fontSize: "0.9rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.1rem", // Font size for h1 on large devices (e.g., desktop)
+      },
     },
   },
 
