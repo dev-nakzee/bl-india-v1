@@ -69,15 +69,15 @@ const ProductDetails = () => {
           />
           <CardContent>
             <Typography variant="h4" gutterBottom>
-            <span className='font-bold'>Product Name: </span>&nbsp;&nbsp;&nbsp; {productData.name}
+            <span className=''>Product Name: </span>&nbsp;&nbsp;&nbsp; {productData.name}
             </Typography>
             {productData.technical_name && (
               <Typography variant="h4" gutterBottom>
-               <span className='font-bold'>Technical Name: </span>&nbsp;&nbsp;&nbsp;{productData.technical_name}
+               <span className=''>Technical Name: </span>&nbsp;&nbsp;&nbsp;{productData.technical_name}
               </Typography>
             )}
             <Typography variant="h4" gutterBottom>
-            <span className='font-bold'>Product Category:</span>&nbsp;&nbsp;&nbsp; {productData.product_category.name}
+            <span className=''>Product Category:</span>&nbsp;&nbsp;&nbsp; {productData.product_category.name}
             </Typography>
           </CardContent>
         </Card>
