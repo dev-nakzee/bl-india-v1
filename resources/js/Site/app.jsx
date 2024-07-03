@@ -1,62 +1,60 @@
 import '../bootstrap';
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, CircularProgress } from '@mui/material';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { CssBaseline } from '@mui/material'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Layouts/Layout';
+import HomePage from './Pages/Home';
+import About from './Pages/About';
+import Services from './Pages/Services';
+import ServiceDetails from './Pages/ServiceDetails';
+import ProductDetails from './Pages/ProductDetails';
+import Notifications from './Pages/Notifications';
+import NotificationDetails from './Pages/NotificationDetails';
+import Blogs from './Pages/Blogs';
+import BlogDetails from './Pages/BlogDetails';
+import Gallery from './Pages/Gallery';
+import TermCondition from './Pages/TermCondition';
+import PrivacyPolicy from './Pages/PrivacyPolicy';
+import WebsiteDisclaimer from './Pages/WebsiteDisclaimer';
+import HolidayList from './Pages/HolidayList';
 import theme from './Layouts/Theme';
-
-// Lazy load the pages
-const HomePage = lazy(() => import('./Pages/Home'));
-const About = lazy(() => import('./Pages/About'));
-const Services = lazy(() => import('./Pages/Services'));
-const ServiceDetails = lazy(() => import('./Pages/ServiceDetails'));
-const ProductDetails = lazy(() => import('./Pages/ProductDetails'));
-const Notifications = lazy(() => import('./Pages/Notifications'));
-const NotificationDetails = lazy(() => import('./Pages/NotificationDetails'));
-const Blogs = lazy(() => import('./Pages/Blogs'));
-const BlogDetails = lazy(() => import('./Pages/BlogDetails'));
-const Gallery = lazy(() => import('./Pages/Gallery'));
-const TermCondition = lazy(() => import('./Pages/TermCondition'));
-const PrivacyPolicy = lazy(() => import('./Pages/PrivacyPolicy'));
-const WebsiteDisclaimer = lazy(() => import('./Pages/WebsiteDisclaimer'));
-const HolidayList = lazy(() => import('./Pages/HolidayList'));
-const KnowledgeBase = lazy(() => import('./Pages/KnowledgeBase'));
-const KnowledgeBaseCategory = lazy(() => import('./Pages/KnowledgeBaseCategory'));
-const Careers = lazy(() => import('./Pages/Careers'));
-const Contact = lazy(() => import('./Pages/Contact'));
-const Downloads = lazy(() => import('./Pages/Downloads'));
+import KnowledgeBase from './Pages/KnowledgeBase';
+import KnowledgeBaseCategory from './Pages/KnowledgeBaseCategory';
+import Careers from './Pages/Careers';
+import Contact from './Pages/Contact';
+import Downloads from './Pages/Downloads';
 
 function App() {
-  return (
+  return (    
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path="/" element={<Suspense fallback={<CircularProgress />}><HomePage /></Suspense>} />
-            <Route path="/about" element={<Suspense fallback={<CircularProgress />}><About /></Suspense>} />
-            <Route path="/services" element={<Suspense fallback={<CircularProgress />}><Services /></Suspense>} />
-            <Route path="/services/:categorySlug" element={<Suspense fallback={<CircularProgress />}><Services /></Suspense>} />
-            <Route path="/services/:categorySlug/:slug" element={<Suspense fallback={<CircularProgress />}><ServiceDetails /></Suspense>} />
-            <Route path="/products/:slug" element={<Suspense fallback={<CircularProgress />}><ProductDetails /></Suspense>} />
-            <Route path='/notifications' element={<Suspense fallback={<CircularProgress />}><Notifications /></Suspense>} />
-            <Route path='/notifications/:categorySlug' element={<Suspense fallback={<CircularProgress />}><Notifications /></Suspense>} />
-            <Route path='/notifications/:categorySlug/:slug' element={<Suspense fallback={<CircularProgress />}><NotificationDetails /></Suspense>} />
-            <Route path='/blogs' element={<Suspense fallback={<CircularProgress />}><Blogs /></Suspense>} />
-            <Route path='/blogs/:categorySlug' element={<Suspense fallback={<CircularProgress />}><Blogs /></Suspense>} />
-            <Route path='/blogs/:categorySlug/:blogSlug' element={<Suspense fallback={<CircularProgress />}><BlogDetails /></Suspense>} />
-            <Route path='/gallery' element={<Suspense fallback={<CircularProgress />}><Gallery /></Suspense>} />
-            <Route path='/terms-conditions' element={<Suspense fallback={<CircularProgress />}><TermCondition /></Suspense>} />
-            <Route path='/privacy-policy' element={<Suspense fallback={<CircularProgress />}><PrivacyPolicy /></Suspense>} />
-            <Route path='/website-disclaimer' element={<Suspense fallback={<CircularProgress />}><WebsiteDisclaimer /></Suspense>} />
-            <Route path='/holiday-list' element={<Suspense fallback={<CircularProgress />}><HolidayList /></Suspense>} />
-            <Route path="/knowledge-base" element={<Suspense fallback={<CircularProgress />}><KnowledgeBase /></Suspense>} />
-            <Route path="/knowledge-base/:categorySlug" element={<Suspense fallback={<CircularProgress />}><KnowledgeBaseCategory /></Suspense>} />
-            <Route path="/careers" element={<Suspense fallback={<CircularProgress />}><Careers /></Suspense>} />
-            <Route path="/contact" element={<Suspense fallback={<CircularProgress />}><Contact /></Suspense>} />
-            <Route path="/downloads" element={<Suspense fallback={<CircularProgress />}><Downloads /></Suspense>} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/:categorySlug" element={<Services />} />
+            <Route path="/services/:categorySlug/:slug" element={<ServiceDetails />} />
+            <Route path="/products/:slug" element={<ProductDetails />} />
+            <Route path='/notifications' element={<Notifications />} />
+            <Route path='/notifications/:categorySlug' element={<Notifications />} />
+            <Route path='/notifications/:categorySlug/:slug' element={<NotificationDetails />} />
+            <Route path='/blogs' element={<Blogs />} />
+            <Route path='/blogs/:categorySlug' element={<Blogs />} />
+            <Route path='/blogs/:categorySlug/:blogSlug' element={<BlogDetails />} />
+            <Route path='/gallery' element={<Gallery />} />
+            <Route path='/terms-conditions' element={<TermCondition />} />
+            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+            <Route path='/website-disclaimer' element={<WebsiteDisclaimer />} />
+            <Route path='/holiday-list' element={<HolidayList />} />
+            <Route path="/knowledge-base" element={<KnowledgeBase />} />
+            <Route path="/knowledge-base/:categorySlug" element={<KnowledgeBaseCategory />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/downloads" element={<Downloads />} />
           </Routes>
         </Layout>
       </BrowserRouter>
