@@ -478,7 +478,7 @@ th {
         display: none;
     }
     .page-heading::after {       
-        left: 47%;
+        left: 43%;
         width: 50px;
     }
 
