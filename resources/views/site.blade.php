@@ -7,7 +7,7 @@
         <title></title>
 
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Raleway:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-
+        <script src="non-critical.js" defer></script>
         @viteReactRefresh
         @vite('resources/js/Site/app.jsx')
         @vite('resources/css/app.css')
