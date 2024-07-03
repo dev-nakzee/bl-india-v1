@@ -272,12 +272,12 @@ const NavigationBar = () => {
 
   const drawer = (
     <Drawer anchor="top" open={isSearchOpen} onClose={handleSearchClose}>
-      <Box display={'flex'} justifyContent={'flex-end'} padding={3}>
+      <Box display={'flex'} justifyContent={'flex-end'} padding={{xs:1,md:3}}>
                     <IconButton onClick={handleSearchClose}>
                         <HighlightOff />
                     </IconButton>
                     </Box>  
-        <Grid container spacing={2} padding={5}>
+        <Grid container spacing={2} padding={{xs:2,sm:3,md:5}}>
           <Grid item xs={12}>
             <Typography variant="h6">Search</Typography>
            

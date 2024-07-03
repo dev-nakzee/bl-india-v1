@@ -64,6 +64,9 @@ p {
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
+.Topbar-section{
+    min-height: 55px !important;
+}
 .Blog-section p {
     min-height: 97px;
 }
@@ -87,6 +90,11 @@ li a {
     cursor: not-allowed;
     pointer-events: auto;
 }
+/* .Banner-section{
+    background-image: url("../js/Site/Assets/new1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
 
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
@@ -433,6 +441,7 @@ th {
 .product-download .MuiSvgIcon-root {
     color: var(--primary-color);
 }
+.ql-align-justify{margin-bottom: 1rem;}
 @media (max-width: 767px) {
     /* .box-hidden {
         display: none !important;
