@@ -80,13 +80,13 @@ const HomeAbout = () => {
                     </Typography>
                 </Grid>
                     <AboutContent className=''>
-                        <Typography variant="h3" sx={{ mt: 2 }}>
+                        <Typography variant="h3" sx={{ mt: 1,mb:1 }}>
                             {aboutData.title}
                         </Typography>
-                        <Typography variant="subtitle2" sx={{mb: 2, borderLeft: '5px solid #0D629A', pl: 2, fontSize: '1rem', fontStyle: 'italic' }}>
+                        <Typography variant="subtitle2" sx={{mb:1, borderLeft: '5px solid #0D629A', pl: 2, fontSize: '1rem', fontStyle: 'italic' }}>
                             {aboutData.tag_line}
                         </Typography>
-                        <Box className="about-content">
+                        <Box className="about-content" paddingBottom={1}>
                             {parse(aboutData.content)}
                         </Box>
                     </AboutContent>

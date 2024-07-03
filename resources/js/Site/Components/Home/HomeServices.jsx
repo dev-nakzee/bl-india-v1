@@ -80,11 +80,11 @@ const HomeServices = () => {
                         <Grid item xs={12} md={6} lg={3} key={service.id}>
                             <Box
                                 sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                    textAlign: "center",
-                                    padding: "20px",
+                                    // display: "flex",
+                                    // flexDirection: "column",
+                                    // alignItems: "center",
+                                    // textAlign: "center",
+                                    padding: "15px",
                                     boxShadow: 3,
                                     borderRadius: "10px",
                                     height: "100%",
@@ -94,7 +94,7 @@ const HomeServices = () => {
                                     sx={{
                                         display: "flex",
                                         alignItems: "center",
-                                        marginBottom: "15px",
+                                        marginBottom: "10px",
                                     }}
                                 >
                                     <img
@@ -109,8 +109,8 @@ const HomeServices = () => {
                                         }}
                                     />
                                     <Typography
-                                        variant="h5"
-                                        component="h5"
+                                        variant="h6"
+                                        component="h6"
                                         sx={{
                                             marginLeft: "15px",
                                             color: "#0D629A",
@@ -132,7 +132,7 @@ const HomeServices = () => {
                                 </Typography>
                                 <CardActions>
                                     <Button
-                                        size="large"
+                                     
                                         variant="outlined"
                                         component={Link}
                                         to={`/services/${service.service_category.slug}/${service.slug}`}

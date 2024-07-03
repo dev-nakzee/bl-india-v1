@@ -136,8 +136,8 @@ function Topbar() {
   };
 
   return (
-    <AppBar position={isMobile ? "sticky" : "static"} className="Topbar-section">
-      <Toolbar sx={{ background: "#0D629A" }}>
+    <AppBar position={isMobile ? "sticky" : "static"} >
+      <Toolbar sx={{ background: "#0D629A" }} className="Topbar-section">
         {isMobile ? (
           <>
             <Box

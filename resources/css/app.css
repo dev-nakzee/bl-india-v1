@@ -64,6 +64,9 @@ p {
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
+.Topbar-section{
+    min-height: 55px !important;
+}
 .Blog-section p {
     min-height: 97px;
 }
@@ -87,6 +90,11 @@ li a {
     cursor: not-allowed;
     pointer-events: auto;
 }
+/* .Banner-section{
+    background-image: url("../js/Site/Assets/new1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
 
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
@@ -194,7 +202,7 @@ li a {
     background: inherit;
 }
 .slick-prev {
-    left: 22px !important;
+    left: 43px !important;
 }
 .slick-next {
     right: 0 !important;
@@ -433,6 +441,7 @@ th {
 .product-download .MuiSvgIcon-root {
     color: var(--primary-color);
 }
+.ql-align-justify{margin-bottom: 1rem;}
 @media (max-width: 767px) {
     /* .box-hidden {
         display: none !important;
@@ -478,7 +487,7 @@ th {
         display: none;
     }
     .page-heading::after {       
-        left: 47%;
+        left: 43%;
         width: 50px;
     }
 
@@ -487,6 +496,7 @@ th {
         margin-right: 20px !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
+        padding-top:20px !important;
     }
 
     .Services-section .MuiGrid-root > .MuiGrid-item {
@@ -572,6 +582,9 @@ th {
         .MuiTypography-subtitle1{
             width:100% !important;
         }
+        .mobile-gallery{
+            width: 95%;
+        }
 }
 
 .my-masonry-grid {
@@ -654,3 +667,5 @@ th {
     border: 2px solid #ff0000;
     font-weight: 700;
 }
+
+
