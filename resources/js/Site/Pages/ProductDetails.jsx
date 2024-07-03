@@ -106,15 +106,15 @@ const ProductDetails = () => {
                         {service.service.name} for {productData.name}
                       </Typography>
                   {service.service.compliance_header === 'Indian Standard' ? (
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="body" gutterBottom>
                       Indian Standard: <strong>{service.is}</strong>
                     </Typography>
                   ) : service.service.compliance_header === 'Group, Scheme' ? (
                     <>
-                      <Typography variant="h6" gutterBottom>
+                      <Typography variant="body" gutterBottom>
                         Group: <strong>{service.group}</strong>
                       </Typography>
-                      <Typography variant="h6" gutterBottom>
+                      <Typography variant="body" gutterBottom>
                         Scheme: <strong>{service.scheme}</strong>
                       </Typography>
                     </>
