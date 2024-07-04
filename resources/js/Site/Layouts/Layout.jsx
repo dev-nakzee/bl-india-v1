@@ -5,6 +5,7 @@ import Footer from '../Components/Footer/Footer';
 import { Container, Fab } from "@mui/material";
 import { SidebarProvider } from "../Components/Sidebar/SidebarContext";
 import Sidebar from "../Components/Sidebar/Sidebar";
+import ScrollToTopButton from "../Pages/ScrollToTop";
 
 
 function Layout({ children }) {
@@ -17,6 +18,7 @@ function Layout({ children }) {
                 <Sidebar />
             </SidebarProvider>
             <>{children}</>
+            <ScrollToTopButton/>
                         <Footer />
         </>
     );

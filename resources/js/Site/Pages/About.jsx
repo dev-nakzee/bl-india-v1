@@ -91,6 +91,7 @@ const AboutPage = () => {
                     </Grid>
                 </Grid>
             </AboutSection> */}
+          
             <AboutMain />
             <AboutMissionVision />
             <AboutFounder />
