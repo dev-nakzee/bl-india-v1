@@ -79,7 +79,7 @@ const HomeBanner = () => {
                 >
                     <TextField
                         variant="outlined"
-                        placeholder="Search..."
+                        placeholder="Enter your product / Service "
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         sx={{ backgroundColor: 'white', borderRadius: '5px', flexGrow: 1 }}
