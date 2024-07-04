@@ -72,8 +72,8 @@ const HomeBanner = () => {
          sx={{ backgroundImage: `url(${bannerData.image_url})` }}
          >
             <Content className='Banner-section-content'>
-                <Typography variant="h1" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 56, width: '60%' }}>{bannerData.title}</Typography>
-                <Typography variant="subtitle1" component="p" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 18, mt: 4 }}>{bannerData.tag_line}</Typography>
+                <Typography variant="h1" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 56, width: '60%' }}>{bannerData.content}</Typography>
+                {/* <Typography variant="subtitle1" component="p" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 18, mt: 4 }}>{bannerData.tag_line}</Typography> */}
                 <Box sx={{ display: 'flex', alignItems: 'center', mt:1, }}
                 width={{xs:'100%',md:'50%'}}
                 >
