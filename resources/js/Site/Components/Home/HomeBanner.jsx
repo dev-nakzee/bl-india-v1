@@ -73,7 +73,7 @@ const HomeBanner = () => {
          sx={{ backgroundImage: `url(${bannerData.image_url})` }}
          >
             <Content className='Banner-section-content'>
-                <Typography sx={{ color: '#0D629A', fontWeight: 'normal', width: '60%' }}>
+                <Typography sx={{ color: '#0D629A', fontWeight: 'normal', width: '100%' }}>
                     {parse(bannerData.content)} {/* Use parse to render HTML content */}
                 </Typography>
                 {/* <Typography variant="subtitle1" component="p" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 18, mt: 4 }}>{bannerData.tag_line}</Typography> */}
