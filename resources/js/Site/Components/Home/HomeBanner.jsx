@@ -3,6 +3,7 @@ import { Box, Typography, CircularProgress, TextField, InputAdornment, IconButto
 import { styled } from '@mui/system';
 import SearchIcon from '@mui/icons-material/Search';
 import apiClient from '../../Services/api';
+import parse from 'html-react-parser'; // Import the HTML parser
 
 const Banner = styled(Box)(({ theme }) => ({
     position: 'relative',
@@ -72,7 +73,9 @@ const HomeBanner = () => {
          sx={{ backgroundImage: `url(${bannerData.image_url})` }}
          >
             <Content className='Banner-section-content'>
-                <Typography variant="h1" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 56, width: '60%' }}>{bannerData.content}</Typography>
+                <Typography variant="h1" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 56, width: '60%' }}>
+                    {parse(bannerData.content)} {/* Use parse to render HTML content */}
+                </Typography>
                 {/* <Typography variant="subtitle1" component="p" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 18, mt: 4 }}>{bannerData.tag_line}</Typography> */}
                 <Box sx={{ display: 'flex', alignItems: 'center', mt:1, }}
                 width={{xs:'100%',md:'50%'}}
