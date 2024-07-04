@@ -76,17 +76,6 @@ const ProductDetails = () => {
           />
           <CardContent>
             <Typography variant="h4" gutterBottom>
-<<<<<<< HEAD
-            <span className=''>Product Name: </span>&nbsp;&nbsp;&nbsp; {productData.name}
-            </Typography>
-            {productData.technical_name && (
-              <Typography variant="h4" gutterBottom>
-               <span className=''>Technical Name: </span>&nbsp;&nbsp;&nbsp;{productData.technical_name}
-              </Typography>
-            )}
-            <Typography variant="h4" gutterBottom>
-            <span className=''>Product Category:</span>&nbsp;&nbsp;&nbsp; {productData.product_category.name}
-=======
               <span className='font-bold'>Product Name:</span> &nbsp;&nbsp;&nbsp; {productData.name}
             </Typography>
             {productData.technical_name && (
@@ -96,7 +85,6 @@ const ProductDetails = () => {
             )}
             <Typography variant="h4" gutterBottom>
               <span className='font-bold'>Product Category:</span> &nbsp;&nbsp;&nbsp; {productData.product_category.name}
->>>>>>> a47efea2e8e79ebe3b1f8d6650d2f391b246ac87
             </Typography>
           </CardContent>
         </Card>
