@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import '../bootstrap';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { CssBaseline } from '@mui/material'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Layouts/Layout';
 import HomePage from './Pages/Home';
 import About from './Pages/About';
@@ -23,24 +25,9 @@ import KnowledgeBaseCategory from './Pages/KnowledgeBaseCategory';
 import Careers from './Pages/Careers';
 import Contact from './Pages/Contact';
 import Downloads from './Pages/Downloads';
-import Chatbot from './Components/Chatbot'; // Import the Chatbot component
 
 function App() {
-  const [showChatbot, setShowChatbot] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowChatbot(true);
-    }, 30000); // 30 seconds
-
-    return () => clearTimeout(timer); // Clean up the timer on unmount
-  }, []);
-
-  const handleCloseChatbot = () => {
-    setShowChatbot(false);
-  };
-
-  return (
+  return (    
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
@@ -70,7 +57,6 @@ function App() {
             <Route path="/downloads" element={<Downloads />} />
           </Routes>
         </Layout>
-        {showChatbot && <Chatbot onClose={handleCloseChatbot} />} {/* Conditionally render the Chatbot */}
       </BrowserRouter>
     </ThemeProvider>
   );
