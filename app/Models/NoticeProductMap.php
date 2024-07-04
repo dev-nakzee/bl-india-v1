@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class NoticeProductMap extends Model
 {
     use HasFactory;
+    protected $table = 'notification_product_maps';
     protected $fillable = [
-        'notice_id',
+        'notification_id',
         'product_id',
     ];
     protected $hidden = [

@@ -8,9 +8,10 @@ import {
   CardMedia,
   Tabs,
   Tab,
+  Link as MuiLink,
 } from '@mui/material';
 import { TabContext, TabPanel } from '@mui/lab';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import parse from 'html-react-parser';
@@ -18,6 +19,7 @@ import parse from 'html-react-parser';
 const ProductDetails = () => {
   const { slug } = useParams();
   const [productData, setProductData] = useState(null);
+  const [notificationData, setNotificationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tabValue, setTabValue] = useState('0');
 
@@ -26,6 +28,7 @@ const ProductDetails = () => {
       try {
         const response = await apiClient.get(`/products/${slug}`);
         setProductData(response.data.product);
+        setNotificationData(response.data.notification);
       } catch (error) {
         console.error('Error fetching product data:', error);
       } finally {
@@ -49,7 +52,11 @@ const ProductDetails = () => {
   }
 
   if (!productData) {
-    return null; // Or return a fallback UI if needed
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Typography variant="h6">Product not found.</Typography>
+      </Box>
+    );
   }
 
   return (
@@ -60,15 +67,16 @@ const ProductDetails = () => {
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
       <Box sx={{ padding: 4 }}>
-        <Card  className="Product-card" sx={{ display: 'flex', mb: 4 }}>
+        <Card className="Product-card" sx={{ display: 'flex', mb: 4 }}>
           <CardMedia
             component="img"
-            sx={{ width: '100%',maxWidth:'350px',backgroundColor:'#c3e7ff' }}
+            sx={{ width: { xs: '100%', sm: '350px' }, backgroundColor: '#c3e7ff' }}
             image={`https://in.bl-india.com/${productData.image_url}`}
             alt={productData.image_alt}
           />
           <CardContent>
             <Typography variant="h4" gutterBottom>
+<<<<<<< HEAD
             <span className=''>Product Name: </span>&nbsp;&nbsp;&nbsp; {productData.name}
             </Typography>
             {productData.technical_name && (
@@ -78,6 +86,17 @@ const ProductDetails = () => {
             )}
             <Typography variant="h4" gutterBottom>
             <span className=''>Product Category:</span>&nbsp;&nbsp;&nbsp; {productData.product_category.name}
+=======
+              <span className='font-bold'>Product Name:</span> &nbsp;&nbsp;&nbsp; {productData.name}
+            </Typography>
+            {productData.technical_name && (
+              <Typography variant="h4" gutterBottom>
+                <span className='font-bold'>Technical Name:</span> &nbsp;&nbsp;&nbsp; {productData.technical_name}
+              </Typography>
+            )}
+            <Typography variant="h4" gutterBottom>
+              <span className='font-bold'>Product Category:</span> &nbsp;&nbsp;&nbsp; {productData.product_category.name}
+>>>>>>> a47efea2e8e79ebe3b1f8d6650d2f391b246ac87
             </Typography>
           </CardContent>
         </Card>
@@ -86,48 +105,67 @@ const ProductDetails = () => {
             {productData.description ? parse(productData.description) : 'No description available.'}
           </Typography>
           <Typography variant="h4" gutterBottom>
-            Compliances
-          </Typography >
+            Applicable Compliances
+          </Typography>
           {productData.services.length > 0 ? (
             <Box className="ProductDetail-tab">
-            <TabContext value={tabValue}>
-              <Tabs value={tabValue} onChange={handleTabChange} aria-label="service tabs">
+              <TabContext value={tabValue}>
+                <Tabs value={tabValue} onChange={handleTabChange} aria-label="service tabs">
+                  {productData.services.map((service, index) => (
+                    <Tab
+                      key={service.id}
+                      label={service.is_mandatory ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
+                      value={`${index}`}
+                    />
+                  ))}
+                </Tabs>
                 {productData.services.map((service, index) => (
-                  <Tab
-                    key={service.id}
-                    label={service.is_mandatory === true ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
-                    value={`${index}`}
-                  />
-                ))}
-              </Tabs>
-              {productData.services.map((service, index) => (
-                <TabPanel key={service.id} value={`${index}`}>
+                  <TabPanel key={service.id} value={`${index}`}>
                     <Typography variant="h5" gutterBottom>
-                        {service.service.name} for {productData.name}
-                      </Typography>
-                  {service.service.compliance_header === 'Indian Standard' ? (
-                    <Typography variant="h6" gutterBottom>
-                      Indian Standard: {service.is}
+                      {service.service.name} for {productData.name}
                     </Typography>
-                  ) : service.service.compliance_header === 'Group, Scheme' ? (
-                    <>
-                      <Typography variant="h6" gutterBottom>
-                        Group: {service.group}
+                    {service.service.compliance_header === 'Indian Standard' ? (
+                      <Typography variant="body1" gutterBottom>
+                        Indian Standard: <strong>{service.is}</strong>
                       </Typography>
-                      <Typography variant="h6" gutterBottom>
-                        Scheme: {service.scheme}
-                      </Typography>
-                    </>
-                  ) : null}
-                  {service.details ? parse(service.details) : 'No details available.'}
-                </TabPanel>
-              ))}
-            </TabContext>
+                    ) : service.service.compliance_header === 'Group, Scheme' ? (
+                      <>
+                        <Typography variant="body1" gutterBottom>
+                          Group: <strong>{service.group}</strong>
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                          Scheme: <strong>{service.scheme}</strong>
+                        </Typography>
+                      </>
+                    ) : null}
+                    {service.details ? parse(service.details) : 'No details available.'}
+                  </TabPanel>
+                ))}
+              </TabContext>
             </Box>
           ) : (
             <Typography>No services available for this product.</Typography>
           )}
         </Box>
+        {notificationData && notificationData.length > 0 && (
+          <Box sx={{ marginTop: 4 }}>
+            <Typography variant="h4" gutterBottom>
+              Related Notifications
+            </Typography>
+            {notificationData.map((notif) => (
+              <Box key={notif.id} sx={{ marginBottom: 2 }}>
+                <Typography variant="h6">
+                  <MuiLink 
+                    component={Link}
+                    to={`/notifications/${notif.notification.category.slug}/${notif.notification.slug}`}
+                  >
+                    {notif.notification.name}
+                  </MuiLink>
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        )}
       </Box>
     </>
   );
