@@ -37,20 +37,27 @@ const HomePage = () => {
     return (
         <>
             <Helmet>
-                <title>{homeData?.seo_title}</title>
-                <meta name="description" content={homeData?.seo_description} />
-                <meta name="keywords" content={homeData?.seo_keywords} />
+                <title>{homeData?.seo_title || "Brand Liaison"}</title>
+                <meta name="description" content={homeData?.seo_description || "Best Consultant for Product Certifications and Approvals"} />
+                <meta name="keywords" content={homeData?.seo_keywords || "BIS Certificate Consultants, WPC Consultants, BIS certification"} />
                 {/* Other meta tags */}
+                <meta name="robots" content="index, follow" />
+                <meta name="author" content="Rajesh Kumar" />
+                <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
+                <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+                <meta name="Classification" content="Business" />
+                <meta name="coverage" content="Worldwide" />
+                <meta name="distribution" content="Global" />
+                <meta name="rating" content="General" />
+                <meta property="og:locale" content="en_US" />
+                <meta property="og:type" content="website" />
+                <meta property="og:description" content={homeData?.seo_description || "Best Consultant for Product Certifications and Approvals"} />
+                <meta property="og:url" content="https://www.bl-india.com" />
+                <meta property="og:site_name" content="Brand Liaison India®" />
+                <meta property="og:image" content="https://www.bl-india.com/images/logo.png" />
+                <meta name="format-detection" content="telephone=no" />
+                <link rel="canonical" href="https://www.bl-india.com/" />
             </Helmet>
-            <HomeBanner />
-            <HomeServices />
-            <HomeAbout />
-            <HomeBrochure />
-            <ScheduleCallDrawer />
-            <HomeProcess />
-            <HomeBlog />
-            <HomeTestimonials />
-            <HomeAssociates />
             {loading ? (
                 <Box
                     sx={{
@@ -63,7 +70,17 @@ const HomePage = () => {
                     <CircularProgress />
                 </Box>
             ) : (
-                console.log('loaded')
+                <>
+                    <HomeBanner />
+                    <HomeServices />
+                    <HomeAbout />
+                    <HomeBrochure />
+                    <ScheduleCallDrawer />
+                    <HomeProcess />
+                    <HomeBlog />
+                    <HomeTestimonials />
+                    <HomeAssociates />
+                </>
             )}
         </>
     );

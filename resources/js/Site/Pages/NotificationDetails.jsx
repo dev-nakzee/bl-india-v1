@@ -6,6 +6,7 @@ import apiClient from '../Services/api'; // Ensure this is your configured axios
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DownloadIcon from '@mui/icons-material/Download';
 import { Share } from '@mui/icons-material';
+import SharePage from '../Components/SharePage';
 
 const NotificationDetails = () => {
   const { categorySlug, slug } = useParams();
@@ -67,11 +68,7 @@ const NotificationDetails = () => {
               <DownloadIcon />
             </IconButton>
           </MuiLink>
-          <MuiLink href={notification.file_url} target="_blank" download>
-            <IconButton color='secondary'>
-              <Share />
-            </IconButton>
-          </MuiLink>
+          <SharePage color='secondary'/>
         </Box>
         <Box sx={{ marginY: 2 }}>
           <Typography variant="h6">Applicable Products</Typography>

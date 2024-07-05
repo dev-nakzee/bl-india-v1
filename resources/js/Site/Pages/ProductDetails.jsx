@@ -15,6 +15,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import parse from 'html-react-parser';
+import SharePage from '../Components/SharePage';
 
 const ProductDetails = () => {
   const { slug } = useParams();
@@ -86,6 +87,7 @@ const ProductDetails = () => {
             <Typography variant="h4" gutterBottom>
               <span className='font-bold'>Product Category:</span> &nbsp;&nbsp;&nbsp; {productData.product_category.name}
             </Typography>
+            <SharePage color='secondary'/>
           </CardContent>
         </Card>
         <Box>
