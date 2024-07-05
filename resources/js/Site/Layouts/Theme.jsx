@@ -118,7 +118,7 @@ const theme = createTheme({
     color: "#0D629A",
     h1: {
       fontSize: "5.6rem",
-      fontWeight: 600,
+      // fontWeight: 600,
       color: "#0D629A",
       fontFamily: "poppins",
       textTransform: "capitalize",
