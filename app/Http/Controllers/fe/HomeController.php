@@ -42,6 +42,7 @@ class HomeController extends Controller
         if ($banner->isNotEmpty()) {
             $banner[0]->title = $this->translator->translate($banner[0]->title);
             $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
+            $banner[0]->content = $this->translator->translate($banner[0]->content);
         }
         return response()->json($banner);
     }
@@ -54,6 +55,8 @@ class HomeController extends Controller
         $section = PageSection::where('page_id', 1)->where('slug', 'home-services')->get();
         $services = Service::with('serviceCategory')->orderBy('id')->limit(4)->get();
         foreach ($services as $service) {
+            // $service->name = $this->translator->translate($service->name);
+            $service->tagline = $this->translator->translate($service->tagline);
             $service->description = $this->translator->translate($service->description);
         }
         return response()->json(['section' => $section, 'services' => $services]);
@@ -81,6 +84,10 @@ class HomeController extends Controller
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-process')->get();
         $processes = Process::orderBy('id')->get();
+        foreach ($processes as $process) {
+            $process->title = $this->translator->translate($process->title);
+            $process->content = $this->translator->translate($process->content);
+        }
         return response()->json(['section' => $section, 'processes' => $processes]);
     }
 
@@ -89,7 +96,8 @@ class HomeController extends Controller
         $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->get();
         $blogs = Blog::orderBy('id', 'desc')->with('blogCategory')->limit(3)->get();
         foreach ($blogs as $blog) {
-            $blog->content = mb_strimwidth($this->getFirstParagraphContent($blog->content), 0, 250, '...');
+            $blog->title = $this->translator->translate($blog->title);
+            $blog->content = $this->translator->translate(mb_strimwidth($this->getFirstParagraphContent($blog->content), 0, 250, '...'));
         }
         return response()->json(['section' => $section, 'blogs' => $blogs]);
     }
