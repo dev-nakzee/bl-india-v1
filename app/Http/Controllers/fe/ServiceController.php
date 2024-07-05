@@ -116,7 +116,7 @@ class ServiceController extends Controller
         $product->name = $this->translateText($product->name);
         $product->description = $this->translateHtmlContent($product->description);
         foreach ($product->services as $service) {
-            $service->details = $this->translateText($service->service->description);
+            $service->details = $this->translateHtmlContent($service->details);
         }
 
         return response()->json(['product' => $product, 'notification' => $notification, 'test' => $product->name]);
