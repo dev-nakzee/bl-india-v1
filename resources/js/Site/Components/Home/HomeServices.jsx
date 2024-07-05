@@ -119,6 +119,12 @@ const HomeServices = () => {
                                     >
                                         {service.name}
                                     </Typography>
+                                    <Typography
+                                        variant="subtitle"
+                                        component="body"
+                                    >
+                                        {service.tagline}
+                                    </Typography>
                                 </Box>
                                 <Typography
                                     variant="body2"

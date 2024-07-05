@@ -421,6 +421,9 @@ const Services = () => {
                           <Typography gutterBottom variant="heading" component="div">
                             {service.name}
                           </Typography>
+                          <Typography gutterBottom variant="heading" component="div">
+                            {service.tagline}
+                          </Typography>
                         </Box>
                         <ServiceCardContent>
                           <Typography variant="body2" color="text.secondary">
