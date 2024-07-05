@@ -22,6 +22,7 @@ import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api';
 import parse from 'html-react-parser';
 import MandatoryProducts from '../Components/MandatoryProducts';
+import BackButton from '../Components/BackButton';
 
 const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
@@ -152,6 +153,7 @@ const ServiceDetails = () => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
+        <BackButton/>
           {isMobile ? (
             <>
               <FormControl fullWidth>
@@ -170,6 +172,7 @@ const ServiceDetails = () => {
                   ))}
                 </Select>
               </FormControl>
+            
               <ServicesList>
                 <Grid container spacing={4} alignItems="center">
                   <Grid item xs={12}>
@@ -208,6 +211,8 @@ const ServiceDetails = () => {
                   ))}
                 </List>
               </Sidebar>
+         
+
               <ServicesList>
                 <Grid container spacing={4} alignItems="center">
                   <Grid item xs={12}>
