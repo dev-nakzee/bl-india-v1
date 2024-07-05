@@ -380,7 +380,6 @@ const Services = () => {
           </Select>
         </FormControl>
         </Grid>
-        <BackButton/>
       <ServiceSection className='Service-section'>
         <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
        
@@ -468,6 +467,9 @@ const Services = () => {
                     </Grid>
                   ))}
                 </Grid>
+                <Box sx={{marginBlock:2}}>
+                <BackButton/></Box>
+
               </Grid>
             </Grid>
           </ServicesList>
