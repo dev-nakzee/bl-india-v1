@@ -365,6 +365,7 @@ li a {
 .ProductDetail-tab button {
     background-color: var(--secondary-color);
     border-right: 3px solid var(--primary-color);
+    text-transform: capitalize;
 }
 
 /******** Product List ***********/
@@ -699,7 +700,10 @@ th {
 .banner-content-text {
     color: #0d629a;
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
-    line-height: normal;
+    line-height: 1;
+}
+.ql-size-huge{
+    margin-bottom: 0.5rem;
 }
 
 .banner-content-text p span.ql-size-huge {
