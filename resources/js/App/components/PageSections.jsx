@@ -29,13 +29,13 @@ import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
 
-// Register Quill modules for table functionality
-import QuillBetterTable from 'quill-better-table';
-import 'quill-better-table/dist/quill-better-table.css';
+// Import Quill Table
+import TableUI from 'quill-table-ui';
 
+// Register the table module
 Quill.register({
-  'modules/better-table': QuillBetterTable
-}, true);
+  'modules/tableUI': TableUI
+});
 
 const PageSections = () => {
   const [pageSections, setPageSections] = useState([]);
@@ -184,19 +184,7 @@ const PageSections = () => {
       ['clean'],
       ['table']
     ],
-    table: true,
-    'better-table': {
-      operationMenu: {
-        items: {
-          unmergeCells: {
-            text: 'Unmerge Cells',
-          },
-        },
-      },
-    },
-    clipboard: {
-      matchVisual: false,
-    },
+    tableUI: true
   };
 
   const formats = [
