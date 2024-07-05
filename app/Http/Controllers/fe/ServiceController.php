@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\fe;
 
 use App\Http\Controllers\Controller;
@@ -12,6 +13,7 @@ use App\Models\Product;
 use App\Models\NoticeProductMap;
 use Illuminate\Http\JsonResponse;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+use DOMDocument;
 
 class ServiceController extends Controller
 {
@@ -39,8 +41,8 @@ class ServiceController extends Controller
 
         $services = $query->get();
         foreach ($services as $service) {
-            $service->tagline = $this->translator->translate($service->tagline);
-            $service->description = $this->translator->translate($service->description);
+            $service->tagline = $this->translateText($service->tagline);
+            $service->description = $this->translateText($service->description);
         }
 
         // Get the service categories
@@ -75,7 +77,7 @@ class ServiceController extends Controller
 
         $sections = $sectionsQuery->get();
         foreach ($sections as $section) {
-            $section->name = $this->translator->translate($section->name);
+            $section->name = $this->translateText($section->name);
             $section->content = $this->translateHtmlContent($section->content);
         }
 
@@ -114,14 +116,27 @@ class ServiceController extends Controller
         return response()->json(['product' => $product, 'notification' => $notification]);
     }
 
-    protected function translateHtmlContent(string $html): string
+    private function translateText($text)
     {
-        $doc = new \DOMDocument();
-        @$doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $xpath = new \DOMXPath($doc);
+        return $text ? $this->translator->translate($text) : '';
+    }
 
-        foreach ($xpath->query('//text()') as $textNode) {
-            $textNode->nodeValue = $this->translator->translate($textNode->nodeValue);
+    private function translateHtmlContent($html)
+    {
+        if (is_null($html)) {
+            return '';
+        }
+
+        $doc = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+
+        $xpath = new \DOMXPath($doc);
+        $textNodes = $xpath->query('//text()');
+
+        foreach ($textNodes as $textNode) {
+            $textNode->nodeValue = $this->translateText($textNode->nodeValue);
         }
 
         return $doc->saveHTML();
