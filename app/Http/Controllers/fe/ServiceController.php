@@ -12,9 +12,17 @@ use App\Models\ProductServiceMap;
 use App\Models\Product;
 use App\Models\NoticeProductMap;
 use Illuminate\Http\JsonResponse;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class ServiceController extends Controller
 {
+    protected $translator;
+
+    public function __construct(Request $request)
+    {
+        $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
+        $this->translator = new GoogleTranslate($locale);
+    }
     public function services(Request $request): JsonResponse
     {
         $page = Page::where('slug', 'services')->first();
@@ -30,6 +38,9 @@ class ServiceController extends Controller
         }
 
         $services = $query->get();
+        foreach ($services as $service) {
+            $service->description = $this->translator->translate($service->description);
+        }
 
         // Get the service categories
         $serviceCategoryQuery = ServiceCategory::orderBy('id', 'asc');
@@ -37,6 +48,13 @@ class ServiceController extends Controller
             $serviceCategoryQuery->where('is_global', true);
         }
         $serviceCategories = $serviceCategoryQuery->get();
+
+        foreach($serviceCategories as $serviceCategory) {
+            // $serviceCategory->services = $serviceCategory->services()->orderBy('id', 'asc')->get();
+            foreach ($serviceCategory->services as $service) {
+                $service->description = $this->translator->translate($service->description);
+            }
+        }
 
         return response()->json([
             'page' => $page,
