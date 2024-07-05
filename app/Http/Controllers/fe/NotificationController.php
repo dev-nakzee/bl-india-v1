@@ -27,7 +27,7 @@ class NotificationController extends Controller
         $notifications = Notification::orderBy('date', 'desc')->with('category', 'products')->get();
         foreach ($notifications as $notification)
         {
-            $notification->name = $this->translateText($notification->name);
+            $notification->name  = $this->translateText($notification->name);
             // $notification->content = $this->translator->translate($notification->content);
         }
         $categories = NotificationCategory::orderBy('id', 'asc')->get();
@@ -40,6 +40,8 @@ class NotificationController extends Controller
     public function notificationDetails($categorySlug, $slug): JsonResponse
     {
         $notification = Notification::where('slug', $slug)->with('products')->first();
+        $notification->name  = $this->translateText($notification->name);
+        $notification->content = $this->translateHtmlContent($notification->content);
         return response()->json($notification);
     }
 
