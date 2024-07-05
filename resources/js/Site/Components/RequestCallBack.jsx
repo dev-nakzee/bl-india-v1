@@ -131,7 +131,7 @@ const RequestCallBack = () => {
         <Typography variant="body1" mb={1}>
           Fill out the form for the call back and learn more about our services.
         </Typography>
-        <Button variant="contained" color="primary" onClick={toggleDrawer(true)}>
+        <Button variant="contained" color="primary" sx={{textTransform:'inherit'}}  onClick={toggleDrawer(true)}>
           Request Callback
         </Button>
       </Box>
