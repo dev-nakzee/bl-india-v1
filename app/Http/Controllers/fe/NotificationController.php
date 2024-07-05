@@ -27,7 +27,7 @@ class NotificationController extends Controller
         $notifications = Notification::orderBy('date', 'desc')->with('category', 'products')->get();
         foreach ($notifications as $notification)
         {
-            $notification->title = $this->translateText($notification->title);
+            $notification->name = $this->translateText($notification->name);
             // $notification->content = $this->translator->translate($notification->content);
         }
         $categories = NotificationCategory::orderBy('id', 'asc')->get();
