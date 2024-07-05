@@ -115,6 +115,10 @@ class ServiceController extends Controller
         $notification = NoticeProductMap::where('product_id', $product->id)->with('notification', 'notification.category')->get();
         $product->name = $this->translateText($product->name);
         $product->description = $this->translateHtmlContent($product->description);
+        foreach ($product->services as $service) {
+            $service->service->details = $this->translateText($service->service->description);
+        }
+
         return response()->json(['product' => $product, 'notification' => $notification, 'test' => $product->name]);
     }
 
