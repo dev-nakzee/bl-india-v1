@@ -8,7 +8,7 @@ import {
   CardMedia,
   Tabs,
   Tab,
-  Link as MuiLink,
+  Button,
 } from '@mui/material';
 import { TabContext, TabPanel } from '@mui/lab';
 import { useParams, Link } from 'react-router-dom';
@@ -129,9 +129,24 @@ const ProductDetails = () => {
                       </>
                     ) : null}
                     {service.details ? parse(service.details) : 'No details available.'}
-                    <MuiLink variant='button' href={`/services/${service.service.slug}`} target="_blank">
-                      Learn More
-                    </MuiLink>
+                    <Box sx={{ display: 'flex', gap: 2, marginTop: 2, justifyContent: 'center' }}>
+                      <Button
+                        component={Link}
+                        to={`/services/${service.service.service_category.slug}/${service.service.slug}`}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Learn More
+                      </Button>
+                      <Button
+                        component={Link}
+                        to={`/notifications/${service.service.slug}`}
+                        variant="contained"
+                        color="secondary"
+                      >
+                        Latest Notifications
+                      </Button>
+                    </Box>
                   </TabPanel>
                 ))}
               </TabContext>
@@ -140,7 +155,7 @@ const ProductDetails = () => {
             <Typography>No services available for this product.</Typography>
           )}
         </Box>
-        {notificationData && notificationData.length > 0 && (
+        {/* {notificationData && notificationData.length > 0 && (
           <Box sx={{ marginTop: 4 }}>
             <Typography variant="h4" gutterBottom>
               Related Notifications
@@ -148,17 +163,18 @@ const ProductDetails = () => {
             {notificationData.map((notif) => (
               <Box key={notif.id} sx={{ marginBottom: 2 }}>
                 <Typography variant="h6">
-                  <MuiLink 
+                  <Button 
                     component={Link}
                     to={`/notifications/${notif.notification.category.slug}/${notif.notification.slug}`}
+                    variant="contained"
                   >
                     {notif.notification.name}
-                  </MuiLink>
+                  </Button>
                 </Typography>
               </Box>
             ))}
           </Box>
-        )}
+        )} */}
       </Box>
     </>
   );
