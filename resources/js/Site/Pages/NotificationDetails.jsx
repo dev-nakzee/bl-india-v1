@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DownloadIcon from '@mui/icons-material/Download';
-import { Share } from '@mui/icons-material';
 import SharePage from '../Components/SharePage';
 
 const NotificationDetails = () => {
@@ -48,9 +47,14 @@ const NotificationDetails = () => {
         <meta name="keywords" content={notification.seo_keywords} />
       </Helmet>
       <Box className="notification-details" sx={{ padding: 4 }}>
-      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
+        <Typography className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
           {notification.name}
         </Typography>
+        {notification.technical_name && (
+          <Typography variant="h4" textAlign="center" gutterBottom>
+            {notification.technical_name}
+          </Typography>
+        )}
         <Typography variant="body2" color="textSecondary">
           {notification.date}
         </Typography>

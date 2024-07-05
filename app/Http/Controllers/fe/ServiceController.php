@@ -91,7 +91,7 @@ class ServiceController extends Controller
 
     public function productDetails(Request $request, string $slug): JsonResponse
     {
-        $product = Product::where('slug', $slug)->with(['productCategory','services', 'services', 'services.service'])->first();
+        $product = Product::where('slug', $slug)->with(['productCategory','services', 'services', 'services.service', 'services.service.serviceCategory'])->first();
         $notification = NoticeProductMap::where('product_id', $product->id)->with('notification', 'notification.category')->get();
         return response()->json(['product' => $product, 'notification' => $notification]);
     }

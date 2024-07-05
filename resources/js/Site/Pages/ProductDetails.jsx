@@ -129,6 +129,9 @@ const ProductDetails = () => {
                       </>
                     ) : null}
                     {service.details ? parse(service.details) : 'No details available.'}
+                    <MuiLink variant='button' href={`/services/${service.service.slug}`} target="_blank">
+                      Learn More
+                    </MuiLink>
                   </TabPanel>
                 ))}
               </TabContext>
