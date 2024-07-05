@@ -6,10 +6,12 @@ import { Container, Fab } from "@mui/material";
 import { SidebarProvider } from "../Components/Sidebar/SidebarContext";
 import Sidebar from "../Components/Sidebar/Sidebar";
 import ScrollToTopButton from "../Pages/ScrollToTop";
+import BackButton from "../Components/BackButton";
 
 function Layout({ children }) {
     return (
         <>
+        <BackButton/>
             <Topbar />
             <NavigationBar />
             <SidebarProvider>

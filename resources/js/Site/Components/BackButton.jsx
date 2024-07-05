@@ -1,19 +1,18 @@
+// BackButton.js
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import { ArrowBack } from '@mui/icons-material';
 
 const BackButton = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1); // Navigate back in the history stack
   };
 
-  return (
-    <IconButton onClick={goBack} color="primary">
-      <ArrowBackIcon />
-    </IconButton>
+  return (   
+    <ArrowBack color='primary' onClick={goBack} />
   );
 };
 
