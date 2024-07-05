@@ -30,6 +30,7 @@ class NotificationController extends Controller
         $request->validate([
             'notification_category_id' => 'required|exists:notification_categories,id',
             'name' => 'required|string|max:255',
+            'technical_name' => 'nullable|string|max:255',
             'slug' => 'required|string|unique:notifications,slug',
             'seo_title' => 'nullable|string',
             'seo_description' => 'nullable|string',
@@ -57,6 +58,7 @@ class NotificationController extends Controller
         $request->validate([
             'notification_category_id' => 'required|exists:notification_categories,id',
             'name' => 'required|string|max:255',
+            'technical_name' => 'nullable|string|max:255',
             'slug' => 'required|string|unique:notifications,slug,' . $id,
             'seo_title' => 'nullable|string',
             'seo_description' => 'nullable|string',

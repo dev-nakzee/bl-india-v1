@@ -13,6 +13,7 @@ class Notification extends Model
     protected $fillable = [
         'notification_category_id',
         'name',
+        'technical_name',
         'slug',
         'seo_title',
         'seo_description',

@@ -41,6 +41,7 @@ const Notifications = () => {
   const [notification, setNotification] = useState({
     notification_category_id: '',
     name: '',
+    technical_name: '',
     slug: '',
     seo_title: '',
     seo_description: '',
@@ -106,6 +107,7 @@ const Notifications = () => {
     setNotification({
       notification_category_id: '',
       name: '',
+      technical_name: '',
       slug: '',
       seo_title: '',
       seo_description: '',
@@ -371,6 +373,14 @@ const Notifications = () => {
               fullWidth
               margin="normal"
               required
+            />
+            <TextField
+              label="Technical Name"
+              name="technical_name"
+              value={notification.technical_name || ''}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
             />
             <TextField
               label="Slug"
