@@ -42,6 +42,7 @@ class NotificationController extends Controller
         $notification = Notification::where('slug', $slug)->with('products')->first();
         $notification->name  = $this->translateText($notification->name);
         $notification->content = $this->translateHtmlContent($notification->content);
+        $notification->technical_name = $this->translateText($notification->technical_name);
         return response()->json($notification);
     }
 
