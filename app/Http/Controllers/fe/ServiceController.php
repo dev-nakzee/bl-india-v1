@@ -92,13 +92,13 @@ class ServiceController extends Controller
             ->map(function ($productServiceMap) {
                 return [
                     'category_id' => $productServiceMap->product->productCategory->id,
-                    'product_name' => $productServiceMap->product->name,
+                    'product_name' => $this->translateText($productServiceMap->product->name),
                     'product_slug' => $productServiceMap->product->slug,
                     'product_is_standard' => $productServiceMap->is,
                     'product_group' => $productServiceMap->group,
                     'product_scheme' => $productServiceMap->scheme,
                     'product_others' => $productServiceMap->others,
-                    'product_category_name' => $productServiceMap->product->productCategory->name,
+                    'product_category_name' => $this->translateText($productServiceMap->product->productCategory->name),
                     'service_compliance' => $productServiceMap->service->compliance_header,
                 ];
             })
