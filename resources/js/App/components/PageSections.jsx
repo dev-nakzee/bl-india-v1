@@ -24,9 +24,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.bubble.css';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
+
+// Register Quill modules for table functionality
+import QuillBetterTable from 'quill-better-table';
+import 'quill-better-table/dist/quill-better-table.css';
+
+Quill.register({
+  'modules/better-table': QuillBetterTable
+}, true);
 
 const PageSections = () => {
   const [pageSections, setPageSections] = useState([]);
@@ -163,22 +172,38 @@ const PageSections = () => {
 
   const modules = {
     toolbar: [
-      [{ header: '1'}, { header: '2'}],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
       [{ size: [] }],
+      [{ color: [] }, { background: [] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered'}, { list: 'bullet' }, { indent: '-1'}, { indent: '+1' }],
-      [{ 'align': [] }],
+      [{ script: 'sub' }, { script: 'super' }],
+      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+      [{ align: [] }],
       ['link', 'image', 'video'],
-      ['clean']
-    ]
+      ['clean'],
+      ['table']
+    ],
+    table: true,
+    'better-table': {
+      operationMenu: {
+        items: {
+          unmergeCells: {
+            text: 'Unmerge Cells',
+          },
+        },
+      },
+    },
+    clipboard: {
+      matchVisual: false,
+    },
   };
 
   const formats = [
-    'header', 'size',
+    'header', 'font', 'size', 'color', 'background',
     'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'align',
-    'link', 'image', 'video'
+    'script', 'list', 'bullet', 'indent', 'align',
+    'link', 'image', 'video', 'table'
   ];
 
   return (
