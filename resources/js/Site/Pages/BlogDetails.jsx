@@ -384,6 +384,7 @@ import { Helmet } from "react-helmet";
 import { styled } from "@mui/system";
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
 import { CalendarMonthOutlined, CommentOutlined, ShareOutlined } from "@mui/icons-material";
+import SharePage from "../Components/SharePage";
 
 const BlogDetails = () => {
     const { categorySlug, blogSlug } = useParams();
@@ -602,12 +603,7 @@ const BlogDetails = () => {
                                              gap: "0.5rem",
                                          }}
                                      >
-                                         <ShareOutlined color="secondary" />
-                                         <span>
-                                             {`Posted on ${new Date(
-                                                 blog.created_at
-                                             ).toLocaleDateString()}`}
-                                         </span>
+                                        <SharePage color='secondary' />
                                      </Box>
                                  </Box>
                                  <Typography variant="body1" gutterBottom>
@@ -773,12 +769,8 @@ const BlogDetails = () => {
                                         gap: "0.5rem",
                                     }}
                                 >
-                                    <ShareOutlined color="secondary" />
-                                    <span>
-                                        {`Posted on ${new Date(
-                                            blog.created_at
-                                        ).toLocaleDateString()}`}
-                                    </span>
+                                    <SharePage color="secondary" />
+                                   
                                 </Box>
                             </Box>
                             <Typography variant="body1" gutterBottom>

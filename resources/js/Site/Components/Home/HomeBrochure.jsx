@@ -21,10 +21,10 @@ const BrochureSection = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginX: theme.spacing(6), // Use theme spacing or specific value for horizontal margins
+  marginX: theme.spacing(6),
   [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column', // Change flex direction to column on small screens
-    padding: theme.spacing(2), // Adjust padding for small screens
+    flexDirection: 'column',
+    padding: theme.spacing(2),
   },
 }));
 
@@ -35,7 +35,7 @@ const BrochureContent = styled(Box)(({ theme }) => ({
 
 const BrochureImage = styled('img')(({ theme }) => ({
   width: '100%',
-  maxWidth: '100%', // Ensure the image scales to fit its container
+  maxWidth: '100%',
 }));
 
 const HomeBrochure = () => {
@@ -47,7 +47,7 @@ const HomeBrochure = () => {
     company: "",
     email: "",
     phone: "",
-    countryCode: "",
+    countryCode: "+91", // Default country code
     service: "",
     source: "",
     message: "",
@@ -218,7 +218,11 @@ const HomeBrochure = () => {
                             value={formData.countryCode}
                             onChange={handleInputChange}
                             sx={{ width: "100px" }}
+                            displayEmpty
                           >
+                            <MenuItem value="" disabled>
+                              Country Code
+                            </MenuItem>
                             {countryCodes.map((code) => (
                               <MenuItem key={code.code} value={code.code}>
                                 {code.code} ({code.country})
@@ -249,7 +253,7 @@ const HomeBrochure = () => {
                   </TextField>
                   <TextField
                     select
-                    label="Source"
+                    label="Referral Source"
                     name="source"
                     value={formData.source}
                     onChange={handleInputChange}

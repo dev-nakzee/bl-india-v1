@@ -19,6 +19,9 @@
         "@mui/material": "^5.15.21",
         "@mui/x-data-grid": "^7.7.0",
         "html-react-parser": "^5.1.10",
+        "quill-better-table": "^1.2.10",
+        "quill-table": "^1.0.0",
+        "quill-table-ui": "^1.0.7",
         "react": "^18.3.1",
         "react-calendar": "^5.0.0",
         "react-dom": "^18.3.1",
@@ -27,6 +30,7 @@
         "react-quill": "^2.0.0",
         "react-responsive": "^10.0.0",
         "react-router-dom": "^6.24.1",
+        "react-share": "^5.1.0",
         "react-slick": "^0.30.2",
         "react-toastify": "^10.0.5",
         "slick-carousel": "^1.8.1"

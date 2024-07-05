@@ -201,6 +201,15 @@ const ScheduleCallDrawer = () => {
                             required
                             sx={{ mb: 2 }}
                         />
+                        <TextField
+                            label="Email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            fullWidth
+                            required
+                            sx={{ mb: 2 }}
+                        />
                         <Grid container spacing={2} alignItems="center">
                             <Grid item xs={4}>
                                 <TextField

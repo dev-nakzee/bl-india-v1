@@ -696,6 +696,7 @@ th {
 .banner-content-text {
     color: #0d629a;
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
+    line-height: normal;
 }
 
 .banner-content-text p span.ql-size-huge {

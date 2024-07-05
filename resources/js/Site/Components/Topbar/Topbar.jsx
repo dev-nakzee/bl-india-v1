@@ -23,6 +23,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import LanguageIcon from "@mui/icons-material/Language";
 import apiClient from "../../Services/api";
+import SharePage from "../SharePage";
 
 const socialIcons = {
   Facebook: <FacebookIcon />,
@@ -154,53 +155,9 @@ function Topbar() {
                   {socialIcons[social.icon]}
                 </IconButton>
               ))}
+              <SharePage />
             </Box>
-            {/* <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              onClick={toggleDrawer(true)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Drawer
-              anchor="left"
-              open={drawerOpen}
-              onClose={toggleDrawer(false)}
-            >
-              <Box
-                sx={{ width: 250 }}
-                role="presentation"
-                onClick={toggleDrawer(false)}
-                onKeyDown={toggleDrawer(false)}
-              >
-                <List>
-                  {topMenu && topMenu.map((menuItem) => (
-                    <ListItem button component={Link} to={menuItem.url} key={menuItem.url}>
-                      <ListItemText primary={menuItem.title} />
-                    </ListItem>
-                  ))}
-                  <ListItem button onClick={handleLanguageClick}>
-                    <ListItemText primary={`Language: ${selectedLanguage.toUpperCase()}`} />
-                    <LanguageIcon />
-                  </ListItem>
-                </List>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={() => handleLanguageClose(null)}
-                >
-                  {languages.map((language) => (
-                    <MenuItem
-                      key={language.locale}
-                      onClick={() => handleLanguageClose(language.locale)}
-                    >
-                      {language.name}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-            </Drawer> */}
+           
           </>
         ) : (
           <>
@@ -215,7 +172,9 @@ function Topbar() {
                 >
                   {socialIcons[social.icon]}
                 </IconButton>
+              
               ))}
+                <SharePage color="whitebg"/>
             </Box>
             <Box
               className="box-hidden"
