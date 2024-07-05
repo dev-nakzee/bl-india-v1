@@ -111,23 +111,8 @@ class ServiceController extends Controller
 
     public function productDetails(Request $request, string $slug): JsonResponse
     {
-        $product = Product::where('slug', $slug)->with(['productCategory', 'services', 'services.service', 'services.service.serviceCategory'])->first();
+        $product = Product::where('slug', $slug)->with(['productCategory','services', 'services', 'services.service', 'services.service.serviceCategory'])->first();
         $notification = NoticeProductMap::where('product_id', $product->id)->with('notification', 'notification.category')->get();
-
-        // Translate product fields
-        $product->name = $this->translateText($product->name);
-        // $product->technical_name = $this->translateText($product->technical_name);
-        $product->description = $this->translateHtmlContent($product->description);
-        $product->product_category->name = $this->translateText($product->product_category->name);
-
-        // Translate services fields
-        foreach ($product->services as $service) {
-            $service->details = $this->translateHtmlContent($service->details);
-            // $service->service->name = $this->translateText($service->service->name);
-            $service->service->description = $this->translateHtmlContent($service->service->description);
-            // $service->service->service_category->name = $this->translateText($service->service->service_category->name);
-        }
-
         return response()->json(['product' => $product, 'notification' => $notification]);
     }
 
