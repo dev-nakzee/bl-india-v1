@@ -83,7 +83,7 @@ const DownloadBrochure = () => {
                     Fill out the form to download our brochure and learn more
                     about our services.
                 </Typography>
-                <Button
+                <Button sx={{textTransform:'inherit'}}
                     variant="contained"
                     color="primary"
                     onClick={toggleDrawer(true)}
