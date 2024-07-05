@@ -107,6 +107,7 @@ li a {
     background-size: cover;
 } */
 
+
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
 }
@@ -482,10 +483,10 @@ th {
 
     .Banner-section {
         background-image: none !important;
-        height: 40vh !important;
+        height: 50vh !important;
         background-color: var(--secondary-color);
     }
-    .Banner-section h1 {
+    /* .Banner-section h1 {
         width: 100%;
     }
 
@@ -500,7 +501,7 @@ th {
 
     .Banner-section p {
         margin-top: 16px;
-    }
+    } */
     .box-about {
         display: none;
     }
@@ -690,4 +691,12 @@ th {
     color: #ff0000;
     border: 2px solid #ff0000;
     font-weight: 700;
+}
+
+
+
+.Banner-section-content-fix span.ql-size-huge {
+    font-size: "56px" !important;
+    font-family: "Raleway", "Roboto", "Poppins", sans-serif;
+    font-weight: 300;
 }
