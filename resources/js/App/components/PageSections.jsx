@@ -173,7 +173,7 @@ const PageSections = () => {
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ font: [] }],
+      // [{ font: [] }],
       [{ size: [] }],
       [{ color: [] }, { background: [] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
@@ -188,7 +188,7 @@ const PageSections = () => {
   };
 
   const formats = [
-    'header', 'font', 'size', 'color', 'background',
+    'header', 'size', 'color', 'background',
     'bold', 'italic', 'underline', 'strike', 'blockquote',
     'script', 'list', 'bullet', 'indent', 'align',
     'link', 'image', 'video', 'table'
