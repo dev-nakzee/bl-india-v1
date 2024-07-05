@@ -14,15 +14,14 @@ import {
   MenuItem,
   Select,
   FormControl,
-  InputLabel,
   useMediaQuery,
 } from '@mui/material';
 import { styled, useTheme } from '@mui/system';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+import apiClient from '../Services/api';
 import parse from 'html-react-parser';
-import MandatoryProducts from '../Components/MandatoryProducts'; // Import the MandatoryProducts component
+import MandatoryProducts from '../Components/MandatoryProducts';
 
 const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
@@ -30,16 +29,8 @@ const ServiceSection = styled(Box)(({ theme }) => ({
   backgroundColor: '#f5f5f5',
   boxShadow: theme.shadows[3],
   [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(2), // Adjust padding for small screens
+    padding: theme.spacing(2),
   },
-}));
-
-const ServiceCard = styled(Card)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  height: '100%',
-  boxShadow: theme.shadows[5],
 }));
 
 const ServiceImage = styled(CardMedia)(({ theme }) => ({
@@ -50,50 +41,45 @@ const ServiceImage = styled(CardMedia)(({ theme }) => ({
   borderRadius: '50%',
   border: '2px solid #0D629A',
   [theme.breakpoints.down('sm')]: {
-    maxWidth: '60px', // Adjust image size for small screens
-    marginRight: '10px', // Adjust margin for small screens
+    maxWidth: '60px',
+    marginRight: '10px',
   },
-}));
-
-const ServiceCardContent = styled(CardContent)(({ theme }) => ({
-  flexGrow: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
 }));
 
 const Sidebar = styled(Box)(({ theme }) => ({
   width: '25%',
   position: 'sticky',
-  top: theme.spacing(4), // Adjust the top spacing as per your design
+  top: theme.spacing(4),
   height: 'fit-content',
-  maxHeight: 'calc(100vh - 100px)', // Adjust based on your header height
+  maxHeight: 'calc(100vh - 100px)',
   overflowY: 'auto',
   paddingRight: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
-    width: '100%', // Make sidebar full width on small screens
-    position: 'static', // Remove sticky positioning on small screens
-    top: 'auto', // Reset top spacing on small screens
-    maxHeight: 'none', // Reset max height on small screens
-    overflowY: 'visible', // Reset overflow on small screens
-    paddingRight: 0, // Reset right padding on small screens
+    width: '100%',
+    position: 'static',
+    top: 'auto',
+    maxHeight: 'none',
+    overflowY: 'visible',
+    paddingRight: 0,
   },
 }));
 
 const ServicesList = styled(Box)(({ theme }) => ({
   width: '75%',
   [theme.breakpoints.down('sm')]: {
-    width: '100%', // Make services list full width on small screens
+    width: '100%',
   },
 }));
 
 const ServiceDetails = () => {
-  const { slug } = useParams();
+  const { categorySlug, slug } = useParams();
+  const location = useLocation();
   const [serviceData, setServiceData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSection, setSelectedSection] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchServiceData = async () => {
@@ -101,7 +87,8 @@ const ServiceDetails = () => {
         const response = await apiClient.get(`/services/${slug}`);
         setServiceData(response.data);
         if (response.data.sections.length > 0) {
-          setSelectedSection(response.data.sections[0]);
+          const initialSection = response.data.sections.find(sec => `#${sec.slug}` === location.hash) || response.data.sections[0];
+          setSelectedSection(initialSection);
         }
       } catch (error) {
         console.error('Error fetching service data:', error);
@@ -111,7 +98,21 @@ const ServiceDetails = () => {
     };
 
     fetchServiceData();
-  }, [slug]);
+  }, [slug, location.hash]);
+
+  const handleSectionClick = (section) => {
+    setSelectedSection(section);
+    navigate(`/services/${categorySlug}/${slug}#${section.slug}`, { replace: true });
+  };
+
+  useEffect(() => {
+    if (location.hash && serviceData) {
+      const section = serviceData.sections.find(sec => `#${sec.slug}` === location.hash);
+      if (section) {
+        setSelectedSection(section);
+      }
+    }
+  }, [location.hash, serviceData]);
 
   if (loading) {
     return (
@@ -122,12 +123,8 @@ const ServiceDetails = () => {
   }
 
   if (!serviceData) {
-    return null; // Or return a fallback UI if needed
+    return null;
   }
-
-  const handleSectionClick = (section) => {
-    setSelectedSection(section);
-  };
 
   return (
     <>
@@ -145,7 +142,7 @@ const ServiceDetails = () => {
               alt={serviceData.service.image_alt}
             />
             <Box flexDirection={'column'}>
-              <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth:'100%', backgroundColor: '#0D629A', color: '#fff', margin: 'auto', borderRadius: 20, padding:'5px 40px' }}>
+              <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: '100%', backgroundColor: '#0D629A', color: '#fff', margin: 'auto', borderRadius: 20, padding: '5px 40px' }}>
                 {serviceData.service.tagline}
               </Typography>
               <Typography variant="h4" sx={{ textAlign: 'center', mt: 2, textTransform: 'uppercase' }}>
@@ -157,86 +154,82 @@ const ServiceDetails = () => {
         <Grid item xs={12}>
           {isMobile ? (
             <>
-               <FormControl fullWidth>
-              {/* <InputLabel id="section-select-label">Select Section</InputLabel> */}
-              <Select
-                labelId="section-select-label"
-                value={selectedSection ? selectedSection.id : ''}
-                onChange={(e) => {
-                  const section = serviceData.sections.find(sec => sec.id === e.target.value);
-                  handleSectionClick(section);
-                }}
-              >
-                {serviceData.sections.map((section) => (
-                  <MenuItem key={section.id} value={section.id}>
-                    {section.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-                <ServicesList>
-            <Grid container spacing={4} alignItems="center">
-              <Grid item xs={12}>
-                {selectedSection && (
-                  <Box sx={{ mt: 1 }}>
-                    <Typography variant="h6" gutterBottom>
-                      {selectedSection.name}
-                    </Typography>
-                    {selectedSection.slug === 'mandatory-products' ? (
-                      <MandatoryProducts serviceId={serviceData.service.id} />
-                    ) : (
-                      <Typography variant="body1">
-                        {selectedSection.content ? parse(selectedSection.content) : 'No content available.'}
-                      </Typography>
+              <FormControl fullWidth>
+                <Select
+                  labelId="section-select-label"
+                  value={selectedSection ? selectedSection.id : ''}
+                  onChange={(e) => {
+                    const section = serviceData.sections.find(sec => sec.id === e.target.value);
+                    handleSectionClick(section);
+                  }}
+                >
+                  {serviceData.sections.map((section) => (
+                    <MenuItem key={section.id} value={section.id}>
+                      {section.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <ServicesList>
+                <Grid container spacing={4} alignItems="center">
+                  <Grid item xs={12}>
+                    {selectedSection && (
+                      <Box sx={{ mt: 1 }}>
+                        <Typography variant="h6" gutterBottom>
+                          {selectedSection.name}
+                        </Typography>
+                        {selectedSection.slug === 'mandatory-products' ? (
+                          <MandatoryProducts serviceId={serviceData.service.id} />
+                        ) : (
+                          <Typography variant="body1">
+                            {selectedSection.content ? parse(selectedSection.content) : 'No content available.'}
+                          </Typography>
+                        )}
+                      </Box>
                     )}
-                  </Box>
-                )}
-              </Grid>
-            </Grid>
-          </ServicesList>
+                  </Grid>
+                </Grid>
+              </ServicesList>
             </>
-         
-            
           ) : (
-            <Grid item xs={12}  display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
-            <Sidebar className='Service-section-siderbar'>
-              <Typography variant="h6" mb={2}>{serviceData.service.name}</Typography>
-              <List>
-                {serviceData.sections.map((section) => (
-                  <ListItem
-                    button
-                    key={section.id}
-                    selected={section.id === (selectedSection && selectedSection.id)}
-                    onClick={() => handleSectionClick(section)}
-                  >
-                    <ListItemText primary={section.name} />
-                  </ListItem>
-                ))}
-              </List>
-            </Sidebar>
-            <ServicesList>
-            <Grid container spacing={4} alignItems="center">
-              <Grid item xs={12}>
-                {selectedSection && (
-                  <Box sx={{ mt: 1 }}>
-                    <Typography variant="h6" gutterBottom>
-                      {selectedSection.name}
-                    </Typography>
-                    {selectedSection.slug === 'mandatory-products' ? (
-                      <MandatoryProducts serviceId={serviceData.service.id} />
-                    ) : (
-                      <Typography variant="body1">
-                        {selectedSection.content ? parse(selectedSection.content) : 'No content available.'}
-                      </Typography>
+            <Grid item xs={12} display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
+              <Sidebar className='Service-section-siderbar'>
+                <Typography variant="h6" mb={2}>{serviceData.service.name}</Typography>
+                <List>
+                  {serviceData.sections.map((section) => (
+                    <ListItem
+                      button
+                      key={section.id}
+                      selected={section.id === (selectedSection && selectedSection.id)}
+                      onClick={() => handleSectionClick(section)}
+                    >
+                      <ListItemText primary={section.name} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Sidebar>
+              <ServicesList>
+                <Grid container spacing={4} alignItems="center">
+                  <Grid item xs={12}>
+                    {selectedSection && (
+                      <Box sx={{ mt: 1 }}>
+                        <Typography variant="h6" gutterBottom>
+                          {selectedSection.name}
+                        </Typography>
+                        {selectedSection.slug === 'mandatory-products' ? (
+                          <MandatoryProducts serviceId={serviceData.service.id} />
+                        ) : (
+                          <Typography variant="body1">
+                            {selectedSection.content ? parse(selectedSection.content) : 'No content available.'}
+                          </Typography>
+                        )}
+                      </Box>
                     )}
-                  </Box>
-                )}
-              </Grid>
-            </Grid>
-          </ServicesList>
+                  </Grid>
+                </Grid>
+              </ServicesList>
             </Grid>
           )}
-      
         </Grid>
       </ServiceSection>
     </>
