@@ -693,10 +693,20 @@ th {
     font-weight: 700;
 }
 
-
-
-.Banner-section-content-fix span.ql-size-huge {
-    font-size: "56px" !important;
+.banner-content-text {
+    color: #0d629a;
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
-    font-weight: 300;
+}
+
+.banner-content-text p span.ql-size-huge {
+    font-size: 4rem;
+    font-weight: 500;
+}
+.banner-content-text p strong.ql-size-huge {
+    font-size: 4rem;
+    font-weight: 900;
+}
+.banner-content-text p {
+    font-size: 1.4rem;
+    font-weight: 500;
 }
