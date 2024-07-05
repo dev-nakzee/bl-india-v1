@@ -153,7 +153,7 @@ const ServiceDetails = () => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
-        <BackButton/>
+       
           {isMobile ? (
             <>
               <FormControl fullWidth>
@@ -232,6 +232,7 @@ const ServiceDetails = () => {
                     )}
                   </Grid>
                 </Grid>
+                <BackButton/>
               </ServicesList>
             </Grid>
           )}
