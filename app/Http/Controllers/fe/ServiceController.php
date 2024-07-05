@@ -51,8 +51,8 @@ class ServiceController extends Controller
 
         foreach($serviceCategories as $serviceCategory) {
             // $serviceCategory->services = $serviceCategory->services()->orderBy('id', 'asc')->get();
-            foreach ($serviceCategory->services as $service) {
-                $service->description = $this->translator->translate($service->name);
+            foreach ($serviceCategory as $category) {
+                $category->name = $this->translator->translate($category->name);
             }
         }
 
