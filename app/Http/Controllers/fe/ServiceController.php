@@ -39,6 +39,7 @@ class ServiceController extends Controller
 
         $services = $query->get();
         foreach ($services as $service) {
+            $service->tagline = $this->translator->translate($service->tagline);
             $service->description = $this->translator->translate($service->description);
         }
 
@@ -72,6 +73,10 @@ class ServiceController extends Controller
         }
 
         $sections = $sectionsQuery->get();
+        foreach ($sections as $section) {
+            $section->name = $this->translator->translate($section->name);
+            $section->content = $this->translator->translate($section->content);
+        }
 
         return response()->json(['service' => $service, 'sections' => $sections]);
     }
