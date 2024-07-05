@@ -13,6 +13,13 @@ use DOMDocument;
 
 class DownloadController extends Controller
 {
+    protected $translator;
+
+    public function __construct(Request $request)
+    {
+        $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
+        $this->translator = new GoogleTranslate($locale);
+    }
     //
     public function download(): JsonResponse
     {
