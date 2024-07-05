@@ -78,7 +78,7 @@ class ServiceController extends Controller
         $sections = $sectionsQuery->get();
         foreach ($sections as $section) {
             $section->name = $this->translateText($section->name);
-            // $section->content = $this->translateHtmlContent($section->content);
+            $section->content = $this->translateHtmlContent($section->content);
         }
 
         return response()->json(['service' => $service, 'sections' => $sections]);
