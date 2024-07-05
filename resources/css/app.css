@@ -483,7 +483,7 @@ th {
 
     .Banner-section {
         background-image: none !important;
-        height: 50vh !important;
+        height: 65vh !important;
         background-color: var(--secondary-color);
     }
     /* .Banner-section h1 {
