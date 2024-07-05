@@ -55,6 +55,8 @@ class HomeController extends Controller
         $section = PageSection::where('page_id', 1)->where('slug', 'home-services')->get();
         $services = Service::with('serviceCategory')->orderBy('id')->limit(4)->get();
         foreach ($services as $service) {
+            $service->name = $this->translator->translate($service->name);
+            $service->tagline = $this->translator->translate($service->tagline);
             $service->description = $this->translator->translate($service->description);
         }
         return response()->json(['section' => $section, 'services' => $services]);
