@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\fe;
 
 use App\Http\Controllers\Controller;
@@ -23,6 +22,7 @@ class ServiceController extends Controller
         $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
         $this->translator = new GoogleTranslate($locale);
     }
+
     public function services(Request $request): JsonResponse
     {
         $page = Page::where('slug', 'services')->first();
@@ -56,6 +56,7 @@ class ServiceController extends Controller
             'serviceCategories' => $serviceCategories,
         ]);
     }
+
     public function serviceDetails(Request $request, string $slug): JsonResponse
     {
         $service = Service::where('slug', $slug)->with('serviceCategory')->first();
@@ -75,11 +76,12 @@ class ServiceController extends Controller
         $sections = $sectionsQuery->get();
         foreach ($sections as $section) {
             $section->name = $this->translator->translate($section->name);
-            $section->content = $this->translator->translate($section->content);
+            $section->content = $this->translateHtmlContent($section->content);
         }
 
         return response()->json(['service' => $service, 'sections' => $sections]);
     }
+
     public function getMandatoryProducts(Request $request, $serviceId): JsonResponse
     {
         $products = ProductServiceMap::where('service_id', $serviceId)
@@ -112,4 +114,16 @@ class ServiceController extends Controller
         return response()->json(['product' => $product, 'notification' => $notification]);
     }
 
+    protected function translateHtmlContent(string $html): string
+    {
+        $doc = new \DOMDocument();
+        @$doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $xpath = new \DOMXPath($doc);
+
+        foreach ($xpath->query('//text()') as $textNode) {
+            $textNode->nodeValue = $this->translator->translate($textNode->nodeValue);
+        }
+
+        return $doc->saveHTML();
+    }
 }
