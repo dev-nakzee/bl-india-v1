@@ -254,13 +254,13 @@ const ServiceCard = styled(Card)(({ theme }) => ({
 }));
 
 const ServiceImage = styled(CardMedia)(({ theme }) => ({
-  maxWidth: '85px',
+  maxWidth: '70px',
   backgroundSize: 'contain',
   objectFit: 'contain',
-  marginRight: '20px',
+  marginRight: '5px',
   [theme.breakpoints.down('sm')]: {
-    maxWidth: '60px',
-    marginRight: '10px',
+    maxWidth: '50px',
+    marginRight: '5px',
   },
 }));
 
@@ -418,9 +418,38 @@ const Services = () => {
                             image={`https://in.bl-india.com/${service.thumbnail_url}`}
                             alt={service.image_alt}
                           />
-                          <Typography gutterBottom variant="heading" component="div">
-                            {service.name}
-                          </Typography>
+                            <Box 
+                                    
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "left",
+                                       flexDirection:'column'                                       
+                                    }}
+                                    >
+                                    <Typography
+                                        variant="h5"
+                                        component="h5"
+                                        sx={{
+                                            marginLeft: "5px",
+                                            marginBottom:"5px",
+                                            color: "#0D629A",
+                                            fontWeight: 600,
+                                        }}
+                                    >
+                                        {service.name}
+                                    </Typography>
+                                    <Typography
+                                        variant="bodytext"
+                                        component="p"
+                                        sx={{
+                                            marginLeft: "5px",
+                                            color: "#1C7CBC",
+                                            fontWeight: 500,
+                                        }}
+                                    >
+                                        
+                                        ({service.tagline})
+                                    </Typography></Box>
                         </Box>
                         <ServiceCardContent>
                           <Typography variant="body2" color="text.secondary">

@@ -94,6 +94,7 @@ const HomeServices = () => {
                                     sx={{
                                         display: "flex",
                                         alignItems: "center",
+                                        justifyContent: "flex-start",
                                         marginBottom: "10px",
                                     }}
                                 >
@@ -104,21 +105,43 @@ const HomeServices = () => {
                                         }
                                         alt={service.image_alt}
                                         style={{
-                                            width: "90px",
+                                            width: "70px",
                                             borderRadius: "10px",
+                                            marginRight: "5px",
                                         }}
                                     />
+                                    <Box 
+                                    
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "left",
+                                       flexDirection:'column'                                       
+                                    }}
+                                    >
                                     <Typography
-                                        variant="h6"
-                                        component="h6"
+                                        variant="h5"
+                                        component="h5"
                                         sx={{
-                                            marginLeft: "15px",
+                                            marginLeft: "5px",
+                                            marginBottom:"5px",
                                             color: "#0D629A",
-                                            fontWeight: 500,
+                                            fontWeight: 600,
                                         }}
                                     >
                                         {service.name}
                                     </Typography>
+                                    <Typography
+                                        variant="bodytext"
+                                        component="p"
+                                        sx={{
+                                            marginLeft: "5px",
+                                            color: "#1C7CBC",
+                                            fontWeight: 500,
+                                        }}
+                                    >
+                                        
+                                        ({service.tagline})
+                                    </Typography></Box>
                                 </Box>
                                 <Typography
                                     variant="body2"
