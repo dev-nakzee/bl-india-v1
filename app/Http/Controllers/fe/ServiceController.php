@@ -49,13 +49,6 @@ class ServiceController extends Controller
         }
         $serviceCategories = $serviceCategoryQuery->get();
 
-        foreach($serviceCategories as $serviceCategory) {
-            // $serviceCategory->services = $serviceCategory->services()->orderBy('id', 'asc')->get();
-            foreach ($serviceCategory as $category) {
-                $category->name = $this->translator->translate($category->name);
-            }
-        }
-
         return response()->json([
             'page' => $page,
             'services' => $services,
