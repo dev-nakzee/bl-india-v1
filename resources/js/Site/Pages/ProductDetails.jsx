@@ -77,7 +77,7 @@ const ProductDetails = () => {
           />
           <CardContent>
             <Typography variant="h4" gutterBottom>
-              <span className='font-bold'>Product Name:</span> &nbsp;&nbsp;&nbsp; {productData.name}
+              Product Name: &nbsp;&nbsp;&nbsp; <span className='font-bold'>{productData.name}</span>
             </Typography>
             {productData.technical_name && (
               <Typography variant="h4" gutterBottom>
