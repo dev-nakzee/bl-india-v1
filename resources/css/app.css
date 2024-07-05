@@ -126,6 +126,9 @@ li a {
 .blog-page .page-heading::after {
     left: 22%;
 }
+.cursor-pointer{
+    cursor:pointer;
+}
 .mandatory-product {
     cursor: pointer;
 }

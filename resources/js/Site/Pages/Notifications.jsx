@@ -274,6 +274,7 @@ import { Helmet } from "react-helmet";
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BackButton from "../Components/BackButton";
 
 const Notifications = () => {
     const { categorySlug } = useParams();
@@ -393,8 +394,10 @@ const Notifications = () => {
                     >
                         {pageData.name}
                     </Typography>
-                </Box>
+                   
 
+                </Box>
+               
                 <Grid container spacing={{xs:1,md:4}}>
                     <Grid item xs={12} md={3}>
                         {isMobile ? (
@@ -443,6 +446,7 @@ const Notifications = () => {
                                 </List>
                             </Sidebar>
                         )}
+
                     </Grid>
                     <Grid item xs={12} md={9}>
                         <TextField
@@ -460,7 +464,7 @@ const Notifications = () => {
                             }}
                             sx={{ marginBottom: 3 }}
                         />
-                        <TableContainer component={Paper}>
+                        <TableContainer component={Paper} className="cursor-pointer">
                             <Table>
                                 <TableHead>
                                     <TableRow>
@@ -490,10 +494,11 @@ const Notifications = () => {
                         <Box
                             sx={{
                                 display: "flex",
-                                justifyContent: "end",
+                                justifyContent: "space-between",
                                 mt: 4,
                             }}
                         >
+                             <BackButton />
                             <Pagination
                                 count={Math.ceil(
                                     filteredNotifications.length / notificationsPerPage

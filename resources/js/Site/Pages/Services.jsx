@@ -236,6 +236,7 @@ import DownloadBrochure from '../Components/DownloadBrochure';
 import RequestCallBack from '../Components/RequestCallBack';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import useMediaQuery from '@mui/material/useMediaQuery';
+import BackButton from '../Components/BackButton';
 
 const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
@@ -360,6 +361,7 @@ const Services = () => {
           </Typography>
         </Box>
       </Grid>
+     
        {/* Mobile view select dropdown */}
        <Grid item xs={12} paddingInline={2}>
        <FormControl sx={{ marginTop: '10px', display: { xs: 'block', sm: 'none' } }}>
@@ -380,6 +382,7 @@ const Services = () => {
         </Grid>
       <ServiceSection className='Service-section'>
         <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
+       
           <Sidebar className='Service-section-siderbar'>
             <Typography variant="h6" mb={2}>Service Categories</Typography>
             <List>
@@ -464,6 +467,9 @@ const Services = () => {
                     </Grid>
                   ))}
                 </Grid>
+                <Box sx={{marginBlock:2}}>
+                <BackButton/></Box>
+
               </Grid>
             </Grid>
           </ServicesList>

@@ -11,7 +11,6 @@ import BackButton from "../Components/BackButton";
 function Layout({ children }) {
     return (
         <>
-        <BackButton/>
             <Topbar />
             <NavigationBar />
             <SidebarProvider>
