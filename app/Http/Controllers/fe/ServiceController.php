@@ -113,6 +113,7 @@ class ServiceController extends Controller
     {
         $product = Product::where('slug', $slug)->with(['productCategory','services', 'services', 'services.service', 'services.service.serviceCategory'])->first();
         $notification = NoticeProductMap::where('product_id', $product->id)->with('notification', 'notification.category')->get();
+        $product->name = $this->translateText($product->name);
         return response()->json(['product' => $product, 'notification' => $notification, 'test' => $product->name]);
     }
 
