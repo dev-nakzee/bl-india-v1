@@ -7,7 +7,7 @@ import parse from 'html-react-parser';
 
 const Banner = styled(Box)(({ theme }) => ({
     position: 'relative',
-    height: '50vh', // Set height to full viewport height
+    height: '70vh', // Set height to full viewport height
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     display: 'flex',
