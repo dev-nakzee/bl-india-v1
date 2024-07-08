@@ -74,7 +74,7 @@ const DownloadBrochure = () => {
     return (
         <>
             <ToastContainer />
-            <Divider />
+            <Divider sx={{ mt: 6, mb: 4}}/>
             <Box sx={{ textAlign: "left", padding: 2 }}>
                 <Typography variant="h6" mb={1}>
                     Download Our Brochure

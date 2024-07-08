@@ -140,7 +140,7 @@ const HomeServices = () => {
                                         }}
                                     >
                                         
-                                        ({service.tagline})
+                                        {service.tagline}
                                     </Typography></Box>
                                 </Box>
                                 <Typography
@@ -174,7 +174,7 @@ const HomeServices = () => {
                     variant="contained"
                     color="primary"
                 >
-                    View All
+                    View All Services
                 </Button>
             </Box>
         </Box>

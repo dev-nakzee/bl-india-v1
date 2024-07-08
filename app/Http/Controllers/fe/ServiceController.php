@@ -41,14 +41,9 @@ class ServiceController extends Controller
         }
 
         $services = $query->get();
-        $translations = $this->bulkTranslate([
-            'taglines' => $services->pluck('tagline')->toArray(),
-            'descriptions' => $services->pluck('description')->toArray(),
-        ]);
-
-        foreach ($services as $index => $service) {
-            $service->tagline = $translations['taglines'][$index];
-            $service->description = $translations['descriptions'][$index];
+        foreach ($services as $service) {
+            $service->tagline = $this->translateText($service->tagline);
+            $service->description = $this->translateText($service->description);
         }
 
         // Get the service categories
@@ -82,14 +77,9 @@ class ServiceController extends Controller
         }
 
         $sections = $sectionsQuery->get();
-        $translations = $this->bulkTranslate([
-            'names' => $sections->pluck('name')->toArray(),
-            'contents' => $sections->pluck('content')->toArray(),
-        ]);
-
-        foreach ($sections as $index => $section) {
-            $section->name = $translations['names'][$index];
-            $section->content = $this->translateHtmlContent($translations['contents'][$index]);
+        foreach ($sections as $section) {
+            $section->name = $this->translateText($section->name);
+            $section->content = $this->translateHtmlContent($section->content);
         }
 
         return response()->json(['service' => $service, 'sections' => $sections]);
@@ -131,19 +121,6 @@ class ServiceController extends Controller
         }
 
         return response()->json(['product' => $product, 'notification' => $notification, 'test' => $product->name]);
-    }
-
-    private function bulkTranslate($texts)
-    {
-        $translations = [];
-
-        foreach ($texts as $key => $textArray) {
-            $translations[$key] = array_map(function ($text) {
-                return $this->translateText($text);
-            }, $textArray);
-        }
-
-        return $translations;
     }
 
     private function translateText($text)

@@ -92,7 +92,7 @@ const HomeAbout = () => {
                     </AboutContent>
                     <Box sx={{ textAlign: 'center', mb: 2 }}>
                         <Button component={Link} to="/about" variant="contained" color="primary">
-                            View All
+                            Read more about Brand Liaison
                         </Button>
                     </Box>
                 </Grid>
