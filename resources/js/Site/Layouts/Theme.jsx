@@ -122,6 +122,7 @@ const theme = createTheme({
       color: "#0D629A",
       fontFamily: "poppins",
       textTransform: "capitalize",
+      lineHeight: "1",
       "@media (min-width: 360px)": {
         fontSize: "2.9rem", // Font size for h1 on small devices (e.g., mobile)
       },
@@ -221,6 +222,21 @@ const theme = createTheme({
       },
 
     },
+    subtitle: {
+      fontSize: "1.8rem",
+      fontWeight: 400,
+      "@media (min-width: 360px)": {
+        fontSize: "1.2rem", // Font size for h1 on small devices (e.g., mobile)
+      },
+      "@media (min-width: 960px)": {
+        fontSize: "1.4rem", // Font size for h1 on medium devices (e.g., tablets)
+      },
+      "@media (min-width: 1280px)": {
+        fontSize: "1.6rem", // Font size for h1 on large devices (e.g., desktop)
+      },
+
+    },
+    
     subtitle1: {
       fontSize: "1.6rem",
       fontWeight: 600,

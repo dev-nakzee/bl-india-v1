@@ -76,16 +76,16 @@ const ProductDetails = () => {
             alt={productData.image_alt}
           />
           <CardContent>
-            <Typography variant="h4" gutterBottom>
-              Product Name: &nbsp;&nbsp;&nbsp; <span className='font-bold'>{productData.name}</span>
+            <Typography variant="subtitle" gutterBottom>
+              <span >Product Name:</span> &nbsp;&nbsp;&nbsp; <span className='font-bold'>{productData.name}</span>
             </Typography>
             {productData.technical_name && (
-              <Typography variant="h4" gutterBottom>
-                <span className='font-bold'>Technical Name:</span> &nbsp;&nbsp;&nbsp; {productData.technical_name}
+              <Typography variant="subtitle" gutterBottom>
+                <span>Technical Name:</span> &nbsp;&nbsp;&nbsp;  <span className='font-bold'>{productData.technical_name}</span>
               </Typography>
             )}
-            <Typography variant="h4" gutterBottom>
-              <span className='font-bold'>Product Category:</span> &nbsp;&nbsp;&nbsp; {productData.product_category.name}
+            <Typography variant="subtitle" gutterBottom>
+              <span >Product Category:</span> &nbsp;&nbsp;&nbsp; <span className='font-bold'>{productData.product_category.name}</span>
             </Typography>
             <SharePage color='secondary'/>
           </CardContent>
@@ -94,7 +94,7 @@ const ProductDetails = () => {
           <Typography variant="body1">
             {productData.description ? parse(productData.description) : 'No description available.'}
           </Typography>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h6" gutterBottom>
             Applicable Compliances
           </Typography>
           {productData.services.length > 0 ? (
@@ -111,7 +111,7 @@ const ProductDetails = () => {
                 </Tabs>
                 {productData.services.map((service, index) => (
                   <TabPanel key={service.id} value={`${index}`}>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="subtitle1" gutterBottom>
                       {service.service.name} for {productData.name}
                     </Typography>
                     {service.service.compliance_header === 'Indian Standard' ? (
