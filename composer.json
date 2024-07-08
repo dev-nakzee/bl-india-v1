@@ -11,6 +11,7 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "predis/predis": "^2.2",
         "stevebauman/location": "^7.3",
         "stichoza/google-translate-php": "^5.1"
     },
