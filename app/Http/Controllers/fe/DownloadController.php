@@ -10,6 +10,7 @@ use App\Models\Download;
 use Illuminate\Http\JsonResponse;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use DOMDocument;
+use Illuminate\Support\Facades\Cache;
 
 class DownloadController extends Controller
 {
@@ -20,7 +21,7 @@ class DownloadController extends Controller
         $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
         $this->translator = new GoogleTranslate($locale);
     }
-    //
+
     public function download(): JsonResponse
     {
         $page = Page::where('slug', 'downloads')->first();
@@ -28,8 +29,7 @@ class DownloadController extends Controller
         $downloads = Download::with('category', 'files')->get();
         foreach ($downloads as $download) {
             $download->name = $this->translateText($download->name);
-            foreach ($download->files as $file)
-            {
+            foreach ($download->files as $file) {
                 $file->name = $this->translateText($file->name);
             }
         }
@@ -42,7 +42,14 @@ class DownloadController extends Controller
 
     private function translateText($text)
     {
-        return $text ? $this->translator->translate($text) : '';
+        if (is_null($text)) {
+            return '';
+        }
+
+        $cacheKey = 'translated_text_' . md5($text);
+        return Cache::remember($cacheKey, 60*60*24, function () use ($text) {
+            return $this->translator->translate($text);
+        });
     }
 
     private function translateHtmlContent($html)
@@ -51,18 +58,21 @@ class DownloadController extends Controller
             return '';
         }
 
-        $doc = new DOMDocument();
-        libxml_use_internal_errors(true);
-        $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        libxml_clear_errors();
+        $cacheKey = 'translated_html_' . md5($html);
+        return Cache::remember($cacheKey, 60*60*24, function () use ($html) {
+            $doc = new DOMDocument();
+            libxml_use_internal_errors(true);
+            $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_clear_errors();
 
-        $xpath = new \DOMXPath($doc);
-        $textNodes = $xpath->query('//text()');
+            $xpath = new \DOMXPath($doc);
+            $textNodes = $xpath->query('//text()');
 
-        foreach ($textNodes as $textNode) {
-            $textNode->nodeValue = $this->translateText($textNode->nodeValue);
-        }
+            foreach ($textNodes as $textNode) {
+                $textNode->nodeValue = $this->translateText($textNode->nodeValue);
+            }
 
-        return $doc->saveHTML();
+            return $doc->saveHTML();
+        });
     }
 }
