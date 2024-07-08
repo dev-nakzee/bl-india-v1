@@ -14,6 +14,7 @@ use App\Models\NoticeProductMap;
 use Illuminate\Http\JsonResponse;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use DOMDocument;
+use Illuminate\Support\Facades\Cache;
 
 class ServiceController extends Controller
 {
@@ -92,13 +93,13 @@ class ServiceController extends Controller
             ->map(function ($productServiceMap) {
                 return [
                     'category_id' => $productServiceMap->product->productCategory->id,
-                    'product_name' => $this->translator->translate($productServiceMap->product->name),
+                    'product_name' => $this->translateText($productServiceMap->product->name),
                     'product_slug' => $productServiceMap->product->slug,
                     'product_is_standard' => $productServiceMap->is,
                     'product_group' => $productServiceMap->group,
                     'product_scheme' => $productServiceMap->scheme,
                     'product_others' => $productServiceMap->others,
-                    'product_category_name' => $this->translator->translate($productServiceMap->product->productCategory->name),
+                    'product_category_name' => $this->translateText($productServiceMap->product->productCategory->name),
                     'service_compliance' => $productServiceMap->service->compliance_header,
                 ];
             })
@@ -124,7 +125,14 @@ class ServiceController extends Controller
 
     private function translateText($text)
     {
-        return $text ? $this->translator->translate($text) : '';
+        if (is_null($text)) {
+            return '';
+        }
+
+        $cacheKey = 'translated_text_' . md5($text);
+        return Cache::remember($cacheKey, 60*60*24, function () use ($text) {
+            return $this->translator->translate($text);
+        });
     }
 
     private function translateHtmlContent($html)
@@ -133,18 +141,21 @@ class ServiceController extends Controller
             return '';
         }
 
-        $doc = new DOMDocument();
-        libxml_use_internal_errors(true);
-        $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        libxml_clear_errors();
+        $cacheKey = 'translated_html_' . md5($html);
+        return Cache::remember($cacheKey, 60*60*24, function () use ($html) {
+            $doc = new DOMDocument();
+            libxml_use_internal_errors(true);
+            $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_clear_errors();
 
-        $xpath = new \DOMXPath($doc);
-        $textNodes = $xpath->query('//text()');
+            $xpath = new \DOMXPath($doc);
+            $textNodes = $xpath->query('//text()');
 
-        foreach ($textNodes as $textNode) {
-            $textNode->nodeValue = $this->translateText($textNode->nodeValue);
-        }
+            foreach ($textNodes as $textNode) {
+                $textNode->nodeValue = $this->translateText($textNode->nodeValue);
+            }
 
-        return $doc->saveHTML();
+            return $doc->saveHTML();
+        });
     }
 }
