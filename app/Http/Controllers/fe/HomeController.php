@@ -13,7 +13,6 @@ use App\Models\Testimonial;
 use App\Models\Sticker;
 use Illuminate\Http\JsonResponse;
 use Stichoza\GoogleTranslate\GoogleTranslate;
-use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -41,9 +40,9 @@ class HomeController extends Controller
     {
         $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
         if ($banner->isNotEmpty()) {
-            $banner[0]->title = $this->translateText($banner[0]->title);
-            $banner[0]->tag_line = $this->translateText($banner[0]->tag_line);
-            $banner[0]->content = $this->translateText($banner[0]->content);
+            $banner[0]->title = $this->translator->translate($banner[0]->title);
+            $banner[0]->tag_line = $this->translator->translate($banner[0]->tag_line);
+            $banner[0]->content = $this->translator->translate($banner[0]->content);
         }
         return response()->json($banner);
     }
@@ -55,17 +54,11 @@ class HomeController extends Controller
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-services')->get();
         $services = Service::with('serviceCategory')->orderBy('id')->limit(4)->get();
-
-        $translations = $this->bulkTranslate([
-            'taglines' => $services->pluck('tagline')->toArray(),
-            'descriptions' => $services->pluck('description')->toArray(),
-        ]);
-
-        foreach ($services as $index => $service) {
-            $service->tagline = $translations['taglines'][$index];
-            $service->description = $translations['descriptions'][$index];
+        foreach ($services as $service) {
+            // $service->name = $this->translator->translate($service->name);
+            $service->tagline = $this->translator->translate($service->tagline);
+            $service->description = $this->translator->translate($service->description);
         }
-
         return response()->json(['section' => $section, 'services' => $services]);
     }
 
@@ -73,9 +66,9 @@ class HomeController extends Controller
     {
         $sections = PageSection::where('page_id', 1)->where('slug', 'home-about')->get();
         foreach ($sections as $section) {
-            $section->title = $this->translateText($section->title);
-            $section->tag_line = $this->translateText($section->tag_line);
-            $section->content = $this->translateText($section->content);
+            $section->title = $this->translator->translate($section->title);
+            $section->tag_line = $this->translator->translate($section->tag_line);
+            $section->content = $this->translator->translate($section->content);
         }
         return response()->json(['section' => $sections]);
     }
@@ -91,17 +84,10 @@ class HomeController extends Controller
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-process')->get();
         $processes = Process::orderBy('id')->get();
-
-        $translations = $this->bulkTranslate([
-            'titles' => $processes->pluck('name')->toArray(),
-            'contents' => $processes->pluck('text')->toArray(),
-        ]);
-
-        foreach ($processes as $index => $process) {
-            $process->title = $translations['titles'][$index];
-            $process->content = $translations['contents'][$index];
+        foreach ($processes as $process) {
+            $process->title = $this->translator->translate($process->name);
+            $process->content = $this->translator->translate($process->text);
         }
-
         return response()->json(['section' => $section, 'processes' => $processes]);
     }
 
@@ -109,19 +95,10 @@ class HomeController extends Controller
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->get();
         $blogs = Blog::orderBy('id', 'desc')->with('blogCategory')->limit(3)->get();
-
-        $translations = $this->bulkTranslate([
-            'titles' => $blogs->pluck('name')->toArray(),
-            'contents' => $blogs->pluck('content')->map(function($content) {
-                return mb_strimwidth($this->getFirstParagraphContent($content), 0, 250, '...');
-            })->toArray(),
-        ]);
-
-        foreach ($blogs as $index => $blog) {
-            $blog->title = $translations['titles'][$index];
-            $blog->content = $translations['contents'][$index];
+        foreach ($blogs as $blog) {
+            $blog->title = $this->translator->translate($blog->name);
+            $blog->content = $this->translator->translate(mb_strimwidth($this->getFirstParagraphContent($blog->content), 0, 250, '...'));
         }
-
         return response()->json(['section' => $section, 'blogs' => $blogs]);
     }
 
@@ -135,7 +112,7 @@ class HomeController extends Controller
     public function associates(): JsonResponse
     {
         $section = PageSection::where('page_id', 1)->where('slug', 'home-associates')->get();
-        $associates = Sticker::orderBy('id')->where('image_type', 'Associate')->get();
+        $associates = Sticker::orderBy('id')->where('image_type','Associate')->get();
         return response()->json(['section' => $section, 'associates' => $associates]);
     }
 
@@ -151,30 +128,5 @@ class HomeController extends Controller
         }
 
         return null;
-    }
-
-    private function bulkTranslate($texts)
-    {
-        $translations = [];
-
-        foreach ($texts as $key => $textArray) {
-            $translations[$key] = array_map(function ($text) {
-                return $this->translateText($text);
-            }, $textArray);
-        }
-
-        return $translations;
-    }
-
-    private function translateText($text)
-    {
-        if (is_null($text)) {
-            return '';
-        }
-
-        $cacheKey = 'translated_text_' . md5($text);
-        return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($text) {
-            return $this->translator->translate($text);
-        });
     }
 }
