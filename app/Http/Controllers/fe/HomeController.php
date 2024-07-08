@@ -85,8 +85,8 @@ class HomeController extends Controller
         $section = PageSection::where('page_id', 1)->where('slug', 'home-process')->get();
         $processes = Process::orderBy('id')->get();
         foreach ($processes as $process) {
-            $process->title = $this->translator->translate($process->title);
-            $process->content = $this->translator->translate($process->content);
+            $process->title = $this->translator->translate($process->name);
+            $process->content = $this->translator->translate($process->text);
         }
         return response()->json(['section' => $section, 'processes' => $processes]);
     }
