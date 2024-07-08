@@ -464,7 +464,7 @@ const Notifications = () => {
                             }}
                             sx={{ marginBottom: 3 }}
                         />
-                        <TableContainer component={Paper} className="cursor-pointer">
+                        <TableContainer component={Paper}>
                             <Table>
                                 <TableHead>
                                     <TableRow>

@@ -696,14 +696,12 @@ th {
     border: 2px solid #ff0000;
     font-weight: 700;
 }
+.MuiButtonBase-root.MuiButton-root{text-transform: capitalize;}
 
 .banner-content-text {
-    color: #0d629a;
+    color:var(--primary-color);
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
     line-height: 1;
-}
-.ql-size-huge{
-    margin-bottom: 0.5rem;
 }
 
 .banner-content-text p span.ql-size-huge {
