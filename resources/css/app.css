@@ -114,11 +114,11 @@ li a {
     width: 60%;
 }
 
-.banner-content-text p span.ql-size-huge {
+.banner-content-text h1 span.ql-size-huge {
     font-size: 4rem;
     font-weight: 500;
 }
-.banner-content-text p strong.ql-size-huge {
+.banner-content-text h1 strong.ql-size-huge {
     font-size: 4rem;
     font-weight: 900;
 }
