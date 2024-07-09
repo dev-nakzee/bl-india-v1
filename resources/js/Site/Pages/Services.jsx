@@ -451,7 +451,7 @@ const Services = () => {
                                         }}
                                     >
                                         
-                                        ({service.tagline})
+                                        {service.tagline}
                                     </Typography></Box>
                         </Box>
                         <ServiceCardContent>

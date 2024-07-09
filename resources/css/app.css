@@ -701,7 +701,8 @@ th {
 .banner-content-text {
     color:var(--primary-color);
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
-    line-height: 1;
+    line-height: 1.25;
+    width: 60%;
 }
 
 .banner-content-text p span.ql-size-huge {

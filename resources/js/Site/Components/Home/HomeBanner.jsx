@@ -73,19 +73,19 @@ const HomeBanner = () => {
          sx={{ backgroundImage: `url(${bannerData.image_url})` }}
          >
             <Content className='Banner-section-content-fix'>
-                <Typography variant="h1" className='banner-content-text'>
+                <div className='banner-content-text' sx={{ width: '60%'}}>
                 {parse(bannerData.content)} 
-                </Typography>
+                </div>
                 {/* <Typography variant="subtitle1" component="p" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 18, mt: 4 }}>{bannerData.tag_line}</Typography> */}
-                <Box sx={{ display: 'flex', alignItems: 'center', mt:1, }}
+                <Box sx={{ display: 'flex', alignItems: 'center', mt:1, width: '60%'}}
                 width={{xs:'100%',md:'100%'}}
                 >
                     <TextField
                         variant="outlined"
-                        placeholder="Enter your product / Service "
+                        placeholder="Enter your product / Service"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        sx={{ backgroundColor: 'white', borderRadius: '5px', flexGrow: 1 }}
+                        sx={{ backgroundColor: 'white', borderRadius: '5px', flexGrow: 1}}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
