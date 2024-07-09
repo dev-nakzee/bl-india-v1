@@ -76,9 +76,8 @@ const HomeBanner = () => {
                 <div className='banner-content-text' sx={{ width: '60%'}}>
                 {parse(bannerData.content)} 
                 </div>
-                {/* <Typography variant="subtitle1" component="p" sx={{ color: '#0D629A', fontWeight: 'normal', fontSize: 18, mt: 4 }}>{bannerData.tag_line}</Typography> */}
-                <Box sx={{ display: 'flex', alignItems: 'center', mt:1, width: '60%'}}
-                width={{xs:'100%',md:'100%'}}
+                <Box sx={{ display: 'flex', alignItems: 'center', mt:1}}
+                width={{xs:'95%',md:'60%'}}
                 >
                     <TextField
                         variant="outlined"

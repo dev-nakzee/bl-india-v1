@@ -107,6 +107,26 @@ li a {
     background-size: cover;
 } */
 
+.banner-content-text {
+    color:var(--primary-color);
+    font-family: "Raleway", "Roboto", "Poppins", sans-serif;
+    line-height: 1.25;
+    width: 60%;
+}
+
+.banner-content-text p span.ql-size-huge {
+    font-size: 4rem;
+    font-weight: 500;
+}
+.banner-content-text p strong.ql-size-huge {
+    font-size: 4rem;
+    font-weight: 900;
+}
+.banner-content-text p {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
 
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
@@ -490,6 +510,15 @@ th {
         height: 65vh !important;
         background-color: var(--secondary-color);
     }
+
+
+    .banner-content-text {
+        color:var(--primary-color);
+        font-family: "Raleway", "Roboto", "Poppins", sans-serif;
+        line-height: 1.25;
+        width: 100%;
+    }
+
     /* .Banner-section h1 {
         width: 100%;
     }
@@ -698,22 +727,3 @@ th {
 }
 .MuiButtonBase-root.MuiButton-root{text-transform: capitalize;}
 
-.banner-content-text {
-    color:var(--primary-color);
-    font-family: "Raleway", "Roboto", "Poppins", sans-serif;
-    line-height: 1.25;
-    width: 60%;
-}
-
-.banner-content-text p span.ql-size-huge {
-    font-size: 4rem;
-    font-weight: 500;
-}
-.banner-content-text p strong.ql-size-huge {
-    font-size: 4rem;
-    font-weight: 900;
-}
-.banner-content-text p {
-    font-size: 1.4rem;
-    font-weight: 500;
-}

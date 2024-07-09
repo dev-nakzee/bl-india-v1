@@ -155,7 +155,7 @@ function Topbar() {
                   {socialIcons[social.icon]}
                 </IconButton>
               ))}
-              <SharePage />
+              <SharePage color="whitebg"/>
             </Box>
            
           </>
