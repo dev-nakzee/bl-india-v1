@@ -63,27 +63,52 @@ class ServiceController extends Controller
     public function serviceDetails(Request $request, string $slug): JsonResponse
     {
         $service = Service::where('slug', $slug)->with('serviceCategory')->first();
-
+    
+        if (!$service) {
+            return response()->json(['message' => 'Service not found'], 404);
+        }
+    
         // Determine the subdomain
         $host = $request->getHost();
         $subdomain = explode('.', $host)[0];
-
+    
         // Build sections query
         $sectionsQuery = ServiceSection::where('service_id', $service->id)->orderBy('id', 'asc');
-
+    
         // Check if the subdomain is 'global' and filter sections accordingly
         if ($subdomain === 'global') {
             $sectionsQuery->where('is_global', true);
         }
-
+    
         $sections = $sectionsQuery->get();
         foreach ($sections as $section) {
             $section->name = $this->translateText($section->name);
             $section->content = $this->translateHtmlContent($section->content);
         }
-
-        return response()->json(['service' => $service, 'sections' => $sections]);
+    
+        // Fetch related services from the same category
+        $relatedServicesQuery = Service::where('service_category_id', $service->service_category_id)
+            ->where('id', '!=', $service->id)
+            ->limit(3);
+    
+        $relatedServices = $relatedServicesQuery->get();
+    
+        $relatedCount = $relatedServices->count();
+    
+        // If there are fewer than 3 related services in the same category, fetch additional services from other categories
+        if ($relatedCount < 3) {
+            $additionalServicesQuery = Service::where('id', '!=', $service->id)
+                ->whereNotIn('id', $relatedServices->pluck('id')->toArray())
+                ->limit(3 - $relatedCount);
+    
+            $additionalServices = $additionalServicesQuery->get();
+    
+            $relatedServices = $relatedServices->merge($additionalServices);
+        }
+    
+        return response()->json(['service' => $service, 'sections' => $sections, 'related_services' => $relatedServices]);
     }
+    
 
     public function getMandatoryProducts(Request $request, $serviceId): JsonResponse
     {
@@ -159,3 +184,4 @@ class ServiceController extends Controller
         });
     }
 }
+
