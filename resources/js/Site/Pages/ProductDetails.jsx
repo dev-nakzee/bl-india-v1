@@ -76,18 +76,21 @@ const ProductDetails = () => {
             alt={productData.image_alt}
           />
           <CardContent>
-            <Typography variant="subtitle" gutterBottom>
-              <span >Product Name:</span> &nbsp;&nbsp;&nbsp; <span className='font-bold'>{productData.name}</span>
+            <Typography variant="subtitle" gutterBottom sx={{ display: 'block'}}>
+              <span >Product Name:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.name}</span>
             </Typography>
             {productData.technical_name && (
-              <Typography variant="subtitle" gutterBottom>
-                <span>Technical Name:</span> &nbsp;&nbsp;&nbsp;  <span className='font-bold'>{productData.technical_name}</span>
+              <Typography variant="subtitle" gutterBottom sx={{ display: 'block'}}>
+                <span>Technical Name:</span> &nbsp;&nbsp;  <span className='font-bold'>{productData.technical_name}</span>
               </Typography>
             )}
-            <Typography variant="subtitle" gutterBottom>
-              <span >Product Category:</span> &nbsp;&nbsp;&nbsp; <span className='font-bold'>{productData.product_category.name}</span>
+            <Typography variant="subtitle" gutterBottom sx={{ display: 'block'}}>
+              <span >Product Category:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.product_category.name}</span>
             </Typography>
-            <SharePage color='secondary'/>
+            <Typography variant="subtitle" gutterBottom sx={{ display: 'block'}}>
+              <span >Share Product:</span> &nbsp;&nbsp; <SharePage color='secondary'/>
+            </Typography>
+            
           </CardContent>
         </Card>
         <Box>
@@ -155,7 +158,7 @@ const ProductDetails = () => {
             <Typography>No services available for this product.</Typography>
           )}
         </Box>
-        {/* {notificationData && notificationData.length > 0 && (
+        {notificationData && notificationData.length > 0 && (
           <Box sx={{ marginTop: 4 }}>
             <Typography variant="h4" gutterBottom>
               Related Notifications
@@ -166,7 +169,7 @@ const ProductDetails = () => {
                   <Button 
                     component={Link}
                     to={`/notifications/${notif.notification.category.slug}/${notif.notification.slug}`}
-                    variant="contained"
+                    // variant="contained"
                   >
                     {notif.notification.name}
                   </Button>
@@ -174,7 +177,7 @@ const ProductDetails = () => {
               </Box>
             ))}
           </Box>
-        )} */}
+        )}
       </Box>
     </>
   );
