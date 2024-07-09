@@ -11,24 +11,24 @@ export default defineConfig({
         }),
         react(),
     ],
-    build: {
-        outDir: 'dist',
-        minify: 'esbuild',
-        sourcemap: false,
-        chunkSizeWarningLimit: 500,
-        rollupOptions: {
-        output: {
-            manualChunks(id) {
-            if (id.includes('node_modules')) {
-                return id.toString().split('node_modules/')[1].split('/')[0].toString();
-            }
-            },
-        },
-        },
-        cssCodeSplit: true,
-    },
-    optimizeDeps: {
-        include: ['react', 'react-dom'],
-        exclude: ['js-big-decimal']
-    }
+    // build: {
+    //     outDir: 'dist',
+    //     minify: 'esbuild',
+    //     sourcemap: false,
+    //     chunkSizeWarningLimit: 500,
+    //     rollupOptions: {
+    //     output: {
+    //         manualChunks(id) {
+    //         if (id.includes('node_modules')) {
+    //             return id.toString().split('node_modules/')[1].split('/')[0].toString();
+    //         }
+    //         },
+    //     },
+    //     },
+    //     cssCodeSplit: true,
+    // },
+    // optimizeDeps: {
+    //     include: ['react', 'react-dom'],
+    //     exclude: ['js-big-decimal']
+    // }
 });
