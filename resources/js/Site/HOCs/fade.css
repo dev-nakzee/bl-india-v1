@@ -1,0 +1,9 @@
+/* src/HOCs/fade.css */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 2s ease-out;
+}

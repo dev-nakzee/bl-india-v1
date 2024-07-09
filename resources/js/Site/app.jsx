@@ -2,8 +2,8 @@ import '../bootstrap';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { CssBaseline } from '@mui/material';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Layouts/Layout';
 import HomePage from './Pages/Home';
 import About from './Pages/About';
@@ -25,36 +25,57 @@ import KnowledgeBaseCategory from './Pages/KnowledgeBaseCategory';
 import Careers from './Pages/Careers';
 import Contact from './Pages/Contact';
 import Downloads from './Pages/Downloads';
+import withFadeIn from './HOCs/withFadeIn';
+
+const HomePageWithFadeIn = withFadeIn(HomePage);
+const AboutWithFadeIn = withFadeIn(About);
+const ServicesWithFadeIn = withFadeIn(Services);
+const ServiceDetailsWithFadeIn = withFadeIn(ServiceDetails);
+const ProductDetailsWithFadeIn = withFadeIn(ProductDetails);
+const NotificationsWithFadeIn = withFadeIn(Notifications);
+const NotificationDetailsWithFadeIn = withFadeIn(NotificationDetails);
+const BlogsWithFadeIn = withFadeIn(Blogs);
+const BlogDetailsWithFadeIn = withFadeIn(BlogDetails);
+const GalleryWithFadeIn = withFadeIn(Gallery);
+const TermConditionWithFadeIn = withFadeIn(TermCondition);
+const PrivacyPolicyWithFadeIn = withFadeIn(PrivacyPolicy);
+const WebsiteDisclaimerWithFadeIn = withFadeIn(WebsiteDisclaimer);
+const HolidayListWithFadeIn = withFadeIn(HolidayList);
+const KnowledgeBaseWithFadeIn = withFadeIn(KnowledgeBase);
+const KnowledgeBaseCategoryWithFadeIn = withFadeIn(KnowledgeBaseCategory);
+const CareersWithFadeIn = withFadeIn(Careers);
+const ContactWithFadeIn = withFadeIn(Contact);
+const DownloadsWithFadeIn = withFadeIn(Downloads);
 
 function App() {
-  return (    
+  return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/services/:categorySlug" element={<Services />} />
-            <Route path="/services/:categorySlug/:slug" element={<ServiceDetails />} />
-            <Route path="/products/:slug" element={<ProductDetails />} />
-            <Route path='/notifications' element={<Notifications />} />
-            <Route path='/notifications/:categorySlug' element={<Notifications />} />
-            <Route path='/notifications/:categorySlug/:slug' element={<NotificationDetails />} />
-            <Route path='/blogs' element={<Blogs />} />
-            <Route path='/blogs/:categorySlug' element={<Blogs />} />
-            <Route path='/blogs/:categorySlug/:blogSlug' element={<BlogDetails />} />
-            <Route path='/gallery' element={<Gallery />} />
-            <Route path='/terms-conditions' element={<TermCondition />} />
-            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-            <Route path='/website-disclaimer' element={<WebsiteDisclaimer />} />
-            <Route path='/holiday-list' element={<HolidayList />} />
-            <Route path="/knowledge-base" element={<KnowledgeBase />} />
-            <Route path="/knowledge-base/:categorySlug" element={<KnowledgeBaseCategory />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/downloads" element={<Downloads />} />
+            <Route path="/" element={<HomePageWithFadeIn />} />
+            <Route path="/about" element={<AboutWithFadeIn />} />
+            <Route path="/services" element={<ServicesWithFadeIn />} />
+            <Route path="/services/:categorySlug" element={<ServicesWithFadeIn />} />
+            <Route path="/services/:categorySlug/:slug" element={<ServiceDetailsWithFadeIn />} />
+            <Route path="/products/:slug" element={<ProductDetailsWithFadeIn />} />
+            <Route path='/notifications' element={<NotificationsWithFadeIn />} />
+            <Route path='/notifications/:categorySlug' element={<NotificationsWithFadeIn />} />
+            <Route path='/notifications/:categorySlug/:slug' element={<NotificationDetailsWithFadeIn />} />
+            <Route path='/blogs' element={<BlogsWithFadeIn />} />
+            <Route path='/blogs/:categorySlug' element={<BlogsWithFadeIn />} />
+            <Route path='/blogs/:categorySlug/:blogSlug' element={<BlogDetailsWithFadeIn />} />
+            <Route path='/gallery' element={<GalleryWithFadeIn />} />
+            <Route path='/terms-conditions' element={<TermConditionWithFadeIn />} />
+            <Route path='/privacy-policy' element={<PrivacyPolicyWithFadeIn />} />
+            <Route path='/website-disclaimer' element={<WebsiteDisclaimerWithFadeIn />} />
+            <Route path='/holiday-list' element={<HolidayListWithFadeIn />} />
+            <Route path="/knowledge-base" element={<KnowledgeBaseWithFadeIn />} />
+            <Route path="/knowledge-base/:categorySlug" element={<KnowledgeBaseCategoryWithFadeIn />} />
+            <Route path="/careers" element={<CareersWithFadeIn />} />
+            <Route path="/contact" element={<ContactWithFadeIn />} />
+            <Route path="/downloads" element={<DownloadsWithFadeIn />} />
           </Routes>
         </Layout>
       </BrowserRouter>
