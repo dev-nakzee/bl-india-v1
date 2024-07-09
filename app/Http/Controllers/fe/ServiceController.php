@@ -62,7 +62,6 @@ class ServiceController extends Controller
 
     public function serviceDetails(Request $request, string $slug): JsonResponse
     {
-        $query = Service::orderBy('id', 'asc')->with('serviceCategory')->limit(3)->get();
         $service = Service::where('slug', $slug)->with('serviceCategory')->first();
 
         // Determine the subdomain
@@ -70,17 +69,11 @@ class ServiceController extends Controller
         $subdomain = explode('.', $host)[0];
 
         // Build sections query
-        $refServices = $query->get();
         $sectionsQuery = ServiceSection::where('service_id', $service->id)->orderBy('id', 'asc');
 
         // Check if the subdomain is 'global' and filter sections accordingly
         if ($subdomain === 'global') {
             $sectionsQuery->where('is_global', true);
-        }
-
-        foreach ($refServices as $refService) {
-            $refService->tagline = $this->translateText($refService->tagline);
-            $refService->description = $this->translateText($refService->description);
         }
 
         $sections = $sectionsQuery->get();
@@ -89,7 +82,7 @@ class ServiceController extends Controller
             $section->content = $this->translateHtmlContent($section->content);
         }
 
-        return response()->json(['service' => $service, 'sections' => $sections, 'relatedServices' => $refServices]);
+        return response()->json(['service' => $service, 'sections' => $sections]);
     }
 
     public function getMandatoryProducts(Request $request, $serviceId): JsonResponse
