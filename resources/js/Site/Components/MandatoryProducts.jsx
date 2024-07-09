@@ -68,12 +68,12 @@ const MandatoryProducts = ({ serviceId }) => {
     const getColumns = () => {
         const baseColumns = [
             { field: "srNo", headerName: "Sr. No.", width: 70 },
-            { field: "product_name", headerName: "Product Name", flex: 1, minWidth: 400 },
+            { field: "product_name", headerName: "Product Name", flex: 1, minWidth: 150 },
             {
                 field: "product_category_name",
                 headerName: "Category Name",
                 flex: 1,
-                minWidth: 170,
+                minWidth: 150,
             },
         ];
 
@@ -81,7 +81,7 @@ const MandatoryProducts = ({ serviceId }) => {
             field: "product_is_standard",
             headerName: "IS Standard",
             flex: 1,
-            minWidth: 150,
+            minWidth: 100,
         };
         const groupColumn = {
             field: "product_group",
@@ -156,8 +156,12 @@ const MandatoryProducts = ({ serviceId }) => {
                     className="mandatory-product"
                     rows={filteredProducts}
                     columns={getColumns()}
-                    pageSize={isSmallScreen ? 5 : 25}
-                    rowsPerPageOptions={[5, 10, 25]}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { pageSize: 25, page: 0 },
+                        },
+                    }}
+                    pageSizeOptions={[25, 50, 100]}
                     pagination
                     onRowClick={handleRowClick}
                     getRowId={(row) => row.product_slug} // Ensure unique row ID
