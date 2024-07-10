@@ -169,34 +169,36 @@ class ServiceController extends Controller
     
         $cacheKey = 'translated_html_' . md5($html);
         return Cache::remember($cacheKey, 60*60*24, function () use ($html) {
+            // Use Tidy to clean up the HTML
+            $tidy = new \tidy();
+            $config = [
+                'indent' => true,
+                'output-xhtml' => true,
+                'wrap' => 200,
+                'show-body-only' => true // To avoid adding unwanted tags like <html> and <body>
+            ];
+            $tidy->parseString($html, $config, 'utf8');
+            $tidy->cleanRepair();
+            $cleanHtml = $tidy->value;
+    
             $doc = new DOMDocument();
             libxml_use_internal_errors(true);
-            $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $doc->loadHTML('<?xml encoding="utf-8" ?>' . $cleanHtml, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             libxml_clear_errors();
     
-            // Translate text nodes only
-            $this->translateTextNodes($doc->documentElement);
+            $xpath = new \DOMXPath($doc);
+            $textNodes = $xpath->query('//text()');
     
-            $translatedHtml = $doc->saveHTML($doc->documentElement);
+            foreach ($textNodes as $textNode) {
+                $textNode->nodeValue = $this->translateText($textNode->nodeValue);
+            }
     
-            // Remove unwanted tags and adjust HTML structure
-            $translatedHtml = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace(['<html>', '</html>', '<body>', '</body>'], '', $translatedHtml));
-    
+            $translatedHtml = $doc->saveHTML();
             // Ensure proper encoding and HTML structure
             return trim($translatedHtml);
         });
     }
     
-    private function translateTextNodes($node)
-    {
-        foreach ($node->childNodes as $child) {
-            if ($child->nodeType === XML_TEXT_NODE) {
-                $child->nodeValue = $this->translateText($child->nodeValue);
-            } elseif ($child->nodeType === XML_ELEMENT_NODE) {
-                $this->translateTextNodes($child);
-            }
-        }
-    }
     
 
     
