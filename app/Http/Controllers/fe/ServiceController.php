@@ -160,7 +160,6 @@ class ServiceController extends Controller
             return $this->translator->translate($text);
         });
     }
-
     private function translateHtmlContent($html)
     {
         if (is_null($html)) {
@@ -174,43 +173,23 @@ class ServiceController extends Controller
             $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             libxml_clear_errors();
     
-            $xpath = new \DOMXPath($doc);
-            $textNodes = $xpath->query('//text()');
+            $this->translateNode($doc->documentElement);
     
-            foreach ($textNodes as $textNode) {
-                if (trim($textNode->nodeValue)) {
-                    $textNode->nodeValue = $this->translateText($textNode->nodeValue);
-                }
-            }
-    
-            return $this->rebuildHtml($doc->documentElement);
+            return $doc->saveHTML();
         });
     }
     
-    private function rebuildHtml($node)
+    private function translateNode($node)
     {
-        $html = '';
-    
         foreach ($node->childNodes as $child) {
             if ($child->nodeType === XML_TEXT_NODE) {
-                $html .= htmlspecialchars($child->nodeValue);
+                $child->nodeValue = $this->translateText($child->nodeValue);
             } elseif ($child->nodeType === XML_ELEMENT_NODE) {
-                $html .= '<' . $child->nodeName;
-    
-                if ($child->hasAttributes()) {
-                    foreach ($child->attributes as $attr) {
-                        $html .= ' ' . $attr->nodeName . '="' . htmlspecialchars($attr->nodeValue) . '"';
-                    }
-                }
-    
-                $html .= '>';
-                $html .= $this->rebuildHtml($child);
-                $html .= '</' . $child->nodeName . '>';
+                $this->translateNode($child);
             }
         }
-    
-        return $html;
     }
+    
     
 
 }
