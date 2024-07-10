@@ -166,21 +166,32 @@ class ServiceController extends Controller
         if (is_null($html)) {
             return '';
         }
-
+    
         $cacheKey = 'translated_html_' . md5($html);
         return Cache::remember($cacheKey, 60*60*24, function () use ($html) {
+            // Use Tidy to clean up the HTML
+            $tidy = new \tidy();
+            $config = [
+                'indent' => true,
+                'output-xhtml' => true,
+                'wrap' => 200
+            ];
+            $tidy->parseString($html, $config, 'utf8');
+            $tidy->cleanRepair();
+            $cleanHtml = $tidy->value;
+    
             $doc = new DOMDocument();
             libxml_use_internal_errors(true);
-            $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $doc->loadHTML($cleanHtml, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             libxml_clear_errors();
-
+    
             $xpath = new \DOMXPath($doc);
             $textNodes = $xpath->query('//text()');
-
+    
             foreach ($textNodes as $textNode) {
                 $textNode->nodeValue = $this->translateText($textNode->nodeValue);
             }
-
+    
             return $doc->saveHTML();
         });
     }

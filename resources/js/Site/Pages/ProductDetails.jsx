@@ -131,7 +131,9 @@ const ProductDetails = () => {
                         </Typography>
                       </>
                     ) : null}
-                    {service.details ? parse(service.details) : 'No details available.'}
+                    <>
+                    {service.details ? parse(service.details) : 'No details available.'}                    
+                    </>
                     <Box sx={{ display: 'flex', gap: 2, marginTop: 2, justifyContent: 'center' }}>
                       <Button
                         component={Link}
