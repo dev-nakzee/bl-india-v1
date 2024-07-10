@@ -88,6 +88,7 @@ class ServiceController extends Controller
     
         // Fetch related services from the same category
         $relatedServicesQuery = Service::where('service_category_id', $service->service_category_id)
+            ->with('serviceCategory')
             ->where('id', '!=', $service->id)
             ->limit(3);
     

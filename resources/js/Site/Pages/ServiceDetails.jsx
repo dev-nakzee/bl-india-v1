@@ -15,6 +15,8 @@ import {
   Select,
   FormControl,
   useMediaQuery,
+  Button,
+  Link,
 } from '@mui/material';
 import { styled, useTheme } from '@mui/system';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
@@ -47,6 +49,37 @@ const ServiceImage = styled(CardMedia)(({ theme }) => ({
   },
 }));
 
+const ServiceCard = styled(Card)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  height: '100%',
+  boxShadow: theme.shadows[5],
+}));
+
+const RelServiceImage = styled(CardMedia)(({ theme }) => ({
+  width: '70px',
+  height: '70px',
+  backgroundSize: 'contain',
+  objectFit: 'contain',
+  marginRight: '5px',
+  borderRadius: '50%',
+  border: '2px solid #0D629A',
+  [theme.breakpoints.down('sm')]: {
+    width: '50px',
+    height: '50px',
+    marginRight: '5px',
+  },
+}));
+
+const ServiceCardContent = styled(CardContent)(({ theme }) => ({
+  flexGrow: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  padding: theme.spacing(2),
+}));
+
 const Sidebar = styled(Box)(({ theme }) => ({
   width: '25%',
   position: 'sticky',
@@ -70,6 +103,11 @@ const ServicesList = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '100%',
   },
+}));
+
+const RelatedServices = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(4),
+  marginBottom: theme.spacing(4),
 }));
 
 const ServiceDetails = () => {
@@ -153,7 +191,6 @@ const ServiceDetails = () => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
-       
           {isMobile ? (
             <>
               <FormControl fullWidth>
@@ -172,7 +209,6 @@ const ServiceDetails = () => {
                   ))}
                 </Select>
               </FormControl>
-            
               <ServicesList>
                 <Grid container spacing={4} alignItems="center">
                   <Grid item xs={12}>
@@ -211,8 +247,6 @@ const ServiceDetails = () => {
                   ))}
                 </List>
               </Sidebar>
-         
-
               <ServicesList>
                 <Grid container spacing={4} alignItems="center">
                   <Grid item xs={12}>
@@ -232,7 +266,60 @@ const ServiceDetails = () => {
                     )}
                   </Grid>
                 </Grid>
-                <BackButton/>
+                {serviceData.related_services && serviceData.related_services.length > 0 && (
+                  <RelatedServices>
+                    <Typography variant="h5" gutterBottom>Related Services</Typography>
+                    <Grid container spacing={2}>
+                      {serviceData.related_services.map((relatedService) => (
+                        <Grid item key={relatedService.id} xs={12} sm={6} md={4}>
+                          <ServiceCard>
+                            <Box paddingInline={'16px'} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingTop: '16px' }}>
+                              <RelServiceImage
+                                component="img"
+                                image={`https://in.bl-india.com/${relatedService.thumbnail_url}`}
+                                alt={relatedService.image_alt}
+                              />
+                              <Box sx={{ display: "flex", alignItems: "left", flexDirection: 'column' }}>
+                                <Typography
+                                  variant="h5"
+                                  component="h5"
+                                  sx={{
+                                    marginLeft: "5px",
+                                    marginBottom: "5px",
+                                    color: "#0D629A",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  {relatedService.name}
+                                </Typography>
+                                <Typography
+                                  variant="bodytext"
+                                  component="p"
+                                  sx={{
+                                    marginLeft: "5px",
+                                    color: "#1C7CBC",
+                                    fontWeight: 500,
+                                  }}
+                                >
+                                  {relatedService.tagline}
+                                </Typography>
+                              </Box>
+                            </Box>
+                            <ServiceCardContent>
+                              <Typography variant="body2" color="text.secondary">
+                                {relatedService.description}
+                              </Typography>
+                              <Button sx={{ marginTop: '15px' }} variant="outlined" component={Link} to={`/services/${relatedService.service_category?.slug}/${relatedService.slug}`}>
+                                Read More
+                              </Button>
+                            </ServiceCardContent>
+                          </ServiceCard>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </RelatedServices>
+                )}
+                <BackButton />
               </ServicesList>
             </Grid>
           )}
