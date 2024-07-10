@@ -9,6 +9,7 @@ import {
   Tabs,
   Tab,
   Button,
+  Grid,
 } from '@mui/material';
 import { TabContext, TabPanel } from '@mui/lab';
 import { useParams, Link } from 'react-router-dom';
@@ -68,30 +69,35 @@ const ProductDetails = () => {
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
       <Box sx={{ padding: 4 }}>
-        <Card className="Product-card" sx={{ display: 'flex', mb: 4 }}>
-          <CardMedia
-            component="img"
-            sx={{ width: { xs: '100%', sm: '350px' }, backgroundColor: '#c3e7ff' }}
-            image={`https://in.bl-india.com/${productData.image_url}`}
-            alt={productData.image_alt}
-          />
-          <CardContent>
-            <Typography variant="subtitle" gutterBottom sx={{ display: 'block'}}>
-              <span >Product Name:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.name}</span>
-            </Typography>
-            {productData.technical_name && (
-              <Typography variant="subtitle" gutterBottom sx={{ display: 'block'}}>
-                <span>Technical Name:</span> &nbsp;&nbsp;  <span className='font-bold'>{productData.technical_name}</span>
-              </Typography>
-            )}
-            <Typography variant="subtitle" gutterBottom sx={{ display: 'block'}}>
-              <span >Product Category:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.product_category.name}</span>
-            </Typography>
-            <Typography variant="subtitle" gutterBottom sx={{ display: 'block'}}>
-              <span >Share Product:</span> &nbsp;&nbsp; <SharePage color='secondary'/>
-            </Typography>
-            
-          </CardContent>
+        <Card className="Product-card" sx={{ mb: 4 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={4}>
+              <CardMedia
+                component="img"
+                sx={{ width: '100%', backgroundColor: '#c3e7ff' }}
+                image={`https://in.bl-india.com/${productData.image_url}`}
+                alt={productData.image_alt}
+              />
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <CardContent>
+                <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
+                  <span>Product Name:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.name}</span>
+                </Typography>
+                {productData.technical_name && (
+                  <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
+                    <span>Technical Name:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.technical_name}</span>
+                  </Typography>
+                )}
+                <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
+                  <span>Product Category:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.product_category.name}</span>
+                </Typography>
+                <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
+                  <span>Share Product:</span> &nbsp;&nbsp; <SharePage color='secondary' />
+                </Typography>
+              </CardContent>
+            </Grid>
+          </Grid>
         </Card>
         <Box>
           <Typography variant="body1">
@@ -103,7 +109,13 @@ const ProductDetails = () => {
           {productData.services.length > 0 ? (
             <Box className="ProductDetail-tab">
               <TabContext value={tabValue}>
-                <Tabs value={tabValue} onChange={handleTabChange} aria-label="service tabs">
+                <Tabs
+                  value={tabValue}
+                  onChange={handleTabChange}
+                  aria-label="service tabs"
+                  variant="scrollable"
+                  scrollButtons="auto"
+                >
                   {productData.services.map((service, index) => (
                     <Tab
                       key={service.id}
@@ -113,7 +125,7 @@ const ProductDetails = () => {
                   ))}
                 </Tabs>
                 {productData.services.map((service, index) => (
-                  <TabPanel key={service.id} value={`${index}`}>
+                  <TabPanel sx={{p: 1}} key={service.id} value={`${index}`}>
                     <Typography variant="subtitle1" gutterBottom>
                       {service.service.name} for {productData.name}
                     </Typography>
@@ -132,7 +144,7 @@ const ProductDetails = () => {
                       </>
                     ) : null}
                     <>
-                    {service.details ? parse(service.details) : 'No details available.'}                    
+                      {service.details ? parse(service.details) : 'No details available.'}
                     </>
                     <Box sx={{ display: 'flex', gap: 2, marginTop: 2, justifyContent: 'center' }}>
                       <Button
@@ -168,7 +180,7 @@ const ProductDetails = () => {
             {notificationData.map((notif) => (
               <Box key={notif.id} sx={{ marginBottom: 2 }}>
                 <Typography variant="h6">
-                  <Button 
+                  <Button
                     component={Link}
                     to={`/notifications/${notif.notification.category.slug}/${notif.notification.slug}`}
                     // variant="contained"
