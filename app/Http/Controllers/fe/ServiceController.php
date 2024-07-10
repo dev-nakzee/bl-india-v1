@@ -168,7 +168,7 @@ class ServiceController extends Controller
         }
     
         $cacheKey = 'translated_html_' . md5($html);
-        return Cache::remember($cacheKey, 60*60*24, function () use ($html) {
+        return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($html) {
             $doc = new DOMDocument();
             libxml_use_internal_errors(true);
             $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -183,24 +183,33 @@ class ServiceController extends Controller
                 }
             }
     
-            $translatedHtml = $doc->saveHTML();
-    
-            // Ensure proper encoding and HTML structure
-            return $this->cleanHtml($translatedHtml);
+            return $this->rebuildHtml($doc->documentElement);
         });
     }
     
-    private function cleanHtml($html)
+    private function rebuildHtml($node)
     {
-        // Remove unwanted tags and adjust HTML structure
-        $html = preg_replace('/^<!DOCTYPE.+?>/', '', $html);
-        $html = str_replace(['<html>', '</html>', '<body>', '</body>'], '', $html);
+        $html = '';
     
-        // Fix incorrect nested tags
-        $html = preg_replace('/<\/h3><p/', '</h3><p', $html);
-        $html = preg_replace('/<\/p><\/h3>/', '</p></h3>', $html);
+        foreach ($node->childNodes as $child) {
+            if ($child->nodeType === XML_TEXT_NODE) {
+                $html .= htmlspecialchars($child->nodeValue);
+            } elseif ($child->nodeType === XML_ELEMENT_NODE) {
+                $html .= '<' . $child->nodeName;
     
-        return trim($html);
+                if ($child->hasAttributes()) {
+                    foreach ($child->attributes as $attr) {
+                        $html .= ' ' . $attr->nodeName . '="' . htmlspecialchars($attr->nodeValue) . '"';
+                    }
+                }
+    
+                $html .= '>';
+                $html .= $this->rebuildHtml($child);
+                $html .= '</' . $child->nodeName . '>';
+            }
+        }
+    
+        return $html;
     }
     
 
