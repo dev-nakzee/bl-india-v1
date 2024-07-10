@@ -198,10 +198,11 @@ private function cleanHtml($html)
 
     // Fix incorrect nested tags
     $html = preg_replace('/<\/h3><p/', '</h3><p', $html);
-    $html = preg_replace('/<\/p><\/h3>/', '</p>', $html);
+    $html = preg_replace('/<\/p><\/h3>/', '</p></h3>', $html);
 
     return trim($html);
 }
+
 
 }
 
