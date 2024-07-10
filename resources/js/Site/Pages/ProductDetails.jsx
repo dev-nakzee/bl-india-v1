@@ -10,13 +10,16 @@ import {
   Tab,
   Button,
   Grid,
+  useMediaQuery,
 } from '@mui/material';
 import { TabContext, TabPanel } from '@mui/lab';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { useTheme } from '@mui/system';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import parse from 'html-react-parser';
 import SharePage from '../Components/SharePage';
+import BackButton from '../Components/BackButton';
 
 const ProductDetails = () => {
   const { slug } = useParams();
@@ -24,13 +27,36 @@ const ProductDetails = () => {
   const [notificationData, setNotificationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tabValue, setTabValue] = useState('0');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         const response = await apiClient.get(`/products/${slug}`);
-        setProductData(response.data.product);
-        setNotificationData(response.data.notification);
+        let services = response.data.product.services;
+        const notificationData = response.data.notification;
+
+        // If serviceId is provided in local storage, set the corresponding tab as selected
+        const serviceId = localStorage.getItem('serviceId');
+        if (serviceId) {
+          const initialTabIndex = services.findIndex(
+            (service) => service.service.id === parseInt(serviceId)
+          );
+          if (initialTabIndex !== -1) {
+            setTabValue('0');
+            // Move the selected service to the first position
+            services = [
+              services[initialTabIndex],
+              ...services.slice(0, initialTabIndex),
+              ...services.slice(initialTabIndex + 1),
+            ];
+            localStorage.removeItem('serviceId'); // Clear local storage after using it
+          }
+        }
+
+        setProductData({ ...response.data.product, services });
+        setNotificationData(notificationData);
       } catch (error) {
         console.error('Error fetching product data:', error);
       } finally {
@@ -68,7 +94,7 @@ const ProductDetails = () => {
         <meta name="description" content={productData.seo_description} />
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
-      <Box sx={{ padding: 4 }}>
+      <Box sx={{ padding: isMobile ? 2 : 4 }}>
         <Card className="Product-card" sx={{ mb: 4 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={4}>
@@ -125,7 +151,7 @@ const ProductDetails = () => {
                   ))}
                 </Tabs>
                 {productData.services.map((service, index) => (
-                  <TabPanel sx={{p: 1}} key={service.id} value={`${index}`}>
+                  <TabPanel key={service.id} value={`${index}`}>
                     <Typography variant="subtitle1" gutterBottom>
                       {service.service.name} for {productData.name}
                     </Typography>
@@ -192,6 +218,10 @@ const ProductDetails = () => {
             ))}
           </Box>
         )}
+        
+      </Box>
+      <Box sx={{mb: 2, px: 4}}>
+      <BackButton/>
       </Box>
     </>
   );

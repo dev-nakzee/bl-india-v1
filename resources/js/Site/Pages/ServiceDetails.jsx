@@ -25,6 +25,8 @@ import apiClient from '../Services/api';
 import parse from 'html-react-parser';
 import MandatoryProducts from '../Components/MandatoryProducts';
 import BackButton from '../Components/BackButton';
+import DownloadBrochure from "../Components/DownloadBrochure";
+import RequestCallBack from "../Components/RequestCallBack";
 
 const ServiceSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
@@ -84,8 +86,8 @@ const Sidebar = styled(Box)(({ theme }) => ({
   width: '25%',
   position: 'sticky',
   top: theme.spacing(4),
-  height: 'fit-content',
-  maxHeight: 'calc(100vh - 100px)',
+  // height: 'fit-content',
+  // maxHeight: 'calc(100vh - 100px)',
   overflowY: 'auto',
   paddingRight: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
@@ -246,6 +248,8 @@ const ServiceDetails = () => {
                     </ListItem>
                   ))}
                 </List>
+                <DownloadBrochure />
+                <RequestCallBack />
               </Sidebar>
               <ServicesList>
                 <Grid container spacing={4} alignItems="center">

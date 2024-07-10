@@ -32,6 +32,7 @@ const MandatoryProducts = ({ serviceId }) => {
                     (product, index) => ({
                         ...product,
                         srNo: index + 1,
+                        service_id: serviceId, // Add serviceId to the product data
                     })
                 );
                 setProducts(productsWithSrNo);
@@ -47,9 +48,10 @@ const MandatoryProducts = ({ serviceId }) => {
     }, [serviceId]);
 
     const handleRowClick = (params) => {
+        localStorage.setItem('serviceId', params.row.service_id);
         navigate(`/products/${params.row.product_slug}`);
     };
-
+    
     const handleSearch = (event) => {
         setSearch(event.target.value);
         if (event.target.value === "") {
