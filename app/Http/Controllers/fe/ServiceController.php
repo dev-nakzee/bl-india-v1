@@ -166,32 +166,37 @@ class ServiceController extends Controller
         if (is_null($html)) {
             return '';
         }
-    
+
         $cacheKey = 'translated_html_' . md5($html);
         return Cache::remember($cacheKey, 60*60*24, function () use ($html) {
             $doc = new DOMDocument();
             libxml_use_internal_errors(true);
             $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             libxml_clear_errors();
-    
-            $xpath = new \DOMXPath($doc);
-            $textNodes = $xpath->query('//text()');
-    
-            foreach ($textNodes as $textNode) {
-                if (trim($textNode->nodeValue)) {
-                    $textNode->nodeValue = $this->translateText($textNode->nodeValue);
-                }
-            }
-    
+
+            $this->translateTextNodes($doc);
+
             $translatedHtml = $doc->saveHTML($doc->documentElement);
-    
+
             // Remove unwanted tags and adjust HTML structure
             $translatedHtml = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace(['<html>', '</html>', '<body>', '</body>'], '', $translatedHtml));
-    
+
             // Ensure proper encoding and HTML structure
             return trim($translatedHtml);
         });
     }
+
+    private function translateTextNodes($node)
+    {
+        foreach ($node->childNodes as $child) {
+            if ($child->nodeType === XML_TEXT_NODE) {
+                $child->nodeValue = $this->translateText($child->nodeValue);
+            } elseif ($child->nodeType === XML_ELEMENT_NODE) {
+                $this->translateTextNodes($child);
+            }
+        }
+    }
+
     
 }
 
