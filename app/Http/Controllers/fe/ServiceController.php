@@ -173,22 +173,36 @@ class ServiceController extends Controller
             $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             libxml_clear_errors();
     
-            $this->translateNode($doc->documentElement);
-    
-            return $doc->saveHTML();
+            $translatedHtml = $this->translateDomNode($doc->documentElement);
+            return $translatedHtml;
         });
     }
     
-    private function translateNode($node)
+    private function translateDomNode($node)
     {
+        $translatedHtml = '';
+    
         foreach ($node->childNodes as $child) {
             if ($child->nodeType === XML_TEXT_NODE) {
-                $child->nodeValue = $this->translateText($child->nodeValue);
+                $translatedHtml .= $this->translateText($child->nodeValue);
             } elseif ($child->nodeType === XML_ELEMENT_NODE) {
-                $this->translateNode($child);
+                $translatedHtml .= '<' . $child->nodeName;
+    
+                if ($child->hasAttributes()) {
+                    foreach ($child->attributes as $attr) {
+                        $translatedHtml .= ' ' . $attr->nodeName . '="' . htmlspecialchars($attr->nodeValue) . '"';
+                    }
+                }
+    
+                $translatedHtml .= '>';
+                $translatedHtml .= $this->translateDomNode($child);
+                $translatedHtml .= '</' . $child->nodeName . '>';
             }
         }
+    
+        return $translatedHtml;
     }
+    
     
     
 
