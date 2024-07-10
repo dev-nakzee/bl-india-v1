@@ -162,45 +162,46 @@ class ServiceController extends Controller
     }
 
     private function translateHtmlContent($html)
-    {
-        if (is_null($html)) {
-            return '';
-        }
-    
-        $cacheKey = 'translated_html_' . md5($html);
-        return Cache::remember($cacheKey, 60*60*24, function () use ($html) {
-            // Use Tidy to clean up the HTML
-            $tidy = new \tidy();
-            $config = [
-                'indent' => true,
-                'output-xhtml' => true,
-                'wrap' => 200,
-                'show-body-only' => true // To avoid adding unwanted tags like <html> and <body>
-            ];
-            $tidy->parseString($html, $config, 'utf8');
-            $tidy->cleanRepair();
-            $cleanHtml = $tidy->value;
-    
-            $doc = new DOMDocument();
-            libxml_use_internal_errors(true);
-            $doc->loadHTML('<?xml encoding="utf-8" ?>' . $cleanHtml, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            libxml_clear_errors();
-    
-            $xpath = new \DOMXPath($doc);
-            $textNodes = $xpath->query('//text()');
-    
-            foreach ($textNodes as $textNode) {
+{
+    if (is_null($html)) {
+        return '';
+    }
+
+    $cacheKey = 'translated_html_' . md5($html);
+    return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($html) {
+        $doc = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+
+        $xpath = new \DOMXPath($doc);
+        $textNodes = $xpath->query('//text()');
+
+        foreach ($textNodes as $textNode) {
+            if (trim($textNode->nodeValue)) {
                 $textNode->nodeValue = $this->translateText($textNode->nodeValue);
             }
-    
-            $translatedHtml = $doc->saveHTML();
-            // Ensure proper encoding and HTML structure
-            return trim($translatedHtml);
-        });
-    }
-    
-    
+        }
 
-    
+        $translatedHtml = $doc->saveHTML();
+
+        // Ensure proper encoding and HTML structure
+        return $this->cleanHtml($translatedHtml);
+    });
+}
+
+private function cleanHtml($html)
+{
+    // Remove unwanted tags and adjust HTML structure
+    $html = preg_replace('/^<!DOCTYPE.+?>/', '', $html);
+    $html = str_replace(['<html>', '</html>', '<body>', '</body>'], '', $html);
+
+    // Fix incorrect nested tags
+    $html = preg_replace('/<\/h3><p/', '</h3><p', $html);
+    $html = preg_replace('/<\/p><\/h3>/', '</p>', $html);
+
+    return trim($html);
+}
+
 }
 
