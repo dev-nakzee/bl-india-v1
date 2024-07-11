@@ -134,10 +134,10 @@ class ServiceController extends Controller
             ->sortBy('product_id')
             ->values()
             ->all();
-    
+
         return response()->json($products);
     }
-   
+
     public function productDetails(Request $request, string $slug): JsonResponse
     {
         $product = Product::where('slug', $slug)
