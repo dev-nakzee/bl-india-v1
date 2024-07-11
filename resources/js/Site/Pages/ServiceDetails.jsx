@@ -87,6 +87,7 @@ const Sidebar = styled(Box)(({ theme }) => ({
   position: 'sticky',
   top: theme.spacing(4),
   overflowY: 'auto',
+  height: 'fit-content',
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     position: 'static',
