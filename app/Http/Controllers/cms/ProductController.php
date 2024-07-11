@@ -69,7 +69,7 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-    public function update1(Request $request, string $id): JsonResponse
+    public function update(Request $request, string $id): JsonResponse
     {
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -182,5 +182,26 @@ class ProductController extends Controller
     {
         $productServices = ProductServiceMap::with('service')->where('product_id', $id)->get();
         return response()->json($productServices);
+    }
+
+    public function updateService(Request $request, string $productId, string $serviceId): JsonResponse
+    {
+        $validated = $request->validate([
+            'service_id' => 'required|exists:services,id',
+            'is' => 'nullable|string',
+            'group' => 'nullable|string',
+            'scheme' => 'nullable|string',
+            'others' => 'nullable|string',
+            'is_mandatory' => 'required|boolean',
+            'details' => 'nullable|string',
+        ]);
+
+        $productServiceMap = ProductServiceMap::where('product_id', $productId)
+            ->where('service_id', $serviceId)
+            ->firstOrFail();
+
+        $productServiceMap->update($validated);
+
+        return response()->json(['message' => 'Service updated successfully'], 200);
     }
 }

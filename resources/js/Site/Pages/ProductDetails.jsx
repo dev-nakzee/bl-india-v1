@@ -118,7 +118,7 @@ const ProductDetails = () => {
                 <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
                   <span>Product Categories:</span> &nbsp;&nbsp; 
                   <span className='font-bold'>
-                    {productData.categories.map((category) => category.name).join(', ')}
+                    {productData.categories.map((category) => category.name).join(' / ')}
                   </span>
                 </Typography>
                 <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>

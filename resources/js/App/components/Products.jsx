@@ -42,6 +42,7 @@ const Products = () => {
   const [open, setOpen] = useState(false);
   const [serviceDialogOpen, setServiceDialogOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+  const [serviceEditDialogOpen, setServiceEditDialogOpen] = useState(false);
   const [product, setProduct] = useState({
     name: '',
     slug: '',
@@ -68,6 +69,7 @@ const Products = () => {
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -287,6 +289,39 @@ const Products = () => {
     } catch (error) {
       toast.error('Failed to detach service');
     }
+  };
+
+  const handleEditServiceClick = (service) => {
+    setSelectedService(service);
+    setServiceEditDialogOpen(true);
+  };
+
+  const handleServiceEditChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setSelectedService((prevService) => ({
+      ...prevService,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const handleServiceEditSubmit = async () => {
+    try {
+      const updatedService = {
+        ...selectedService,
+        is_mandatory: selectedService.is_mandatory ? '1' : '0', // Convert boolean to string
+      };
+      await apiClient.put(`/products/${selectedProductId}/services/${selectedService.service_id}`, updatedService);
+      fetchRelatedServices(selectedProductId);
+      toast.success('Service updated successfully');
+      setServiceEditDialogOpen(false);
+    } catch (error) {
+      toast.error('Failed to update service');
+    }
+  };
+
+  const handleServiceEditCancel = () => {
+    setServiceEditDialogOpen(false);
+    setSelectedService(null);
   };
 
   const handleSearchChange = (event) => {
@@ -610,6 +645,9 @@ const Products = () => {
                       <div dangerouslySetInnerHTML={{ __html: service.details }} />
                     </TableCell>
                     <TableCell>
+                      <IconButton color="primary" onClick={() => handleEditServiceClick(service)}>
+                        <EditIcon />
+                      </IconButton>
                       <IconButton color="secondary" onClick={() => handleDetachService(service.service_id)}>
                         <DeleteIcon />
                       </IconButton>
@@ -625,6 +663,96 @@ const Products = () => {
             Close
           </Button>
         </DialogActions>
+      </Dialog>
+      <Dialog open={serviceEditDialogOpen} onClose={handleServiceEditCancel}>
+        <DialogTitle>Edit Service</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Edit the details of the service.</DialogContentText>
+          {selectedService && (
+            <>
+              <FormControl fullWidth>
+                <InputLabel id="service-select-label">Select Service</InputLabel>
+                <Select
+                  labelId="service-select-label"
+                  id="service-select"
+                  name="service_id"
+                  value={selectedService.service_id}
+                  onChange={handleServiceEditChange}
+                  fullWidth
+                  disabled
+                >
+                  {services.map((service) => (
+                    <MenuItem key={service.id} value={service.id}>
+                      {service.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <TextField
+                label="Group"
+                name="group"
+                value={selectedService.group}
+                onChange={handleServiceEditChange}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Scheme"
+                name="scheme"
+                value={selectedService.scheme}
+                onChange={handleServiceEditChange}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Is"
+                name="is"
+                value={selectedService.is}
+                onChange={handleServiceEditChange}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Others"
+                name="others"
+                value={selectedService.others}
+                onChange={handleServiceEditChange}
+                fullWidth
+                margin="normal"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={!!selectedService.is_mandatory}
+                    onChange={handleServiceEditChange}
+                    name="is_mandatory"
+                    color="primary"
+                  />
+                }
+                label="Is Mandatory"
+              />
+              <ReactQuill
+                value={selectedService.details}
+                onChange={(value) =>
+                  setSelectedService((prevService) => ({
+                    ...prevService,
+                    details: value,
+                  }))
+                }
+                placeholder="Service Details"
+                theme="snow"
+              />
+              <DialogActions>
+                <Button onClick={handleServiceEditCancel} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={handleServiceEditSubmit} color="primary">
+                  Save
+                </Button>
+              </DialogActions>
+            </>
+          )}
+        </DialogContent>
       </Dialog>
       <Dialog open={confirmDeleteOpen} onClose={handleDeleteCancel}>
         <DialogTitle>Confirm Delete</DialogTitle>

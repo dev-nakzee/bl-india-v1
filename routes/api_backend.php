@@ -48,6 +48,7 @@ Route::prefix('v1/cms')->group(function(){
         Route::post('products/{id}/services', [ProductController::class, 'attachServices']);
         Route::delete('products/{productId}/services/{serviceId}', [ProductController::class, 'detachService']);
         Route::get('products/{id}/services', [ProductController::class, 'getServices']);
+        Route::put('products/{id}/services/{serviceId}', [ProductController::class, 'updateService']); 
         // Process Routes
         Route::apiResource('processes', ProcessController::class);
         Route::post('processes/{id}', [ProcessController::class, 'update1']);
