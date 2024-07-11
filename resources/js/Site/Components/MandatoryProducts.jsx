@@ -51,7 +51,7 @@ const MandatoryProducts = ({ serviceId }) => {
         localStorage.setItem('serviceId', params.row.service_id);
         navigate(`/products/${params.row.product_slug}`);
     };
-    
+
     const handleSearch = (event) => {
         setSearch(event.target.value);
         if (event.target.value === "") {
@@ -69,13 +69,37 @@ const MandatoryProducts = ({ serviceId }) => {
 
     const getColumns = () => {
         const baseColumns = [
-            { field: "srNo", headerName: "Sr. No.", width: 70 },
-            { field: "product_name", headerName: "Product Name", flex: 1, minWidth: 150 },
+            { 
+                field: "srNo", 
+                headerName: "Sr. No.", 
+                width: 70,
+                renderCell: (params) => (
+                    <Box sx={{ pl: 1, py: 2, pr:2}}>
+                        {params.value}
+                    </Box>
+                )
+            },
+            { 
+                field: "product_name", 
+                headerName: "Product Name", 
+                flex: 1, 
+                minWidth: 150, 
+                renderCell: (params) => (
+                    <Box sx={{ whiteSpace: 'pre-line', pl: 1, py: 2, pr:2 }}>
+                        {params.value}
+                    </Box>
+                )
+            },
             {
-                field: "product_category_name",
-                headerName: "Category Name",
+                field: "product_category_names",
+                headerName: "Category Names",
                 flex: 1,
                 minWidth: 150,
+                renderCell: (params) => (
+                    <Box sx={{ whiteSpace: 'pre-line', pl: 1, py: 2, pr:2 }}>
+                        {params.value.join(', ')}
+                    </Box>
+                )
             },
         ];
 
@@ -84,18 +108,33 @@ const MandatoryProducts = ({ serviceId }) => {
             headerName: "IS Standard",
             flex: 1,
             minWidth: 100,
+            renderCell: (params) => (
+                <Box sx={{ whiteSpace: 'pre-line', pl: 1, py: 2, pr:2 }}>
+                    {params.value}
+                </Box>
+            )
         };
         const groupColumn = {
             field: "product_group",
             headerName: "Group",
             flex: 1,
             minWidth: 100,
+            renderCell: (params) => (
+                <Box sx={{ whiteSpace: 'pre-line', pl: 1, py: 2, pr:2 }}>
+                    {params.value}
+                </Box>
+            )
         };
         const schemeColumn = {
             field: "product_scheme",
             headerName: "Scheme",
             flex: 1,
             minWidth: 100,
+            renderCell: (params) => (
+                <Box sx={{ whiteSpace: 'pre-line', pl: 1, py: 2, pr:2 }}>
+                    {params.value}
+                </Box>
+            )
         };
 
         if (filteredProducts.length > 0) {
@@ -168,6 +207,7 @@ const MandatoryProducts = ({ serviceId }) => {
                     onRowClick={handleRowClick}
                     getRowId={(row) => row.product_slug} // Ensure unique row ID
                     autoHeight
+                    getRowHeight={() => 'auto'}
                 />
             </div>
         </Box>

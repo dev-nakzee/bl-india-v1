@@ -185,6 +185,8 @@ const Products = () => {
           formData.append(key, product[key] ? '1' : '0'); // Convert boolean to string
         } else if (key === 'image' && product[key]) {
           formData.append(key, product[key]); // Append image file directly
+        } else if (key === 'is_mandatory') {
+          formData.append(key, product[key] ? '1' : '0'); // Convert boolean to string
         } else {
           formData.append(key, product[key]);
         }
@@ -255,7 +257,7 @@ const Products = () => {
         group: serviceForm.group,
         scheme: serviceForm.scheme,
         others: serviceForm.others,
-        is_mandatory: serviceForm.is_mandatory,
+        is_mandatory: serviceForm.is_mandatory ? '1' : '0', // Convert boolean to string
         details: serviceForm.details,
       };
       await apiClient.post(`/products/${selectedProductId}/services`, {
@@ -603,7 +605,7 @@ const Products = () => {
                     <TableCell>{service.scheme}</TableCell>
                     <TableCell>{service.is}</TableCell>
                     <TableCell>{service.others}</TableCell>
-                    <TableCell>{service.is_mandatory ? 'Yes' : 'No'}</TableCell>
+                    <TableCell>{service.is_mandatory === 1 ? 'Yes' : 'No'}</TableCell>
                     <TableCell>
                       <div dangerouslySetInnerHTML={{ __html: service.details }} />
                     </TableCell>

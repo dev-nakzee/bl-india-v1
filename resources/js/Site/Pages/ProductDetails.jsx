@@ -97,7 +97,7 @@ const ProductDetails = () => {
       <Box sx={{ padding: isMobile ? 2 : 4 }}>
         <Card className="Product-card" sx={{ mb: 4 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <CardMedia
                 component="img"
                 sx={{ width: '100%', backgroundColor: '#c3e7ff' }}
@@ -105,18 +105,21 @@ const ProductDetails = () => {
                 alt={productData.image_alt}
               />
             </Grid>
-            <Grid item xs={12} sm={8}>
+            <Grid item xs={12} sm={9}>
               <CardContent>
                 <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
                   <span>Product Name:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.name}</span>
                 </Typography>
-                {productData.technical_name && (
+                {productData.technical_name && productData.technical_name !== 'null' && (
                   <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
                     <span>Technical Name:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.technical_name}</span>
                   </Typography>
                 )}
                 <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
-                  <span>Product Category:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.product_category.name}</span>
+                  <span>Product Categories:</span> &nbsp;&nbsp; 
+                  <span className='font-bold'>
+                    {productData.categories.map((category) => category.name).join(', ')}
+                  </span>
                 </Typography>
                 <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
                   <span>Share Product:</span> &nbsp;&nbsp; <SharePage color='secondary' />

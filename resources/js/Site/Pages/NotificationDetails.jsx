@@ -51,7 +51,7 @@ const NotificationDetails = () => {
         <Typography className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
           {notification.name}
         </Typography>
-        {notification.technical_name && (
+        {notification.technical_name && notification.technical_name && (
           <Typography variant="h4" textAlign="center" gutterBottom>
             {notification.technical_name}
           </Typography>
