@@ -29,7 +29,7 @@ const HolidayList = () => {
     }, []);
     const Sidebar = styled(Box)(({ theme }) => ({
         width: "auto",
-        // height: "fit-content",
+        height: "fit-content",
         position: "sticky",
         top: "20px",
         overflowY: "auto",

@@ -109,23 +109,22 @@ class ServiceController extends Controller
     
         return response()->json(['service' => $service, 'sections' => $sections, 'related_services' => $relatedServices]);
     }
-    
 
     public function getMandatoryProducts(Request $request, $serviceId): JsonResponse
     {
         $products = ProductServiceMap::where('service_id', $serviceId)
-            ->with(['product.productCategory', 'service'])
+            ->with(['product.categories', 'service'])
             ->get()
             ->map(function ($productServiceMap) {
                 return [
-                    'category_id' => $productServiceMap->product->productCategory->id,
+                    'category_id' => $productServiceMap->product->categories->pluck('id'),
                     'product_name' => $this->translateText($productServiceMap->product->name),
                     'product_slug' => $productServiceMap->product->slug,
                     'product_is_standard' => $productServiceMap->is,
                     'product_group' => $productServiceMap->group,
                     'product_scheme' => $productServiceMap->scheme,
                     'product_others' => $productServiceMap->others,
-                    'product_category_name' => $this->translateText($productServiceMap->product->productCategory->name),
+                    'product_category_name' => $this->translateText($productServiceMap->product->categories->pluck('name')),
                     'service_compliance' => $productServiceMap->service->compliance_header,
                 ];
             })
@@ -138,15 +137,30 @@ class ServiceController extends Controller
 
     public function productDetails(Request $request, string $slug): JsonResponse
     {
-        $product = Product::where('slug', $slug)->with(['productCategory','services', 'services', 'services.service', 'services.service.serviceCategory'])->first();
-        $notification = NoticeProductMap::where('product_id', $product->id)->with('notification', 'notification.category')->get();
+        $product = Product::where('slug', $slug)
+            ->with(['categories', 'services', 'services.service', 'services.service.serviceCategory'])
+            ->firstOrFail();
+        $notification = NoticeProductMap::where('product_id', $product->id)
+            ->with('notification', 'notification.category')
+            ->get();
         $product->name = $this->translateText($product->name);
         $product->description = $this->translateHtmlContent($product->description);
         foreach ($product->services as $service) {
             $service->details = $this->translateHtmlContent($service->details);
         }
 
-        return response()->json(['product' => $product, 'notification' => $notification, 'test' => $product->name]);
+        $categories = $product->categories->map(function ($category) {
+            return [
+                'id' => $category->id,
+                'name' => $this->translateText($category->name),
+            ];
+        });
+
+        return response()->json([
+            'product' => $product,
+            'categories' => $categories,
+            'notification' => $notification
+        ]);
     }
 
     private function translateText($text)
@@ -160,51 +174,47 @@ class ServiceController extends Controller
             return $this->translator->translate($text);
         });
     }
+
     private function translateHtmlContent($html)
     {
         if (is_null($html)) {
             return '';
         }
-    
+
         $cacheKey = 'translated_html_' . md5($html);
         return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($html) {
             $doc = new DOMDocument();
             libxml_use_internal_errors(true);
             $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             libxml_clear_errors();
-    
+
             $translatedHtml = $this->translateDomNode($doc->documentElement);
             return $translatedHtml;
         });
     }
-    
+
     private function translateDomNode($node)
     {
         $translatedHtml = '';
-    
+
         foreach ($node->childNodes as $child) {
             if ($child->nodeType === XML_TEXT_NODE) {
                 $translatedHtml .= $this->translateText($child->nodeValue);
             } elseif ($child->nodeType === XML_ELEMENT_NODE) {
                 $translatedHtml .= '<' . $child->nodeName;
-    
+
                 if ($child->hasAttributes()) {
                     foreach ($child->attributes as $attr) {
                         $translatedHtml .= ' ' . $attr->nodeName . '="' . htmlspecialchars($attr->nodeValue) . '"';
                     }
                 }
-    
+
                 $translatedHtml .= '>';
                 $translatedHtml .= $this->translateDomNode($child);
                 $translatedHtml .= '</' . $child->nodeName . '>';
             }
         }
-    
+
         return $translatedHtml;
     }
-    
-    
-    
-
 }
-

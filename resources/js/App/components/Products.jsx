@@ -53,7 +53,7 @@ const Products = () => {
     seo_description: '',
     seo_keywords: '',
     seo_tags: '',
-    product_category_id: ''
+    product_category_ids: [] // Initialize as an array
   });
   const [serviceForm, setServiceForm] = useState({
     service_id: '',
@@ -117,7 +117,7 @@ const Products = () => {
       seo_description: '',
       seo_keywords: '',
       seo_tags: '',
-      product_category_id: ''
+      product_category_ids: [] // Initialize as an array
     });
     setEditing(false);
     setOpen(true);
@@ -128,7 +128,10 @@ const Products = () => {
   };
 
   const handleEditClick = (product) => {
-    setProduct(product);
+    setProduct({
+      ...product,
+      product_category_ids: product.categories.map(category => category.id) // Map categories to ids
+    });
     setEditing(true);
     setOpen(true);
   };
@@ -176,7 +179,9 @@ const Products = () => {
     const formData = new FormData();
     for (const key in product) {
       if (product.hasOwnProperty(key)) {
-        if (key === 'is_global') {
+        if (key === 'product_category_ids') {
+          formData.append(key, JSON.stringify(product[key])); // Convert array to JSON string
+        } else if (key === 'is_global') {
           formData.append(key, product[key] ? '1' : '0'); // Convert boolean to string
         } else if (key === 'image' && product[key]) {
           formData.append(key, product[key]); // Append image file directly
@@ -298,7 +303,7 @@ const Products = () => {
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase()) ||
     product.slug.toLowerCase().includes(search.toLowerCase()) ||
-    product.product_category.name.toLowerCase().includes(search.toLowerCase())
+    product.categories.some(category => category.name.toLowerCase().includes(search.toLowerCase()))
   );
 
   return (
@@ -340,7 +345,7 @@ const Products = () => {
                 <TableCell><img src={product.thumbnail_url} alt={product.image_alt} /></TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>{product.slug}</TableCell>
-                <TableCell>{product.product_category.name}</TableCell>
+                <TableCell>{product.categories.map(category => category.name).join(', ')}</TableCell>
                 <TableCell>
                   <IconButton color="primary" onClick={() => handleEditClick(product)}>
                     <EditIcon />
@@ -458,22 +463,21 @@ const Products = () => {
               fullWidth
               margin="normal"
             />
-            <TextField
-              select
-              label="Product Category"
-              name="product_category_id"
-              value={product.product_category_id || ''}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            >
-              {productCategories.map((category) => (
-                <MenuItem key={category.id} value={category.id}>
-                  {category.name}
-                </MenuItem>
-              ))}
-            </TextField>
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Product Categories</InputLabel>
+              <Select
+                multiple
+                name="product_category_ids"
+                value={product.product_category_ids || []}
+                onChange={handleChange}
+              >
+                {productCategories.map((category) => (
+                  <MenuItem key={category.id} value={category.id}>
+                    {category.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <DialogActions>
               <Button onClick={handleClose} color="primary">
                 Cancel

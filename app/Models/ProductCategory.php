@@ -21,4 +21,9 @@ class ProductCategory extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'category_product_maps', 'product_category_id', 'product_id');
+    }
 }

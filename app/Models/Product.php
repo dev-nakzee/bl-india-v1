@@ -22,7 +22,7 @@ class Product extends Model
         'seo_description',
         'seo_keywords',
         'seo_tags',
-        'product_category_id',
+        // 'product_category_id',
     ];
 
     protected $hidden = [
@@ -31,9 +31,9 @@ class Product extends Model
         'deleted_at',
     ];
 
-    public function productCategory()
+    public function categories()
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsToMany(ProductCategory::class, 'category_product_maps', 'product_id', 'product_category_id');
     }
 
     public function services()

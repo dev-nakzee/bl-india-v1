@@ -12,23 +12,15 @@ use Intervention\Image\Laravel\Facades\Image;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): JsonResponse
     {
-        //
-        $products = Product::with('productCategory', 'services')->orderBy('id', 'desc')->get();
+        $products = Product::with('categories', 'services')->orderBy('id', 'desc')->get();
         return response()->json($products);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): JsonResponse
     {
-        //
-         $validated = $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:products',
             'technical_name' => 'nullable|string|max:255',
@@ -39,24 +31,24 @@ class ProductController extends Controller
             'seo_description' => 'nullable|string',
             'seo_keywords' => 'nullable|string',
             'seo_tags' => 'nullable|string',
-            'product_category_id' => 'required|exists:product_categories,id',
+            'product_category_ids' => 'required|json',
+            'product_category_ids.*' => 'exists:product_categories,id',
         ]);
 
         if ($request->hasFile('image')) {
             try {
-                $imageWebp  = Image::read($request->file('image'));
-                $image = $imageWebp->toWebp(100);
+                $imageWebp = Image::make($request->file('image'))->encode('webp', 90);
                 $imageName = uniqid().'.webp';
 
                 // Convert and store original image as WebP
                 $imagePath = 'product_images/' . $imageName;
-                Storage::disk('public')->put($imagePath, (string) $image);
+                Storage::disk('public')->put($imagePath, (string) $imageWebp);
                 $validated['image_url'] = Storage::url($imagePath);
 
                 // Generate and store thumbnail as WebP
                 $thumbnailPath = 'product_images/thumbnail/' . $imageName;
-                $thumbnail = $imageWebp->resize(100, 100);
-                Storage::disk('public')->put($thumbnailPath, (string) $thumbnail->toWebp(100));
+                $thumbnail = Image::make($request->file('image'))->resize(100, 100)->encode('webp', 90);
+                Storage::disk('public')->put($thumbnailPath, (string) $thumbnail);
                 $validated['thumbnail_url'] = Storage::url($thumbnailPath);
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Failed to upload image: ' . $e->getMessage()], 500);
@@ -64,25 +56,21 @@ class ProductController extends Controller
         }
 
         $product = Product::create($validated);
-        return response()->json($product, 201);
+
+        // Sync categories
+        $product->categories()->sync($validated['category_ids']);
+
+        return response()->json($product->load('categories'), 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id): JsonResponse
     {
-        //
-        $product = Product::findOrFail($id);
+        $product = Product::with('categories', 'services')->findOrFail($id);
         return response()->json($product);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update1(Request $request, string $id): JsonResponse
     {
-        //
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|max:255|unique:products,slug,' . $id,
@@ -94,7 +82,8 @@ class ProductController extends Controller
             'seo_description' => 'nullable|string',
             'seo_keywords' => 'nullable|string',
             'seo_tags' => 'nullable|string',
-            'product_category_id' => 'sometimes|required|exists:product_categories,id',
+            'product_category_ids' => 'required|json',
+            // 'product_category_ids.*' => 'exists:product_categories,id',
         ]);
 
         $product = Product::findOrFail($id);
@@ -107,36 +96,34 @@ class ProductController extends Controller
                     Storage::disk('public')->delete($product->thumbnail_url);
                 }
 
-                $imageWebp  = Image::read($request->file('image'));
-                $image = $imageWebp->toWebp(100);
+                $imageWebp = Image::make($request->file('image'))->encode('webp', 90);
                 $imageName = uniqid().'.webp';
 
                 // Convert and store original image as WebP
                 $imagePath = 'product_images/' . $imageName;
-                Storage::disk('public')->put($imagePath, (string) $image);
+                Storage::disk('public')->put($imagePath, (string) $imageWebp);
                 $validated['image_url'] = Storage::url($imagePath);
 
                 // Generate and store thumbnail as WebP
                 $thumbnailPath = 'product_images/thumbnail/' . $imageName;
-                $thumbnail = $imageWebp->resize(100, 100);
-                Storage::disk('public')->put($thumbnailPath, (string) $thumbnail->toWebp(100));
+                $thumbnail = Image::make($request->file('image'))->resize(100, 100)->encode('webp', 90);
+                Storage::disk('public')->put($thumbnailPath, (string) $thumbnail);
                 $validated['thumbnail_url'] = Storage::url($thumbnailPath);
-
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Failed to upload image: ' . $e->getMessage()], 500);
             }
         }
 
         $product->update($validated);
-        return response()->json($product, 202);
+        $category_ids = json_decode($validated['product_category_ids'], true);
+        // Sync categories
+        $product->categories()->sync($category_ids);
+
+        return response()->json($product->load('categories'), 202);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id): JsonResponse
     {
-        //
         $product = Product::findOrFail($id);
 
         // Delete the image if exists
@@ -149,10 +136,6 @@ class ProductController extends Controller
         return response()->json(null, 204);
     }
 
-
-    /**
-     * Attach services to a product.
-     */
     public function attachServices(Request $request, string $id): JsonResponse
     {
         $validated = $request->validate([
@@ -184,9 +167,6 @@ class ProductController extends Controller
         return response()->json(['message' => 'Services attached successfully'], 201);
     }
 
-    /**
-     * Detach a service from a product.
-     */
     public function detachService(string $productId, string $serviceId): JsonResponse
     {
         $productServiceMap = ProductServiceMap::where('product_id', $productId)
@@ -198,9 +178,6 @@ class ProductController extends Controller
         return response()->json(['message' => 'Service detached successfully'], 204);
     }
 
-    /**
-     * Get services related to a product.
-     */
     public function getServices(string $id): JsonResponse
     {
         $productServices = ProductServiceMap::with('service')->where('product_id', $id)->get();
