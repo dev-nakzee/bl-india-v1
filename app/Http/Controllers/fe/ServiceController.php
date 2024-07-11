@@ -117,24 +117,27 @@ class ServiceController extends Controller
             ->get()
             ->map(function ($productServiceMap) {
                 return [
-                    'category_id' => $productServiceMap->product->categories->pluck('id'),
+                    'product_id' => $productServiceMap->product->id,
                     'product_name' => $this->translateText($productServiceMap->product->name),
                     'product_slug' => $productServiceMap->product->slug,
                     'product_is_standard' => $productServiceMap->is,
                     'product_group' => $productServiceMap->group,
                     'product_scheme' => $productServiceMap->scheme,
                     'product_others' => $productServiceMap->others,
-                    'product_category_name' => $this->translateText($productServiceMap->product->categories->pluck('name')),
+                    'product_category_ids' => $productServiceMap->product->categories->pluck('id')->toArray(),
+                    'product_category_names' => $productServiceMap->product->categories->pluck('name')->map(function ($name) {
+                        return $this->translateText($name);
+                    })->toArray(),
                     'service_compliance' => $productServiceMap->service->compliance_header,
                 ];
             })
-            ->sortBy('category_id')
+            ->sortBy('product_id')
             ->values()
             ->all();
-
+    
         return response()->json($products);
     }
-
+   
     public function productDetails(Request $request, string $slug): JsonResponse
     {
         $product = Product::where('slug', $slug)
