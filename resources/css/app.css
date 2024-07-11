@@ -318,8 +318,8 @@ li a {
 
 /* Service List Css */
 .Service-section-siderbar {
-    padding: 20px;
-    border: 1px solid var(--primary-color);
+    /* padding: 20px; */
+    /* border: 1px solid var(--primary-color); */
     border-radius: 25px;
     margin-right: 40px;
 }

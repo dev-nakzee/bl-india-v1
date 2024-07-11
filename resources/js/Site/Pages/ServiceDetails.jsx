@@ -86,10 +86,7 @@ const Sidebar = styled(Box)(({ theme }) => ({
   width: '25%',
   position: 'sticky',
   top: theme.spacing(4),
-  // height: 'fit-content',
-  // maxHeight: 'calc(100vh - 100px)',
   overflowY: 'auto',
-  paddingRight: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     position: 'static',
@@ -235,6 +232,7 @@ const ServiceDetails = () => {
           ) : (
             <Grid item xs={12} display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
               <Sidebar className='Service-section-siderbar'>
+                <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
                 <Typography variant="h6" mb={2}>{serviceData.service.name}</Typography>
                 <List>
                   {serviceData.sections.map((section) => (
@@ -248,6 +246,7 @@ const ServiceDetails = () => {
                     </ListItem>
                   ))}
                 </List>
+                </Box>
                 <DownloadBrochure />
                 <RequestCallBack />
               </Sidebar>

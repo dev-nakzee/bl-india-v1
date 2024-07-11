@@ -54,7 +54,6 @@ const Notifications = () => {
         position: "sticky",
         top: "20px",
         overflowY: "auto",
-        paddingRight: theme.spacing(2),
         [theme.breakpoints.down("sm")]: {
             width: "100%", // Make sidebar full width on small screens
             position: "static", // Remove sticky positioning on small screens
@@ -161,7 +160,7 @@ const Notifications = () => {
                     <Grid item xs={12} md={3}>
                         {isMobile ? (
                             <FormControl fullWidth variant="outlined" sx={{ marginBottom:1 }}>
-                                <InputLabel>Categories</InputLabel>
+                                <InputLabel>Notification Categories</InputLabel>
                                 <Select
                                     value={selectedCategory}
                                     onChange={(event) => {
@@ -181,8 +180,10 @@ const Notifications = () => {
                             </FormControl>
                         ) : (
                             <Sidebar className="Service-section-siderbar">
+                                <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
+
                                 <Typography variant="h6" gutterBottom>
-                                    Categories
+                                    Notification Categories
                                 </Typography>
                                 <List>
                                     <ListItem
@@ -203,6 +204,7 @@ const Notifications = () => {
                                         </ListItem>
                                     ))}
                                 </List>
+                                </Box>
                                 <DownloadBrochure />
                                 <RequestCallBack />
                             </Sidebar>

@@ -6,6 +6,7 @@ import apiClient from '../Services/api'; // Ensure this is your configured axios
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DownloadIcon from '@mui/icons-material/Download';
 import SharePage from '../Components/SharePage';
+import BackButton from '../Components/BackButton';
 
 const NotificationDetails = () => {
   const { categorySlug, slug } = useParams();
@@ -90,6 +91,7 @@ const NotificationDetails = () => {
             <Typography>No products available.</Typography>
           )}
         </Box>
+        <BackButton />
       </Box>
     </>
   );

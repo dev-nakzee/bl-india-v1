@@ -52,7 +52,7 @@ const Downloads = () => {
     position: 'sticky',
     top: '20px',
     overflowY: 'auto',
-    paddingRight: theme.spacing(2),
+    // paddingRight: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       width: '100%', // Make sidebar full width on small screens
       position: 'static', // Remove sticky positioning on small screens
@@ -146,7 +146,8 @@ const Downloads = () => {
               </FormControl>
             ) : (
               <Sidebar className="Service-section-siderbar">
-                <Typography variant="h6">Categories</Typography>
+                <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
+                <Typography variant="h6">Download Categories</Typography>
                 <List>
                   {data.downloadCategories.map((category) => (
                     <ListItem
@@ -161,6 +162,7 @@ const Downloads = () => {
                 </List>
                 <DownloadBrochure />
                 <RequestCallBack />
+                </Box>
               </Sidebar>
             )}
           </Grid>

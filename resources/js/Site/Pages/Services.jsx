@@ -278,7 +278,7 @@ const Sidebar = styled(Box)(({ theme }) => ({
   position: 'sticky',
   top: '20px',
   overflowY: 'auto',
-  paddingRight: theme.spacing(2),
+  // paddingRight: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
     display: 'none', // Hide sidebar on small screens
   },
@@ -384,6 +384,7 @@ const Services = () => {
         <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
        
           <Sidebar className='Service-section-siderbar'>
+            <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
             <Typography variant="h6" mb={2}>Service Categories</Typography>
             <List>
               <ListItem
@@ -404,6 +405,7 @@ const Services = () => {
                 </ListItem>
               ))}
             </List>
+            </Box>
             <DownloadBrochure />
             <RequestCallBack />
           </Sidebar>

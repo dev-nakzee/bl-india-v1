@@ -49,7 +49,7 @@ const BlogDetails = () => {
         position: "sticky",
         top: "20px",
         overflowY: "auto",
-        paddingRight: theme.spacing(2),
+        // paddingRight: theme.spacing(2),
         [theme.breakpoints.down("sm")]: {
             width: "100%",
             position: "static",
@@ -329,6 +329,8 @@ const BlogDetails = () => {
                         >
                             <Grid item xs={12} md={3}>
                             <Sidebar className="Service-section-siderbar" sx={{ width: "auto" }}>
+                                <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
+
                                 <Typography variant="h6" mb={2}>
                                     Blog Categories
                                 </Typography>
@@ -351,6 +353,7 @@ const BlogDetails = () => {
                                         </ListItem>
                                     ))}
                                 </List>
+                                </Box>
                                 <DownloadBrochure />
                                 <RequestCallBack />
                             </Sidebar>
@@ -365,7 +368,7 @@ const BlogDetails = () => {
                                         marginBottom: "20px",
                                     }}
                                 />
-                                <Typography variant="subtitle1" gutterBottom>
+                                <Typography variant="h1" gutterBottom>
                                     {blog.name}
                                 </Typography>
                                 <Box
