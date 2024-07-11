@@ -49,7 +49,7 @@ const BlogDetails = () => {
         position: "sticky",
         top: "20px",
         overflowY: "auto",
-        // paddingRight: theme.spacing(2),
+        // 
         [theme.breakpoints.down("sm")]: {
             width: "100%",
             position: "static",
