@@ -20,7 +20,7 @@ const Sidebar = () => {
       </Typography>
       <List component="nav">
         <ListItem button onClick={() => navigate('/')}>
-          <ListItemText primary="account" />
+          <ListItemText primary="Account" />
         </ListItem>
         <Divider />
         <ListItem button onClick={() => navigate('/comments')}>
