@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, List, ListItem, ListItemText, ListItemIcon, Divider, Button } from '@mui/material';
+import { Box, List, ListItem, ListItemText, ListItemIcon, Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -64,10 +64,11 @@ const Sidebar = () => {
           <ListItemText primary="Profile" />
         </ListItem>
         <Divider />
-        <ListItem>
-          <Button variant="contained" color="secondary" onClick={handleLogout} startIcon={<ExitToAppIcon />}>
-            Logout
-          </Button>
+        <ListItem button onClick={handleLogout}>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
         </ListItem>
       </List>
     </Box>
