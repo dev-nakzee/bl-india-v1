@@ -38,7 +38,6 @@ const Profile = () => {
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4">Profile</Typography>
-      <Typography variant="h6">Name: {client.name}</Typography>
       <Typography variant="h6">Email: {client.email}</Typography>
 
       <Typography variant="h5" sx={{ marginTop: 3 }}>Change Password</Typography>
