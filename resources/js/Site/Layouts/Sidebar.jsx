@@ -39,7 +39,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <Box sx={{ width: isSmallScreen ? 'auto' : '80vh', width: isSmallScreen ? 'auto' : 250, padding: 2 }}>
+    <Box sx={{ height: isSmallScreen ? 'auto' : '80vh', width: isSmallScreen ? 'auto' : 250, padding: 2 }}>
       <List component="nav">
         {menuItems.map((item, index) => (
           <React.Fragment key={item.text}>
