@@ -173,7 +173,7 @@ const ProductDetails = () => {
                       </>
                     ) : service.service.compliance_header === 'EEE Code' ? (
                       <Typography variant="body1" gutterBottom>
-                        Indian Standard: <strong>{service.others}</strong>
+                        EEE Code: <strong>{service.others}</strong>
                       </Typography>
                     ): null }
                     <>
