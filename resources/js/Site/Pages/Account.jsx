@@ -11,9 +11,6 @@ const Account = () => {
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
-        Account
-      </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
           <Card>
