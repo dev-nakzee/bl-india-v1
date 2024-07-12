@@ -15,10 +15,10 @@ const AccountLayout = () => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item xs={12} md={3}>
+      <Grid item xs={12} md={2}>
         <Sidebar />
       </Grid>
-      <Grid item xs={12} md={9}>
+      <Grid item xs={12} md={10}>
         <Box sx={{ padding: 3 }}>
           <Outlet />
         </Box>
