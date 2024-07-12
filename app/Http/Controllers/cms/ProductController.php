@@ -69,7 +69,7 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-    public function update(Request $request, string $id): JsonResponse
+    public function update1(Request $request, string $id): JsonResponse
     {
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
