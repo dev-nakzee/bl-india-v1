@@ -1,7 +1,7 @@
 import React from 'react';
+import { Box, Grid } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { Grid, Box } from '@mui/material';
-import Sidebar from '../Layouts/Sidebar';
+import Sidebar from './Sidebar';
 
 const AccountLayout = () => {
   return (
