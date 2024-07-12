@@ -85,7 +85,7 @@ Route::prefix('v1/fe')->group(function(){
         Route::post('verify-register-otp', [ClientController::class, 'verifyRegisterOtp']);
         Route::post('login', [ClientController::class, 'login']);
         Route::post('verify-login-otp', [ClientController::class, 'verifyLoginOtp']);
-        Route::post('check-token', [ClientController::class, 'checkToken'])->middleware('auth:sanctum');
+        Route::get('check-token', [ClientController::class, 'checkToken'])->middleware('auth:sanctum');
         Route::post('logout', [ClientController::class, 'logout'])->middleware('auth:sanctum');
     });
 });
