@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, List, ListItem, ListItemText, ListItemIcon, Divider } from '@mui/material';
+import { Box, List, ListItem, ListItemText, ListItemIcon, Divider, Tooltip, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -8,9 +8,12 @@ import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import FolderIcon from '@mui/icons-material/Folder';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useTheme } from '@mui/material/styles';
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleLogout = () => {
     localStorage.removeItem('client');
@@ -19,57 +22,32 @@ const Sidebar = () => {
     window.location.reload();
   };
 
+  const menuItems = [
+    { text: 'Account', icon: <AccountCircleIcon />, path: '/account' },
+    { text: 'Comments', icon: <CommentIcon />, path: '/account/comments' },
+    { text: 'Brochures', icon: <DescriptionIcon />, path: '/account/brochures' },
+    { text: 'Tutorials', icon: <VideoLibraryIcon />, path: '/account/tutorials' },
+    { text: 'Projects', icon: <FolderIcon />, path: '/account/projects' },
+    { text: 'Profile', icon: <PersonIcon />, path: '/account/profile' },
+    { text: 'Logout', icon: <ExitToAppIcon />, action: handleLogout },
+  ];
+
   return (
-    <Box sx={{ width: 250, padding: 2 }}>
+    <Box sx={{ width: isSmallScreen ? 'auto' : '100%', padding: 2 }}>
       <List component="nav">
-        <ListItem button onClick={() => navigate('/account')}>
-          <ListItemIcon>
-            <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Account" />
-        </ListItem>
-        <Divider />
-        <ListItem button onClick={() => navigate('/account/comments')}>
-          <ListItemIcon>
-            <CommentIcon />
-          </ListItemIcon>
-          <ListItemText primary="Comments" />
-        </ListItem>
-        <Divider />
-        <ListItem button onClick={() => navigate('/account/brochures')}>
-          <ListItemIcon>
-            <DescriptionIcon />
-          </ListItemIcon>
-          <ListItemText primary="Brochures" />
-        </ListItem>
-        <Divider />
-        <ListItem button onClick={() => navigate('/account/tutorials')}>
-          <ListItemIcon>
-            <VideoLibraryIcon />
-          </ListItemIcon>
-          <ListItemText primary="Tutorials" />
-        </ListItem>
-        <Divider />
-        <ListItem button onClick={() => navigate('/account/projects')}>
-          <ListItemIcon>
-            <FolderIcon />
-          </ListItemIcon>
-          <ListItemText primary="Projects" />
-        </ListItem>
-        <Divider />
-        <ListItem button onClick={() => navigate('/account/profile')}>
-          <ListItemIcon>
-            <PersonIcon />
-          </ListItemIcon>
-          <ListItemText primary="Profile" />
-        </ListItem>
-        <Divider />
-        <ListItem button onClick={handleLogout}>
-          <ListItemIcon>
-            <ExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText primary="Logout" />
-        </ListItem>
+        {menuItems.map((item, index) => (
+          <React.Fragment key={item.text}>
+            <ListItem button onClick={item.action ? item.action : () => navigate(item.path)}>
+              <Tooltip title={item.text} placement="right" disableHoverListener={!isSmallScreen}>
+                <ListItemIcon>
+                  {item.icon}
+                </ListItemIcon>
+              </Tooltip>
+              {!isSmallScreen && <ListItemText primary={item.text} />}
+            </ListItem>
+            {index < menuItems.length - 1 && <Divider />}
+          </React.Fragment>
+        ))}
       </List>
     </Box>
   );
