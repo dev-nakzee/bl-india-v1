@@ -12,6 +12,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { AccountCircle, Close, Lock } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const RegisterLoginDrawer = () => {
@@ -32,6 +33,7 @@ const RegisterLoginDrawer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -41,19 +43,23 @@ const RegisterLoginDrawer = () => {
   }, []);
 
   const handleToggleDrawer = () => {
-    setDrawerOpen(!drawerOpen);
-    if (!drawerOpen) {
-      setOtpSent(false);
-      setIsRegister(true);
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        otp: '',
-      });
-      setMessage('');
-      setErrors({});
+    if (isLoggedIn) {
+      navigate('/account');
+    } else {
+      setDrawerOpen(!drawerOpen);
+      if (!drawerOpen) {
+        setOtpSent(false);
+        setIsRegister(true);
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: '',
+          otp: '',
+        });
+        setMessage('');
+        setErrors({});
+      }
     }
   };
 
