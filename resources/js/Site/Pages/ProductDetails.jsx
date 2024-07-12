@@ -171,7 +171,11 @@ const ProductDetails = () => {
                           Scheme: <strong>{service.scheme}</strong>
                         </Typography>
                       </>
-                    ) : null}
+                    ) : service.service.compliance_header === 'EEE Code' ? (
+                      <Typography variant="body1" gutterBottom>
+                        Indian Standard: <strong>{service.others}</strong>
+                      </Typography>
+                    ): null }
                     <>
                       {service.details ? parse(service.details) : 'No details available.'}
                     </>
