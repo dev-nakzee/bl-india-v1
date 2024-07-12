@@ -14,6 +14,7 @@ use App\Models\Sticker;
 use Illuminate\Http\JsonResponse;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -174,7 +175,12 @@ class HomeController extends Controller
 
         $cacheKey = 'translated_text_' . md5($text);
         return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($text) {
-            return $this->translator->translate($text);
+            try {
+                return $this->translator->translate($text);
+            } catch (\Exception $e) {
+                Log::error('Translation error: ' . $e->getMessage());
+                return $text; // Fallback to original text if translation fails
+            }
         });
     }
 }
