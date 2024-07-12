@@ -3,7 +3,6 @@ import { Box, Typography, List, ListItem, ListItemText, Divider, Button } from '
 import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
-  const client = JSON.parse(localStorage.getItem('client'));
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -15,9 +14,6 @@ const Sidebar = () => {
 
   return (
     <Box sx={{ width: 250, padding: 2 }}>
-      <Typography variant="h6" sx={{ marginBottom: 2 }}>
-        Welcome, {client.name}
-      </Typography>
       <List component="nav">
         <ListItem button onClick={() => navigate('/account')}>
           <ListItemText primary="Account" />
