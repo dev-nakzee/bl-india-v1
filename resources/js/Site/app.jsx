@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Layouts/Layout';
 import HomePage from './Pages/Home';
 import About from './Pages/About';
@@ -26,7 +26,13 @@ import Careers from './Pages/Careers';
 import Contact from './Pages/Contact';
 import Downloads from './Pages/Downloads';
 import Account from './Pages/Account';
+import Comments from './Pages/Comments';
+import Brochures from './Pages/Brochures';
+import Tutorials from './Pages/Tutorials';
+import Projects from './Pages/Projects';
+import Profile from './Pages/Profile';
 import ProtectedRoute from './Components/ProtectedRoute';
+import AccountLayout from './Layouts/AccountLayout';
 
 function App() {
   return (
@@ -59,9 +65,16 @@ function App() {
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/account" element={
               <ProtectedRoute>
-                <Account />
+                <AccountLayout />
               </ProtectedRoute>
-            } />
+            }>
+              <Route index element={<Account />} />
+              <Route path="comments" element={<Comments />} />
+              <Route path="brochures" element={<Brochures />} />
+              <Route path="tutorials" element={<Tutorials />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path="profile" element={<Profile />} />
+            </Route>
           </Routes>
         </Layout>
       </BrowserRouter>
