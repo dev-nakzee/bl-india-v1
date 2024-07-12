@@ -640,7 +640,7 @@ const Products = () => {
                     <TableCell>{service.scheme}</TableCell>
                     <TableCell>{service.is}</TableCell>
                     <TableCell>{service.others}</TableCell>
-                    <TableCell>{service.is_mandatory === 1 ? 'Yes' : 'No'}</TableCell>
+                    <TableCell>{service.is_mandatory === '0' ? 'No':'Yes'}</TableCell>
                     <TableCell>
                       <div dangerouslySetInnerHTML={{ __html: service.details }} />
                     </TableCell>
