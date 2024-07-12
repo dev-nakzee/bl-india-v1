@@ -32,6 +32,7 @@ const RegisterLoginDrawer = () => {
 
   const handleToggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
+    setOtpSent(false); // Reset OTP state when drawer is toggled
   };
 
   const handleChange = (e) => {
