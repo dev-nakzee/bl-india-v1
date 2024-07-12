@@ -78,10 +78,16 @@ const RegisterLoginDrawer = () => {
     setLoading(true);
     try {
       const endpoint = isRegister ? '/client/verify-register-otp' : '/client/verify-login-otp';
-      await apiClient.post(endpoint, {
+      const response = await apiClient.post(endpoint, {
         email: formData.email,
         otp: formData.otp,
       });
+      const { token, client } = response.data;
+
+      // Save token and client info to localStorage or state
+      localStorage.setItem('token', token);
+      localStorage.setItem('client', JSON.stringify(client));
+
       toast.success('OTP verified successfully');
       setDrawerOpen(false);
     } catch (error) {
