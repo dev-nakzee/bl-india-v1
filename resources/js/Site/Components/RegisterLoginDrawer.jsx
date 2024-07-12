@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Drawer,
@@ -11,7 +11,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { AccountCircle, Close } from '@mui/icons-material';
+import { AccountCircle, Close, Lock } from '@mui/icons-material';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const RegisterLoginDrawer = () => {
@@ -28,8 +28,17 @@ const RegisterLoginDrawer = () => {
   });
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState(''); // 'error' or 'success'
+  const [errors, setErrors] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleToggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -44,6 +53,7 @@ const RegisterLoginDrawer = () => {
         otp: '',
       });
       setMessage('');
+      setErrors({});
     }
   };
 
@@ -54,6 +64,7 @@ const RegisterLoginDrawer = () => {
 
   const handleRegister = async () => {
     setLoading(true);
+    setErrors({});
     try {
       await apiClient.post('/client/register', {
         name: formData.name,
@@ -65,8 +76,12 @@ const RegisterLoginDrawer = () => {
       setMessageType('success');
       setMessage('OTP sent to your email');
     } catch (error) {
-      setMessageType('error');
-      setMessage('Registration failed');
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        setMessageType('error');
+        setMessage('Registration failed');
+      }
     } finally {
       setLoading(false);
     }
@@ -74,6 +89,7 @@ const RegisterLoginDrawer = () => {
 
   const handleLogin = async () => {
     setLoading(true);
+    setErrors({});
     try {
       await apiClient.post('/client/login', {
         email: formData.email,
@@ -83,8 +99,12 @@ const RegisterLoginDrawer = () => {
       setMessageType('success');
       setMessage('OTP sent to your email');
     } catch (error) {
-      setMessageType('error');
-      setMessage('Login failed');
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        setMessageType('error');
+        setMessage('Login failed');
+      }
     } finally {
       setLoading(false);
     }
@@ -92,6 +112,7 @@ const RegisterLoginDrawer = () => {
 
   const handleVerifyOtp = async () => {
     setLoading(true);
+    setErrors({});
     try {
       const endpoint = isRegister ? '/client/verify-register-otp' : '/client/verify-login-otp';
       const response = await apiClient.post(endpoint, {
@@ -99,10 +120,14 @@ const RegisterLoginDrawer = () => {
         otp: formData.otp,
       });
       const { token, client } = response.data;
+
+      // Save token and client info to localStorage or state
       localStorage.setItem('token', token);
       localStorage.setItem('client', JSON.stringify(client));
+
       setMessageType('success');
       setMessage('OTP verified successfully');
+      setIsLoggedIn(true);
       handleToggleDrawer();
     } catch (error) {
       setMessageType('error');
@@ -135,6 +160,8 @@ const RegisterLoginDrawer = () => {
               onChange={handleChange}
               fullWidth
               margin="normal"
+              error={!!errors.name}
+              helperText={errors.name ? errors.name[0] : ''}
             />
           )}
           <TextField
@@ -145,6 +172,8 @@ const RegisterLoginDrawer = () => {
             onChange={handleChange}
             fullWidth
             margin="normal"
+            error={!!errors.email}
+            helperText={errors.email ? errors.email[0] : ''}
           />
           <TextField
             label="Password"
@@ -154,6 +183,8 @@ const RegisterLoginDrawer = () => {
             onChange={handleChange}
             fullWidth
             margin="normal"
+            error={!!errors.password}
+            helperText={errors.password ? errors.password[0] : ''}
           />
           {isRegister && (
             <TextField
@@ -164,6 +195,8 @@ const RegisterLoginDrawer = () => {
               onChange={handleChange}
               fullWidth
               margin="normal"
+              error={!!errors.password_confirmation}
+              helperText={errors.password_confirmation ? errors.password_confirmation[0] : ''}
             />
           )}
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
@@ -188,6 +221,8 @@ const RegisterLoginDrawer = () => {
             onChange={handleChange}
             fullWidth
             margin="normal"
+            error={!!errors.otp}
+            helperText={errors.otp ? errors.otp[0] : ''}
           />
           <Button variant="contained" color="secondary" onClick={handleVerifyOtp}>
             Verify OTP
@@ -200,7 +235,7 @@ const RegisterLoginDrawer = () => {
   return (
     <Box>
       <IconButton onClick={handleToggleDrawer} color="inherit">
-        <AccountCircle fontSize="large" />
+        {isLoggedIn ? <AccountCircle fontSize="large" /> : <Lock fontSize="large" />}
       </IconButton>
       <Drawer anchor="right" open={drawerOpen} onClose={handleToggleDrawer}>
         {loading ? (
