@@ -19,6 +19,9 @@ const Sidebar = () => {
         Welcome, {client.name}
       </Typography>
       <List component="nav">
+        <ListItem button onClick={() => navigate('/')}>
+          <ListItemText primary="account" />
+        </ListItem>
         <Divider />
         <ListItem button onClick={() => navigate('/comments')}>
           <ListItemText primary="Comments" />

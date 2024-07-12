@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Typography, Box, Grid, TextField, Button, Alert } from '@mui/material';
-import Sidebar from '../Layouts/Sidebar';
+import Sidebar from '../Components/Sidebar';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const Account = () => {
@@ -21,7 +21,7 @@ const Account = () => {
     }
 
     try {
-      const response = await apiClient.post('/client/change-password', {
+      await apiClient.post('/client/change-password', {
         current_password: currentPassword,
         new_password: newPassword,
       });
