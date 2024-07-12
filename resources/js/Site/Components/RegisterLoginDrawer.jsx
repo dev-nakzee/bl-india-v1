@@ -144,7 +144,7 @@ const RegisterLoginDrawer = () => {
   };
 
   const renderForm = () => (
-    <Box sx={{ width: isSmallScreen ? '100vw' : 400, p: 3 }}>
+    <Box sx={{ p: 4}}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Typography variant="h6">{isRegister ? 'Register' : 'Login'}</Typography>
         <IconButton onClick={handleToggleDrawer}>
@@ -243,9 +243,9 @@ const RegisterLoginDrawer = () => {
       <IconButton onClick={handleToggleDrawer} color="inherit">
         {isLoggedIn ? <AccountCircle fontSize="large" /> : <Lock fontSize="large" />}
       </IconButton>
-      <Drawer anchor="right" open={drawerOpen} onClose={handleToggleDrawer}>
+      <Drawer anchor="right" open={drawerOpen} onClose={handleToggleDrawer} sx={{ width: isSmallScreen ? '100vw' : 250 }}>
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <Box sx={{ width: isSmallScreen ? '100vw' : 250 , justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <CircularProgress />
           </Box>
         ) : (
