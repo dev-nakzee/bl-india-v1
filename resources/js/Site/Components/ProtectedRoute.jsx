@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const checkTokenValidity = async () => {
       try {
-        const response = await apiClient.post('/client/check-token');
+        const response = await apiClient.post('/check-token');
         if (response.status === 200) {
           setIsValid(true);
         }

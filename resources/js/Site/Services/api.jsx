@@ -24,8 +24,15 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
   const locale = getLocale();
+  const token = localStorage.getItem('token');
+  
   config.headers['Accept-Language'] = locale;
   config.headers['current-locale'] = locale;
+  
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+  
   return config;
 }, (error) => {
   return Promise.reject(error);
