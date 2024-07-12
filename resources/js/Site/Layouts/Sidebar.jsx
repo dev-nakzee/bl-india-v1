@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, List, ListItem, ListItemText, ListItemIcon, Divider, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, List, ListItem, ListItemText, ListItemIcon, Divider, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -13,7 +13,7 @@ import { useTheme } from '@mui/material/styles';
 const Sidebar = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleLogout = () => {
     localStorage.removeItem('client');
@@ -33,16 +33,12 @@ const Sidebar = () => {
   ];
 
   return (
-    <Box sx={{ width: isSmallScreen ? 'auto' : '100%', padding: 2 }}>
+    <Box sx={{ width: isSmallScreen ? 'auto' : 250, padding: 2 }}>
       <List component="nav">
         {menuItems.map((item, index) => (
           <React.Fragment key={item.text}>
             <ListItem button onClick={item.action ? item.action : () => navigate(item.path)}>
-              <Tooltip title={item.text} placement="right" disableHoverListener={!isSmallScreen}>
-                <ListItemIcon>
-                  {item.icon}
-                </ListItemIcon>
-              </Tooltip>
+              <ListItemIcon>{item.icon}</ListItemIcon>
               {!isSmallScreen && <ListItemText primary={item.text} />}
             </ListItem>
             {index < menuItems.length - 1 && <Divider />}
