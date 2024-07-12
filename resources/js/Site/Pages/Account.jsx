@@ -13,61 +13,62 @@ const Account = () => {
     tutorials: 3, // Dummy data
   });
 
-  const cardStyle = {
-    backgroundColor: '#f5f5f5',
-    color: '#333',
-    textAlign: 'center',
-  };
+  const cardStyles = [
+    { backgroundColor: '#e3f2fd', color: '#0d47a1' }, // Light blue for Comments
+    { backgroundColor: '#bbdefb', color: '#0d47a1' }, // Blue for Projects
+    { backgroundColor: '#90caf9', color: '#0d47a1' }, // Lighter blue for Brochures
+    { backgroundColor: '#64b5f6', color: '#0d47a1' }  // Even lighter blue for Tutorials
+  ];
 
   const iconStyle = {
     fontSize: '3rem',
-    marginBottom: '0.5rem',
+    marginRight: '1rem',
   };
 
   return (
     <div>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
-          <Card style={cardStyle}>
-            <CardContent>
-              <Box sx={iconStyle}>
-                <CommentIcon style={iconStyle} />
+          <Card style={cardStyles[0]}>
+            <CardContent style={{ display: 'flex', alignItems: 'center' }}>
+              <CommentIcon style={iconStyle} />
+              <Box>
+                <Typography variant="h5">Comments</Typography>
+                <Typography variant="h6">{counts.comments}</Typography>
               </Box>
-              <Typography variant="h5">Comments</Typography>
-              <Typography variant="h6">{counts.comments}</Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card style={cardStyle}>
-            <CardContent>
-              <Box sx={iconStyle}>
-                <AssignmentIcon style={iconStyle} />
+          <Card style={cardStyles[1]}>
+            <CardContent style={{ display: 'flex', alignItems: 'center' }}>
+              <AssignmentIcon style={iconStyle} />
+              <Box>
+                <Typography variant="h5">Projects</Typography>
+                <Typography variant="h6">{counts.projects}</Typography>
               </Box>
-              <Typography variant="h5">Projects</Typography>
-              <Typography variant="h6">{counts.projects}</Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card style={cardStyle}>
-            <CardContent>
-              <Box sx={iconStyle}>
-                <BookIcon style={iconStyle} />
+          <Card style={cardStyles[2]}>
+            <CardContent style={{ display: 'flex', alignItems: 'center' }}>
+              <BookIcon style={iconStyle} />
+              <Box>
+                <Typography variant="h5">Brochures</Typography>
+                <Typography variant="h6">{counts.brochures}</Typography>
               </Box>
-              <Typography variant="h5">Brochures</Typography>
-              <Typography variant="h6">{counts.brochures}</Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card style={cardStyle}>
-            <CardContent>
-              <Box sx={iconStyle}>
-                <SchoolIcon style={iconStyle} />
+          <Card style={cardStyles[3]}>
+            <CardContent style={{ display: 'flex', alignItems: 'center' }}>
+              <SchoolIcon style={iconStyle} />
+              <Box>
+                <Typography variant="h5">Tutorials</Typography>
+                <Typography variant="h6">{counts.tutorials}</Typography>
               </Box>
-              <Typography variant="h5">Tutorials</Typography>
-              <Typography variant="h6">{counts.tutorials}</Typography>
             </CardContent>
           </Card>
         </Grid>
