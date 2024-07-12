@@ -25,10 +25,11 @@ class LayoutController extends Controller
         $socialMedia = SocialMedia::all();
         $topMenu = [
             ['title' => 'About', 'url' => '/about'],
-            ['title' => 'Blogs', 'url' => '/blogs'],
+            ['title' => 'Notifications', 'url' => '/notifications'],
             ['title' => 'Downloads', 'url' => '/downloads'],
             ['title' => 'Gallery', 'url' => '/gallery'],
             ['title' => 'Careers', 'url' => '/careers'],
+            ['title' => 'Blogs', 'url' => '/blogs'],
             ['title' => 'Contact', 'url' => '/contact'],
 
         ];
@@ -44,11 +45,12 @@ class LayoutController extends Controller
         $companyCert = Sticker::orderBy('id')->where('image_type','Company Certificate')->get();
         $links = [
             ['title' => 'About', 'url' => '/about'],
-            ['title' => 'Blogs', 'url' => '/blogs'],
-            ['title' => 'Contact', 'url' => '/contact'],
-            ['title' => 'Careers', 'url' => '/careers'],
             ['title' => 'Downloads', 'url' => '/downloads'],
             ['title' => 'Gallery', 'url' => '/gallery'],
+            ['title' => 'Careers', 'url' => '/careers'],
+            ['title' => 'Blogs', 'url' => '/blogs'],
+            ['title' => 'Contact', 'url' => '/contact'],
+
         ];
         $important = [
             ['title' => 'Privacy Policy', 'url' => '/privacy-policy'],
