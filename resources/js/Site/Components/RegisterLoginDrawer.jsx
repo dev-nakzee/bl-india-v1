@@ -7,13 +7,12 @@ import {
   Button,
   Typography,
   CircularProgress,
+  Alert,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
 import { AccountCircle, Close } from '@mui/icons-material';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterLoginDrawer = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -27,12 +26,25 @@ const RegisterLoginDrawer = () => {
     password_confirmation: '',
     otp: '',
   });
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState(''); // 'error' or 'success'
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleToggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
-    setOtpSent(false); // Reset OTP state when drawer is toggled
+    if (!drawerOpen) {
+      setOtpSent(false);
+      setIsRegister(true);
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        otp: '',
+      });
+      setMessage('');
+    }
   };
 
   const handleChange = (e) => {
@@ -49,10 +61,12 @@ const RegisterLoginDrawer = () => {
         password: formData.password,
         password_confirmation: formData.password_confirmation,
       });
-      toast.success('OTP sent to your email');
       setOtpSent(true);
+      setMessageType('success');
+      setMessage('OTP sent to your email');
     } catch (error) {
-      toast.error('Registration failed');
+      setMessageType('error');
+      setMessage('Registration failed');
     } finally {
       setLoading(false);
     }
@@ -65,10 +79,12 @@ const RegisterLoginDrawer = () => {
         email: formData.email,
         password: formData.password,
       });
-      toast.success('OTP sent to your email');
       setOtpSent(true);
+      setMessageType('success');
+      setMessage('OTP sent to your email');
     } catch (error) {
-      toast.error('Login failed');
+      setMessageType('error');
+      setMessage('Login failed');
     } finally {
       setLoading(false);
     }
@@ -83,15 +99,14 @@ const RegisterLoginDrawer = () => {
         otp: formData.otp,
       });
       const { token, client } = response.data;
-
-      // Save token and client info to localStorage or state
       localStorage.setItem('token', token);
       localStorage.setItem('client', JSON.stringify(client));
-
-      toast.success('OTP verified successfully');
-      setDrawerOpen(false);
+      setMessageType('success');
+      setMessage('OTP verified successfully');
+      handleToggleDrawer();
     } catch (error) {
-      toast.error('OTP verification failed');
+      setMessageType('error');
+      setMessage('OTP verification failed');
     } finally {
       setLoading(false);
     }
@@ -105,6 +120,11 @@ const RegisterLoginDrawer = () => {
           <Close />
         </IconButton>
       </Box>
+      {message && (
+        <Alert severity={messageType} sx={{ mb: 2 }}>
+          {message}
+        </Alert>
+      )}
       {!otpSent ? (
         <>
           {isRegister && (
@@ -191,7 +211,6 @@ const RegisterLoginDrawer = () => {
           renderForm()
         )}
       </Drawer>
-      <ToastContainer />
     </Box>
   );
 };
