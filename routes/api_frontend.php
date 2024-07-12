@@ -13,6 +13,7 @@ use App\Http\Controllers\fe\KnowledgeBaseController;
 use App\Http\Controllers\fe\CareerController;
 use App\Http\Controllers\fe\ContactController;
 use App\Http\Controllers\fe\DownloadController;
+use App\Http\Controllers\fe\ClientController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -78,4 +79,13 @@ Route::prefix('v1/fe')->group(function(){
 
     // Download Page Routes
     Route::get('/downloads', [DownloadController::class, 'download']);
+
+    Route::prefix('client')->group(function () {
+        Route::post('register', [ClientController::class, 'register']);
+        Route::post('verify-register-otp', [ClientController::class, 'verifyRegisterOtp']);
+        Route::post('login', [ClientController::class, 'login']);
+        Route::post('verify-login-otp', [ClientController::class, 'verifyLoginOtp']);
+        Route::post('check-token', [ClientController::class, 'checkToken'])->middleware('auth:sanctum');
+        Route::post('logout', [ClientController::class, 'logout'])->middleware('auth:sanctum');
+    });
 });
