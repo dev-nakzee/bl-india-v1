@@ -6,7 +6,7 @@ const getBaseURL = () => {
     return 'https://global.bl-india.com/api/v1/fe';
     // return 'http://global.localhost:8000/api/v1/fe';
   } else if (hostname.startsWith('in')) {
-    return 'http://in.bl-india.com/api/v1/fe';
+    return 'https://in.bl-india.com/api/v1/fe';
     // return 'https://in.localhost:8000/api/v1/fe';
   }
   return 'http://localhost:8000/api/v1/fe'; // Default to local
