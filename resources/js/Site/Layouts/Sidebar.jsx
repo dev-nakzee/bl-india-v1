@@ -9,17 +9,23 @@ import FolderIcon from '@mui/icons-material/Folder';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useTheme } from '@mui/material/styles';
+import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const handleLogout = () => {
-    localStorage.removeItem('client');
-    localStorage.removeItem('token');
-    navigate('/');
-    window.location.reload();
+  const handleLogout = async () => {
+    try {
+      await apiClient.post('/client/logout');
+      localStorage.removeItem('client');
+      localStorage.removeItem('token');
+      navigate('/');
+      window.location.reload();
+    } catch (error) {
+      console.error('Failed to logout:', error);
+    }
   };
 
   const menuItems = [
