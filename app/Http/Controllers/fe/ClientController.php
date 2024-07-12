@@ -113,4 +113,24 @@ class ClientController extends Controller
 
         return response()->json(['message' => 'Logged out successfully'], 200);
     }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        $client = auth()->user();
+
+        if (!Hash::check($request->current_password, $client->password)) {
+            return response()->json(['error' => 'Current password is incorrect'], 400);
+        }
+
+        $client->password = Hash::make($request->new_password);
+        $client->save();
+
+        return response()->json(['message' => 'Password changed successfully'], 200);
+    }
+
 }

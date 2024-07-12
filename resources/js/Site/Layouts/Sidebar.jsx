@@ -14,14 +14,11 @@ const Sidebar = () => {
   };
 
   return (
-    <Box sx={{ width: 250, padding: 2 }}>
+    <Box sx={{ width: 500, padding: 2 }}>
       <Typography variant="h6" sx={{ marginBottom: 2 }}>
         Welcome, {client.name}
       </Typography>
       <List component="nav">
-        <ListItem button onClick={() => navigate('/account')}>
-          <ListItemText primary="Profile" />
-        </ListItem>
         <Divider />
         <ListItem button onClick={() => navigate('/comments')}>
           <ListItemText primary="Comments" />
@@ -37,6 +34,10 @@ const Sidebar = () => {
         <Divider />
         <ListItem button onClick={() => navigate('/projects')}>
           <ListItemText primary="Projects" />
+        </ListItem>
+        <Divider />
+        <ListItem button onClick={() => navigate('/account')}>
+          <ListItemText primary="Profile" />
         </ListItem>
         <Divider />
         <ListItem>

@@ -87,5 +87,6 @@ Route::prefix('v1/fe')->group(function(){
         Route::post('verify-login-otp', [ClientController::class, 'verifyLoginOtp']);
         Route::get('check-token', [ClientController::class, 'checkToken'])->middleware('auth:sanctum');
         Route::post('logout', [ClientController::class, 'logout'])->middleware('auth:sanctum');
+        Route::post('change-password', [ClientController::class, 'changePassword'])->middleware('auth:sanctum');
     });
 });
