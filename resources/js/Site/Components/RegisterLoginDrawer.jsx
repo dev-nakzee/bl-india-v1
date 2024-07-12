@@ -42,7 +42,7 @@ const RegisterLoginDrawer = () => {
   const handleRegister = async () => {
     setLoading(true);
     try {
-      const response = await apiClient.post('/client/register', {
+      await apiClient.post('/client/register', {
         name: formData.name,
         email: formData.email,
         password: formData.password,
@@ -60,7 +60,7 @@ const RegisterLoginDrawer = () => {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const response = await apiClient.post('/client/login', {
+      await apiClient.post('/client/login', {
         email: formData.email,
         password: formData.password,
       });
@@ -77,7 +77,7 @@ const RegisterLoginDrawer = () => {
     setLoading(true);
     try {
       const endpoint = isRegister ? '/client/verify-register-otp' : '/client/verify-login-otp';
-      const response = await apiClient.post(endpoint, {
+      await apiClient.post(endpoint, {
         email: formData.email,
         otp: formData.otp,
       });
