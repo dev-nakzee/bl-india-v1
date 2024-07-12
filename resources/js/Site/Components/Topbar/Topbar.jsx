@@ -24,6 +24,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import LanguageIcon from "@mui/icons-material/Language";
 import apiClient from "../../Services/api";
 import SharePage from "../SharePage";
+import PartnerWithUsLink from "../Footer/PartnerWithUsLink";
 
 const socialIcons = {
   Facebook: <FacebookIcon />,
@@ -195,6 +196,7 @@ function Topbar() {
                   {menuItem.title}
                 </Typography>
               ))}
+                <PartnerWithUsLink displayType="icon" />               
               <IconButton color="inherit" onClick={handleLanguageClick}>
                 <LanguageIcon />
                 <Typography variant="body2" sx={{ marginLeft: 1 }}>

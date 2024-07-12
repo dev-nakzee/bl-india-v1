@@ -81,7 +81,7 @@ const PartnerWithUs = () => {
     <Container>
       <ToastContainer />
       <Box sx={{ textAlign: 'center', padding: 4 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography gutterBottom sx={{ cursor: 'pointer'}}>
           Partner With Us
         </Typography>
         <Button variant="contained" color="primary" onClick={toggleDrawer(true)}>

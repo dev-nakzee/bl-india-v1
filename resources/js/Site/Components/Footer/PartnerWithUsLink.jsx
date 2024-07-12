@@ -13,15 +13,17 @@ import {
   FormControlLabel,
   Radio,
   FormGroup,
+  Tooltip,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const partnerTypes = ['Service Partner', 'Channel Partner'];
 const entityTypes = ['Company', 'Individual'];
 
-const PartnerWithUsLink = () => {
+const PartnerWithUsLink = ({ displayType = 'text' }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [formData, setFormData] = useState({
     entityType: 'Individual',
@@ -36,10 +38,7 @@ const PartnerWithUsLink = () => {
   });
 
   const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setIsDrawerOpen(open);
@@ -60,8 +59,8 @@ const PartnerWithUsLink = () => {
       // await apiClient.post('/partner-with-us', formData);
       toast.success('Partner request submitted successfully');
       setFormData({
-        partnerType: '',
-        entityType: '',
+        partnerType: 'Service Partner',
+        entityType: 'Individual',
         name: '',
         email: '',
         phone: '',
@@ -80,20 +79,29 @@ const PartnerWithUsLink = () => {
   return (
     <>
       <ToastContainer />
-      <Typography
-        variant="body2"
-        className="Service-list"
-        onClick={toggleDrawer(true)}
-      >
-        Partner With Us
-      </Typography>
+      {displayType === 'text' ? (
+        <Typography
+          variant="bodytext"
+          className="Service-list"
+          onClick={toggleDrawer(true)}
+          sx={{ cursor: 'pointer' }}
+        >
+          Partner With Us
+        </Typography>
+      ) : (
+        <Tooltip title="Partner With Us" arrow>
+          <IconButton onClick={toggleDrawer(true)} sx={{ color: '#ffffff' }} aria-label="partner with us">
+            <HandshakeIcon fontSize="large" />
+          </IconButton>
+        </Tooltip>
+      )}
       <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <Box
           sx={{ width: 380, padding: 2 }}
           role="presentation"
           onKeyDown={toggleDrawer(false)}
         >
-          <IconButton onClick={toggleDrawer(false)} sx={{display:'flex',justifyContent:'flex-end',alignItems:'center'}}>
+          <IconButton onClick={toggleDrawer(false)} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
             <CloseIcon />
           </IconButton>
           <Typography variant="h5" gutterBottom>
@@ -213,7 +221,7 @@ const PartnerWithUsLink = () => {
                 />
               </>
             )}
-            <Button type="submit" variant="contained" color="primary" fullWidth sx={{marginTop:1}}>
+            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ marginTop: 1 }}>
               Submit
             </Button>
           </form>

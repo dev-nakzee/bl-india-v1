@@ -130,7 +130,7 @@ const Footer = () => {
                 </FooterLink>
             ))}
             <FooterLink key="partnerWithUs">
-                <PartnerWithUsLink />
+                <PartnerWithUsLink displayType="text"/>
             </FooterLink>
         </>
     );
@@ -236,11 +236,15 @@ const Footer = () => {
                     </Grid>
                     <Grid item className="footer-certificates" xs={12} sm={6}>
                         <Box className="mcertificate" sx={{ display: "flex", justifyContent: "end" }}>
-                            <img
-                                src={"https://in.bl-india.com/" + footerData.siteCert[0].image_url}
-                                alt={footerData.siteCert[0].image_alt}
-                                className="footer-img"
-                            />
+                            {footerData.siteCert.map((link) => (
+                                <FooterLink key={link.url} href={link.url}>
+                                    <img
+                                        src={"https://in.bl-india.com/" + link.image_url}
+                                        alt={link.image_alt}
+                                        className="footer-img"
+                                    />
+                                </FooterLink>
+                            ))}
                         </Box>
                     </Grid>
                 </Grid>
