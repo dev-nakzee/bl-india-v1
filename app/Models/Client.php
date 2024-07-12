@@ -49,8 +49,9 @@ class Client extends Authenticatable
         $this->email_otp_sent_at = now();
         $this->save();
         
+        $name = $this->name;
         // Send OTP via email
-        Mail::to($this->email)->send(new SendOtpMail($otp));
+        Mail::to($this->email)->send(new SendOtpMail($otp, $name));
     }
 
     public function verifyOtp($otp)
