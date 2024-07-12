@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Typography, Box, Grid, TextField, Button, Alert } from '@mui/material';
-import Sidebar from '../Components/Sidebar';
+import Sidebar from '../Layouts/Sidebar';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const Account = () => {
