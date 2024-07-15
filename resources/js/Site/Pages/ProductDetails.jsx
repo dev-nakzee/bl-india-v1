@@ -148,7 +148,7 @@ const ProductDetails = () => {
                   {productData.services.map((service, index) => (
                     <Tab
                       key={service.id}
-                      label={service.is_mandatory ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
+                      label={service.is_mandatory === '1' ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
                       value={`${index}`}
                     />
                   ))}
