@@ -20,7 +20,7 @@ const Tutorials = () => {
 
   const fetchTutorials = async () => {
     try {
-      const response = await apiClient.get('/tutorials');
+      const response = await apiClient.get('/client/tutorials');
       setTutorials(response.data);
     } catch (error) {
       console.error('Failed to fetch tutorials', error);
