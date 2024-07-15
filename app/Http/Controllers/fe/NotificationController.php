@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Cache;
 class NotificationController extends Controller
 {
     protected $translator;
+    protected $locale;
 
     public function __construct(Request $request)
     {
-        $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
-        $this->translator = new GoogleTranslate($locale);
+        $this->locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
+        $this->translator = new GoogleTranslate($this->locale);
     }
 
     public function notifications(): JsonResponse
@@ -52,7 +53,7 @@ class NotificationController extends Controller
             return '';
         }
 
-        $cacheKey = 'translated_text_' . md5($text);
+        $cacheKey = 'translated_text_' . $this->locale . '_' . md5($text);
         return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($text) {
             return $this->translator->translate($text);
         });
@@ -64,7 +65,7 @@ class NotificationController extends Controller
             return '';
         }
 
-        $cacheKey = 'translated_html_' . md5($html);
+        $cacheKey = 'translated_html_' . $this->locale . '_' . md5($html);
         return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($html) {
             $doc = new DOMDocument();
             libxml_use_internal_errors(true);

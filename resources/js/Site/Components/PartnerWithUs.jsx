@@ -13,6 +13,8 @@ import {
   FormControlLabel,
   Radio,
   FormGroup,
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { toast, ToastContainer } from 'react-toastify';
@@ -34,6 +36,9 @@ const PartnerWithUs = () => {
     fieldOfExpertise: '',
     yearsOfExperience: '',
   });
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -81,18 +86,25 @@ const PartnerWithUs = () => {
     <Container>
       <ToastContainer />
       <Box sx={{ textAlign: 'center', padding: 4 }}>
-        <Typography gutterBottom sx={{ cursor: 'pointer'}}>
+        <Typography gutterBottom sx={{ cursor: 'pointer' }}>
           Partner With Us
         </Typography>
         <Button variant="contained" color="primary" onClick={toggleDrawer(true)}>
           Become a Partner
         </Button>
       </Box>
-      <Drawer anchor="right" open={isDrawerOpen} 
-      // onClose={toggleDrawer(false)}
+      <Drawer
+        anchor="right"
+        open={isDrawerOpen}
+        onClose={toggleDrawer(false)}
+        PaperProps={{
+          sx: {
+            width: isSmallScreen ? '100vw' : '25vw',
+          },
+        }}
       >
-        <Box 
-          sx={{ width: 380, padding: 2 }}
+        <Box
+          sx={{ width: 'auto', padding: 2 }}
           role="presentation"
           onKeyDown={toggleDrawer(false)}
         >
