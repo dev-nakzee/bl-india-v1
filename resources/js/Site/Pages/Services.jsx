@@ -218,8 +218,8 @@ const Services = () => {
                                     }}
                                     >
                                     <Typography
-                                        variant="h5"
-                                        component="h5"
+                                        variant="h6"
+                                        component="h6"
                                         sx={{
                                             marginLeft: "5px",
                                             marginBottom:"5px",

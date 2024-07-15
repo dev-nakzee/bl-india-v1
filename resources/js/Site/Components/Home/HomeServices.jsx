@@ -110,38 +110,37 @@ const HomeServices = () => {
                                             marginRight: "5px",
                                         }}
                                     />
-                                    <Box 
-                                    
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "left",
-                                       flexDirection:'column'                                       
-                                    }}
-                                    >
-                                    <Typography
-                                        variant="h5"
-                                        component="h5"
+                                    <Box
                                         sx={{
-                                            marginLeft: "5px",
-                                            marginBottom:"5px",
-                                            color: "#0D629A",
-                                            fontWeight: 600,
+                                            display: "flex",
+                                            alignItems: "left",
+                                            flexDirection: "column",
                                         }}
                                     >
-                                        {service.name}
-                                    </Typography>
-                                    <Typography
-                                        variant="bodytext"
-                                        component="p"
-                                        sx={{
-                                            marginLeft: "5px",
-                                            color: "#1C7CBC",
-                                            fontWeight: 500,
-                                        }}
-                                    >
-                                        
-                                        {service.tagline}
-                                    </Typography></Box>
+                                        <Typography
+                                            variant="h6"
+                                            component="h6"
+                                            sx={{
+                                                marginLeft: "5px",
+                                                marginBottom: "5px",
+                                                color: "#0D629A",
+                                                fontWeight: 600,
+                                            }}
+                                        >
+                                            {service.name}
+                                        </Typography>
+                                        <Typography
+                                            variant="bodytext"
+                                            component="p"
+                                            sx={{
+                                                marginLeft: "5px",
+                                                color: "#1C7CBC",
+                                                fontWeight: 500,
+                                            }}
+                                        >
+                                            {service.tagline}
+                                        </Typography>
+                                    </Box>
                                 </Box>
                                 <Typography
                                     variant="body2"
@@ -149,13 +148,16 @@ const HomeServices = () => {
                                         marginBlock: "5px",
                                         flexGrow: 1,
                                         textAlign: "left",
+                                        display: "-webkit-box",
+                                        WebkitBoxOrient: "vertical",
+                                        WebkitLineClamp: 6,
+                                        overflow: "hidden",
                                     }}
                                 >
                                     {service.description}
                                 </Typography>
                                 <CardActions>
                                     <Button
-                                     
                                         variant="outlined"
                                         component={Link}
                                         to={`/services/${service.service_category.slug}/${service.slug}`}
