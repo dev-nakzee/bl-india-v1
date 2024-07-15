@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 class TutorialController extends Controller
 {
     //
-    public function tutorials(): JsonResponse
+    public function tutorial(): JsonResponse
     {
         $tutorials = Tutorial::all();
         return response()->json($tutorials);
