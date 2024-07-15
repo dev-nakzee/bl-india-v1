@@ -21,7 +21,7 @@ const Account = () => {
   ];
 
   const iconStyle = {
-    fontSize: '3rem',
+    fontSize: '5rem',
     marginRight: '1rem',
   };
 

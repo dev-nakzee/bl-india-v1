@@ -58,7 +58,7 @@ body {
 ul,
 ol {
     list-style: disc;
-    margin-left: 1.5rem;
+    margin-left: 2rem;
 }
 p {
     margin-bottom: 1rem;
@@ -126,7 +126,8 @@ li a {
     font-size: 1.4rem;
     font-weight: 500;
 }
-
+.top-social-icons svg ,.top-social-icons {font-size: 2rem;}
+.MuiIconButton-root svg{font-size: 2.2rem;}
 
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
@@ -379,12 +380,14 @@ li a {
 }
 
 .ProductDetail-tab {
-    border: 3px solid var(--secondary-color);
+    border: 3px solid var(--third-color);
+}
+.ProductDetail-tab .MuiButtonBase-root  {
+    border-right: 3px solid var(--third-color)
 }
 
-.ProductDetail-tab button {
+.ProductDetail-tab .MuiButtonBase-root.Mui-selected  {
     background-color: var(--secondary-color);
-    border-right: 2px solid var(--primary-color);
     text-transform: capitalize;
 }
 

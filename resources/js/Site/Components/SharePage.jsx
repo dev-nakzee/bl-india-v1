@@ -44,6 +44,7 @@ const SharePage = ({ color = 'default' }) => {
         aria-label="share"
         onClick={handleClick}
         color={color}
+        className="top-social-icons" 
       >
         <ShareIcon />
       </IconButton>

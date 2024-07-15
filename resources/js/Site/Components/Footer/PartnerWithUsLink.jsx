@@ -91,7 +91,7 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
       ) : (
         <Tooltip title="Partner With Us" arrow>
           <IconButton onClick={toggleDrawer(true)} sx={{ color: '#ffffff' }} aria-label="partner with us">
-            <HandshakeIcon fontSize="large" />
+            <HandshakeIcon fontSize="inherit" />
           </IconButton>
         </Tooltip>
       )}

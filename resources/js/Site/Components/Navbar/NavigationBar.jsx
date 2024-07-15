@@ -146,7 +146,7 @@ const NavigationBar = () => {
     <Drawer anchor="top" open={isSearchOpen} onClose={handleSearchClose}>
       <Box display={'flex'} justifyContent={'flex-end'} padding={{xs:1,md:3}}>
         <IconButton onClick={handleSearchClose}>
-          <HighlightOff />
+          <HighlightOff fontSize="inherit" />
         </IconButton>
       </Box>  
       <Grid container spacing={2} padding={{xs:2,sm:3,md:5}}>
@@ -165,7 +165,7 @@ const NavigationBar = () => {
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton color="primary" onClick={handleSearch}>
-                      <SearchIcon />
+                      <SearchIcon  fontSize="inherit" />
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -188,7 +188,7 @@ const NavigationBar = () => {
           <>
             <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
               <Link to="/">
-                <img src={logo} alt="Brand Logo" style={{ height: "70px" }} />
+                <img src={logo} alt="Brand Logo" style={{ height: "60px" }} />
               </Link>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
