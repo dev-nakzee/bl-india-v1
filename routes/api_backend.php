@@ -24,6 +24,7 @@ use App\Http\Controllers\cms\HolidayController;
 use App\Http\Controllers\cms\KnowledgeBaseCategoryController;
 use App\Http\Controllers\cms\KnowledgeBaseController;
 use App\Http\Controllers\cms\TutorialController;
+use App\Http\Controllers\cms\BrochureController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -131,5 +132,9 @@ Route::prefix('v1/cms')->group(function(){
 
         // Tutorials routes
         Route::apiResource('tutorials', TutorialController::class);
+
+        // Brochures routes
+        Route::apiResource('brochures', BrochureController::class);
+        Route::post('brochures/{id}', [BrochureController::class, 'update1']);
     });
 });
