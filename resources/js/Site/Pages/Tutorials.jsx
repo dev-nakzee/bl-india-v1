@@ -49,7 +49,8 @@ const Tutorials = () => {
 
   const getYouTubeEmbedUrl = (url) => {
     const urlObj = new URL(url);
-    return `https://www.youtube.com/embed/${urlObj.searchParams.get('v')}`;
+    const videoId = urlObj.searchParams.get('v');
+    return `https://www.youtube.com/embed/${videoId}`;
   };
 
   return (
@@ -69,6 +70,7 @@ const Tutorials = () => {
                   height="200"
                   src={getYouTubeEmbedUrl(tutorial.video_url)}
                   title={tutorial.title}
+                  onError={(e) => { e.target.style.display = 'none'; }}
                 />
                 <CardContent>
                   <Typography variant="h6">{tutorial.title}</Typography>
@@ -110,6 +112,7 @@ const Tutorials = () => {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                  onError={(e) => { e.target.style.display = 'none'; }}
                 ></iframe>
               </Box>
               <Box flex="1">
