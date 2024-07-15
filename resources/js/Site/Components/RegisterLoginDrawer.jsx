@@ -10,6 +10,7 @@ import {
   Alert,
   useMediaQuery,
   useTheme,
+  Tooltip
 } from '@mui/material';
 import { AccountCircle, Close, Lock } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -144,7 +145,7 @@ const RegisterLoginDrawer = () => {
   };
 
   const renderForm = () => (
-    <Box sx={{ p: 4}}>
+    <Box sx={{ p: 4 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Typography variant="h6">{isRegister ? 'Register' : 'Login'}</Typography>
         <IconButton onClick={handleToggleDrawer}>
@@ -240,12 +241,23 @@ const RegisterLoginDrawer = () => {
 
   return (
     <Box>
-      <IconButton onClick={handleToggleDrawer} color="inherit">
-        {isLoggedIn ? <AccountCircle fontSize="large" /> : <Lock fontSize="large" />}
-      </IconButton>
-      <Drawer anchor="right" open={drawerOpen} onClose={handleToggleDrawer} sx={{ width: isSmallScreen ? '100vw' : 250 }}>
+      <Tooltip title={isLoggedIn ? 'Access Account' : 'Register / Login'}>
+        <IconButton onClick={handleToggleDrawer} color="inherit">
+          {isLoggedIn ? <AccountCircle fontSize="large" /> : <Lock fontSize="large" />}
+        </IconButton>
+      </Tooltip>
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={handleToggleDrawer}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: isSmallScreen ? '100vw' : '25vw'
+          }
+        }}
+      >
         {loading ? (
-          <Box sx={{ width: isSmallScreen ? '100vw' : 250 , justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <Box sx={{ width: isSmallScreen ? '100vw' : '25vw', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <CircularProgress />
           </Box>
         ) : (
