@@ -8,7 +8,7 @@ import {
   Container,
   CircularProgress
 } from '@mui/material';
-import apiClient from '../services/api'; // Ensure this is your configured axios instance
+import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const Tutorials = () => {
   const [tutorials, setTutorials] = useState([]);
