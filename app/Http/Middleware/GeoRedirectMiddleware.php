@@ -23,9 +23,9 @@ class GeoRedirectMiddleware
         $targetSubdomain = $location && $location->countryCode === 'IN' ? 'in' : 'global';
 
         $currentHost = $request->getHost();
-        $baseURL = Config::get('app.url'); // Retrieve the base URL from config
+        // $baseURL = Config::get('app.url'); // Retrieve the base URL from config
         $baseURL = 'https://bl-india.com';
-        // $parsedUrl = parse_url($baseURL);
+        $parsedUrl = parse_url($baseURL);
         $baseDomain = $parsedUrl['host'] ?? ''; // Extract the domain
         $expectedHost = $targetSubdomain . '.' . $baseDomain;
 
