@@ -285,6 +285,12 @@ const AdminLayout = () => {
             <ListItemText primary="Customers" />
           </ListItem>
 
+          {/* Customer Menu */}
+          <ListItem button component={Link} to="/cms/tutorials">
+            <ListItemIcon><GroupIcon /></ListItemIcon>
+            <ListItemText primary="Tutorials" />
+          </ListItem>
+
           {/* Teams Menu */}
           <ListItem button component={Link} to="/cms/teams">
             <ListItemIcon><GroupsIcon /></ListItemIcon>
