@@ -13,5 +13,6 @@ class Tutorial extends Model
     protected $fillable = [
         'title',
         'video_url',
+        'description',
     ];
 }

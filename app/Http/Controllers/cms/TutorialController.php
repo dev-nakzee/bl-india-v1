@@ -28,6 +28,7 @@ class TutorialController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'video_url' => 'required|url',
+            'description' => 'required|string',
         ]);
 
         $tutorial = Tutorial::create($request->all());
@@ -53,6 +54,7 @@ class TutorialController extends Controller
         $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'video_url' => 'sometimes|required|url',
+            'description' => 'sometimes|required|string',
         ]);
 
         $tutorial = Tutorial::findOrFail($id);

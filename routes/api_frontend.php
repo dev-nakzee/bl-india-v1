@@ -14,6 +14,7 @@ use App\Http\Controllers\fe\CareerController;
 use App\Http\Controllers\fe\ContactController;
 use App\Http\Controllers\fe\DownloadController;
 use App\Http\Controllers\fe\ClientController;
+use App\Http\Controllers\fe\TutorialController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -88,5 +89,6 @@ Route::prefix('v1/fe')->group(function(){
         Route::get('check-token', [ClientController::class, 'checkToken'])->middleware('auth:sanctum');
         Route::post('logout', [ClientController::class, 'logout'])->middleware('auth:sanctum');
         Route::post('change-password', [ClientController::class, 'changePassword'])->middleware('auth:sanctum');
+        Route::get('tutorials', [TutorialController::class, 'tutorial'])->middleware('auth:sanctum');
     });
 });

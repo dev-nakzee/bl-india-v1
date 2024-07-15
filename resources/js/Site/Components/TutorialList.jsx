@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
 
-const Tutorials = () => {
+const TutorialList = () => {
   const [tutorials, setTutorials] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -62,4 +62,4 @@ const Tutorials = () => {
   );
 };
 
-export default Tutorials;
+export default TutorialList;
