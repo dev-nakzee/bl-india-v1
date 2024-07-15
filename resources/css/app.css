@@ -126,7 +126,8 @@ li a {
     font-size: 1.4rem;
     font-weight: 500;
 }
-
+.top-social-icons svg ,.top-social-icons {font-size: 2rem;}
+.MuiIconButton-root svg{font-size: 2.2rem;}
 
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;

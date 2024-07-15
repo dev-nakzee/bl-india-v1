@@ -241,11 +241,11 @@ const RegisterLoginDrawer = () => {
   return (
     <Box>
       <IconButton onClick={handleToggleDrawer} color="inherit">
-        {isLoggedIn ? <AccountCircle fontSize="large" /> : <Lock fontSize="large" />}
+        {isLoggedIn ? <AccountCircle fontSize="inherit" /> : <Lock fontSize="inherit" />}
       </IconButton>
-      <Drawer anchor="right" open={drawerOpen} onClose={handleToggleDrawer} sx={{ width: isSmallScreen ? '100vw' : 250 }}>
+      <Drawer anchor="right" open={drawerOpen} onClose={handleToggleDrawer} sx={{ width: isSmallScreen ? '100vw' : '25vw' }}>
         {loading ? (
-          <Box sx={{ width: isSmallScreen ? '100vw' : 250 , justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <Box sx={{ width: isSmallScreen ? '100vw' : '25vw' , justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <CircularProgress />
           </Box>
         ) : (
