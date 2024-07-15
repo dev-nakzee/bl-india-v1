@@ -357,6 +357,7 @@ li a {
 
 .Service-section p img {
     width: 100%;
+    max-width: fit-content
 }
 
 /******** Product List ***********/
@@ -691,7 +692,7 @@ th {
 }
 .MuiListItemText-root span {
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #000;
 }
 .holiday-list .MuiListItemText-multiline,
