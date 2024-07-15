@@ -23,6 +23,7 @@ use App\Http\Controllers\cms\GalleryController;
 use App\Http\Controllers\cms\HolidayController;
 use App\Http\Controllers\cms\KnowledgeBaseCategoryController;
 use App\Http\Controllers\cms\KnowledgeBaseController;
+use App\Http\Controllers\cms\TutorialController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -128,6 +129,7 @@ Route::prefix('v1/cms')->group(function(){
         Route::apiResource('knowledge-base', KnowledgeBaseController::class);
         Route::post('knowledge-base/{id}', [KnowledgeBaseController::class, 'update1']);
 
-
+        // Tutorials routes
+        Route::apiResource('tutorials', TutorialController::class);
     });
 });

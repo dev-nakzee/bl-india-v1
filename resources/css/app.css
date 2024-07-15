@@ -58,7 +58,7 @@ body {
 ul,
 ol {
     list-style: disc;
-    margin-left: 1.5rem;
+    margin-left: 2rem;
 }
 p {
     margin-bottom: 1rem;
@@ -380,10 +380,10 @@ li a {
 }
 
 .ProductDetail-tab {
-    border: 3px solid var(--secondary-color);
+    border: 3px solid var(--third-color);
 }
 .ProductDetail-tab .MuiButtonBase-root  {
-    border-right: 3px solid var(--primary-color);
+    border-right: 3px solid var(--third-color)
 }
 
 .ProductDetail-tab .MuiButtonBase-root.Mui-selected  {

@@ -24,6 +24,8 @@ import AddIcon from '@mui/icons-material/Add';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const Tutorials = () => {
   const [tutorials, setTutorials] = useState([]);
@@ -32,6 +34,7 @@ const Tutorials = () => {
   const [tutorial, setTutorial] = useState({
     title: '',
     video_url: '',
+    description: '',
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -53,6 +56,7 @@ const Tutorials = () => {
     setTutorial({
       title: '',
       video_url: '',
+      description: '',
     });
     setEditing(false);
     setOpen(true);
@@ -99,6 +103,13 @@ const Tutorials = () => {
     }));
   };
 
+  const handleDescriptionChange = (value) => {
+    setTutorial((prevTutorial) => ({
+      ...prevTutorial,
+      description: value,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -134,6 +145,7 @@ const Tutorials = () => {
             <TableRow>
               <TableCell>Title</TableCell>
               <TableCell>Video URL</TableCell>
+              <TableCell>Description</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -142,6 +154,7 @@ const Tutorials = () => {
               <TableRow key={tutorial.id}>
                 <TableCell>{tutorial.title}</TableCell>
                 <TableCell>{tutorial.video_url}</TableCell>
+                <TableCell dangerouslySetInnerHTML={{ __html: tutorial.description }} />
                 <TableCell>
                   <IconButton
                     color="primary"
@@ -186,6 +199,11 @@ const Tutorials = () => {
               fullWidth
               margin="normal"
               required
+            />
+            <ReactQuill
+              value={tutorial.description || ''}
+              onChange={handleDescriptionChange}
+              style={{ height: '200px', marginBottom: '50px' }}
             />
             <DialogActions>
               <Button onClick={handleClose} color="primary">
