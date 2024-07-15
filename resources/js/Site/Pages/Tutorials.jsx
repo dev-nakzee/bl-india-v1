@@ -47,6 +47,12 @@ const Tutorials = () => {
     setSelectedTutorial(null);
   };
 
+  const getYouTubeThumbnailUrl = (url) => {
+    const urlObj = new URL(url);
+    const videoId = urlObj.searchParams.get('v');
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  };
+
   const getYouTubeEmbedUrl = (url) => {
     const urlObj = new URL(url);
     const videoId = urlObj.searchParams.get('v');
@@ -66,17 +72,13 @@ const Tutorials = () => {
             <Grid item xs={12} sm={6} md={4} key={tutorial.id}>
               <Card onClick={() => handleClickOpen(tutorial)}>
                 <CardMedia
-                  component="iframe"
+                  component="img"
                   height="200"
-                  src={getYouTubeEmbedUrl(tutorial.video_url)}
+                  image={getYouTubeThumbnailUrl(tutorial.video_url)}
                   title={tutorial.title}
-                  onError={(e) => { e.target.style.display = 'none'; }}
                 />
                 <CardContent>
                   <Typography variant="h6">{tutorial.title}</Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    <div dangerouslySetInnerHTML={{ __html: tutorial.description }} />
-                  </Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -112,7 +114,6 @@ const Tutorials = () => {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  onError={(e) => { e.target.style.display = 'none'; }}
                 ></iframe>
               </Box>
               <Box flex="1">
@@ -129,4 +130,3 @@ const Tutorials = () => {
 };
 
 export default Tutorials;
-
