@@ -47,6 +47,11 @@ const Tutorials = () => {
     setSelectedTutorial(null);
   };
 
+  const getYouTubeEmbedUrl = (url) => {
+    const urlObj = new URL(url);
+    return `https://www.youtube.com/embed/${urlObj.searchParams.get('v')}`;
+  };
+
   return (
     <Container sx={{ marginTop: 4 }}>
       <Typography variant="h4" gutterBottom>
@@ -62,7 +67,7 @@ const Tutorials = () => {
                 <CardMedia
                   component="iframe"
                   height="200"
-                  src={tutorial.video_url}
+                  src={getYouTubeEmbedUrl(tutorial.video_url)}
                   title={tutorial.title}
                 />
                 <CardContent>
@@ -100,7 +105,7 @@ const Tutorials = () => {
                 <iframe
                   width="100%"
                   height="315"
-                  src={selectedTutorial.video_url}
+                  src={getYouTubeEmbedUrl(selectedTutorial.video_url)}
                   title={selectedTutorial.title}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
