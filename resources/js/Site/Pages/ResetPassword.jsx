@@ -72,7 +72,7 @@ const ResetPassword = () => {
         <CircularProgress />
       ) : success ? (
         <Box textAlign="center">
-          <CheckCircleOutlineIcon color="success" sx={{ fontSize: 80, mt: 2 }} />
+          <CheckCircleOutlineIcon color="success" sx={{ fontSize: 150, mt: 2 }} />
           <Typography variant="h6" color="success.main" sx={{ mt: 2 }}>
             Password reset successfully
           </Typography>
