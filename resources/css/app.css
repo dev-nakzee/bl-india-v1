@@ -101,6 +101,26 @@ li a {
     .MuiButtonBase-root.MuiListItem-root.MuiListItem-button.Mui-selected {
     background-color: var(--secondary-color) !important;
 }
+.service-section-content table {
+    width: 100%;
+    border-radius: 4px;
+    overflow-x: auto;
+    border: 1px solid #666;
+    border-collapse: collapse;
+}
+.service-section-content table tr {
+    border-bottom: 1px solid #666 !important;
+}
+.service-section-content table th {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}  
+.service-section-content table td {
+    padding: 0.5rem 1rem;
+}  
 /* .Banner-section{
     background-image: url("../js/Site/Assets/new1.jpg");
     background-repeat: no-repeat;

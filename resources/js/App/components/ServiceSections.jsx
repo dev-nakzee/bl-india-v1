@@ -165,7 +165,7 @@ const ServiceSections = () => {
             const formData = new FormData();
             formData.append('upload', file);
             apiClient
-              .post('/upload-image', formData,{
+              .post('/upload-image', formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data',
                 },
@@ -192,6 +192,16 @@ const ServiceSections = () => {
       return new MyUploadAdapter(loader);
     };
   }
+
+  const getBaseURL = () => {
+    const hostname = window.location.hostname;
+    if (hostname.startsWith('global')) {
+      return 'http://global.localhost:8000/api/v1/cms';
+    } else if (hostname.startsWith('in')) {
+      return 'http://in.localhost:8000/api/v1/cms';
+    }
+    return 'http://localhost:8000/api/v1/cms'; // Default to local
+  };
 
   return (
     <Box sx={{ margin: 2 }}>
@@ -321,8 +331,8 @@ const ServiceSections = () => {
                 extraPlugins: [MyCustomUploadAdapterPlugin],
                 toolbar: [
                   'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
-                  'insertTable', '|', 'imageUpload', '|', 'undo', 'redo'
-                ]
+                  'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|', 'imageUpload', '|', 'undo', 'redo'
+                ],
               }}
             />
             <DialogActions>
