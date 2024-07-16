@@ -20,12 +20,13 @@
 }
 
 html {
-    font-size: 70%;
+    font-size: 62.5%;
     font-family: "Roboto", "Raleway", "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
     width: 100%;
     height: 100%;
+    line-height: normal;
     text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -67,9 +68,11 @@ p {
 .Topbar-section {
     min-height: 55px !important;
 }
-.Blog-section p {
+.MuiCardActions-root {padding:8px 0 !important;}
+.MuiDivider-root{margin-top: 20px !important; margin-bottom: 20px !important;}
+/* .Blog-section p {
     min-height: 97px;
-}
+} */
 .Footer-section p {
     margin-bottom: 0;
     margin-top: 0;
@@ -106,6 +109,10 @@ li a {
     background-repeat: no-repeat;
     background-size: cover;
 } */
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.css-dr3m99-MuiButtonBase-root-MuiListItem-root:hover,.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.css-dr3m99-MuiButtonBase-root-MuiListItem-root:hover{
+    background-color: var(--secondary-color);
+
+}
 
 .banner-content-text {
     color:var(--primary-color);
@@ -434,7 +441,7 @@ li a {
     background-color: var(--primary-color);
 } */
 .Footer-section .MuiGrid-root > .MuiGrid-item {
-    padding-top: 16px;
+    padding-top: 32px;
 }
 .about-section {
     position: relative;

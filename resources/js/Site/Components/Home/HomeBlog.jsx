@@ -84,10 +84,19 @@ const HomeBlog = () => {
                                         alt={blog.image_alt}
                                     />
                                     <CardContent>
-                                        <Typography variant="h5" component="div">
+                                        <Typography variant="subtitle1" component="div">
                                             {blog.name}
                                         </Typography>
-                                        <Typography variant="body2" color="text.secondary" sx={{mt:1}}>
+                                        <Typography variant="body2" color="text.secondary" 
+                                      
+                                      sx={{
+                                        marginTop: '5px',
+                                        display: "-webkit-box",
+                                        WebkitBoxOrient: "vertical",
+                                        WebkitLineClamp: 2,
+                                        overflow: "hidden",
+                                    }}
+                                      >
                                             {blog.content}
                                         </Typography>
                                         <CardActions>

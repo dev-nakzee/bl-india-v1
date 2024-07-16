@@ -91,7 +91,7 @@ const HomeProcess = () => {
                     className="Process-section-item"
                     item
                     xs={12}
-                    sx={{ mb: 10 }}
+                    sx={{ mb: 5 }}
                 >
                     <Typography
                         variant="subtitle1"
