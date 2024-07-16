@@ -1,15 +1,19 @@
 <?php
-// app/Http/Controllers/fe/ClientController.php
 
 namespace App\Http\Controllers\fe;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\JsonResponse;
+use App\Mail\ResetPasswordMail;
 
 class ClientController extends Controller
 {
@@ -133,4 +137,90 @@ class ClientController extends Controller
         return response()->json(['message' => 'Password changed successfully'], 200);
     }
 
+   
+    public function forgotPassword(Request $request): JsonResponse 
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
+        $client = Client::where('email', $request->email)->first();
+    
+        if (!$client) {
+            return response()->json(['message' => 'Email not found.'], 404);
+        }
+    
+        try {
+            // Generate a new token
+            $token = Str::random(60);
+    
+            // Save the token in the password_resets table
+            PasswordReset::updateOrCreate(
+                ['email' => $client->email],
+                [
+                    'email' => $client->email,
+                    'token' => $token,
+                    'token_sent_at' => Carbon::now(),
+                ]
+            );
+
+            // Create reset password URL
+            $url = url('password-reset', $token);
+
+            // Send the email with the reset link
+            Mail::to($client->email)->send(new ResetPasswordMail($url, $client->name));
+    
+            return response()->json(['message' => 'Reset link sent to your email.']);
+        } catch (\Exception $e) {
+            // Log the exception message
+            \Log::error('Error sending password reset link: ' . $e->getMessage());
+    
+            // Return a JSON response with the exception message
+            return response()->json(['message' => 'Unable to send reset link.', 'error' => $e->getMessage()], 500);
+        }
+    }
+    public function validateToken($token)
+    {
+        $passwordReset = PasswordReset::where('token', $token)->first();
+
+        if (!$passwordReset || Carbon::parse($passwordReset->created_at)->addMinutes(60)->isPast()) {
+            return response()->json(['message' => 'Invalid or expired token'], 404);
+        }
+
+        return response()->json(['email' => $passwordReset->email]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required|string',
+            'email' => 'required|string|email',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $passwordReset = PasswordReset::where('token', $request->token)
+            ->where('email', $request->email)
+            ->first();
+
+        if (!$passwordReset || Carbon::parse($passwordReset->created_at)->addMinutes(60)->isPast()) {
+            return response()->json(['message' => 'Invalid or expired token'], 404);
+        }
+
+        $client = Client::where('email', $request->email)->firstOrFail();
+        $client->password = Hash::make($request->password);
+        $client->save();
+
+        // Delete the password reset record
+        $passwordReset->delete();
+
+        return response()->json(['message' => 'Password reset successfully']);
+    }
 }

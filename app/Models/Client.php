@@ -10,10 +10,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendOtpMail;
+use App\Mail\ResetPasswordMail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 
-class Client extends Authenticatable
+class Client extends Authenticatable implements CanResetPassword
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, CanResetPasswordTrait;
 
     protected $fillable = [
         'name',
@@ -64,5 +69,18 @@ class Client extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $name = $this->name;
+        $url = url(route('password.reset', ['token' => $token, 'email' => $this->email], false));
+        Mail::to($this->email)->send(new ResetPasswordMail($url, $name));
+    }
+
+    public function resetPassword($password)
+    {
+        $this->password = Hash::make($password);
+        $this->save();
     }
 }

@@ -91,4 +91,8 @@ Route::prefix('v1/fe')->group(function(){
         Route::post('change-password', [ClientController::class, 'changePassword'])->middleware('auth:sanctum');
         Route::get('tutorials', [TutorialController::class, 'tutorial'])->middleware('auth:sanctum');
     });
+
+    Route::post('/client/forgot-password', [ClientController::class, 'forgotPassword']);
+    Route::get('/password-reset/{token}', [ClientController::class, 'validateToken']);
+    Route::post('/password-reset', [ClientController::class, 'resetPassword']);
 });
