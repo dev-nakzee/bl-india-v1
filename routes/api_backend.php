@@ -25,6 +25,7 @@ use App\Http\Controllers\cms\KnowledgeBaseCategoryController;
 use App\Http\Controllers\cms\KnowledgeBaseController;
 use App\Http\Controllers\cms\TutorialController;
 use App\Http\Controllers\cms\BrochureController;
+use App\Http\Controllers\cms\ImageUploadController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -32,7 +33,10 @@ Route::prefix('v1/cms')->group(function(){
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
     Route::middleware('auth:sanctum')->group(function () {
-        // Client Routes
+
+        // routes/api.php
+
+        Route::post('/upload-image', [ImageUploadController::class, 'upload']);
         Route::apiResource('clients', ClientController::class);
         // Service Category Routes
         Route::apiResource('service-categories', ServiceCategoryController::class);

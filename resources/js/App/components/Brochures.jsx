@@ -41,6 +41,7 @@ const Brochures = () => {
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetchBrochures();
@@ -79,6 +80,7 @@ const Brochures = () => {
       filename: null,
       service_id: '',
     });
+    setErrors({});
     setEditing(false);
     setOpen(true);
   };
@@ -89,6 +91,7 @@ const Brochures = () => {
 
   const handleEditClick = (brochure) => {
     setBrochure(brochure);
+    setErrors({});
     setEditing(true);
     setOpen(true);
   };
@@ -151,7 +154,11 @@ const Brochures = () => {
       fetchBrochures();
       handleClose();
     } catch (error) {
-      toast.error('Failed to save brochure');
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        toast.error('Failed to save brochure');
+      }
     }
   };
 
@@ -213,7 +220,7 @@ const Brochures = () => {
           <DialogContentText>
             {editing ? 'Edit the details of the brochure.' : 'Fill in the details to add a new brochure.'}
           </DialogContentText>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
             <TextField
               label="Title"
               name="title"
@@ -222,8 +229,10 @@ const Brochures = () => {
               fullWidth
               margin="normal"
               required
+              error={!!errors.title}
+              helperText={errors.title ? errors.title[0] : ''}
             />
-            <FormControl fullWidth margin="normal">
+            <FormControl fullWidth margin="normal" error={!!errors.service_id}>
               <InputLabel>Service</InputLabel>
               <Select
                 name="service_id"
@@ -237,6 +246,7 @@ const Brochures = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {errors.service_id && <p style={{ color: 'red' }}>{errors.service_id[0]}</p>}
             </FormControl>
             <TextField
               label="Filename"
@@ -246,6 +256,8 @@ const Brochures = () => {
               fullWidth
               margin="normal"
               required={!editing}
+              error={!!errors.filename}
+              helperText={errors.filename ? errors.filename[0] : ''}
             />
             <DialogActions>
               <Button onClick={handleClose} color="primary">

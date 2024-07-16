@@ -26,8 +26,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
 
 const ServiceSections = () => {
@@ -56,7 +56,8 @@ const ServiceSections = () => {
       const response = await apiClient.get('/service-sections');
       setServiceSections(response.data);
     } catch (error) {
-      toast.error('Failed to fetch service sections');
+      toast.error(`Failed to fetch service sections: ${error.message}`);
+      console.error('Error fetching service sections:', error);
     }
   };
 
@@ -65,7 +66,8 @@ const ServiceSections = () => {
       const response = await apiClient.get('/services');
       setServices(response.data);
     } catch (error) {
-      toast.error('Failed to fetch services');
+      toast.error(`Failed to fetch services: ${error.message}`);
+      console.error('Error fetching services:', error);
     }
   };
 
@@ -103,7 +105,8 @@ const ServiceSections = () => {
       fetchServiceSections();
       toast.success('Service section deleted successfully');
     } catch (error) {
-      toast.error('Failed to delete service section');
+      toast.error(`Failed to delete service section: ${error.message}`);
+      console.error('Error deleting service section:', error);
     } finally {
       setConfirmDeleteOpen(false);
       setDeleteId(null);
@@ -123,10 +126,11 @@ const ServiceSections = () => {
     }));
   };
 
-  const handleContentChange = (value) => {
+  const handleContentChange = (event, editor) => {
+    const data = editor.getData();
     setServiceSection((prevServiceSection) => ({
       ...prevServiceSection,
-      content: value,
+      content: data,
     }));
   };
 
@@ -143,9 +147,51 @@ const ServiceSections = () => {
       fetchServiceSections();
       handleClose();
     } catch (error) {
-      toast.error('Failed to save service section');
+      toast.error(`Failed to save service section: ${error.message}`);
+      console.error('Error saving service section:', error);
     }
   };
+
+  // Custom upload adapter for CKEditor 5
+  class MyUploadAdapter {
+    constructor(loader) {
+      this.loader = loader;
+    }
+
+    upload() {
+      return this.loader.file.then(
+        (file) =>
+          new Promise((resolve, reject) => {
+            const formData = new FormData();
+            formData.append('upload', file);
+            apiClient
+              .post('/upload-image', formData,{
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
+              })
+              .then((response) => {
+                resolve({
+                  default: response.data.url,
+                });
+              })
+              .catch((error) => {
+                reject(error);
+              });
+          })
+      );
+    }
+
+    abort() {
+      // Reject the promise returned from upload()
+    }
+  }
+
+  function MyCustomUploadAdapterPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+      return new MyUploadAdapter(loader);
+    };
+  }
 
   return (
     <Box sx={{ margin: 2 }}>
@@ -267,11 +313,17 @@ const ServiceSections = () => {
               }
               label="Global"
             />
-            <ReactQuill
-              value={serviceSection.content || ''}
+            <CKEditor
+              editor={ClassicEditor}
+              data={serviceSection.content || ''}
               onChange={handleContentChange}
-              placeholder="Content"
-              theme="snow"
+              config={{
+                extraPlugins: [MyCustomUploadAdapterPlugin],
+                toolbar: [
+                  'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                  'insertTable', '|', 'imageUpload', '|', 'undo', 'redo'
+                ]
+              }}
             />
             <DialogActions>
               <Button onClick={handleClose} color="primary">
