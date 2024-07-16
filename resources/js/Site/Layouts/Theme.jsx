@@ -116,6 +116,7 @@ const theme = createTheme({
       fontSize: "1.8rem",
       fontWeight: 600,
       color: "#0D629A",
+      lineHeight: 1.3,
       "@media (min-width: 360px)": {
         fontSize: "1.2rem", // Font size for h1 on small devices (e.g., mobile)
       },

@@ -218,8 +218,8 @@ const Services = () => {
                                     }}
                                     >
                                     <Typography
-                                        variant="h5"
-                                        component="h5"
+                                        variant="h6"
+                                        component="h6"
                                         sx={{
                                             marginLeft: "5px",
                                             marginBottom:"5px",
@@ -243,7 +243,16 @@ const Services = () => {
                                     </Typography></Box>
                         </Box>
                         <ServiceCardContent>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" color="text.secondary"
+                           
+                           sx={{
+                            marginTop: '5px',
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 5,
+                            overflow: "hidden",
+                        }}
+                          >
                             {service.description}
                           </Typography>
                           <Button sx={{ marginTop: '15px' }} variant="outlined" component={Link} to={`/services/${service.service_category.slug}/${service.slug}`}>

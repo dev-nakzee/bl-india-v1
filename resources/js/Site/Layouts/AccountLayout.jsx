@@ -11,7 +11,7 @@ const AccountLayout = () => {
       <Grid item xs={12}>
         <Box sx={{ backgroundColor: '#f5f5f5', padding: 2 }}>
           <Typography variant="h6">
-            Welcome, {client.name}
+            Welcome, 
           </Typography>
         </Box>
       </Grid>
