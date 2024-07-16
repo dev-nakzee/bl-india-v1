@@ -250,7 +250,7 @@ const ServiceDetails = () => {
                 <DownloadBrochure />
                 <RequestCallBack />
               </Sidebar>
-              <ServicesList>
+              <ServicesList className='service-section-content'>
                 <Grid container spacing={4} alignItems="center">
                   <Grid item xs={12}>
                     {selectedSection && (
