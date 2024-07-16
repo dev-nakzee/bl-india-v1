@@ -37,18 +37,19 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             try {
-                $imageWebp = Image::make($request->file('image'))->encode('webp', 90);
+                $imageWebp  = Image::read($request->file('image'));
+                $image = $imageWebp->toWebp(100);
                 $imageName = uniqid().'.webp';
 
                 // Convert and store original image as WebP
                 $imagePath = 'product_images/' . $imageName;
-                Storage::disk('public')->put($imagePath, (string) $imageWebp);
+                Storage::disk('public')->put($imagePath, (string) $image);
                 $validated['image_url'] = Storage::url($imagePath);
 
                 // Generate and store thumbnail as WebP
                 $thumbnailPath = 'product_images/thumbnail/' . $imageName;
-                $thumbnail = Image::make($request->file('image'))->resize(100, 100)->encode('webp', 90);
-                Storage::disk('public')->put($thumbnailPath, (string) $thumbnail);
+                $thumbnail = $imageWebp->resize(100, 100);
+                Storage::disk('public')->put($thumbnailPath, (string) $thumbnail->toWebp(100));
                 $validated['thumbnail_url'] = Storage::url($thumbnailPath);
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Failed to upload image: ' . $e->getMessage()], 500);
@@ -58,7 +59,10 @@ class ProductController extends Controller
         $product = Product::create($validated);
 
         // Sync categories
-        $product->categories()->sync($validated['category_ids']);
+        $category_ids = json_decode($validated['product_category_ids'], true);
+        // Sync categories
+        $product->categories()->sync($category_ids);
+
 
         return response()->json($product->load('categories'), 201);
     }
@@ -93,22 +97,26 @@ class ProductController extends Controller
                 // Delete the old image if exists
                 if ($product->image_url) {
                     Storage::disk('public')->delete($product->image_url);
+                }
+                if ($product->thumbnail_url) {
                     Storage::disk('public')->delete($product->thumbnail_url);
                 }
 
-                $imageWebp = Image::make($request->file('image'))->encode('webp', 90);
+                $imageWebp  = Image::read($request->file('image'));
+                $image = $imageWebp->toWebp(100);
                 $imageName = uniqid().'.webp';
 
                 // Convert and store original image as WebP
                 $imagePath = 'product_images/' . $imageName;
-                Storage::disk('public')->put($imagePath, (string) $imageWebp);
+                Storage::disk('public')->put($imagePath, (string) $image);
                 $validated['image_url'] = Storage::url($imagePath);
 
                 // Generate and store thumbnail as WebP
                 $thumbnailPath = 'product_images/thumbnail/' . $imageName;
-                $thumbnail = Image::make($request->file('image'))->resize(100, 100)->encode('webp', 90);
-                Storage::disk('public')->put($thumbnailPath, (string) $thumbnail);
+                $thumbnail = $imageWebp->resize(100, 100);
+                Storage::disk('public')->put($thumbnailPath, (string) $thumbnail->toWebp(100));
                 $validated['thumbnail_url'] = Storage::url($thumbnailPath);
+
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Failed to upload image: ' . $e->getMessage()], 500);
             }
