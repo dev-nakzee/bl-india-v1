@@ -133,12 +133,6 @@ li a {
     background-color: var(--secondary-color);
 
 }
-.drawer-container .MuiPaper-root-MuiDrawer-paper{
-    position: fixed;
-    top: 130px !important;
-    z-index: 800 !important;
-    
-}
 
 .banner-content-text {
     color:var(--primary-color);
@@ -542,6 +536,13 @@ th {
     .ql-align-justify img {
         width: 100%;
     }
+    .drawer-container .MuiPaper-root.MuiPaper-elevation.MuiDrawer-paper{
+        position: fixed;
+        top: 130px !important;
+        z-index: 800 !important;
+        
+    }
+    
     .mobile-schedule {text-align: center;}
     .MuiTypography-root.MuiTypography-subtitle1 {
         padding: 4px;
