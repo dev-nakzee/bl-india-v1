@@ -21,6 +21,7 @@ const RegisterLoginDrawer = () => {
   const [isRegister, setIsRegister] = useState(true);
   const [loading, setLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -51,6 +52,7 @@ const RegisterLoginDrawer = () => {
       if (!drawerOpen) {
         setOtpSent(false);
         setIsRegister(true);
+        setIsForgotPassword(false);
         setFormData({
           name: '',
           email: '',
@@ -117,6 +119,27 @@ const RegisterLoginDrawer = () => {
     }
   };
 
+  const handleForgotPassword = async () => {
+    setLoading(true);
+    setErrors({});
+    try {
+      await apiClient.post('/client/forgot-password', {
+        email: formData.email,
+      });
+      setMessageType('success');
+      setMessage('Password reset email sent');
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        setMessageType('error');
+        setMessage('Password reset request failed');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleVerifyOtp = async () => {
     setLoading(true);
     setErrors({});
@@ -147,7 +170,9 @@ const RegisterLoginDrawer = () => {
   const renderForm = () => (
     <Box sx={{ p: 4 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h6">{isRegister ? 'Register' : 'Login'}</Typography>
+        <Typography variant="h6">
+          {isForgotPassword ? 'Forgot Password' : isRegister ? 'Register' : 'Login'}
+        </Typography>
         <IconButton onClick={handleToggleDrawer}>
           <Close />
         </IconButton>
@@ -157,7 +182,24 @@ const RegisterLoginDrawer = () => {
           {message}
         </Alert>
       )}
-      {!otpSent ? (
+      {isForgotPassword ? (
+        <>
+          <TextField
+            label="Email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            error={!!errors.email}
+            helperText={errors.email ? errors.email[0] : ''}
+          />
+          <Button variant="contained" color="secondary" onClick={handleForgotPassword}>
+            Send Password Reset Email
+          </Button>
+        </>
+      ) : !otpSent ? (
         <>
           {isRegister && (
             <TextField
@@ -211,6 +253,15 @@ const RegisterLoginDrawer = () => {
               {isRegister ? 'Register' : 'Login'}
             </Button>
           </Box>
+          {!isRegister && (
+            <Button
+              variant="text"
+              onClick={() => setIsForgotPassword(true)}
+              sx={{ mt: 2, textAlign: 'center', width: '100%' }}
+            >
+              Forgot Password?
+            </Button>
+          )}
           <Button
             variant="text"
             onClick={() => setIsRegister(!isRegister)}

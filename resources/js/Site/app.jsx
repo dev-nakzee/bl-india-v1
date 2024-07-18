@@ -31,6 +31,7 @@ import Brochures from './Pages/Brochures';
 import Tutorials from './Pages/Tutorials';
 import Projects from './Pages/Projects';
 import Profile from './Pages/Profile';
+import ResetPassword from './Pages/ResetPassword';
 import ProtectedRoute from './Components/ProtectedRoute';
 import AccountLayout from './Layouts/AccountLayout';
 
@@ -75,6 +76,7 @@ function App() {
               <Route path="projects" element={<Projects />} />
               <Route path="profile" element={<Profile />} />
             </Route>
+            <Route path="/password-reset/:token" element={<ResetPassword />} />
           </Routes>
         </Layout>
       </BrowserRouter>
