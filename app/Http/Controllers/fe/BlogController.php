@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogComment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
+
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use Illuminate\Support\Facades\Cache;
 use DOMDocument;
@@ -44,15 +47,30 @@ class BlogController extends Controller
     public function blogDetails(string $categorySlug, string $slug): JsonResponse
     {
         $blog = Cache::remember("blog_details_{$slug}", 60*60*24, function() use ($slug) {
-            return Blog::where('slug', $slug)->with('comments')->first();
+            return Blog::where('slug', $slug)->first();
         });
         $categories = Cache::remember('blog_categories', 60*60*24, function() {
             return BlogCategory::orderBy('id', 'asc')->get();
         });
-
+        $comments = BlogComment::where('blog_id', $blog->id)->where('is_approved', true)->with('client')->get();
         $blog->content = $this->translateHtmlContent($blog->content);
 
-        return response()->json(['blog' => $blog, 'categories' => $categories]);
+        return response()->json(['blog' => $blog, 'categories' => $categories, 'comments' => $comments]);
+    }
+    public function postComment(Request $request, $blogId): JsonResponse
+    {
+        $request->validate([
+            'comment' => 'required|string|max:1000',
+        ]);
+
+        $comment = new BlogComment();
+        $comment->blog_id = $blogId;
+        $comment->client_id = Auth::id();
+        $comment->comments = $request->comment;
+        $comment->is_approved = false; // or true based on your requirement
+        $comment->save();
+
+        return response()->json($comment, 201);
     }
 
     protected function getFirstParagraphContent(string $html): ?string

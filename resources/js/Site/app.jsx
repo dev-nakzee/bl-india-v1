@@ -34,7 +34,6 @@ import Profile from './Pages/Profile';
 import ResetPassword from './Pages/ResetPassword';
 import ProtectedRoute from './Components/ProtectedRoute';
 import AccountLayout from './Layouts/AccountLayout';
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -65,9 +64,9 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/account" element={
-              // <ProtectedRoute>
+              <ProtectedRoute>
                 <AccountLayout />
-              // </ProtectedRoute>
+              </ProtectedRoute>
             }>
               <Route index element={<Account />} />
               <Route path="comments" element={<Comments />} />

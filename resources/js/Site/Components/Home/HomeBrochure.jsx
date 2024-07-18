@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Typography,
-  CircularProgress,
-  Button,
-  Grid,
-  TextField,
-  MenuItem,
-  InputAdornment,
-} from "@mui/material";
+import { Box, Typography, CircularProgress, Button, Grid, TextField, MenuItem, InputAdornment } from "@mui/material";
 import { styled } from "@mui/system";
-import apiClient from "../../Services/api";
+import apiClient from "../../Services/api"; // Ensure the import path is correct
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { countries } from 'country-data';
+import { useNavigate } from "react-router-dom";
 
 const BrochureSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
@@ -47,63 +40,14 @@ const HomeBrochure = () => {
     company: "",
     email: "",
     phone: "",
-    countryCode: "+91", // Default country code
+    countryCode: "+91",
     service: "",
     source: "",
     message: "",
   });
-
-  const countryCodes = [
-    { code: "+1", country: "USA" },
-    { code: "+91", country: "India" },
-    { code: "+44", country: "UK" },
-    { code: "+61", country: "Australia" },
-    { code: "+81", country: "Japan" },
-    { code: "+49", country: "Germany" },
-    { code: "+86", country: "China" },
-    { code: "+33", country: "France" },
-    { code: "+39", country: "Italy" },
-    { code: "+7", country: "Russia" },
-    { code: "+55", country: "Brazil" },
-    { code: "+27", country: "South Africa" },
-    { code: "+34", country: "Spain" },
-    { code: "+82", country: "South Korea" },
-    { code: "+971", country: "UAE" },
-    { code: "+52", country: "Mexico" },
-    { code: "+62", country: "Indonesia" },
-    { code: "+60", country: "Malaysia" },
-    { code: "+65", country: "Singapore" },
-    { code: "+66", country: "Thailand" },
-    { code: "+64", country: "New Zealand" },
-    { code: "+31", country: "Netherlands" },
-    { code: "+46", country: "Sweden" },
-    { code: "+41", country: "Switzerland" },
-    { code: "+48", country: "Poland" },
-    { code: "+45", country: "Denmark" },
-    { code: "+47", country: "Norway" },
-    { code: "+92", country: "Pakistan" },
-    { code: "+63", country: "Philippines" },
-    { code: "+20", country: "Egypt" },
-    { code: "+98", country: "Iran" },
-    { code: "+90", country: "Turkey" },
-    { code: "+58", country: "Venezuela" },
-    { code: "+56", country: "Chile" },
-    { code: "+51", country: "Peru" },
-    { code: "+57", country: "Colombia" },
-    { code: "+54", country: "Argentina" },
-    { code: "+964", country: "Iraq" },
-    { code: "+880", country: "Bangladesh" },
-    { code: "+94", country: "Sri Lanka" },
-    { code: "+32", country: "Belgium" },
-    { code: "+353", country: "Ireland" },
-    { code: "+386", country: "Slovenia" },
-    { code: "+357", country: "Cyprus" },
-    { code: "+358", country: "Finland" },
-    { code: "+961", country: "Lebanon" },
-    { code: "+359", country: "Bulgaria" },
-    { code: "+385", country: "Croatia" },
-    { code: "+380", country: "Ukraine" },
-  ];
+  const [otp, setOtp] = useState('');
+  const [clientDetails, setClientDetails] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBrochureData = async () => {
@@ -126,34 +70,49 @@ const HomeBrochure = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleOtpChange = (event) => {
+    setOtp(event.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await apiClient.post("https://pms.bl-india.com/api/lead", formData);
-      toast.success("Form submitted successfully");
+      const response = await apiClient.post("/submit-brochure", formData);
+      if (response.data.status === "success") {
+        setClientDetails(response.data.client);
+        toast.success("Form submitted successfully. Please enter the OTP sent to your email.");
+      }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error submitting form:", error.response.data);
       toast.error("Failed to submit the form");
+    }
+  };
+
+  const verifyOtp = async () => {
+    try {
+      const response = await apiClient.post('/verify-otp', {
+        email: formData.email,
+        otp: otp,
+      });
+      if (response.data.token) {
+        toast.success("OTP verified successfully!");
+        navigate("/account/brochures");
+      }
+    } catch (error) {
+      toast.error("Failed to verify OTP.");
     }
   };
 
   if (loading) {
     return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
         <CircularProgress />
       </Box>
     );
   }
 
   if (!brochureData) {
-    return null; // Or return a fallback UI if needed
+    return null;
   }
 
   return (
@@ -162,15 +121,11 @@ const HomeBrochure = () => {
       <Grid container spacing={4} alignItems="center">
         <Grid item xs={12} md={6}>
           <BrochureContent className="Brochure-section-data">
-            <Typography variant="h3" sx={{ mt: 2 }}>
-              {brochureData.title}
-            </Typography>
-            <Typography variant="subtitle1">
-              {brochureData.tag_line}
-            </Typography>
+            <Typography variant="h3" sx={{ mt: 2 }}>{brochureData.title}</Typography>
+            <Typography variant="subtitle1">{brochureData.tag_line}</Typography>
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-              <Grid container spacing={2} alignItems="center">
-                <Grid item xs={12} md={6}>
+              <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
                   <TextField
                     label="Name"
                     name="name"
@@ -178,8 +133,9 @@ const HomeBrochure = () => {
                     onChange={handleInputChange}
                     fullWidth
                     required
-                    sx={{ mb: 2 }}
                   />
+                </Grid>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Email"
                     name="email"
@@ -188,18 +144,19 @@ const HomeBrochure = () => {
                     onChange={handleInputChange}
                     fullWidth
                     required
-                    sx={{ mb: 2 }}
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Company"
                     name="company"
                     value={formData.company}
                     onChange={handleInputChange}
                     fullWidth
-                    sx={{ mb: 2 }}
+                    required
                   />
+                </Grid>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Phone"
                     name="phone"
@@ -207,7 +164,6 @@ const HomeBrochure = () => {
                     onChange={handleInputChange}
                     fullWidth
                     required
-                    sx={{ mb: 2 }}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -217,15 +173,11 @@ const HomeBrochure = () => {
                             name="countryCode"
                             value={formData.countryCode}
                             onChange={handleInputChange}
-                            sx={{ width: "100px" }}
-                            displayEmpty
+                            fullWidth
                           >
-                            <MenuItem value="" disabled>
-                              Country Code
-                            </MenuItem>
-                            {countryCodes.map((code) => (
-                              <MenuItem key={code.code} value={code.code}>
-                                {code.code} ({code.country})
+                            {countries.all.map((country) => (
+                              <MenuItem key={country.alpha2} value={country.countryCallingCodes[0]}>
+                                {country.countryCallingCodes[0]} ({country.name})
                               </MenuItem>
                             ))}
                           </TextField>
@@ -234,7 +186,7 @@ const HomeBrochure = () => {
                     }}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     select
                     label="Service"
@@ -243,7 +195,6 @@ const HomeBrochure = () => {
                     onChange={handleInputChange}
                     fullWidth
                     required
-                    sx={{ mb: 2 }}
                   >
                     {services.map((service) => (
                       <MenuItem key={service.id} value={service.name}>
@@ -251,6 +202,8 @@ const HomeBrochure = () => {
                       </MenuItem>
                     ))}
                   </TextField>
+                </Grid>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     select
                     label="Referral Source"
@@ -259,7 +212,6 @@ const HomeBrochure = () => {
                     onChange={handleInputChange}
                     fullWidth
                     required
-                    sx={{ mb: 2 }}
                   >
                     <MenuItem value="social media">Social Media</MenuItem>
                     <MenuItem value="google">Google</MenuItem>
@@ -278,21 +230,32 @@ const HomeBrochure = () => {
                     fullWidth
                     multiline
                     rows={4}
-                    sx={{ mb: 2 }}
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <Button variant="contained" color="primary" type="submit">
+                    Submit Brochure Request
+                  </Button>
+                </Grid>
               </Grid>
-              <Button variant="contained" color="primary" type="submit">
-                Download Brochure
-              </Button>
+              {clientDetails && (
+                <Box>
+                  <Typography variant="h6" sx={{ mt: 2 }}>Enter OTP sent to your email:</Typography>
+                  <TextField
+                    label="OTP"
+                    value={otp}
+                    onChange={handleOtpChange}
+                    fullWidth
+                    required
+                  />
+                  <Button onClick={verifyOtp} variant="contained" color="secondary" sx={{ mt: 2 }}>Verify OTP</Button>
+                </Box>
+              )}
             </Box>
           </BrochureContent>
         </Grid>
         <Grid item xs={12} md={6}>
-          <BrochureImage
-            src={"https://in.bl-india.com/" + brochureData.image_url}
-            alt={brochureData.image_alt}
-          />
+          <BrochureImage src={"https://in.bl-india.com" + brochureData.image_url} alt={brochureData.image_alt} />
         </Grid>
       </Grid>
     </BrochureSection>
