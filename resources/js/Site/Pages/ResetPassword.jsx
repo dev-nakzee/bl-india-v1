@@ -6,8 +6,7 @@ import {
   Button,
   Typography,
   CircularProgress,
-  Alert,
-  CheckCircleOutline
+  Alert
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
@@ -40,6 +39,7 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== passwordConfirmation) {
       setMessageType('error');
       setMessage('Passwords do not match');
@@ -66,13 +66,13 @@ const ResetPassword = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, margin: 'auto', padding: 3 }}>
+    <Box sx={{ maxWidth: 400, minHeight: '60vh', margin: 'auto', padding: 3, textAlign: 'center' }}>
       <Typography variant="h6">Reset Password</Typography>
       {loading ? (
         <CircularProgress />
       ) : success ? (
         <Box textAlign="center">
-          <CheckCircleOutlineIcon color="success" sx={{ fontSize: 150, mt: 2 }} />
+          <CheckCircleOutlineIcon color="success" sx={{ fontSize: 200, mt: 2 }} />
           <Typography variant="h6" color="success.main" sx={{ mt: 2 }}>
             Password reset successfully
           </Typography>
