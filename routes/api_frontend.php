@@ -15,6 +15,7 @@ use App\Http\Controllers\fe\ContactController;
 use App\Http\Controllers\fe\DownloadController;
 use App\Http\Controllers\fe\ClientController;
 use App\Http\Controllers\fe\TutorialController;
+use App\Http\Controllers\fe\BrochureController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -62,6 +63,7 @@ Route::prefix('v1/fe')->group(function(){
     // Blogs Page Routes
     Route::get('/blogs', [BlogController::class, 'blogs']);
     Route::get('/blogs/{categorySlug}/{slug}', [BlogController::class, 'blogDetails']);
+    Route::post('blogs/{blogId}/comments', [BlogController::class, 'postComment'])->middleware('auth:sanctum');
 
     // Gallery Pages Routes
     Route::get('/galleries', [GalleryController::class, 'gallery']);
@@ -80,6 +82,13 @@ Route::prefix('v1/fe')->group(function(){
 
     // Download Page Routes
     Route::get('/downloads', [DownloadController::class, 'download']);
+
+    // Route to handle brochure form submission
+    Route::post('/submit-brochure', [BrochureController::class, 'create'])->name('brochure.submit');
+
+    // Route to verify OTP
+    Route::post('/verify-otp', [BrochureController::class, 'verifyOtp'])->name('brochure.verifyOtp');
+
 
     Route::prefix('client')->group(function () {
         Route::post('register', [ClientController::class, 'register']);

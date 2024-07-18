@@ -8,16 +8,21 @@ import {
     Typography,
     IconButton,
     MenuItem,
-    Divider,
+    CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { HighlightOffOutlined } from "@mui/icons-material";
+import apiClient from "../Services/api"; // Ensure the import path is correct
 
-const services = ["Service 1", "Service 2", "Service 3", "Service 4"];
-
-const sources = ["Source 1", "Source 2", "Source 3", "Source 4"];
+const sources = [
+    "Social Media",
+    "Google",
+    "Reference",
+    "Newspaper",
+    "Website Article",
+    "Others"
+];
 
 const DownloadBrochure = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -28,14 +33,12 @@ const DownloadBrochure = () => {
         phone: "",
         service: "",
         source: "",
-        message: "",
     });
+    const [services, setServices] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const toggleDrawer = (open) => (event) => {
-        if (
-            event.type === "keydown" &&
-            (event.key === "Tab" || event.key === "Shift")
-        ) {
+        if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
             return;
         }
         setIsDrawerOpen(open);
@@ -43,27 +46,14 @@ const DownloadBrochure = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Send form data to the server (adjust the endpoint and data format as needed)
-            // await apiClient.post('/download-brochure', formData);
+            // Implement actual API submission logic here
             toast.success("Brochure request submitted successfully");
-            setFormData({
-                name: "",
-                company: "",
-                email: "",
-                phone: "",
-                service: "",
-                source: "",
-                message: "",
-            });
             setIsDrawerOpen(false);
         } catch (error) {
             toast.error("Error submitting brochure request");
@@ -71,139 +61,118 @@ const DownloadBrochure = () => {
         }
     };
 
+    React.useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                const response = await apiClient.get('/services');
+                setServices(response.data.services); // Assuming the response body will have a services array
+                setLoading(false);
+            } catch (error) {
+                toast.error("Failed to load services");
+                console.error("Error fetching services:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchServices();
+    }, []);
+
     return (
         <>
             <ToastContainer />
-            <Box sx={{ textAlign: "left", p: 2, mt: 4 }}>
-                <Typography variant="h6" mb={1}>
-                    Download Our Brochure
+            <Box sx={{ textAlign: 'left', padding: 2 }}>
+                <Typography variant="h6" mb={1} mt={4}>
+                    Download Brochures
                 </Typography>
                 <Typography variant="body1" mb={1}>
-                    Fill out the form to download our brochure and learn more
-                    about our services.
+                    Please fill out the form below to request a brochure for your business.
                 </Typography>
-                <Button sx={{textTransform:'inherit'}}
-                    variant="contained"
-                    color="primary"
-                    onClick={toggleDrawer(true)}
-                >
-                    Download Brochure
+                <Button onClick={toggleDrawer(true)} variant="contained" color="primary" mb={1}>
+                    Request Brochure
                 </Button>
             </Box>
-            <Drawer
-                anchor="right"
-                open={isDrawerOpen}
-                onClose={toggleDrawer(false)}>
-                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                    <IconButton
-                        onClick={toggleDrawer(false)}>
-                        <HighlightOffOutlined color="primary" />
-                    </IconButton>
-                </Box>
-                <Box
-                    sx={{ width: 350, padding: 4 }}
-                    role="presentation"
-                    // onKeyDown={toggleDrawer(false)}
-                >
-                    <Typography variant="h5" gutterBottom>
-                        Request Brochure
-                    </Typography>
-                    <Typography variant="" gutterBottom>Enter the user detail her</Typography>
-                    <Divider
-                        color="primary"
-                        component="div"
-                        role="presentation"
-                        aria-hidden="true"
-                    />
-                    <form onSubmit={handleSubmit}>
-                        <TextField
-                            label="Name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            fullWidth
-                            margin="normal"
-                            required
-                        />
-                        <TextField
-                            label="Company"
-                            name="company"
-                            value={formData.company}
-                            onChange={handleChange}
-                            fullWidth
-                            margin="normal"
-                        />
-                        <TextField
-                            label="Email"
-                            name="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            fullWidth
-                            margin="normal"
-                            required
-                        />
-                        <TextField
-                            label="Phone"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            fullWidth
-                            margin="normal"
-                            required
-                        />
-                        <TextField
-                            select
-                            label="Service"
-                            name="service"
-                            value={formData.service}
-                            onChange={handleChange}
-                            fullWidth
-                            margin="normal"
-                            required
-                        >
-                            {services.map((service) => (
-                                <MenuItem key={service} value={service}>
-                                    {service}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                        <TextField
-                            select
-                            label="Source"
-                            name="source"
-                            value={formData.source}
-                            onChange={handleChange}
-                            fullWidth
-                            margin="normal"
-                            required
-                        >
-                            {sources.map((source) => (
-                                <MenuItem key={source} value={source}>
-                                    {source}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                        <TextField
-                            label="Message"
-                            name="message"
-                            value={formData.message}
-                            onChange={handleChange}
-                            fullWidth
-                            margin="normal"
-                            multiline
-                            rows={4}
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                        >
-                            Submit
-                        </Button>
-                    </form>
-                </Box>
+            <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
+                <IconButton onClick={toggleDrawer(false)}><CloseIcon /></IconButton>
+                <Container sx={{ width: 350, padding: 4 }}>
+                    <Typography variant="h6" mb={2}>Request Brochure</Typography>
+                    {loading ? (
+                        <CircularProgress />
+                    ) : (
+                        <form onSubmit={handleSubmit}>
+                            <TextField
+                                label="Name"
+                                name="name"
+                                fullWidth
+                                required
+                                value={formData.name}
+                                onChange={handleChange}
+                                sx={{mb: 2 }}
+                            />
+                            <TextField
+                                label="Email"
+                                type="email"
+                                name="email"
+                                fullWidth
+                                required
+                                value={formData.email}
+                                onChange={handleChange}
+                                sx={{mb: 2 }}
+                            />
+                            <TextField
+                                label="Company"
+                                name="company"
+                                fullWidth
+                                value={formData.company}
+                                onChange={handleChange}
+                                sx={{mb: 2 }}
+                            />
+                            <TextField
+                                label="Phone"
+                                name="phone"
+                                fullWidth
+                                required
+                                value={formData.phone}
+                                onChange={handleChange}
+                                sx={{mb: 2 }}
+                            />
+                            <TextField
+                                select
+                                label="Service"
+                                name="service"
+                                fullWidth
+                                required
+                                value={formData.service}
+                                onChange={handleChange}
+                                sx={{mb: 2 }}
+                            >
+                                {services.map((service) => (
+                                    <MenuItem key={service.id} value={service.name}>
+                                        {service.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <TextField
+                                select
+                                label="Source"
+                                name="source"
+                                fullWidth
+                                required
+                                value={formData.source}
+                                onChange={handleChange}
+                                sx={{mb: 2, zIndex: 1203}}
+                            >
+                                {sources.map((source) => (
+                                    <MenuItem key={source} value={source} sx={{zIndex: 1203}}>
+                                        {source}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <Button type="submit" variant="contained" color="primary" fullWidth>
+                                Submit
+                            </Button>
+                        </form>
+                    )}
+                </Container>
             </Drawer>
         </>
     );

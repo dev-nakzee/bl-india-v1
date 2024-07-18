@@ -20,12 +20,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { styled } from "@mui/system";
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
-import { CalendarMonthOutlined, CommentOutlined, ShareOutlined } from "@mui/icons-material";
+import { CalendarMonthOutlined, CommentOutlined } from "@mui/icons-material";
 import SharePage from "../Components/SharePage";
 import BackButton from "../Components/BackButton";
 import DownloadBrochure from "../Components/DownloadBrochure";
 import RequestCallBack from "../Components/RequestCallBack";
-
+import CommentLoginDrawer from "../Components/CommentLoginDrawer"; // Import the new component
 
 const BlogDetails = () => {
     const { categorySlug, blogSlug } = useParams();
@@ -34,12 +34,11 @@ const BlogDetails = () => {
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [commentData, setCommentData] = useState({
-        name: "",
-        email: "",
         comment: "",
     });
     const [commentError, setCommentError] = useState("");
     const [comments, setComments] = useState([]);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const navigate = useNavigate();
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
@@ -49,7 +48,6 @@ const BlogDetails = () => {
         position: "sticky",
         top: "20px",
         overflowY: "auto",
-        // 
         [theme.breakpoints.down("sm")]: {
             width: "100%",
             position: "static",
@@ -67,7 +65,7 @@ const BlogDetails = () => {
                 );
                 setBlog(response.data.blog);
                 setCategories(response.data.categories);
-                setComments(response.data.blog.comments);
+                setComments(response.data.comments);
 
                 const category = response.data.categories.find(
                     (cat) => cat.slug === categorySlug
@@ -93,23 +91,36 @@ const BlogDetails = () => {
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
-        if (!commentData.name || !commentData.email || !commentData.comment) {
-            setCommentError("All fields are required.");
+        if (!commentData.comment) {
+            setCommentError("Comment field is required.");
             return;
         }
 
         try {
             const response = await apiClient.post(
-                `/blogs/${categorySlug}/${blogSlug}/comments`,
-                commentData
+                `/blogs/${blog.id}/comments`, // Use the blog ID here
+                {
+                    comment: commentData.comment,
+                }
             );
-            setComments([...comments, response.data]);
-            setCommentData({ name: "", email: "", comment: "" });
+
+            setCommentData({ comment: "" });
             setCommentError("");
         } catch (error) {
             console.error("Error submitting comment:", error);
             setCommentError("Failed to submit comment.");
         }
+    };
+
+    const isLoggedIn = !!localStorage.getItem('token');
+
+    const handleCategoryClick = (categoryId, slug) => {
+        setSelectedCategory(categoryId);
+        navigate(`/blogs/${slug}`);
+    };
+
+    const toggleDrawer = () => {
+        setIsDrawerOpen(!isDrawerOpen);
     };
 
     if (loading) {
@@ -143,11 +154,6 @@ const BlogDetails = () => {
             </Box>
         );
     }
-
-    const handleCategoryClick = (categoryId, slug) => {
-        setSelectedCategory(categoryId);
-        navigate(`/blogs/${slug}`);
-    };
 
     return (
         <>
@@ -234,7 +240,7 @@ const BlogDetails = () => {
                                     }}
                                 >
                                     <CommentOutlined color="secondary" />
-                                    <span>25</span>
+                                    <span>{comments.length}</span>
                                 </Box>
                                 <Box
                                     sx={{
@@ -261,8 +267,8 @@ const BlogDetails = () => {
                                     {comments.map((comment) => (
                                         <ListItem key={comment.id}>
                                             <ListItemText
-                                                primary={comment.name}
-                                                secondary={comment.comment}
+                                                primary={comment.client.name}
+                                                secondary={comment.comments}
                                             />
                                         </ListItem>
                                     ))}
@@ -271,50 +277,45 @@ const BlogDetails = () => {
                                     <Typography variant="subtitle2" gutterBottom>
                                         Add a Comment
                                     </Typography>
-                                    <form onSubmit={handleCommentSubmit}>
-                                        <TextField
-                                            fullWidth
-                                            label="Name"
-                                            name="name"
-                                            value={commentData.name}
-                                            onChange={handleCommentChange}
-                                            margin="normal"
-                                        />
-                                        <TextField
-                                            fullWidth
-                                            label="Email"
-                                            name="email"
-                                            value={commentData.email}
-                                            onChange={handleCommentChange}
-                                            margin="normal"
-                                        />
-                                        <TextField
-                                            fullWidth
-                                            label="Comment"
-                                            name="comment"
-                                            value={commentData.comment}
-                                            onChange={handleCommentChange}
-                                            margin="normal"
-                                            multiline
-                                            rows={4}
-                                        />
-                                        {commentError && (
-                                            <Alert
-                                                severity="error"
+                                    {isLoggedIn ? (
+                                        <form onSubmit={handleCommentSubmit}>
+                                            <TextField
+                                                fullWidth
+                                                label="Comment"
+                                                name="comment"
+                                                value={commentData.comment}
+                                                onChange={handleCommentChange}
+                                                margin="normal"
+                                                multiline
+                                                rows={4}
+                                            />
+                                            {commentError && (
+                                                <Alert
+                                                    severity="error"
+                                                    sx={{ mt: 2 }}
+                                                >
+                                                    {commentError}
+                                                </Alert>
+                                            )}
+                                            <Button
+                                                type="submit"
+                                                variant="contained"
+                                                color="primary"
                                                 sx={{ mt: 2 }}
                                             >
-                                                {commentError}
-                                            </Alert>
-                                        )}
+                                                Submit Comment
+                                            </Button>
+                                        </form>
+                                    ) : (
                                         <Button
-                                            type="submit"
                                             variant="contained"
                                             color="primary"
+                                            onClick={toggleDrawer}
                                             sx={{ mt: 2 }}
                                         >
-                                            Submit Comment
+                                            Login to Comment
                                         </Button>
-                                    </form>
+                                    )}
                                 </Box>
                             </Box>
                         </Grid>
@@ -402,7 +403,7 @@ const BlogDetails = () => {
                                         }}
                                     >
                                         <CommentOutlined color="secondary" />
-                                        <span>25</span>
+                                        <span>{comments.length}</span>
                                     </Box>
                                     <Box
                                         sx={{
@@ -432,8 +433,8 @@ const BlogDetails = () => {
                                         {comments.map((comment) => (
                                             <ListItem key={comment.id}>
                                                 <ListItemText
-                                                    primary={comment.name}
-                                                    secondary={comment.comment}
+                                                    primary={comment.client.name}
+                                                    secondary={comment.comments}
                                                 />
                                             </ListItem>
                                         ))}
@@ -442,50 +443,45 @@ const BlogDetails = () => {
                                         <Typography variant="subtitle2" gutterBottom>
                                             Add a Comment
                                         </Typography>
-                                        <form onSubmit={handleCommentSubmit}>
-                                            <TextField
-                                                fullWidth
-                                                label="Name"
-                                                name="name"
-                                                value={commentData.name}
-                                                onChange={handleCommentChange}
-                                                margin="normal"
-                                            />
-                                            <TextField
-                                                fullWidth
-                                                label="Email"
-                                                name="email"
-                                                value={commentData.email}
-                                                onChange={handleCommentChange}
-                                                margin="normal"
-                                            />
-                                            <TextField
-                                                fullWidth
-                                                label="Comment"
-                                                name="comment"
-                                                value={commentData.comment}
-                                                onChange={handleCommentChange}
-                                                margin="normal"
-                                                multiline
-                                                rows={4}
-                                            />
-                                            {commentError && (
-                                                <Alert
-                                                    severity="error"
+                                        {isLoggedIn ? (
+                                            <form onSubmit={handleCommentSubmit}>
+                                                <TextField
+                                                    fullWidth
+                                                    label="Comment"
+                                                    name="comment"
+                                                    value={commentData.comment}
+                                                    onChange={handleCommentChange}
+                                                    margin="normal"
+                                                    multiline
+                                                    rows={4}
+                                                />
+                                                {commentError && (
+                                                    <Alert
+                                                        severity="error"
+                                                        sx={{ mt: 2 }}
+                                                    >
+                                                        {commentError}
+                                                    </Alert>
+                                                )}
+                                                <Button
+                                                    type="submit"
+                                                    variant="contained"
+                                                    color="primary"
                                                     sx={{ mt: 2 }}
                                                 >
-                                                    {commentError}
-                                                </Alert>
-                                            )}
+                                                    Submit Comment
+                                                </Button>
+                                            </form>
+                                        ) : (
                                             <Button
-                                                type="submit"
                                                 variant="contained"
                                                 color="primary"
+                                                onClick={toggleDrawer}
                                                 sx={{ mt: 2 }}
                                             >
-                                                Submit Comment
+                                                Login to Comment
                                             </Button>
-                                        </form>
+                                        )}
                                     </Box>
                                 </Box>
                             </Grid>
@@ -493,6 +489,7 @@ const BlogDetails = () => {
                     </Grid>
                 )}
             </Box>
+            <CommentLoginDrawer open={isDrawerOpen} onClose={toggleDrawer} />
         </>
     );
 };

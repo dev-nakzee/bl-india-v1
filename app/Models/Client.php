@@ -39,6 +39,9 @@ class Client extends Authenticatable implements CanResetPassword
         'created_at',
         'updated_at',
         'deleted_at',
+        'email_token_sent_at',
+        'email_verified_at',
+        'email_otp_sent_at',
     ];
 
     protected $casts = [
