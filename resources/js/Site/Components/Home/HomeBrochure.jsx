@@ -47,6 +47,7 @@ const HomeBrochure = () => {
   });
   const [otp, setOtp] = useState('');
   const [clientDetails, setClientDetails] = useState(null);
+  const [showOtpInput, setShowOtpInput] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -80,6 +81,7 @@ const HomeBrochure = () => {
       const response = await apiClient.post("/submit-brochure", formData);
       if (response.data.status === "success") {
         setClientDetails(response.data.client);
+        setShowOtpInput(true);
         toast.success("Form submitted successfully. Please enter the OTP sent to your email.");
       }
     } catch (error) {
@@ -95,10 +97,13 @@ const HomeBrochure = () => {
         otp: otp,
       });
       if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('client', JSON.stringify(response.data.client));
         toast.success("OTP verified successfully!");
         navigate("/account/brochures");
       }
     } catch (error) {
+      console.error("OTP Verification Error:", error.response.data);
       toast.error("Failed to verify OTP.");
     }
   };
@@ -123,8 +128,9 @@ const HomeBrochure = () => {
           <BrochureContent className="Brochure-section-data">
             <Typography variant="h3" sx={{ mt: 2 }}>{brochureData.title}</Typography>
             <Typography variant="subtitle1">{brochureData.tag_line}</Typography>
-            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-              <Grid container spacing={2}>
+            {!showOtpInput ? (
+              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+     <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                   <TextField
                     label="Name"
@@ -238,20 +244,22 @@ const HomeBrochure = () => {
                   </Button>
                 </Grid>
               </Grid>
-              {clientDetails && (
-                <Box>
-                  <Typography variant="h6" sx={{ mt: 2 }}>Enter OTP sent to your email:</Typography>
-                  <TextField
-                    label="OTP"
-                    value={otp}
-                    onChange={handleOtpChange}
-                    fullWidth
-                    required
-                  />
-                  <Button onClick={verifyOtp} variant="contained" color="secondary" sx={{ mt: 2 }}>Verify OTP</Button>
-                </Box>
-              )}
-            </Box>
+              </Box>
+            ) : (
+              <Box sx={{ mt: 3 }}>
+                <Typography variant="h6">Enter OTP sent to your email:</Typography>
+                <TextField
+                  label="OTP"
+                  value={otp}
+                  onChange={handleOtpChange}
+                  fullWidth
+                  required
+                />
+                <Button onClick={verifyOtp} variant="contained" color="secondary" sx={{ mt: 2 }}>
+                  Verify OTP
+                </Button>
+              </Box>
+            )}
           </BrochureContent>
         </Grid>
         <Grid item xs={12} md={6}>
