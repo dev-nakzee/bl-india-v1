@@ -11,7 +11,8 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  Box
+  Box,
+  Stack
 } from '@mui/material';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import CloseIcon from '@mui/icons-material/Close';
@@ -60,7 +61,7 @@ const Tutorials = () => {
   };
 
   return (
-    <Container sx={{ marginTop: 4 }}>
+    <Stack>
       <Typography variant="h4" gutterBottom>
         Tutorials
       </Typography>
@@ -125,7 +126,7 @@ const Tutorials = () => {
           </DialogContent>
         </Dialog>
       )}
-    </Container>
+    </Stack>
   );
 };
 
