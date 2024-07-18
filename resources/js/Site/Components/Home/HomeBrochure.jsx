@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 import apiClient from "../../Services/api"; // Ensure the import path is correct
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { countries } from 'country-data';
+import { countries } from "country-data";
 import { useNavigate } from "react-router-dom";
 
 const BrochureSection = styled(Box)(({ theme }) => ({
@@ -126,12 +126,15 @@ const HomeBrochure = () => {
       <Grid container spacing={4} alignItems="center">
         <Grid item xs={12} md={6}>
           <BrochureContent className="Brochure-section-data">
-            <Typography variant="h3" sx={{ mt: 2 }}>{brochureData.title}</Typography>
-            <Typography variant="subtitle1">{brochureData.tag_line}</Typography>
-            {!showOtpInput ? (
-              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-     <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+            <Typography variant="h3" sx={{ mt: 2 }}>
+              {brochureData.title}
+            </Typography>
+            <Typography variant="subtitle1">
+              {brochureData.tag_line}
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12} md={6}>
                   <TextField
                     label="Name"
                     name="name"
@@ -244,26 +247,17 @@ const HomeBrochure = () => {
                   </Button>
                 </Grid>
               </Grid>
-              </Box>
-            ) : (
-              <Box sx={{ mt: 3 }}>
-                <Typography variant="h6">Enter OTP sent to your email:</Typography>
-                <TextField
-                  label="OTP"
-                  value={otp}
-                  onChange={handleOtpChange}
-                  fullWidth
-                  required
-                />
-                <Button onClick={verifyOtp} variant="contained" color="secondary" sx={{ mt: 2 }}>
-                  Verify OTP
-                </Button>
-              </Box>
-            )}
+              <Button variant="contained" color="primary" type="submit">
+                Download Brochure
+              </Button>
+            </Box>
           </BrochureContent>
         </Grid>
         <Grid item xs={12} md={6}>
-          <BrochureImage src={"https://in.bl-india.com" + brochureData.image_url} alt={brochureData.image_alt} />
+          <BrochureImage
+            src={"https://in.bl-india.com/" + brochureData.image_url}
+            alt={brochureData.image_alt}
+          />
         </Grid>
       </Grid>
     </BrochureSection>
