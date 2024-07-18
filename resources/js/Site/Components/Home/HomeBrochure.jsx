@@ -13,6 +13,7 @@ import { styled } from "@mui/system";
 import apiClient from "../../Services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { displayName } from "react-quill";
 
 const BrochureSection = styled(Box)(({ theme }) => ({
   textAlign: 'left',
@@ -168,6 +169,12 @@ const HomeBrochure = () => {
             <Typography variant="subtitle1">
               {brochureData.tag_line}
             </Typography>
+            <Grid item xs={12} md={6} sx={{ display: { xs: 'block', md: 'none' }}}>
+          <BrochureImage
+            src={"https://in.bl-india.com/" + brochureData.image_url}
+            alt={brochureData.image_alt}
+          />
+        </Grid>
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} md={6}>
@@ -282,13 +289,16 @@ const HomeBrochure = () => {
                   />
                 </Grid>
               </Grid>
+              <Box className=""   sx={{ textAlign: { xs: 'center', md: 'left' }}} >
               <Button variant="contained" color="primary" type="submit">
                 Download Brochure
               </Button>
+              </Box>
+             
             </Box>
           </BrochureContent>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' }}}>
           <BrochureImage
             src={"https://in.bl-india.com/" + brochureData.image_url}
             alt={brochureData.image_alt}

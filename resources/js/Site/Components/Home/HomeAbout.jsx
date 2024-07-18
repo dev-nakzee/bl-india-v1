@@ -68,19 +68,26 @@ const HomeAbout = () => {
     return (
         <AboutSection className='about-section'>
             <Grid container spacing={4} alignItems="center" sx={{ mx: 4}}>
-               
+            <Grid item xs={12} md={12} sx={{ display: { xs: 'block', md: 'none' }}}>
+                    <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff',  borderRadius: 20}}>
+                        {aboutData.name}
+                    </Typography>
+                    <Typography variant="h3" sx={{ display: { xs: 'block', md: 'none' }}} marginBlock={1} textAlign={'center'}> 
+                            {aboutData.title}
+                        </Typography>
+                </Grid>
                 <Grid item xs={12} md={6}>
                     <AboutImage src={'https://in.bl-india.com/' + aboutData.image_url} alt={aboutData.image_alt} sx={{}}/>
                     <Box className="box-about"><p>Since 2014</p></Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={12} sx={{ display: { xs: 'none', md: 'block' }}}>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff',  borderRadius: 20}}>
                         {aboutData.name}
                     </Typography>
                 </Grid>
                     <AboutContent className=''>
-                        <Typography variant="h3" sx={{ mt: 1,mb:1 }}>
+                        <Typography variant="h3" sx={{ display: { xs: 'none', md: 'block'}}}  >
                             {aboutData.title}
                         </Typography>
                         <Typography variant="subtitle2" sx={{mb:1, borderLeft: '5px solid #0D629A', pl: 2, fontSize: '1rem', fontStyle: 'italic' }}>

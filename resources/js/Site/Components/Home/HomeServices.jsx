@@ -77,7 +77,7 @@ const HomeServices = () => {
             <Grid container spacing={4}>
                 {data.services &&
                     data.services.map((service) => (
-                        <Grid item xs={12} md={6} lg={3} key={service.id}>
+                        <Grid item xs={12} sm={6} md={6} lg={3} key={service.id}>
                             <Box
                                 sx={{
                                     // display: "flex",
