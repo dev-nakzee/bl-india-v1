@@ -220,7 +220,7 @@ const Careers = () => {
           </Grid>
         ))}
       </Grid>
-      <PartnerWithUs />
+   
       <Drawer anchor="right" open={drawerOpen}
       //  onClose={handleCloseDrawer}
        >

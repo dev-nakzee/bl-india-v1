@@ -126,7 +126,7 @@ const NavigationBar = () => {
   };
   const [isSearchOpen, setSearchOpen] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleSearchOpen = () => {
     setSearchOpen(true);
