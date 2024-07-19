@@ -89,7 +89,10 @@ const Footer = () => {
             <Typography variant="h6" textAlign={"left"} mb={3} color={"white"}>
                 {title}
             </Typography>
+            <Typography variant="h6" textAlign={"left"} mb={3} color={"white"}>
             {content}
+            </Typography>
+          
         </Grid>
     );
 

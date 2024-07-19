@@ -62,7 +62,7 @@ const HomeBlog = () => {
 
     return (
         <BlogSection className='Blog-section'>
-            <Grid container spacing={4} alignItems="center" sx={{ mx: 4 }}>
+            <Grid container spacing={4} alignItems="center" marginBlock={{ xs:0 ,sm:1,md: 4 }}>
                 <Grid item xs={12} md={12}>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {section[0].tag_line}
@@ -72,15 +72,15 @@ const HomeBlog = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container spacing={4}>
+                    <Grid container spacing={{xs:1, sm:2,md:4}}>
                         {blogs.map((blog) => (
-                            <Grid item xs={12} md={4} key={blog.id}>
+                            <Grid item xs={12} sm={4} md={4} key={blog.id}>
                                 <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' ,borderRadius:'20px'}}>
                                     <CardMedia
                                         component="img"
                                         height="200"
                                         image={'https://in.bl-india.com/' + blog.image_url}
-                                        sx={{  backgroundSize: 'contain', objectFit: 'fill'}}
+                                        sx={{  backgroundSize: 'cover', objectFit: 'cover'}}
                                         alt={blog.image_alt}
                                     />
                                     <CardContent>
