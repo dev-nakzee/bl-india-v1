@@ -16,6 +16,7 @@ use App\Http\Controllers\fe\DownloadController;
 use App\Http\Controllers\fe\ClientController;
 use App\Http\Controllers\fe\TutorialController;
 use App\Http\Controllers\fe\BrochureController;
+use App\Http\Controllers\fe\ScheduleCallController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -88,6 +89,9 @@ Route::prefix('v1/fe')->group(function(){
 
     // Route to verify OTP
     Route::post('/verify-otp', [BrochureController::class, 'verifyOtp'])->name('brochure.verifyOtp');
+
+    Route::post('/schedule', [ScheduleCallController::class, 'store']);
+    Route::post('/schedule-verify-otp', [ScheduleCallController::class,'verifyOtp']);
 
 
     Route::prefix('client')->group(function () {
