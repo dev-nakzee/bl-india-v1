@@ -83,6 +83,8 @@ const Services = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [mobileSelectValue, setMobileSelectValue] = useState('all'); // State for mobile select value
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -264,6 +266,16 @@ const Services = () => {
                     </Grid>
                   ))}
                 </Grid>
+                {isMobile ? (
+            <Box sx={{marginBlock:2}}>
+            <DownloadBrochure />
+            <RequestCallBack />
+          </Box>
+
+        ):(
+          <></>
+        )
+}
                 <Box sx={{marginBlock:2}}>
                 <BackButton/></Box>
 
@@ -272,7 +284,7 @@ const Services = () => {
           </ServicesList>
           
         </Box>
-       
+      
       </ServiceSection>
       
     </>

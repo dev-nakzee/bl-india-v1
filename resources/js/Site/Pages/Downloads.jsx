@@ -237,6 +237,16 @@ const Downloads = () => {
             </Paper>
           </Grid>
         </Grid>
+        {isMobile ? (
+            <Box sx={{marginBlock:2}}>
+            <DownloadBrochure />
+            <RequestCallBack />
+          </Box>
+
+        ):(
+          <></>
+        )
+      }
       </Box>
     </>
   );

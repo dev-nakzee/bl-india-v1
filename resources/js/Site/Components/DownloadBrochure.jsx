@@ -10,6 +10,7 @@ import {
     MenuItem,
     CircularProgress,
 } from "@mui/material";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import CloseIcon from "@mui/icons-material/Close";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,6 +37,7 @@ const DownloadBrochure = () => {
     });
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
     const toggleDrawer = (open) => (event) => {
         if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -79,18 +81,7 @@ const DownloadBrochure = () => {
 
     return (
         <>
-            <ToastContainer />
-            <Box sx={{ textAlign: 'left', padding: 2 }}>
-                <Typography variant="h6" mb={1} mt={4}>
-                    Download Brochures
-                </Typography>
-                <Typography variant="body1" mb={1}>
-                    Please fill out the form below to request a brochure for your business.
-                </Typography>
-                <Button onClick={toggleDrawer(true)} variant="contained" color="primary" mb={1}>
-                    Request Brochure
-                </Button>
-            </Box>
+            
             <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
                 <IconButton onClick={toggleDrawer(false)}><CloseIcon /></IconButton>
                 <Container sx={{ width: 350, padding: 4 }}>
@@ -174,6 +165,30 @@ const DownloadBrochure = () => {
                     )}
                 </Container>
             </Drawer>
+            {isMobile ? (
+          <>
+            <Button onClick={toggleDrawer(true)} variant="contained" color="primary" mb={1}>
+                    Request Brochure
+                </Button>
+          </>
+
+        ):(
+          <>
+          <ToastContainer />
+            <Box sx={{ textAlign: 'left', padding: 2 }}>
+                <Typography variant="h6" mb={1} mt={4}>
+                    Download Brochures
+                </Typography>
+                <Typography variant="body1" mb={1}>
+                    Please fill out the form below to request a brochure for your business.
+                </Typography>
+                <Button onClick={toggleDrawer(true)} variant="contained" color="primary" mb={1}>
+                    Request Brochure
+                </Button>
+            </Box>
+          </>
+        )
+}
         </>
     );
 };

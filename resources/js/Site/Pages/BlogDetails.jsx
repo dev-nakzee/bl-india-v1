@@ -488,8 +488,19 @@ const BlogDetails = () => {
                         </Box>
                     </Grid>
                 )}
+                 {isMobile ? (
+            <Box sx={{marginBlock:2}}>
+            <DownloadBrochure />
+            <RequestCallBack />
+          </Box>
+
+        ):(
+          <></>
+        )
+      }
             </Box>
             <CommentLoginDrawer open={isDrawerOpen} onClose={toggleDrawer} />
+            
         </>
     );
 };

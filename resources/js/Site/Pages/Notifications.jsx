@@ -254,6 +254,16 @@ const Notifications = () => {
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                        {isMobile ? (
+            <Box sx={{marginBlock:2}}>
+            <DownloadBrochure />
+            <RequestCallBack />
+          </Box>
+
+        ):(
+          <></>
+        )
+    }
                         <Box
                             sx={{
                                 display: "flex",
