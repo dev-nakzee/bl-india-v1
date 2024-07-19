@@ -159,6 +159,7 @@ li a {
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
 }
+.MuiPopover-root.MuiMenu-root.MuiModal-root {z-index: 1305 !important;}
 .page-heading {
     position: relative;
 }
