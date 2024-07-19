@@ -42,6 +42,17 @@ const RegisterLoginDrawer = () => {
     if (token) {
       setIsLoggedIn(true);
     }
+
+    const interval = setInterval(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    }, 10000); // 10 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleToggleDrawer = () => {

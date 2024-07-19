@@ -25,7 +25,7 @@ class BrochureController extends Controller
             'countryCode' => 'required|string',
             'service' => 'required|string|max:255',
             'source' => 'required|string|max:255',
-            'message' => 'required|string',
+            'message' => 'string',
         ]);
 
         if ($validator->fails()) {
