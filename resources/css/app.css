@@ -474,7 +474,7 @@ li a {
     background-color: var(--primary-color);
 } */
 .Footer-section .MuiGrid-root > .MuiGrid-item {
-    padding-top: 20px;
+      padding-top: 20px;
 }
 .about-section {
     position: relative;
