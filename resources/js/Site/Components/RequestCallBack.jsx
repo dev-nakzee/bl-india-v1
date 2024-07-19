@@ -2,77 +2,19 @@ import React, { useState } from 'react';
 import {
   Box,
   Button,
-  Container,
   Drawer,
   TextField,
   Typography,
   IconButton,
   MenuItem,
   Divider,
-  Grid
+  Grid,
+  CircularProgress,
+  Alert,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-const countryCodes = [
-  { code: "+1", country: "USA" },
-  { code: "+91", country: "India" },
-  { code: "+44", country: "UK" },
-  { code: "+61", country: "Australia" },
-  { code: "+81", country: "Japan" },
-  { code: "+49", country: "Germany" },
-  { code: "+86", country: "China" },
-  { code: "+33", country: "France" },
-  { code: "+39", country: "Italy" },
-  { code: "+7", country: "Russia" },
-  { code: "+55", country: "Brazil" },
-  { code: "+27", country: "South Africa" },
-  { code: "+34", country: "Spain" },
-  { code: "+82", country: "South Korea" },
-  { code: "+971", country: "UAE" },
-  { code: "+52", country: "Mexico" },
-  { code: "+62", country: "Indonesia" },
-  { code: "+60", country: "Malaysia" },
-  { code: "+65", country: "Singapore" },
-  { code: "+66", country: "Thailand" },
-  { code: "+64", country: "New Zealand" },
-  { code: "+31", country: "Netherlands" },
-  { code: "+46", country: "Sweden" },
-  { code: "+41", country: "Switzerland" },
-  { code: "+48", country: "Poland" },
-  { code: "+45", country: "Denmark" },
-  { code: "+47", country: "Norway" },
-  { code: "+92", country: "Pakistan" },
-  { code: "+63", country: "Philippines" },
-  { code: "+20", country: "Egypt" },
-  { code: "+98", country: "Iran" },
-  { code: "+90", country: "Turkey" },
-  { code: "+58", country: "Venezuela" },
-  { code: "+56", country: "Chile" },
-  { code: "+51", country: "Peru" },
-  { code: "+57", country: "Colombia" },
-  { code: "+54", country: "Argentina" },
-  { code: "+964", country: "Iraq" },
-  { code: "+880", country: "Bangladesh" },
-  { code: "+94", country: "Sri Lanka" },
-  { code: "+32", country: "Belgium" },
-  { code: "+353", country: "Ireland" },
-  { code: "+386", country: "Slovenia" },
-  { code: "+357", country: "Cyprus" },
-  { code: "+358", country: "Finland" },
-  { code: "+961", country: "Lebanon" },
-  { code: "+359", country: "Bulgaria" },
-  { code: "+385", country: "Croatia" },
-  { code: "+380", country: "Ukraine" },
-];
-
-const schedules = [
-  'Morning (9am - 12pm)',
-  'Afternoon (12pm - 3pm)',
-  'Evening (3pm - 6pm)',
-  'Anytime',
-];
+import { countries } from 'country-data';
+import apiClient from "../Services/api"; // Ensure the import path is correct
 
 const RequestCallBack = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -80,17 +22,31 @@ const RequestCallBack = () => {
     name: '',
     phone: '',
     countryCode: '+1',
+    email: '',
     schedule: '',
   });
+  const [otp, setOtp] = useState('');
+  const [showOtpField, setShowOtpField] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
+  const toggleDrawer = (open) => () => {
     setIsDrawerOpen(open);
+    if (!open) {
+      setShowOtpField(false);
+      setLoading(false);
+      setErrors({});
+      setSuccessMessage('');
+      setFormData({
+        name: '',
+        phone: '',
+        countryCode: '+1',
+        email: '',
+        schedule: '',
+      });
+      setOtp('');
+    }
   };
 
   const handleChange = (e) => {
@@ -101,115 +57,204 @@ const RequestCallBack = () => {
     });
   };
 
+  const handleOtpChange = (e) => {
+    setOtp(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setErrors({});
+    setSuccessMessage('');
     try {
-      // Send form data to the server (adjust the endpoint and data format as needed)
-      // await apiClient.post('/request-callback', formData);
-      toast.success('Callback request submitted successfully');
+      await apiClient.post('/schedule', formData);
+      setShowOtpField(true);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        setErrors({ general: "Failed to schedule call. Please try again." });
+      }
+    }
+  };
+
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrors({});
+    setSuccessMessage('');
+    try {
+      await apiClient.post('/schedule-verify-otp', { email: formData.email, otp });
+      setSuccessMessage("Call scheduled successfully");
       setFormData({
         name: '',
         phone: '',
         countryCode: '+1',
+        email: '',
         schedule: '',
       });
-      setIsDrawerOpen(false);
+      setOtp('');
+      setShowOtpField(false);
+      setLoading(false);
     } catch (error) {
-      toast.error('Error submitting callback request');
-      console.error('Error submitting callback request:', error);
+      setLoading(false);
+      if (error.response && error.response.data && error.response.data.message === "Invalid OTP or OTP expired.") {
+        setFormData({
+          name: '',
+          phone: '',
+          countryCode: '+1',
+          email: '',
+          schedule: '',
+        });
+        setOtp('');
+        setShowOtpField(false);
+        setErrors({ general: "Invalid OTP or OTP expired." });
+      } else if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        setErrors({ general: "Failed to verify OTP. Please try again." });
+      }
     }
   };
 
   return (
     <>
-      <ToastContainer />
-      <Divider sx={{ mt:6, mb: 4}}/>
+      <Divider sx={{ mt: 6, mb: 4 }} />
       <Box sx={{ textAlign: 'left', padding: 2 }}>
-      <Typography variant="h6" mb={1}>
+        <Typography variant="h6" mb={1}>
           Request a Callback
         </Typography>
         <Typography variant="body1" mb={1}>
           Fill out the form for the call back and learn more about our services.
         </Typography>
-        <Button variant="contained" color="primary" sx={{textTransform:'inherit'}}  onClick={toggleDrawer(true)}>
+        <Button variant="contained" color="primary" sx={{ textTransform: 'inherit' }} onClick={toggleDrawer(true)}>
           Request Callback
         </Button>
       </Box>
       <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
-        <Box
-          sx={{ width: 500, padding: 4 }}
-          role="presentation"
-          onKeyDown={toggleDrawer(false)}
-        >
+        <Box sx={{ width: 500, padding: 4 }}>
           <IconButton onClick={toggleDrawer(false)}>
             <CloseIcon />
           </IconButton>
           <Typography variant="h5" gutterBottom>
             Request a Callback
           </Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs={4}>
+
+          {errors.general && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {errors.general}
+            </Alert>
+          )}
+          {successMessage && (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              {successMessage}
+            </Alert>
+          )}
+
+          <form onSubmit={showOtpField ? handleVerifyOtp : handleSubmit}>
+            {!showOtpField && !loading && (
+              <>
                 <TextField
-                  select
-                  label="Code"
-                  name="countryCode"
-                  value={formData.countryCode}
-                  onChange={handleChange}
-                  fullWidth
-                  SelectProps={{
-                    MenuProps: {
-                      sx: { zIndex: 2000 },
-                    },
-                  }}
-                >
-                  {countryCodes.map((code) => (
-                    <MenuItem key={code.code} value={code.code}>
-                      {code.code} ({code.country})
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  label="Phone"
-                  name="phone"
-                  value={formData.phone}
+                  label="Name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   fullWidth
                   margin="normal"
                   required
+                  error={!!errors.name}
+                  helperText={errors.name && errors.name[0]}
                 />
-              </Grid>
-            </Grid>
-            <TextField
-              select
-              label="Preferred Schedule"
-              name="schedule"
-              value={formData.schedule}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            >
-              {schedules.map((schedule) => (
-                <MenuItem key={schedule} value={schedule}>
-                  {schedule}
-                </MenuItem>
-              ))}
-            </TextField>
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-              Submit
-            </Button>
+                <TextField
+                  label="Email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                  required
+                  error={!!errors.email}
+                  helperText={errors.email && errors.email[0]}
+                />
+                <Grid container spacing={2} alignItems="center">
+                  <Grid item xs={4}>
+                    <TextField
+                      select
+                      label="Code"
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                      fullWidth
+                      error={!!errors.country_code}
+                      helperText={errors.country_code && errors.country_code[0]}
+                      SelectProps={{
+                        MenuProps: {
+                          sx: { zIndex: 2000 },
+                        },
+                      }}
+                    >
+                      {countries.all.map((country) => (
+                        <MenuItem key={country.alpha2} value={country.countryCallingCodes[0]}>
+                          {country.countryCallingCodes[0]} ({country.name})
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <TextField
+                      label="Phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      fullWidth
+                      margin="normal"
+                      required
+                      error={!!errors.phone}
+                      helperText={errors.phone && errors.phone[0]}
+                    />
+                  </Grid>
+                </Grid>
+                <TextField
+                  label="Schedule (Date and Time)"
+                  name="schedule"
+                  type="datetime-local"
+                  value={formData.schedule}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                  required
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={!!errors.schedule}
+                  helperText={errors.schedule && errors.schedule[0]}
+                />
+              </>
+            )}
+            {showOtpField && (
+              <TextField
+                label="OTP"
+                name="otp"
+                value={otp}
+                onChange={handleOtpChange}
+                fullWidth
+                margin="normal"
+                required
+                error={!!errors.otp}
+                helperText={errors.otp && errors.otp[0]}
+              />
+            )}
+            {loading ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 4 }}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Button type="submit" variant="contained" color="primary" fullWidth>
+                {showOtpField ? "Verify OTP" : "Schedule Call"}
+              </Button>
+            )}
           </form>
         </Box>
       </Drawer>

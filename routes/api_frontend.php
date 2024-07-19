@@ -17,6 +17,7 @@ use App\Http\Controllers\fe\ClientController;
 use App\Http\Controllers\fe\TutorialController;
 use App\Http\Controllers\fe\BrochureController;
 use App\Http\Controllers\fe\ScheduleCallController;
+use App\Http\Controllers\fe\PartnerWithUsController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -79,7 +80,7 @@ Route::prefix('v1/fe')->group(function(){
 
     // Contact Page Routes
     Route::get('/contact', [ContactController::class, 'contact']);
-    Route::post('/contact', [ContactController::class,'store']);
+    Route::post('/contact-form', [ContactController::class, 'contactForm']);
 
     // Download Page Routes
     Route::get('/downloads', [DownloadController::class, 'download']);
@@ -93,6 +94,7 @@ Route::prefix('v1/fe')->group(function(){
     Route::post('/schedule', [ScheduleCallController::class, 'store']);
     Route::post('/schedule-verify-otp', [ScheduleCallController::class,'verifyOtp']);
 
+    Route::post('/partner-with-us', [PartnerWithUsController::class, 'store']);
 
     Route::prefix('client')->group(function () {
         Route::post('register', [ClientController::class, 'register']);

@@ -160,9 +160,10 @@ const Downloads = () => {
                     </ListItem>
                   ))}
                 </List>
+
+                </Box>
                 <DownloadBrochure />
                 <RequestCallBack />
-                </Box>
               </Sidebar>
             )}
           </Grid>

@@ -3,19 +3,20 @@ import {
     Box,
     Typography,
     CircularProgress,
-    Container,
     Grid,
     List,
     ListItem,
     ListItemText,
     TextField,
     Button,
+    Alert,
+    MenuItem,
+    InputAdornment
 } from "@mui/material";
 import { Helmet } from "react-helmet";
 import apiClient from "../Services/api";
-import { toast, ToastContainer } from "react-toastify";
+import { countries } from "country-data";
 import parse from 'html-react-parser';
-import "react-toastify/dist/ReactToastify.css";
 import {
     EmailOutlined,
     FmdGoodOutlined,
@@ -30,8 +31,11 @@ const Contact = () => {
         email: "",
         message: "",
         phone: "",
+        country_code: "+91",
         organization: "",
     });
+    const [formError, setFormError] = useState('');
+    const [formSuccess, setFormSuccess] = useState('');
 
     useEffect(() => {
         fetchData();
@@ -42,8 +46,7 @@ const Contact = () => {
             const response = await apiClient.get("/contact");
             setData(response.data);
         } catch (error) {
-            toast.error("Error fetching contact data");
-            console.error("Error fetching contact data:", error);
+            setFormError("Error fetching contact data");
         } finally {
             setLoading(false);
         }
@@ -59,19 +62,26 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setFormError('');
+        setFormSuccess('');
         try {
             await apiClient.post("/contact-form", formData);
-            toast.success("Message sent successfully");
+            setFormSuccess("Message sent successfully");
             setFormData({
                 name: "",
                 email: "",
                 message: "",
                 phone: "",
+                country_code: "+91",
                 organization: "",
             });
         } catch (error) {
-            toast.error("Error sending message");
-            console.error("Error sending message:", error);
+            if (error.response && error.response.data && error.response.data.errors) {
+                const errorMessage = Object.values(error.response.data.errors).flat().join(', ');
+                setFormError(errorMessage);
+            } else {
+                setFormError("Error sending message");
+            }
         }
     };
 
@@ -96,7 +106,6 @@ const Contact = () => {
 
     return (
         <>
-            <ToastContainer />
             <Helmet>
                 <title>{data.page.seo_title}</title>
                 <meta name="description" content={data.page.seo_description} />
@@ -113,7 +122,7 @@ const Contact = () => {
                     Contact Us
                 </Typography>
 
-                <Grid container spacing={{xs:1,md:4}}>
+                <Grid container spacing={{ xs: 1, md: 4 }}>
                     <Grid item xs={12} md={6}>
                         <Box sx={{ padding: 2 }}>
                             <Typography variant="h6" gutterBottom>
@@ -159,12 +168,8 @@ const Contact = () => {
                                     />
                                     <ListItemText
                                         primary="Mobile No"
-                                        secondary={data.contact.phone1+' , '+data.contact.phone2}
+                                        secondary={data.contact.phone1 + ' , ' + data.contact.phone2}
                                     />
-                                    {/* <ListItemText
-                                        primary="Mobile No"
-                                       
-                                    /> */}
                                 </ListItem>
 
                                 <ListItem sx={{ paddingLeft: 0 }}>
@@ -183,83 +188,113 @@ const Contact = () => {
                     <Grid item xs={12} md={6}>
                         <Box sx={{ marginTop: 2 }}>
                             <Typography variant="h6" gutterBottom>
-                                Feel Free to message
+                                Feel Free to Message
                             </Typography>
+                            {formError && (
+                                <Alert severity="error">
+                                    {formError}
+                                </Alert>
+                            )}
+                            {formSuccess && (
+                                <Alert severity="success">
+                                    {formSuccess}
+                                </Alert>
+                            )}
                             <form onSubmit={handleSubmit}>
-                            <Grid container spacing={{xs:1}}>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    label="Name"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    fullWidth
-                                    margin="normal"
-                                    required
-                                />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                <TextField
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    fullWidth
-                                    margin="normal"
-                                    required
-                                />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                <TextField
-                                    label="Phone"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                    fullWidth
-                                    margin="normal"
-                                    required
-                                />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                <TextField
-                                    label="Organization"
-                                    name="organization"
-                                    value={formData.organization}
-                                    onChange={handleChange}
-                                    fullWidth
-                                    margin="normal"
-                                />
-                                </Grid>
-                                <Grid item xs={12} md={12}>
-                                <TextField
-                                    label="Message"
-                                    name="message"
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    fullWidth
-                                    margin="normal"
-                                    multiline
-                                    rows={4}
-                                    required
-                                />
-                                </Grid>
-                                <Grid item xs={12} md={12}>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                >
-                                    Send Message
-                                </Button>
-                                </Grid>
+                                <Grid container spacing={{ xs: 1 }}>
+                                    <Grid item xs={12} md={6}>
+                                        <TextField
+                                            label="Name"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            fullWidth
+                                            margin="normal"
+                                            required
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <TextField
+                                            label="Email"
+                                            name="email"
+                                            type="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            fullWidth
+                                            margin="normal"
+                                            required
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <TextField
+                                            label="Phone"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            fullWidth
+                                            margin="normal"
+                                            required
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <TextField
+                                                            select
+                                                            name="country_code"
+                                                            variant="standard"
+                                                            value={formData.country_code}
+                                                            onChange={handleChange}
+                                                            sx={{ width: 'auto', minWidth: '80px' }}
+                                                        >
+                                                            {countries.all.map((country) => (
+                                                                <MenuItem key={country.alpha2} value={country.countryCallingCodes[0]}>
+                                                                    {country.countryCallingCodes[0]} ({country.name})
+                                                                </MenuItem>
+                                                            ))}
+                                                        </TextField>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <TextField
+                                            label="Organization"
+                                            name="organization"
+                                            value={formData.organization}
+                                            onChange={handleChange}
+                                            fullWidth
+                                            margin="normal"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            label="Message"
+                                            name="message"
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            fullWidth
+                                            margin="normal"
+                                            multiline
+                                            rows={4}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Button
+                                            type="submit"
+                                            variant="contained"
+                                            color="primary"
+                                            fullWidth
+                                        >
+                                            Send Message
+                                        </Button>
+                                    </Grid>
                                 </Grid>
                             </form>
                         </Box>
                     </Grid>
                 </Grid>
             </Box>
-            <Box sx={{ marginTop:1}}>
+            <Box sx={{ marginTop: 1 }}>
                 <iframe
                     title="Google Maps"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.772255150437!2d77.28261647620775!3d28.63658707566256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfca9ee9d65df%3A0x993a638ba380a2a8!2sBrand%20Liaison%20India%20Private%20Limited!5e0!3m2!1sen!2sin!4v1719484146902!5m2!1sen!2sin"

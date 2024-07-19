@@ -9,13 +9,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\JsonResponse;
 
 class BrochureController extends Controller
 {
     /**
      * Handle the submission of a brochure form, create a client, and submit details to an external API.
      */
-    public function create(Request $request)
+    public function create(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -58,7 +59,7 @@ class BrochureController extends Controller
         return response()->json(['error' => 'Failed to send brochure details to external API'], 500);
     }
 
-    public function verifyOtp(Request $request)
+    public function verifyOtp(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',

@@ -16,7 +16,7 @@ class ScheduleCallController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -58,7 +58,7 @@ class ScheduleCallController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function verifyOtp(Request $request)
+    public function verifyOtp(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'otp' => 'required|string|max:6',
