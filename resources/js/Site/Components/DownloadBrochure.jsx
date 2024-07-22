@@ -37,7 +37,7 @@ const DownloadBrochure = () => {
     });
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
-    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const toggleDrawer = (open) => (event) => {
         if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {

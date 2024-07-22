@@ -83,7 +83,7 @@ const RequestCallBack = () => {
         countryCode: "+1",
         schedule: "",
     });
-    const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
     const toggleDrawer = (open) => (event) => {
         if (

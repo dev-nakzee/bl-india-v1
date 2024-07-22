@@ -46,7 +46,7 @@ const Notifications = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const notificationsPerPage = 15;
     const navigate = useNavigate();
-    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const Sidebar = styled(Box)(({ theme }) => ({
         width: "auto",

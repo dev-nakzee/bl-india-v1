@@ -189,8 +189,9 @@ const Gallery = () => {
         setSelectedImageDescription("");
         setModalOpen(false);
     };
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-    const isMobile = useMediaQuery({ maxWidth: 768 }); // Define your breakpoint for mobile view
+    // const isMobile = useMediaQuery({ maxWidth: 768 }); // Define your breakpoint for mobile view
 
     const breakpointColumns = {
         default: 3,

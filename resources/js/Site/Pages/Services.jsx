@@ -83,7 +83,7 @@ const Services = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [mobileSelectValue, setMobileSelectValue] = useState('all'); // State for mobile select value
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const navigate = useNavigate();
 
