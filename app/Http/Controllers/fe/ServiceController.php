@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\fe;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\ServiceCategory;
@@ -11,7 +11,6 @@ use App\Models\ServiceSection;
 use App\Models\ProductServiceMap;
 use App\Models\Product;
 use App\Models\NoticeProductMap;
-use Illuminate\Http\JsonResponse;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use DOMDocument;
 use Illuminate\Support\Facades\Cache;
@@ -120,7 +119,7 @@ class ServiceController extends Controller
                     'product_id' => $productServiceMap->product->id,
                     'product_name' => $this->translateText($productServiceMap->product->name),
                     'product_slug' => $productServiceMap->product->slug,
-                    'product_is_standard' => $productServiceMap->is,
+                    'product_is_standard' => $productServiceMap->is_standard,
                     'product_group' => $productServiceMap->group,
                     'product_scheme' => $productServiceMap->scheme,
                     'product_others' => $productServiceMap->others,
@@ -141,7 +140,7 @@ class ServiceController extends Controller
     public function productDetails(Request $request, string $slug): JsonResponse
     {
         $product = Product::where('slug', $slug)
-            ->with(['categories', 'services', 'services.service', 'services.service.serviceCategory'])
+            ->with(['categories', 'services', 'services.serviceCategory'])
             ->firstOrFail();
         $notification = NoticeProductMap::where('product_id', $product->id)
             ->with('notification', 'notification.category')
