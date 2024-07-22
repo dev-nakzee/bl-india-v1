@@ -29,5 +29,10 @@ export default defineConfig({
     optimizeDeps: {
         include: ['react', 'react-dom'],
         exclude: ['js-big-decimal']
-    }
+    },
+    resolve: {
+        alias: {
+            '@mui/material': '@mui/material/esm',
+        },
+    },
 });
