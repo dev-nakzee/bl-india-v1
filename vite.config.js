@@ -30,9 +30,4 @@ export default defineConfig({
         include: ['react', 'react-dom'],
         exclude: ['js-big-decimal']
     },
-    resolve: {
-        alias: {
-            '@mui/material': '@mui/material/esm',
-        },
-    },
 });
