@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\fe;
 
 use App\Http\Controllers\Controller;
@@ -21,8 +20,23 @@ class SearchController extends Controller
             // Search Products
             $results['products'] = Product::whereRaw("search_vector @@ plainto_tsquery('english', ?)", [$query])
                 ->select('id', 'name', 'slug')
-                ->with(['notifications', 'services.service'])
-                ->get();
+                ->with(['services.serviceCategory'])
+                ->get()
+                ->map(function($product) {
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'slug' => $product->slug,
+                        'services' => $product->services->map(function($service) {
+                            return [
+                                'service_id' => $service->id,
+                                'service_name' => $service->name,
+                                'service_slug' => $service->slug,
+                                'service_category_slug' => $service->serviceCategory->slug
+                            ];
+                        })
+                    ];
+                });
 
             // Search Services
             $results['services'] = Service::whereRaw("to_tsvector('english', name || ' ' || description) @@ plainto_tsquery('english', ?)", [$query])

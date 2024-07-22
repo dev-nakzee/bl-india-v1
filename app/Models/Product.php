@@ -37,8 +37,10 @@ class Product extends Model
 
     public function services()
     {
-        return $this->hasMany(ProductServiceMap::class);
+        return $this->belongsToMany(Service::class, 'product_service_maps', 'product_id', 'service_id')
+                    ->with('serviceCategory');
     }
+
     public function notifications()
     {
         return $this->belongsToMany(Notification::class, 'notification_product_maps');
