@@ -20,8 +20,8 @@ class SearchController extends Controller
         if ($query) {
             // Search Products
             $results['products'] = Product::whereRaw("search_vector @@ plainto_tsquery('english', ?)", [$query])
-                ->select('id', 'name', 'slug', 'services.service.slug')
-                ->with(['notifications', 'services.service', 'services.service.serviceCategory'])
+                ->select('id', 'name', 'slug')
+                ->with(['notifications', 'services.service'])
                 ->get();
 
             // Search Services
