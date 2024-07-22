@@ -43,4 +43,11 @@ class Product extends Model
     {
         return $this->belongsToMany(Notification::class, 'notification_product_maps');
     }
+
+    protected static function booted()
+    {
+        static::saving(function ($product) {
+            $product->search_vector = DB::raw("to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, ''))");
+        });
+    }
 }

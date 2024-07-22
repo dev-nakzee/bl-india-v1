@@ -30,8 +30,10 @@ Route::prefix('v1/fe')->group(function(){
     // Set locale Routes
     Route::get('/get-locale', [LanguageController::class, 'getSiteLocale']);
     Route::get('/set-locale/{locale}', [LanguageController::class, 'setSiteLocale']);
+
     // Search Page Routes
-    Route::get('/search', [SearchController::class,'search']);
+    Route::post('/search', [SearchController::class,'search']);
+    
     // Home Page Routes
     Route::get('/home', [HomeController::class, 'home']);
     Route::get('/home-banner', [HomeController::class, 'banner']);

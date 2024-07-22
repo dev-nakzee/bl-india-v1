@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, CircularProgress, TextField, InputAdornment, IconButton } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import { styled } from '@mui/system';
-import SearchIcon from '@mui/icons-material/Search';
 import apiClient from '../../Services/api';
-import parse from 'html-react-parser'; 
+import parse from 'html-react-parser';
+import SearchField from '../Search/SearchField';
 
 const Banner = styled(Box)(({ theme }) => ({
     position: 'relative',
@@ -18,22 +18,21 @@ const Banner = styled(Box)(({ theme }) => ({
     margin: 0, // Remove margins
     padding: 0, // Remove padding
     [theme.breakpoints.down('sm')]: {
-      height: '50vh', // Adjust height for smaller screens
+        height: '50vh', // Adjust height for smaller screens
     },
-  }));
-  
-  const Content = styled(Box)(({ theme }) => ({
+}));
+
+const Content = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     marginLeft: 40, // Add some left margin
     [theme.breakpoints.down('sm')]: {
-      marginLeft: 20, // Adjust left margin for smaller screens
+        marginLeft: 20, // Adjust left margin for smaller screens
     },
-  }));
+}));
 
 const HomeBanner = () => {
     const [bannerData, setBannerData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         const fetchBannerData = async () => {
@@ -63,39 +62,15 @@ const HomeBanner = () => {
         return null; // Or return a fallback UI if needed
     }
 
-    const handleSearch = () => {
-        // Handle search functionality here
-        console.log('Search query:', searchQuery);
-    };
-
     return (
         <Banner className="Banner-section"
-         sx={{ backgroundImage: `url(${bannerData.image_url})` }}
-         >
+            sx={{ backgroundImage: `url(${bannerData.image_url})` }}
+        >
             <Content className='Banner-section-content-fix'>
-                <div className='banner-content-text' sx={{ width: '60%'}}>
-                {parse(bannerData.content)} 
+                <div className='banner-content-text' sx={{ width: '60%' }}>
+                    {parse(bannerData.content)}
                 </div>
-                <Box sx={{ display: 'flex', alignItems: 'center', mt:1}}
-                width={{xs:'95%',md:'60%'}}
-                >
-                    <TextField
-                        variant="outlined"
-                        placeholder="Enter your product / Service"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        sx={{ backgroundColor: 'white', borderRadius: '5px', flexGrow: 1}}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton color="primary" onClick={handleSearch}>
-                                        <SearchIcon />
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Box>
+                <SearchField />
             </Content>
         </Banner>
     );
