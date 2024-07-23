@@ -161,7 +161,6 @@ const Downloads = () => {
                     </ListItem>
                   ))}
                 </List>
-               
                 </Box>
                 <DownloadBrochure />
                 <RequestCallBack />

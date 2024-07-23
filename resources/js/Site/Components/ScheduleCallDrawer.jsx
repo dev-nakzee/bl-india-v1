@@ -6,68 +6,16 @@ import {
     TextField,
     Drawer,
     IconButton,
-    InputAdornment,
     MenuItem,
     Grid,
+    Alert,
+    CircularProgress
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
 import { styled } from "@mui/system";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { countries } from "country-data";
 import apiClient from "../Services/api";
-
-const countryCodes = [
-    { code: "+1", country: "USA" },
-    { code: "+91", country: "India" },
-    { code: "+44", country: "UK" },
-    { code: "+61", country: "Australia" },
-    { code: "+81", country: "Japan" },
-    { code: "+49", country: "Germany" },
-    { code: "+86", country: "China" },
-    { code: "+33", country: "France" },
-    { code: "+39", country: "Italy" },
-    { code: "+7", country: "Russia" },
-    { code: "+55", country: "Brazil" },
-    { code: "+27", country: "South Africa" },
-    { code: "+34", country: "Spain" },
-    { code: "+82", country: "South Korea" },
-    { code: "+971", country: "UAE" },
-    { code: "+52", country: "Mexico" },
-    { code: "+62", country: "Indonesia" },
-    { code: "+60", country: "Malaysia" },
-    { code: "+65", country: "Singapore" },
-    { code: "+66", country: "Thailand" },
-    { code: "+64", country: "New Zealand" },
-    { code: "+31", country: "Netherlands" },
-    { code: "+46", country: "Sweden" },
-    { code: "+41", country: "Switzerland" },
-    { code: "+48", country: "Poland" },
-    { code: "+45", country: "Denmark" },
-    { code: "+47", country: "Norway" },
-    { code: "+92", country: "Pakistan" },
-    { code: "+63", country: "Philippines" },
-    { code: "+20", country: "Egypt" },
-    { code: "+98", country: "Iran" },
-    { code: "+90", country: "Turkey" },
-    { code: "+58", country: "Venezuela" },
-    { code: "+56", country: "Chile" },
-    { code: "+51", country: "Peru" },
-    { code: "+57", country: "Colombia" },
-    { code: "+54", country: "Argentina" },
-    { code: "+964", country: "Iraq" },
-    { code: "+880", country: "Bangladesh" },
-    { code: "+94", country: "Sri Lanka" },
-    { code: "+32", country: "Belgium" },
-    { code: "+353", country: "Ireland" },
-    { code: "+386", country: "Slovenia" },
-    { code: "+357", country: "Cyprus" },
-    { code: "+358", country: "Finland" },
-    { code: "+961", country: "Lebanon" },
-    { code: "+359", country: "Bulgaria" },
-    { code: "+385", country: "Croatia" },
-    { code: "+380", country: "Ukraine" },
-];
 
 const ScheduleCall = styled(Box)(({ theme }) => ({
     textAlign: "left",
@@ -93,8 +41,14 @@ const ScheduleCallDrawer = () => {
         name: "",
         phone: "",
         countryCode: "+1",
+        email: "",
         schedule: "",
     });
+    const [otp, setOtp] = useState("");
+    const [showOtpField, setShowOtpField] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [successMessage, setSuccessMessage] = useState("");
 
     const handleDrawerOpen = () => {
         setDrawerOpen(true);
@@ -102,27 +56,79 @@ const ScheduleCallDrawer = () => {
 
     const handleDrawerClose = () => {
         setDrawerOpen(false);
+        setShowOtpField(false);
+        setLoading(false);
+        setErrors({});
+        setSuccessMessage("");
     };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+        if (errors[name]) {
+            setErrors({ ...errors, [name]: null });
+        }
+    };
+
+    const handleOtpChange = (e) => {
+        setOtp(e.target.value);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setErrors({});
+        setSuccessMessage("");
         try {
-            const response = await apiClient.post("/schedule-call", formData);
-            toast.success("Call scheduled successfully");
+            await apiClient.post("/schedule", formData);
+            setShowOtpField(true);
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            if (error.response && error.response.data && error.response.data.errors) {
+                setErrors(error.response.data.errors);
+            } else {
+                setErrors({ general: "Failed to schedule call. Please try again." });
+            }
+        }
+    };
+
+    const handleVerifyOtp = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setErrors({});
+        setSuccessMessage("");
+        try {
+            await apiClient.post("/schedule-verify-otp", { email: formData.email, otp });
+            setSuccessMessage("Call scheduled successfully");
             setFormData({
                 name: "",
                 phone: "",
                 countryCode: "+1",
+                email: "",
                 schedule: "",
             });
-            handleDrawerClose();
+            setOtp("");
+            setShowOtpField(false);
+            setLoading(false);
         } catch (error) {
-            toast.error("Failed to schedule call");
+            setLoading(false);
+            if (error.response && error.response.data && error.response.data.message === "Invalid OTP or OTP expired.") {
+                setFormData({
+                    name: "",
+                    phone: "",
+                    countryCode: "+1",
+                    email: "",
+                    schedule: "",
+                });
+                setOtp("");
+                setShowOtpField(false);
+                setErrors({ general: "Invalid OTP or OTP expired." });
+            } else if (error.response && error.response.data && error.response.data.errors) {
+                setErrors(error.response.data.errors);
+            } else {
+                setErrors({ general: "Failed to verify OTP. Please try again." });
+            }
         }
     };
 
@@ -191,87 +197,131 @@ const ScheduleCallDrawer = () => {
                         Schedule a Call
                     </Typography>
 
-                    <Box component="form" onSubmit={handleSubmit}>
-                        <TextField
-                            label="Name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            sx={{ mb: 2 }}
-                        />
-                        <TextField
-                            label="Email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            sx={{ mb: 2 }}
-                        />
-                        <Grid container spacing={2} alignItems="center">
-                            <Grid item xs={4}>
+                    {errors.general && (
+                        <Alert severity="error" sx={{ mb: 2 }}>
+                            {errors.general}
+                        </Alert>
+                    )}
+                    {successMessage && (
+                        <Alert severity="success" sx={{ mb: 2 }}>
+                            {successMessage}
+                        </Alert>
+                    )}
+
+                    <Box component="form" onSubmit={showOtpField ? handleVerifyOtp : handleSubmit}>
+                        {!showOtpField && !loading && (
+                            <>
                                 <TextField
-                                    select
-                                    label="Code"
-                                    name="countryCode"
-                                    value={formData.countryCode}
-                                    onChange={handleInputChange}
-                                    fullWidth
-                                    SelectProps={{
-                                        MenuProps: {
-                                            sx: {
-                                                zIndex: 2100,
-                                            },
-                                        },
-                                    }}
-                                >
-                                    {countryCodes.map((code) => (
-                                        <MenuItem
-                                            key={code.code}
-                                            value={code.code}
-                                        >
-                                            {code.code} ({code.country})
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={8}>
-                                <TextField
-                                    label="Phone"
-                                    name="phone"
-                                    value={formData.phone}
+                                    label="Name"
+                                    name="name"
+                                    value={formData.name}
                                     onChange={handleInputChange}
                                     fullWidth
                                     required
+                                    sx={{ mb: 2 }}
+                                    error={!!errors.name}
+                                    helperText={errors.name && errors.name[0]}
                                 />
-                            </Grid>
-                        </Grid>
-                        <TextField
-                            label="Schedule (Date and Time)"
-                            name="schedule"
-                            type="datetime-local"
-                            value={formData.schedule}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            sx={{ mt: 2, mb: 2 }}
-                        />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            fullWidth
-                        >
-                            Schedule Call
-                        </Button>
+                                <TextField
+                                    label="Email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    required
+                                    sx={{ mb: 2 }}
+                                    error={!!errors.email}
+                                    helperText={errors.email && errors.email[0]}
+                                />
+                                <Grid container spacing={2} alignItems="center">
+                                    <Grid item xs={4}>
+                                        <TextField
+                                            select
+                                            label="Code"
+                                            name="countryCode"
+                                            value={formData.countryCode}
+                                            onChange={handleInputChange}
+                                            fullWidth
+                                            error={!!errors.country_code}
+                                            helperText={errors.country_code && errors.country_code[0]}
+                                            SelectProps={{
+                                                MenuProps: {
+                                                    sx: {
+                                                        zIndex: 2100,
+                                                    },
+                                                },
+                                            }}
+                                        >
+                                            {countries.all.map((country) => (
+                                                <MenuItem
+                                                    key={country.alpha2}
+                                                    value={country.countryCallingCodes[0]}
+                                                >
+                                                    {country.countryCallingCodes[0]} ({country.name})
+                                                </MenuItem>
+                                            ))}
+                                        </TextField>
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        <TextField
+                                            label="Phone"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleInputChange}
+                                            fullWidth
+                                            required
+                                            error={!!errors.phone}
+                                            helperText={errors.phone && errors.phone[0]}
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <TextField
+                                    label="Schedule (Date and Time)"
+                                    name="schedule"
+                                    type="datetime-local"
+                                    value={formData.schedule}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    required
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    sx={{ mt: 2, mb: 2 }}
+                                    error={!!errors.scheduled_at}
+                                    helperText={errors.scheduled_at && errors.scheduled_at[0]}
+                                />
+                            </>
+                        )}
+                        {showOtpField && (
+                            <TextField
+                                label="OTP"
+                                name="otp"
+                                value={otp}
+                                onChange={handleOtpChange}
+                                fullWidth
+                                required
+                                sx={{ mb: 2 }}
+                                error={!!errors.otp}
+                                helperText={errors.otp && errors.otp[0]}
+                            />
+                        )}
+                        {loading ? (
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <CircularProgress />
+                            </Box>
+                        ) : (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                fullWidth
+                            >
+                                {showOtpField ? "Verify OTP" : "Schedule Call"}
+                            </Button>
+                        )}
                     </Box>
                     <Typography variant="h5" sx={{ mt: 4 }}>
-                        Call or Whatapp now:
+                        Call or WhatsApp now:
                         <br />
                         <br />
                         +91-8130615678
@@ -280,7 +330,6 @@ const ScheduleCallDrawer = () => {
                     </Typography>
                 </Box>
             </Drawer>
-            <ToastContainer />
         </>
     );
 };

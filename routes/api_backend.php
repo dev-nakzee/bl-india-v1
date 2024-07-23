@@ -26,6 +26,7 @@ use App\Http\Controllers\cms\KnowledgeBaseController;
 use App\Http\Controllers\cms\TutorialController;
 use App\Http\Controllers\cms\BrochureController;
 use App\Http\Controllers\cms\ImageUploadController;
+use App\Http\Controllers\cms\SiteSettingController;
 
 Route::prefix('v1/cms')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
@@ -140,5 +141,7 @@ Route::prefix('v1/cms')->group(function(){
         // Brochures routes
         Route::apiResource('brochures', BrochureController::class);
         Route::post('brochures/{id}', [BrochureController::class, 'update1']);
+
+        Route::apiResource('settings', SiteSettingController::class);
     });
 });

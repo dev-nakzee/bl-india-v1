@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Box,
   Button,
-  Container,
   Drawer,
   TextField,
   Typography,
@@ -14,11 +13,15 @@ import {
   Radio,
   FormGroup,
   Tooltip,
+  MenuItem,
+  Grid,
+  Alert,
+  CircularProgress
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import HandshakeIcon from '@mui/icons-material/Handshake';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { countries } from 'country-data';
+import apiClient from "../../Services/api";
 
 const partnerTypes = ['Service Partner', 'Channel Partner'];
 const entityTypes = ['Company', 'Individual'];
@@ -26,22 +29,46 @@ const entityTypes = ['Company', 'Individual'];
 const PartnerWithUsLink = ({ displayType = 'text' }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [formData, setFormData] = useState({
-    entityType: 'Individual',
     partnerType: 'Service Partner',
+    entityType: 'Individual',
     name: '',
     email: '',
     phone: '',
+    countryCode: '+1',
     companyName: '',
     designation: '',
     fieldOfExpertise: '',
     yearsOfExperience: '',
   });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (event?.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setIsDrawerOpen(open);
+    if (!open) {
+      resetForm();
+    }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      partnerType: 'Service Partner',
+      entityType: 'Individual',
+      name: '',
+      email: '',
+      phone: '',
+      countryCode: '+1',
+      companyName: '',
+      designation: '',
+      fieldOfExpertise: '',
+      yearsOfExperience: '',
+    });
+    setErrors({});
+    setLoading(false);
   };
 
   const handleChange = (e) => {
@@ -54,59 +81,76 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setSuccessMessage('');
     try {
-      // Send form data to the server (adjust the endpoint and data format as needed)
-      // await apiClient.post('/partner-with-us', formData);
-      toast.success('Partner request submitted successfully');
-      setFormData({
-        partnerType: 'Service Partner',
-        entityType: 'Individual',
-        name: '',
-        email: '',
-        phone: '',
-        companyName: '',
-        designation: '',
-        fieldOfExpertise: '',
-        yearsOfExperience: '',
+      await apiClient.post('/partner-with-us', {
+        name: formData.name,
+        email: formData.email,
+        country_code: formData.countryCode,
+        phone: formData.phone,
+        partner_type: formData.partnerType,
+        entity_type: formData.entityType,
+        organization: formData.companyName,
+        designation: formData.designation,
+        field_of_expertise: formData.fieldOfExpertise,
+        year_of_experience: formData.yearsOfExperience,
       });
-      setIsDrawerOpen(false);
+      setLoading(false);
+      setErrors({});
+      setSuccessMessage('Partner request submitted successfully');
+      resetForm();
     } catch (error) {
-      toast.error('Error submitting partner request');
-      console.error('Error submitting partner request:', error);
+      setLoading(false);
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        setErrors({ general: 'Error submitting partner request' });
+      }
     }
   };
 
   return (
     <>
-      <ToastContainer />
       {displayType === 'text' ? (
         <Typography
           variant="bodytext"
           className="Service-list"
-          onClick={toggleDrawer(true)}
+          onClick={() => toggleDrawer(true)()}
           sx={{ cursor: 'pointer' }}
         >
           Partner With Us
         </Typography>
       ) : (
         <Tooltip title="Partner With Us" arrow>
-          <IconButton onClick={toggleDrawer(true)} sx={{ color: '#ffffff' }} aria-label="partner with us">
+          <IconButton onClick={() => toggleDrawer(true)()} sx={{ color: '#ffffff' }} aria-label="partner with us">
             <HandshakeIcon fontSize="inherit" />
           </IconButton>
         </Tooltip>
       )}
-      <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
+      <Drawer anchor="right" open={isDrawerOpen} onClose={() => toggleDrawer(false)()}>
         <Box
           sx={{ width: 380, padding: 2 }}
           role="presentation"
-          onKeyDown={toggleDrawer(false)}
         >
-          <IconButton onClick={toggleDrawer(false)} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <IconButton onClick={() => toggleDrawer(false)()} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
             <CloseIcon />
           </IconButton>
           <Typography variant="h5" gutterBottom>
             Partner With Us
           </Typography>
+
+          {errors.general && (
+            <Alert severity="error">
+              {errors.general}
+            </Alert>
+          )}
+          {successMessage && (
+            <Alert severity="success">
+              {successMessage}
+            </Alert>
+          )}
+
           <form onSubmit={handleSubmit}>
             <FormControl component="fieldset" margin="normal" required>
               <FormLabel component="legend">Partner Type</FormLabel>
@@ -127,6 +171,9 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
                   ))}
                 </RadioGroup>
               </FormGroup>
+              {errors.partner_type && (
+                <Alert severity="error">{errors.partner_type[0]}</Alert>
+              )}
             </FormControl>
             <FormControl component="fieldset" margin="normal" required>
               <FormLabel component="legend">Entity Type</FormLabel>
@@ -147,6 +194,9 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
                   ))}
                 </RadioGroup>
               </FormGroup>
+              {errors.entity_type && (
+                <Alert severity="error">{errors.entity_type[0]}</Alert>
+              )}
             </FormControl>
             <TextField
               label="Name"
@@ -156,6 +206,8 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
               fullWidth
               margin="normal"
               required
+              error={!!errors.name}
+              helperText={errors.name && errors.name[0]}
             />
             <TextField
               label="Email"
@@ -166,16 +218,47 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
               fullWidth
               margin="normal"
               required
+              error={!!errors.email}
+              helperText={errors.email && errors.email[0]}
             />
-            <TextField
-              label="Phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-            />
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs={4}>
+                <TextField
+                  select
+                  label="Code"
+                  name="countryCode"
+                  value={formData.countryCode}
+                  onChange={handleChange}
+                  fullWidth
+                  error={!!errors.country_code}
+                  helperText={errors.country_code && errors.country_code[0]}
+                  SelectProps={{
+                    MenuProps: {
+                      sx: { zIndex: 2000 },
+                    },
+                  }}
+                >
+                  {countries.all.map((country) => (
+                    <MenuItem key={country.alpha2} value={country.countryCallingCodes[0]}>
+                      {country.countryCallingCodes[0]} ({country.name})
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={8}>
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                  required
+                  error={!!errors.phone}
+                  helperText={errors.phone && errors.phone[0]}
+                />
+              </Grid>
+            </Grid>
             {formData.entityType === 'Company' && (
               <>
                 <TextField
@@ -186,6 +269,8 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
                   fullWidth
                   margin="normal"
                   required
+                  error={!!errors.organization}
+                  helperText={errors.organization && errors.organization[0]}
                 />
                 <TextField
                   label="Designation"
@@ -195,6 +280,8 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
                   fullWidth
                   margin="normal"
                   required
+                  error={!!errors.designation}
+                  helperText={errors.designation && errors.designation[0]}
                 />
               </>
             )}
@@ -208,6 +295,8 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
                   fullWidth
                   margin="normal"
                   required
+                  error={!!errors.field_of_expertise}
+                  helperText={errors.field_of_expertise && errors.field_of_expertise[0]}
                 />
                 <TextField
                   label="Years of Experience"
@@ -218,12 +307,20 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
                   fullWidth
                   margin="normal"
                   required
+                  error={!!errors.year_of_experience}
+                  helperText={errors.year_of_experience && errors.year_of_experience[0]}
                 />
               </>
             )}
-            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ marginTop: 1 }}>
-              Submit
-            </Button>
+            {loading ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+                Submit
+              </Button>
+            )}
           </form>
         </Box>
       </Drawer>

@@ -22,7 +22,6 @@ class Product extends Model
         'seo_description',
         'seo_keywords',
         'seo_tags',
-        // 'product_category_id',
     ];
 
     protected $hidden = [
@@ -38,10 +37,19 @@ class Product extends Model
 
     public function services()
     {
-        return $this->hasMany(ProductServiceMap::class);
+        return $this->belongsToMany(Service::class, 'product_service_maps', 'product_id', 'service_id')
+                    ->with('serviceCategory');
     }
+
     public function notifications()
     {
         return $this->belongsToMany(Notification::class, 'notification_product_maps');
+    }
+
+    protected static function booted()
+    {
+        static::saving(function ($product) {
+            $product->search_vector = DB::raw("to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, ''))");
+        });
     }
 }

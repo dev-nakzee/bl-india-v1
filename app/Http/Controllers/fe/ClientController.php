@@ -118,7 +118,7 @@ class ClientController extends Controller
         return response()->json(['message' => 'Logged out successfully'], 200);
     }
 
-    public function changePassword(Request $request)
+    public function changePassword(Request $request): JsonResponse
     {
         $request->validate([
             'current_password' => 'required',
@@ -183,7 +183,7 @@ class ClientController extends Controller
             return response()->json(['message' => 'Unable to send reset link.', 'error' => $e->getMessage()], 500);
         }
     }
-    public function validateToken($token)
+    public function validateToken($token): JsonResponse
     {
         $passwordReset = PasswordReset::where('token', $token)->first();
 
@@ -194,7 +194,7 @@ class ClientController extends Controller
         return response()->json(['email' => $passwordReset->email]);
     }
 
-    public function resetPassword(Request $request)
+    public function resetPassword(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'token' => 'required|string',

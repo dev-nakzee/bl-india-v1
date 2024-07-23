@@ -34,11 +34,14 @@ import Profile from './Pages/Profile';
 import ResetPassword from './Pages/ResetPassword';
 import ProtectedRoute from './Components/ProtectedRoute';
 import AccountLayout from './Layouts/AccountLayout';
+import ScrollToTop from './Components/ScrollToTop'; // Import ScrollToTop
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
+        <ScrollToTop /> {/* Add ScrollToTop component here */}
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />

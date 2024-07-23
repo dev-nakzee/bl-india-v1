@@ -33,6 +33,7 @@ class Service extends Model
     protected $casts = [
         'is_global' => 'boolean',
     ];
+    
     public function serviceCategory()
     {
         return $this->belongsTo(ServiceCategory::class);

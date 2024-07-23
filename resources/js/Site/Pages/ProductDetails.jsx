@@ -34,14 +34,14 @@ const ProductDetails = () => {
     const fetchProductData = async () => {
       try {
         const response = await apiClient.get(`/products/${slug}`);
-        let services = response.data.product.services;
-        const notificationData = response.data.notification;
+        let services = response.data.services || [];
+        const notificationData = response.data.notification || [];
 
         // If serviceId is provided in local storage, set the corresponding tab as selected
         const serviceId = localStorage.getItem('serviceId');
         if (serviceId) {
           const initialTabIndex = services.findIndex(
-            (service) => service.service.id === parseInt(serviceId)
+            (service) => service.id === parseInt(serviceId)
           );
           if (initialTabIndex !== -1) {
             setTabValue('0');
@@ -135,7 +135,7 @@ const ProductDetails = () => {
           <Typography variant="h6" gutterBottom>
             Applicable Compliances
           </Typography>
-          {productData.services.length > 0 ? (
+          {productData.services && productData.services.length > 0 ? (
             <Box className="ProductDetail-tab">
               <TabContext value={tabValue}>
                 <Tabs
@@ -148,7 +148,7 @@ const ProductDetails = () => {
                   {productData.services.map((service, index) => (
                     <Tab
                       key={service.id}
-                      label={service.is_mandatory === '1' ? `${service.service.name} (Mandatory)` : `${service.service.name} (Voluntary)`}
+                      label={service.is_mandatory === '1' ? `${service.name} (Mandatory)` : `${service.name} (Voluntary)`}
                       value={`${index}`}
                     />
                   ))}
@@ -156,13 +156,13 @@ const ProductDetails = () => {
                 {productData.services.map((service, index) => (
                   <TabPanel key={service.id} value={`${index}`}>
                     <Typography variant="subtitle1" gutterBottom>
-                      {service.service.name} for {productData.name}
+                      {service.name} for {productData.name}
                     </Typography>
-                    {service.service.compliance_header === 'Indian Standard' ? (
+                    {service.compliance_header === 'Indian Standard' ? (
                       <Typography variant="body1" gutterBottom>
                         Indian Standard: <strong>{service.is}</strong>
                       </Typography>
-                    ) : service.service.compliance_header === 'Group, Scheme' ? (
+                    ) : service.compliance_header === 'Group, Scheme' ? (
                       <>
                         <Typography variant="body1" gutterBottom>
                           Group: <strong>{service.group}</strong>
@@ -171,18 +171,18 @@ const ProductDetails = () => {
                           Scheme: <strong>{service.scheme}</strong>
                         </Typography>
                       </>
-                    ) : service.service.compliance_header === 'EEE Code' ? (
+                    ) : service.compliance_header === 'EEE Code' ? (
                       <Typography variant="body1" gutterBottom>
                         EEE Code: <strong>{service.others}</strong>
                       </Typography>
-                    ): null }
+                    ) : null}
                     <>
                       {service.details ? parse(service.details) : 'No details available.'}
                     </>
-                    <Box sx={{ display: 'flex', gap: 2, marginTop: 2, justifyContent: 'center' }}>
+                    <Box sx={{ display: 'flex', gap: 2, marginTop: 2, pb: 2, justifyContent: 'center' }}>
                       <Button
                         component={Link}
-                        to={`/services/${service.service.service_category.slug}/${service.service.slug}`}
+                        to={`/services/${service.service_category.slug}/${service.slug}`}
                         variant="contained"
                         color="primary"
                       >
@@ -190,7 +190,7 @@ const ProductDetails = () => {
                       </Button>
                       <Button
                         component={Link}
-                        to={`/notifications/${service.service.slug}`}
+                        to={`/notifications/${service.slug}`}
                         variant="contained"
                         color="secondary"
                       >
@@ -228,7 +228,7 @@ const ProductDetails = () => {
         
       </Box>
       <Box sx={{mb: 2, px: 4}}>
-      <BackButton/>
+        <BackButton />
       </Box>
     </>
   );

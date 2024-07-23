@@ -15,8 +15,6 @@ import {
   ListItemText,
   Stack,
   Grid,
-  InputAdornment,
-  TextField,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -26,8 +24,8 @@ import ServicesIcon from "../../Assets/services.svg"; // Replace with your first
 import NotificationIcon from "../../Assets/notifications.svg"; // Replace with your second SVG icon path
 import LanguageIcon from "@mui/icons-material/Language";
 import apiClient from "../../Services/api";
-import { HighlightOff } from "@mui/icons-material";
 import RegisterLoginDrawer from "../RegisterLoginDrawer"; // Make sure this is the correct path
+import SearchDrawer from '../Search/SearchDrawer'; // Ensure this path is correct
 
 const globalLanguages = [
   { name: "English", locale: "en" },
@@ -68,7 +66,11 @@ const NavigationBar = () => {
   const [socialMedia, setSocialMedia] = useState([]);
   const [topMenu, setTopMenu] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchOpen, setSearchOpen] = useState(false);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   useEffect(() => {
     const determineLanguages = () => {
       const hostname = window.location.hostname;
@@ -124,9 +126,6 @@ const NavigationBar = () => {
       }
     }
   };
-  const [isSearchOpen, setSearchOpen] = useState(false);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleSearchOpen = () => {
     setSearchOpen(true);
@@ -135,47 +134,6 @@ const NavigationBar = () => {
   const handleSearchClose = () => {
     setSearchOpen(false);
   };
-  
-  const handleSearch = () => {
-    // Handle search functionality here
-    console.log('Search query:', searchQuery);
-  };
-
-
-  const drawer = (
-    <Drawer anchor="top" open={isSearchOpen} onClose={handleSearchClose}>
-      <Box display={'flex'} justifyContent={'flex-end'} padding={{xs:1,md:3}}>
-        <IconButton onClick={handleSearchClose}>
-          <HighlightOff fontSize="inherit" />
-        </IconButton>
-      </Box>  
-      <Grid container spacing={2} padding={{xs:2,sm:3,md:5}}>
-        <Grid item xs={12}>
-          <Typography variant="h6">Search</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Box display={"flex"}>
-            <TextField
-              variant="outlined"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              sx={{ backgroundColor: 'white', borderRadius: '5px', flexGrow: 1 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton color="primary" onClick={handleSearch}>
-                      <SearchIcon  fontSize="inherit" />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Box> 
-        </Grid>
-      </Grid>
-    </Drawer>
-  );
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
@@ -288,7 +246,7 @@ const NavigationBar = () => {
           </>
         )}
       </Toolbar>
-      {drawer}
+      <SearchDrawer open={isSearchOpen} onClose={handleSearchClose} />
     </AppBar>
   );
 };

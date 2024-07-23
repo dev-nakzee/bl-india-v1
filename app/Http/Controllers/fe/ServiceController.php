@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\fe;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\ServiceCategory;
@@ -11,7 +11,6 @@ use App\Models\ServiceSection;
 use App\Models\ProductServiceMap;
 use App\Models\Product;
 use App\Models\NoticeProductMap;
-use Illuminate\Http\JsonResponse;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use DOMDocument;
 use Illuminate\Support\Facades\Cache;
@@ -102,7 +101,7 @@ class ServiceController extends Controller
                 ->whereNotIn('id', $relatedServices->pluck('id')->toArray())
                 ->limit(3 - $relatedCount);
     
-            $additionalServices = $additionalServicesQuery->get();
+            $additionalServices = $additionalServicesQuery->with('serviceCategory')->get();
     
             $relatedServices = $relatedServices->merge($additionalServices);
         }
@@ -120,7 +119,7 @@ class ServiceController extends Controller
                     'product_id' => $productServiceMap->product->id,
                     'product_name' => $this->translateText($productServiceMap->product->name),
                     'product_slug' => $productServiceMap->product->slug,
-                    'product_is_standard' => $productServiceMap->is,
+                    'product_is_standard' => $productServiceMap->is_standard,
                     'product_group' => $productServiceMap->group,
                     'product_scheme' => $productServiceMap->scheme,
                     'product_others' => $productServiceMap->others,
@@ -141,16 +140,38 @@ class ServiceController extends Controller
     public function productDetails(Request $request, string $slug): JsonResponse
     {
         $product = Product::where('slug', $slug)
-            ->with(['categories', 'services', 'services.service', 'services.service.serviceCategory'])
+            ->with(['categories'])
             ->firstOrFail();
+
+        $services = ProductServiceMap::where('product_id', $product->id)
+            ->with(['service', 'service.serviceCategory'])
+            ->get()
+            ->map(function ($productServiceMap) {
+                return [
+                    'id' => $productServiceMap->service->id,
+                    'name' => $this->translateText($productServiceMap->service->name),
+                    'slug' => $productServiceMap->service->slug,
+                    'details' => $this->translateHtmlContent($productServiceMap->details),
+                    'compliance_header' => $productServiceMap->service->compliance_header,
+                    'is' => $productServiceMap->is,
+                    'group' => $productServiceMap->group,
+                    'scheme' => $productServiceMap->scheme,
+                    'others' => $productServiceMap->others,
+                    'is_mandatory' => $productServiceMap->is_mandatory,
+                    'service_category' => [
+                        'id' => $productServiceMap->service->serviceCategory->id,
+                        'name' => $this->translateText($productServiceMap->service->serviceCategory->name),
+                        'slug' => $productServiceMap->service->serviceCategory->slug,
+                    ],
+                ];
+            });
+
         $notification = NoticeProductMap::where('product_id', $product->id)
             ->with('notification', 'notification.category')
             ->get();
+
         $product->name = $this->translateText($product->name);
         $product->description = $this->translateHtmlContent($product->description);
-        foreach ($product->services as $service) {
-            $service->details = $this->translateHtmlContent($service->details);
-        }
 
         $categories = $product->categories->map(function ($category) {
             return [
@@ -161,8 +182,9 @@ class ServiceController extends Controller
 
         return response()->json([
             'product' => $product,
+            'services' => $services,
             'categories' => $categories,
-            'notification' => $notification
+            'notification' => $notification,
         ]);
     }
 

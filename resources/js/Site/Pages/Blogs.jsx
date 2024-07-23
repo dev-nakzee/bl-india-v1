@@ -191,10 +191,10 @@ const Blogs = () => {
               </Grid>
             </>
           ) : (
-            <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'} margin={4}>
+            <>
               <Grid item xs={12} md={3}>
-                <Sidebar className='Service-section-siderbar' sx={{ width: 'auto' }}>
-                  <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
+              <Sidebar className="Service-section-siderbar" sx={{ width: '100%'}}>
+                <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
                   <Typography variant="h6" mb={2}>Blog Categories</Typography>
                   <List>
                     <ListItem
@@ -236,8 +236,7 @@ const Blogs = () => {
                 <Box sx={{ display: 'flex'}}>
                 <BackButton/></Box>
               </Grid>
-               
-            </Box>
+            </>
           )}
    
         </Grid>

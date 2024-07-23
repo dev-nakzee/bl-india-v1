@@ -34,6 +34,6 @@ class ProductServiceMap extends Model
 
     public function service()
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(Service::class)->with('serviceCategory');
     }
 }
