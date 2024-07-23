@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         //
-        $products = Product::all();
+         $products = Product::all();
 
         foreach ($products as $product) {
             // Update search_vector for each product

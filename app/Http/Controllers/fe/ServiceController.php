@@ -140,16 +140,38 @@ class ServiceController extends Controller
     public function productDetails(Request $request, string $slug): JsonResponse
     {
         $product = Product::where('slug', $slug)
-            ->with(['categories', 'services', 'services.serviceCategory'])
+            ->with(['categories'])
             ->firstOrFail();
+
+        $services = ProductServiceMap::where('product_id', $product->id)
+            ->with(['service', 'service.serviceCategory'])
+            ->get()
+            ->map(function ($productServiceMap) {
+                return [
+                    'id' => $productServiceMap->service->id,
+                    'name' => $this->translateText($productServiceMap->service->name),
+                    'slug' => $productServiceMap->service->slug,
+                    'details' => $this->translateHtmlContent($productServiceMap->details),
+                    'compliance_header' => $productServiceMap->service->compliance_header,
+                    'is' => $productServiceMap->is,
+                    'group' => $productServiceMap->group,
+                    'scheme' => $productServiceMap->scheme,
+                    'others' => $productServiceMap->others,
+                    'is_mandatory' => $productServiceMap->is_mandatory,
+                    'service_category' => [
+                        'id' => $productServiceMap->service->serviceCategory->id,
+                        'name' => $this->translateText($productServiceMap->service->serviceCategory->name),
+                        'slug' => $productServiceMap->service->serviceCategory->slug,
+                    ],
+                ];
+            });
+
         $notification = NoticeProductMap::where('product_id', $product->id)
             ->with('notification', 'notification.category')
             ->get();
+
         $product->name = $this->translateText($product->name);
         $product->description = $this->translateHtmlContent($product->description);
-        foreach ($product->services as $service) {
-            $service->details = $this->translateHtmlContent($service->details);
-        }
 
         $categories = $product->categories->map(function ($category) {
             return [
@@ -160,8 +182,9 @@ class ServiceController extends Controller
 
         return response()->json([
             'product' => $product,
+            'services' => $services,
             'categories' => $categories,
-            'notification' => $notification
+            'notification' => $notification,
         ]);
     }
 
