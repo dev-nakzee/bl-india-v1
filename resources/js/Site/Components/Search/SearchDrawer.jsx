@@ -171,7 +171,7 @@ const SearchDrawer = ({ open, onClose }) => {
           <Typography variant="h6">Search</Typography>
         </Grid> */}
                 <Grid item xs={12}>
-                    <Box display={"flex"}>
+                    <Box display={"flex"} paddingInline={5}>
                         <TextField
                             variant="outlined"
                             placeholder="Search..."
