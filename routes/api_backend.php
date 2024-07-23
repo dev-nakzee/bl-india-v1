@@ -142,6 +142,7 @@ Route::prefix('v1/cms')->group(function(){
         Route::apiResource('brochures', BrochureController::class);
         Route::post('brochures/{id}', [BrochureController::class, 'update1']);
 
-        Route::apiResource('settings', SiteSettingController::class);
+        Route::get('site-settings', [SiteSettingController::class, 'index']);
+        Route::post('site-settings/{id}', [SiteSettingController::class, 'update']);
     });
 });

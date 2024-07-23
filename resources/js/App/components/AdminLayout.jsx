@@ -350,23 +350,10 @@ const AdminLayout = () => {
           </Collapse>
 
           {/* Settings Menu */}
-          <ListItem button onClick={() => handleMenuToggle(setSettingsOpen)}>
+          <ListItem button component={Link} to="/cms/settings">
             <ListItemIcon><SettingsIcon /></ListItemIcon>
-            <ListItemText primary="Settings" />
-            {settingsOpen ? <ExpandLess /> : <ExpandMore />}
+            <ListItemText primary="Setting" />
           </ListItem>
-          <Collapse in={settingsOpen} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button component={Link} to="/cms/settings/general" sx={{ pl: 4 }}>
-                <ListItemIcon><SettingsIcon /></ListItemIcon>
-                <ListItemText primary="General Settings" />
-              </ListItem>
-              <ListItem button component={Link} to="/cms/settings/advanced" sx={{ pl: 4 }}>
-                <ListItemIcon><SettingsIcon /></ListItemIcon>
-                <ListItemText primary="Advanced Settings" />
-              </ListItem>
-            </List>
-          </Collapse>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

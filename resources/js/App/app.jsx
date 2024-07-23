@@ -35,6 +35,7 @@ import KnowledgeBaseCategory from './components/KnowledgeBaseCategory';
 import KnowledgeBase from './components/KnowledgeBase';
 import Tutorials from './components/Tutorials';
 import Brochures from './components/Brochures';
+import Settings from './components/Settings';
 import ProtectedComponent from './components/ProtectedComponent';
 
 function App() {
@@ -81,6 +82,7 @@ function App() {
               <Route path="knowledge-base/faqs" element={<ProtectedComponent element={<KnowledgeBase />} allowedUserTypes={['admin']} />} />
               <Route path="tutorials" element={<ProtectedComponent element={<Tutorials />} allowedUserTypes={['admin']} />} />
               <Route path="brochures" element={<ProtectedComponent element={<Brochures />} allowedUserTypes={['admin']} />} />
+              <Route path="settings" element={<ProtectedComponent element={<Settings />} allowedUserTypes={['admin']} />} />
               {/* You can add more nested routes under /cms here */}
             </Route>
           </Routes>
