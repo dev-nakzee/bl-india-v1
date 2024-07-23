@@ -29,6 +29,10 @@ const FooterContainer = styled(Box)(({ theme }) => ({
     color: "#ffffff",
     padding: theme.spacing(4),
     textAlign: "center",
+    [theme.breakpoints.down("sm")]: {
+        padding: theme.spacing(2),
+        paddingTop: theme.spacing(4),
+    },
 }));
 
 const FooterLink = styled(Link)(({ theme }) => ({
