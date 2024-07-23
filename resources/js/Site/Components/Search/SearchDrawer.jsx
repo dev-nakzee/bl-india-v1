@@ -151,7 +151,8 @@ const SearchDrawer = ({ open, onClose }) => {
             onClose={handleDrawerClose}
             className="serach-drawer-container"
         >
-            <Box
+            <Box  position="sticky"
+
                 display={"flex"}
                 justifyContent={"flex-end"}
                 padding={{ md: 1 }}

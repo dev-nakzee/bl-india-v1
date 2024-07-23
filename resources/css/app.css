@@ -110,7 +110,7 @@ li a {
     background-color: var(--secondary-color) !important;
 }
 .serach-drawer-container .MuiDrawer-paper.MuiDrawer-paperAnchorTop{
-max-height:50vh;
+max-height:50%;
 height: 100%;
 }
 
