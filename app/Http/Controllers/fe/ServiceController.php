@@ -101,7 +101,7 @@ class ServiceController extends Controller
                 ->whereNotIn('id', $relatedServices->pluck('id')->toArray())
                 ->limit(3 - $relatedCount);
     
-            $additionalServices = $additionalServicesQuery->get();
+            $additionalServices = $additionalServicesQuery->with('serviceCategory')->get();
     
             $relatedServices = $relatedServices->merge($additionalServices);
         }
