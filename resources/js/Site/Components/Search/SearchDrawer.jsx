@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { HighlightOff } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 import apiClient from '../../Services/api'; // Ensure this path is correct
 
 const SearchDrawer = ({ open, onClose }) => {
@@ -35,8 +36,8 @@ const SearchDrawer = ({ open, onClose }) => {
 
     try {
       const response = await apiClient.post('/search', { query: value });
-      const uniqueResults = filterUniqueResults(Object.values(response.data).flat());
-      setResults(uniqueResults);
+      const processedResults = processResults(response.data);
+      setResults(processedResults);
     } catch (err) {
       setError('Error occurred while searching. Please try again.');
     }
@@ -44,15 +45,49 @@ const SearchDrawer = ({ open, onClose }) => {
     setLoading(false);
   };
 
-  const filterUniqueResults = (data) => {
+  const processResults = (data) => {
     const uniqueResults = [];
     const ids = new Set();
 
-    data.forEach((item) => {
-      if (!ids.has(item.id)) {
-        uniqueResults.push(item);
-        ids.add(item.id);
+    // Process products and their services
+    data.products.forEach((product) => {
+      if (!ids.has(product.id)) {
+        uniqueResults.push({
+          id: product.id,
+          name: product.name,
+          slug: product.slug,
+          type: 'product',
+        });
+        ids.add(product.id);
       }
+      product.services.forEach((service) => {
+        if (!ids.has(service.service_id)) {
+          uniqueResults.push({
+            id: service.service_id,
+            name: `${product.name} - ${service.service_name}`,
+            slug: service.service_slug,
+            category_slug: service.service_category_slug,
+            type: 'service',
+          });
+          ids.add(service.service_id);
+        }
+      });
+    });
+
+    // Process other types of data
+    ['services', 'blogs', 'knowledge_base'].forEach((key) => {
+      data[key].forEach((item) => {
+        if (!ids.has(item.id)) {
+          uniqueResults.push({
+            id: item.id,
+            name: item.name || item.question,
+            slug: item.slug,
+            type: key.slice(0, -1), // remove 's' to get singular form
+            category_slug: item.blog_category ? item.blog_category.slug : item.knowledge_base_category_id ? item.category.slug : undefined,
+          });
+          ids.add(item.id);
+        }
+      });
     });
 
     return uniqueResults;
@@ -63,7 +98,7 @@ const SearchDrawer = ({ open, onClose }) => {
     setSearchQuery(value);
 
     // Trigger search if length is a multiple of 3 and more than the previous length
-    if (value.length >= 3 && value.length % 2 === 0 && value.length > prevLength) {
+    if (value.length >= 3 && value.length % 3 === 0 && value.length > prevLength) {
       handleSearch(value);
     }
     setPrevLength(value.length);
@@ -73,30 +108,38 @@ const SearchDrawer = ({ open, onClose }) => {
     handleSearch(searchQuery);
   };
 
+  const handleDrawerClose = () => {
+    setSearchQuery('');
+    setResults([]);
+    setError('');
+    setPrevLength(0);
+    onClose();
+  };
+
   const renderOption = (option) => {
-    let href = '';
+    let to = '';
 
     if (option.type === 'product') {
-      href = `/products/${option.slug}`;
+      to = `/products/${option.slug}`;
     } else if (option.type === 'service') {
-      href = `/services/${option.service_category.slug}/${option.slug}`;
+      to = `/services/${option.category_slug}/${option.slug}`;
     } else if (option.type === 'blog') {
-      href = `/blogs/${option.blog_category.slug}/${option.slug}`;
+      to = `/blogs/${option.category_slug}/${option.slug}`;
     } else if (option.type === 'knowledge_base') {
-      href = `/knowledgebase/${option.category.slug}/${option.slug}`;
+      to = `/knowledgebase/${option.category_slug}/${option.slug}`;
     }
 
     return (
-      <ListItem button component="a" href={href} key={option.id}>
-        <ListItemText primary={option.name || option.question} />
+      <ListItem button component={Link} to={to} key={option.id}>
+        <ListItemText primary={option.name} />
       </ListItem>
     );
   };
 
   return (
-    <Drawer anchor="top" open={open} onClose={onClose}>
+    <Drawer anchor="top" open={open} onClose={handleDrawerClose}>
       <Box display={'flex'} justifyContent={'flex-end'} padding={{ xs: 1, md: 3 }}>
-        <IconButton onClick={onClose}>
+        <IconButton onClick={handleDrawerClose}>
           <HighlightOff fontSize="inherit" />
         </IconButton>
       </Box>
@@ -129,11 +172,7 @@ const SearchDrawer = ({ open, onClose }) => {
         <Grid item xs={12}>
           {error && <Alert severity="error">{error}</Alert>}
           <List>
-            {results.map((result) => (
-              <ListItem button component="a" href={result.link} key={result.id}>
-                <ListItemText primary={result.name || result.question} />
-              </ListItem>
-            ))}
+            {results.map((result) => renderOption(result))}
           </List>
         </Grid>
       </Grid>

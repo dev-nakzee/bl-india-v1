@@ -37,10 +37,6 @@ const ProductDetails = () => {
         let services = response.data.services || [];
         const notificationData = response.data.notification || [];
 
-        console.log('Fetched Product Data:', response.data.product); // Debugging line
-        console.log('Fetched Services:', services); // Debugging line
-        console.log('Fetched Notifications:', notificationData); // Debugging line
-
         // If serviceId is provided in local storage, set the corresponding tab as selected
         const serviceId = localStorage.getItem('serviceId');
         if (serviceId) {
