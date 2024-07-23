@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -55,7 +55,7 @@ const RequestCallBack = () => {
       ...formData,
       [name]: value,
     });
-  };
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const handleOtpChange = (e) => {
     setOtp(e.target.value);
@@ -261,5 +261,6 @@ const RequestCallBack = () => {
     </>
   );
 };
+}
 
 export default RequestCallBack;

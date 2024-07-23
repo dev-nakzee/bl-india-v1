@@ -232,6 +232,7 @@ const Blogs = () => {
                     color="primary"
                   />
                 </Box>
+                
                 <Box sx={{ display: 'flex'}}>
                 <BackButton/></Box>
               </Grid>
@@ -239,6 +240,16 @@ const Blogs = () => {
           )}
    
         </Grid>
+        {isMobile ? (
+            <Box sx={{marginBlock:2}}>
+            <DownloadBrochure />
+            <RequestCallBack />
+          </Box>
+
+        ):(
+          <></>
+        )
+      }
       </Box>
     </>
   );

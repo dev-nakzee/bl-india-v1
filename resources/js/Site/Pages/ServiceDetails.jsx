@@ -327,6 +327,16 @@ const ServiceDetails = () => {
             </Grid>
           )}
         </Grid>
+        {isMobile ? (
+            <Box sx={{marginBlock:2}}>
+            <DownloadBrochure />
+            <RequestCallBack />
+          </Box>
+
+        ):(
+          <></>
+        )
+      }
       </ServiceSection>
     </>
   );

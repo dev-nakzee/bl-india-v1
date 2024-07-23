@@ -68,8 +68,13 @@ p {
 .Topbar-section {
     min-height: 55px !important;
 }
-.MuiCardActions-root {padding:8px 0 !important;}
-.MuiDivider-root{margin-top: 10px !important; margin-bottom: 10px !important;}
+.MuiCardActions-root {
+    padding: 8px 0 !important;
+}
+.MuiDivider-root {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
 /* .Blog-section p {
     min-height: 97px;
 } */
@@ -104,6 +109,11 @@ li a {
     .MuiButtonBase-root.MuiListItem-root.MuiListItem-button.Mui-selected {
     background-color: var(--secondary-color) !important;
 }
+.serach-drawer-container .MuiDrawer-paper.MuiDrawer-paperAnchorTop{
+max-height:50%;
+height: 100%;
+}
+
 .service-section-content table {
     width: 100%;
     border-radius: 4px;
@@ -120,22 +130,22 @@ li a {
     padding: 0.5rem 1rem;
     font-size: 16px !important;
     font-weight: 500 !important;
-}  
+}
 .service-section-content table td {
     padding: 0.5rem 1rem;
-}  
+}
 /* .Banner-section{
     background-image: url("../js/Site/Assets/new1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 } */
-.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.css-dr3m99-MuiButtonBase-root-MuiListItem-root:hover,.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.css-dr3m99-MuiButtonBase-root-MuiListItem-root:hover{
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.css-dr3m99-MuiButtonBase-root-MuiListItem-root:hover,
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.css-dr3m99-MuiButtonBase-root-MuiListItem-root:hover {
     background-color: var(--secondary-color);
-
 }
 
 .banner-content-text {
-    color:var(--primary-color);
+    color: var(--primary-color);
     font-family: "Raleway", "Roboto", "Poppins", sans-serif;
     line-height: 1.25;
     width: 60%;
@@ -153,13 +163,20 @@ li a {
     font-size: 1.4rem;
     font-weight: 500;
 }
-.top-social-icons svg ,.top-social-icons {font-size: 2rem;}
-.MuiIconButton-root svg{font-size: 2.2rem;}
+.top-social-icons svg,
+.top-social-icons {
+    font-size: 2rem;
+}
+.MuiIconButton-root svg {
+    font-size: 2.2rem;
+}
 
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
 }
-.MuiPopover-root.MuiMenu-root.MuiModal-root {z-index: 1305 !important;}
+.MuiPopover-root.MuiMenu-root.MuiModal-root {
+    z-index: 1305 !important;
+}
 .page-heading {
     position: relative;
 }
@@ -175,8 +192,8 @@ li a {
 .blog-page .page-heading::after {
     left: 22%;
 }
-.cursor-pointer{
-    cursor:pointer;
+.cursor-pointer {
+    cursor: pointer;
 }
 .mandatory-product {
     cursor: pointer;
@@ -385,7 +402,7 @@ li a {
 
 .Service-section p img {
     width: 100%;
-    max-width: fit-content
+    max-width: fit-content;
 }
 
 /******** Product List ***********/
@@ -399,7 +416,9 @@ li a {
     gap: 20px;
 }
 
-.MuiTabs-indicator{display: none;}
+.MuiTabs-indicator {
+    display: none;
+}
 .Product-card img {
     color: rgba(0, 0, 0, 0.87);
     -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -412,14 +431,13 @@ li a {
 /* .ProductDetail-tab {
     border: 3px solid var(--third-color);
 } */
-.ProductDetail-tab .MuiButtonBase-root  {
+.ProductDetail-tab .MuiButtonBase-root {
     border: 3px solid var(--third-color);
     margin-right: 5px;
     border-bottom: 0;
     text-transform: capitalize;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-
 }
 .ProductDetail-tab .MuiTabPanel-root {
     border: 3px solid var(--third-color);
@@ -428,9 +446,8 @@ li a {
     border-bottom-right-radius: 10px;
 }
 
-.ProductDetail-tab .MuiButtonBase-root.Mui-selected  {
+.ProductDetail-tab .MuiButtonBase-root.Mui-selected {
     background-color: var(--secondary-color);
-
 }
 
 /******** Product List ***********/
@@ -462,7 +479,7 @@ li a {
     background-color: var(--primary-color);
 } */
 .Footer-section .MuiGrid-root > .MuiGrid-item {
-    padding-top: 32px;
+      padding-top: 20px;
 }
 .about-section {
     position: relative;
@@ -530,6 +547,33 @@ th {
 .ql-align-justify {
     margin-bottom: 1rem;
 }
+@media (min-width: 1580px) {
+    .box-about {
+        left: 33%;
+    }
+}
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .box-about {
+        left: 46%;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    .schedule-section-call-details .MuiSvgIcon-root {
+        width: 0.7em;
+        margin-right: 5px;
+    }
+    .schedule-section-call-details .MuiBox-root {
+        margin-right: 3rem;
+    }
+    .box-about {
+        top: 46%;
+        transform: rotate(-90deg);
+    }
+    .Process-section {
+        background-image: none;
+    }
+}
+
 @media (max-width: 767px) {
     /* .box-hidden {
         display: none !important;
@@ -537,14 +581,15 @@ th {
     .ql-align-justify img {
         width: 100%;
     }
-    .drawer-container .MuiPaper-root.MuiPaper-elevation.MuiDrawer-paper{
+    .drawer-container .MuiPaper-root.MuiPaper-elevation.MuiDrawer-paper {
         position: fixed;
         top: 130px !important;
         z-index: 800 !important;
-        
     }
-    
-    .mobile-schedule {text-align: center;}
+
+    .mobile-schedule {
+        text-align: center;
+    }
     .MuiTypography-root.MuiTypography-subtitle1 {
         padding: 4px;
         max-width: 100%;
@@ -564,9 +609,8 @@ th {
         background-color: var(--secondary-color);
     }
 
-
     .banner-content-text {
-        color:var(--primary-color);
+        color: var(--primary-color);
         font-family: "Raleway", "Roboto", "Poppins", sans-serif;
         line-height: 1.25;
         width: 100%;
@@ -778,5 +822,6 @@ th {
     border: 2px solid #ff0000;
     font-weight: 700;
 }
-.MuiButtonBase-root.MuiButton-root{text-transform: capitalize;}
-
+.MuiButtonBase-root.MuiButton-root {
+    text-transform: capitalize;
+}

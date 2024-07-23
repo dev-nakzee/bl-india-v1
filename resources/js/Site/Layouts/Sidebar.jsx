@@ -74,7 +74,7 @@ import { ArrowCircleRight, ArrowForwardIos } from '@mui/icons-material';
 const Sidebar = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleLogout = async () => {

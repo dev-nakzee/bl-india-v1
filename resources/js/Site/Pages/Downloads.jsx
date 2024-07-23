@@ -145,6 +145,7 @@ const Downloads = () => {
                 </Select>
               </FormControl>
             ) : (
+              <>
               <Sidebar className="Service-section-siderbar">
                 <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
                 <Typography variant="h6">Download Categories</Typography>
@@ -160,11 +161,12 @@ const Downloads = () => {
                     </ListItem>
                   ))}
                 </List>
-
                 </Box>
                 <DownloadBrochure />
                 <RequestCallBack />
               </Sidebar>
+              
+               </>
             )}
           </Grid>
           <Grid item xs={12} sm={8} md={9}>
@@ -234,6 +236,16 @@ const Downloads = () => {
             </Paper>
           </Grid>
         </Grid>
+        {isMobile ? (
+            <Box sx={{marginBlock:2}}>
+            <DownloadBrochure />
+            <RequestCallBack />
+          </Box>
+
+        ):(
+          <></>
+        )
+      }
       </Box>
     </>
   );

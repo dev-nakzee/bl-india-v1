@@ -128,7 +128,7 @@ const HomeProcess = () => {
                         }}
                     >
                         {processes.map((process) => (
-                            <Grid item xs={12} sm={6} md={2} key={process.id}>
+                            <Grid item xs={12} sm={6} md={3} lg={2} key={process.id}>
                                 <Box
                                     sx={{
                                         display: "flex",

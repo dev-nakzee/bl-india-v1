@@ -75,7 +75,7 @@ function Topbar() {
     const [socialMedia, setSocialMedia] = useState([]);
     const [topMenu, setTopMenu] = useState([]);
     const [selectedLanguage, setSelectedLanguage] = useState("en");
-    const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
     useEffect(() => {
         const determineLanguages = () => {

@@ -83,6 +83,8 @@ const Services = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [mobileSelectValue, setMobileSelectValue] = useState('all'); // State for mobile select value
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -201,7 +203,7 @@ const Services = () => {
               <Grid item xs={12}>
                 <Grid container spacing={2}>
                   {filteredServices.map(service => (
-                    <Grid item key={service.id} xs={12} sm={6} md={4}>
+                    <Grid item key={service.id} xs={12} sm={6} lg={4} xl={3}>
                       <ServiceCard>
                         <Box paddingInline={'16px'} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingTop: '16px' }}>
                           <ServiceImage
@@ -264,6 +266,16 @@ const Services = () => {
                     </Grid>
                   ))}
                 </Grid>
+                {isMobile ? (
+            <Box sx={{marginBlock:2}}>
+            <DownloadBrochure />
+            <RequestCallBack />
+          </Box>
+
+        ):(
+          <></>
+        )
+}
                 <Box sx={{marginBlock:2}}>
                 <BackButton/></Box>
 
@@ -272,7 +284,7 @@ const Services = () => {
           </ServicesList>
           
         </Box>
-       
+      
       </ServiceSection>
       
     </>
