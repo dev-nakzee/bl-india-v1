@@ -34,8 +34,12 @@ const ProductDetails = () => {
     const fetchProductData = async () => {
       try {
         const response = await apiClient.get(`/products/${slug}`);
-        let services = response.data.product.services || [];
+        let services = response.data.services || [];
         const notificationData = response.data.notification || [];
+
+        console.log('Fetched Product Data:', response.data.product); // Debugging line
+        console.log('Fetched Services:', services); // Debugging line
+        console.log('Fetched Notifications:', notificationData); // Debugging line
 
         // If serviceId is provided in local storage, set the corresponding tab as selected
         const serviceId = localStorage.getItem('serviceId');
@@ -179,7 +183,7 @@ const ProductDetails = () => {
                     <>
                       {service.details ? parse(service.details) : 'No details available.'}
                     </>
-                    <Box sx={{ display: 'flex', gap: 2, marginTop: 2, justifyContent: 'center' }}>
+                    <Box sx={{ display: 'flex', gap: 2, marginTop: 2, pb: 2, justifyContent: 'center' }}>
                       <Button
                         component={Link}
                         to={`/services/${service.service_category.slug}/${service.slug}`}
