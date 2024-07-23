@@ -109,6 +109,11 @@ li a {
     .MuiButtonBase-root.MuiListItem-root.MuiListItem-button.Mui-selected {
     background-color: var(--secondary-color) !important;
 }
+.serach-drawer-container .MuiDrawer-paper.MuiDrawer-paperAnchorTop{
+max-height:50vh;
+height: 100%;
+}
+
 .service-section-content table {
     width: 100%;
     border-radius: 4px;
