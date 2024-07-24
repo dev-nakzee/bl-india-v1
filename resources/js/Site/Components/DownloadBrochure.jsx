@@ -10,7 +10,7 @@ import {
     MenuItem,
     CircularProgress,
 } from "@mui/material";
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,7 +22,7 @@ const sources = [
     "Reference",
     "Newspaper",
     "Website Article",
-    "Others"
+    "Others",
 ];
 
 const DownloadBrochure = () => {
@@ -37,10 +37,14 @@ const DownloadBrochure = () => {
     });
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
-    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
     const toggleDrawer = (open) => (event) => {
-        if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+        if (
+            event &&
+            event.type === "keydown" &&
+            (event.key === "Tab" || event.key === "Shift")
+        ) {
             return;
         }
         setIsDrawerOpen(open);
@@ -66,7 +70,7 @@ const DownloadBrochure = () => {
     React.useEffect(() => {
         const fetchServices = async () => {
             try {
-                const response = await apiClient.get('/services');
+                const response = await apiClient.get("/services");
                 setServices(response.data.services); // Assuming the response body will have a services array
                 setLoading(false);
             } catch (error) {
@@ -81,11 +85,18 @@ const DownloadBrochure = () => {
 
     return (
         <>
-            
-            <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
-                <IconButton onClick={toggleDrawer(false)}><CloseIcon /></IconButton>
+            <Drawer
+                anchor="right"
+                open={isDrawerOpen}
+                onClose={toggleDrawer(false)}
+            >
+                <IconButton onClick={toggleDrawer(false)}>
+                    <CloseIcon />
+                </IconButton>
                 <Container sx={{ width: 350, padding: 4 }}>
-                    <Typography variant="h6" mb={2}>Request Brochure</Typography>
+                    <Typography variant="h6" mb={2}>
+                        Request Brochure
+                    </Typography>
                     {loading ? (
                         <CircularProgress />
                     ) : (
@@ -97,7 +108,7 @@ const DownloadBrochure = () => {
                                 required
                                 value={formData.name}
                                 onChange={handleChange}
-                                sx={{mb: 2 }}
+                                sx={{ mb: 2 }}
                             />
                             <TextField
                                 label="Email"
@@ -107,7 +118,7 @@ const DownloadBrochure = () => {
                                 required
                                 value={formData.email}
                                 onChange={handleChange}
-                                sx={{mb: 2 }}
+                                sx={{ mb: 2 }}
                             />
                             <TextField
                                 label="Company"
@@ -115,7 +126,7 @@ const DownloadBrochure = () => {
                                 fullWidth
                                 value={formData.company}
                                 onChange={handleChange}
-                                sx={{mb: 2 }}
+                                sx={{ mb: 2 }}
                             />
                             <TextField
                                 label="Phone"
@@ -124,7 +135,7 @@ const DownloadBrochure = () => {
                                 required
                                 value={formData.phone}
                                 onChange={handleChange}
-                                sx={{mb: 2 }}
+                                sx={{ mb: 2 }}
                             />
                             <TextField
                                 select
@@ -134,10 +145,13 @@ const DownloadBrochure = () => {
                                 required
                                 value={formData.service}
                                 onChange={handleChange}
-                                sx={{mb: 2 }}
+                                sx={{ mb: 2 }}
                             >
                                 {services.map((service) => (
-                                    <MenuItem key={service.id} value={service.name}>
+                                    <MenuItem
+                                        key={service.id}
+                                        value={service.name}
+                                    >
                                         {service.name}
                                     </MenuItem>
                                 ))}
@@ -150,15 +164,24 @@ const DownloadBrochure = () => {
                                 required
                                 value={formData.source}
                                 onChange={handleChange}
-                                sx={{mb: 2, zIndex: 1203}}
+                                sx={{ mb: 2, zIndex: 1203 }}
                             >
                                 {sources.map((source) => (
-                                    <MenuItem key={source} value={source} sx={{zIndex: 1203}}>
+                                    <MenuItem
+                                        key={source}
+                                        value={source}
+                                        sx={{ zIndex: 1203 }}
+                                    >
                                         {source}
                                     </MenuItem>
                                 ))}
                             </TextField>
-                            <Button type="submit" variant="contained" color="primary" fullWidth>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                            >
                                 Submit
                             </Button>
                         </form>
@@ -166,29 +189,38 @@ const DownloadBrochure = () => {
                 </Container>
             </Drawer>
             {isMobile ? (
-          <>
-            <Button onClick={toggleDrawer(true)} variant="contained" color="primary" mb={1}>
-                    Request Brochure
-                </Button>
-          </>
-
-        ):(
-          <>
-          <ToastContainer />
-            <Box sx={{ textAlign: 'left', padding: 2 }}>
-                <Typography variant="h6" mb={1} mt={4}>
-                    Download Brochures
-                </Typography>
-                <Typography variant="body1" mb={1}>
-                    Please fill out the form below to request a brochure for your business.
-                </Typography>
-                <Button onClick={toggleDrawer(true)} variant="contained" color="primary" mb={1}>
-                    Request Brochure
-                </Button>
-            </Box>
-          </>
-        )
-}
+                <>
+                    <Button
+                        onClick={toggleDrawer(true)}
+                        variant="contained"
+                        color="primary"
+                        mb={1}
+                    >
+                        Request Brochure
+                    </Button>
+                </>
+            ) : (
+                <>
+                    <ToastContainer />
+                    <Box sx={{ textAlign: "left", padding: 2 }}>
+                        <Typography variant="h6" mb={1} mt={4}>
+                            Download Brochures
+                        </Typography>
+                        <Typography variant="body1" mb={1}>
+                            Please fill out the form below to request a brochure
+                            for your business.
+                        </Typography>
+                        <Button
+                            onClick={toggleDrawer(true)}
+                            variant="contained"
+                            color="primary"
+                            mb={1}
+                        >
+                            Request Brochure
+                        </Button>
+                    </Box>
+                </>
+            )}
         </>
     );
 };
