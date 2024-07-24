@@ -16,7 +16,17 @@ class ProductCategoryController extends Controller
     public function index()
     {
         //
-        $categories = ProductCategory::orderBy('id')->get();
+        $query = ProductCategory::query();
+
+        if ($search = $request->input('search')) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('slug', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+        }
+    
+        // Get paginated results
+        $categories = $query->paginate($request->input('per_page', 10));
+    
         return response()->json($categories);
     }
 
