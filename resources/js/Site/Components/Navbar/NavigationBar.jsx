@@ -19,7 +19,7 @@ import {
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import logo from "../../../../../public/storage/site_settings/logo.webp"; // Replace with your logo path
+// import logo from "../../../../../public/storage/site_settings/logo.webp"; // Replace with your logo path
 import ServicesIcon from "../../Assets/services.svg"; // Replace with your first SVG icon path
 import NotificationIcon from "../../Assets/notifications.svg"; // Replace with your second SVG icon path
 import LanguageIcon from "@mui/icons-material/Language";
@@ -146,7 +146,7 @@ const NavigationBar = () => {
           <>
             <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
               <Link to="/">
-                <img src={logo} alt="Brand Logo" style={{ height: "60px" }} />
+                <img src="storage/site_settings/logo.webp" alt="Brand Logo" style={{ height: "60px" }} />
               </Link>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -180,7 +180,7 @@ const NavigationBar = () => {
               <Stack direction={'row'} sx={{ display: "flex", justifyContent:'space-between', alignItems: "center", width:'100%' }}>
                 <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
                   <Link to="/">
-                    <img src={logo} alt="Brand Logo" style={{ height: "35px" }} />
+                    <img src="storage/site_settings/logo.webp" alt="Brand Logo" style={{ height: "35px" }} />
                   </Link>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" ,justifyContent:'space-between'}}>
