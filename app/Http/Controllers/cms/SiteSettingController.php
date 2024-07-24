@@ -30,7 +30,7 @@ class SiteSettingController extends Controller
 
         if (in_array($siteSetting->name, ['logo', 'site_icon'])) {
             $validator = Validator::make($request->all(), [
-                'value' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'value' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
             ]);
 
             if ($validator->fails()) {
