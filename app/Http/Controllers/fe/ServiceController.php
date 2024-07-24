@@ -112,30 +112,33 @@ class ServiceController extends Controller
     public function getMandatoryProducts(Request $request, $serviceId): JsonResponse
     {
         $products = ProductServiceMap::where('service_id', $serviceId)
-            ->with(['product.categories', 'service'])
+            ->with(['product.categories', 'service.serviceCategory'])
             ->get()
             ->map(function ($productServiceMap) {
+                $product = $productServiceMap->product;
+                $service = $productServiceMap->service;
                 return [
-                    'product_id' => $productServiceMap->product->id,
-                    'product_name' => $this->translateText($productServiceMap->product->name),
-                    'product_slug' => $productServiceMap->product->slug,
-                    'product_is_standard' => $productServiceMap->is_standard,
+                    'product_id' => $product->id,
+                    'product_name' => $this->translateText($product->name),
+                    'product_slug' => $product->slug,
+                    'product_is_standard' => $productServiceMap->is,
                     'product_group' => $productServiceMap->group,
                     'product_scheme' => $productServiceMap->scheme,
                     'product_others' => $productServiceMap->others,
-                    'product_category_ids' => $productServiceMap->product->categories->pluck('id')->toArray(),
-                    'product_category_names' => $productServiceMap->product->categories->pluck('name')->map(function ($name) {
+                    'product_category_ids' => $product->categories->pluck('id')->toArray(),
+                    'product_category_names' => $product->categories->pluck('name')->map(function ($name) {
                         return $this->translateText($name);
                     })->toArray(),
-                    'service_compliance' => $productServiceMap->service->compliance_header,
+                    'service_compliance' => $service->compliance_header,
                 ];
             })
             ->sortBy('product_id')
             ->values()
             ->all();
-
+    
         return response()->json($products);
     }
+    
 
     public function productDetails(Request $request, string $slug): JsonResponse
     {
