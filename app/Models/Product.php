@@ -23,6 +23,7 @@ class Product extends Model
         'seo_description',
         'seo_keywords',
         'seo_tags',
+        'search_vector',
     ];
 
     protected $hidden = [
