@@ -17,7 +17,8 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
-  CircularProgress,
+  FormControlLabel,
+  Checkbox,
   TablePagination,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -29,7 +30,6 @@ import apiClient from '../services/api'; // Ensure this is your configured axios
 
 const ProductCategories = () => {
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [category, setCategory] = useState({
@@ -45,24 +45,15 @@ const ProductCategories = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, [page, rowsPerPage, search]);
+  }, []);
 
   const fetchCategories = async () => {
-    setLoading(true);
     try {
-      const response = await apiClient.get('/product-categories', {
-        params: {
-          page: page + 1,
-          per_page: rowsPerPage,
-          search,
-        },
-      });
+      const response = await apiClient.get('/product-categories');
       setCategories(response.data);
     } catch (error) {
       toast.error('Failed to fetch categories');
       console.error('Failed to fetch categories', error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -150,6 +141,14 @@ const ProductCategories = () => {
     setPage(0);
   };
 
+  const filteredCategories = categories.filter(category =>
+    category.name.toLowerCase().includes(search.toLowerCase()) ||
+    category.slug.toLowerCase().includes(search.toLowerCase()) ||
+    (category.description && category.description.toLowerCase().includes(search.toLowerCase()))
+  );
+
+  const paginatedCategories = filteredCategories.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
     <Box sx={{ margin: 2 }}>
       <Typography variant="h6">Product Categories Management</Typography>
@@ -181,41 +180,33 @@ const ProductCategories = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {loading ? (
-              <TableRow>
-                <TableCell colSpan={4} align="center">
-                  <CircularProgress />
+            {paginatedCategories.map((category) => (
+              <TableRow key={category.id}>
+                <TableCell>{category.name}</TableCell>
+                <TableCell>{category.slug}</TableCell>
+                <TableCell>{category.description}</TableCell>
+                <TableCell>
+                  <IconButton
+                    color="primary"
+                    onClick={() => handleEditClick(category)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    color="secondary"
+                    onClick={() => handleDeleteClick(category.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
-            ) : (
-              categories.data.map((category) => (
-                <TableRow key={category.id}>
-                  <TableCell>{category.name}</TableCell>
-                  <TableCell>{category.slug}</TableCell>
-                  <TableCell>{category.description}</TableCell>
-                  <TableCell>
-                    <IconButton
-                      color="primary"
-                      onClick={() => handleEditClick(category)}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      color="secondary"
-                      onClick={() => handleDeleteClick(category.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         component="div"
-        count={categories.total}
+        count={filteredCategories.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
