@@ -189,10 +189,12 @@ const ScheduleCallDrawer = () => {
                 onClose={handleDrawerClose}
                 sx={{ zIndex: 2000 }}
             >
-                <Box sx={{ width: 400, p: 3, position: "relative" }}>
-                    <IconButton onClick={handleDrawerClose} sx={{ mb: 2 }}>
+                <Box sx={{ width: 350, p: 3, position: "relative" }}>
+                    <Box sx={{display:'flex' ,justifyContent:'flex-end'}}>
+                    <IconButton onClick={handleDrawerClose} sx={{ mb: 2,}}>
                         <CloseIcon />
                     </IconButton>
+                    </Box>
                     <Typography variant="h5" sx={{ mb: 3 }}>
                         Schedule a Call
                     </Typography>

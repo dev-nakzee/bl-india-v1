@@ -26,6 +26,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import apiClient from "../../Services/api";
 import RegisterLoginDrawer from "../RegisterLoginDrawer"; // Make sure this is the correct path
 import SearchDrawer from '../Search/SearchDrawer'; // Ensure this path is correct
+import PartnerWithUsLink from "../Footer/PartnerWithUsLink";
 
 const globalLanguages = [
   { name: "English", locale: "en" },
@@ -188,6 +189,7 @@ const NavigationBar = () => {
                     <SearchIcon fontSize="medium" color="primary" />
                   </IconButton>
                   <RegisterLoginDrawer />
+                  <PartnerWithUsLink displayType="icon" fontSize="medium" color="primary"/>
                   <IconButton
                     edge="start"
                     color="inherit"
@@ -213,29 +215,13 @@ const NavigationBar = () => {
                             <ListItemText primary={menuItem.title} />
                           </ListItem>
                         ))}
-                        <ListItem button onClick={handleLanguageClick}>
-                          <ListItemText primary={`Language: ${selectedLanguage.toUpperCase()}`} />
-                          <LanguageIcon />
-                        </ListItem>
-                        <Menu
-                          anchorEl={anchorEl}
-                          open={Boolean(anchorEl)}
-                          onClose={() => handleLanguageClose(null)}
-                        >
-                          {languages.map((language) => (
-                            <MenuItem
-                              key={language.locale}
-                              onClick={() => handleLanguageClose(language.locale)}
-                            >
-                              {language.name}
-                            </MenuItem>
-                          ))}
-                        </Menu>
+                       
+                     
                         <ListItem component={Link} to="/services" color="inherit">
-                          <ListItemText primary="Approval Services" />
+                          <ListItemText primary="Approval Services" sx={{fontWeight:600}} />
                         </ListItem>
                         <ListItem component={Link} to="/notifications" color="inherit">
-                          <ListItemText primary="Notifications" />
+                          <ListItemText primary="Notifications" sx={{fontWeight:600}} />
                         </ListItem>
                       </List>              
                     </Box>

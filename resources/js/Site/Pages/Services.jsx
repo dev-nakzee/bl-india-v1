@@ -65,6 +65,9 @@ const Sidebar = styled(Box)(({ theme }) => ({
   position: 'sticky',
   top: '20px',
   overflowY: 'auto',
+  [theme.breakpoints.down('md')]: {
+    width: '35%', // Hide sidebar on small screens
+  },
   [theme.breakpoints.down('sm')]: {
     display: 'none', // Hide sidebar on small screens
   },

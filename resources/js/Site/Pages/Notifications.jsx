@@ -255,7 +255,7 @@ const Notifications = () => {
                             </Table>
                         </TableContainer>
                         {isMobile ? (
-            <Box sx={{marginBlock:2}}>
+            <Box sx={{marginBlock:2,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
             <DownloadBrochure />
             <RequestCallBack />
           </Box>
@@ -264,14 +264,15 @@ const Notifications = () => {
           <></>
         )
     }
+      <BackButton />
                         <Box
                             sx={{
                                 display: "flex",
-                                justifyContent: "space-between",
+                                justifyContent: "flex-start",
                                 mt: 4,
                             }}
                         >
-                             <BackButton />
+                           
                             <Pagination
                                 count={Math.ceil(
                                     filteredNotifications.length / notificationsPerPage

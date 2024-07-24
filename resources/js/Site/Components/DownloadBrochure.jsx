@@ -90,9 +90,12 @@ const DownloadBrochure = () => {
                 open={isDrawerOpen}
                 onClose={toggleDrawer(false)}
             >
+                <Box sx={{display:'flex',justifyContent:'flex-end'}}>
                 <IconButton onClick={toggleDrawer(false)}>
                     <CloseIcon />
                 </IconButton>
+                </Box>
+               
                 <Container sx={{ width: 350, padding: 4 }}>
                     <Typography variant="h6" mb={2}>
                         Request Brochure
