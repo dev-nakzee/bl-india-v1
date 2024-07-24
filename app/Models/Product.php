@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +22,6 @@ class Product extends Model
         'seo_description',
         'seo_keywords',
         'seo_tags',
-        'search_vector',
     ];
 
     protected $hidden = [
@@ -51,7 +49,7 @@ class Product extends Model
     protected static function booted()
     {
         static::saving(function ($product) {
-            $product->search_vector = DB::raw("to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, ''))");
+            $product->search_vector = DB::raw("to_tsvector('english', coalesce(products.name, '') || ' ' || coalesce(products.description, ''))");
         });
     }
 }
