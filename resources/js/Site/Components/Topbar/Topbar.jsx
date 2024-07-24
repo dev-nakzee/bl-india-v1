@@ -134,6 +134,7 @@ function Topbar() {
             }
         }
     };
+    
 
     const toggleDrawer = (open) => () => {
         setDrawerOpen(open);
@@ -148,8 +149,10 @@ function Topbar() {
                             sx={{
                                 display: "flex",
                                 flexGrow: 1,
-                                justifyContent: "flex-start",
+                                justifyContent: "space-between",
+                                alignItems: "center",
                             }}
+                           
                         >
                             {socialMedia &&
                                 socialMedia.map((social) => (
@@ -164,6 +167,37 @@ function Topbar() {
                                     </IconButton>
                                 ))}
                             <SharePage color="whitebg" />
+
+                            <IconButton
+                                color="inherit"
+                                onClick={handleLanguageClick}
+                            >
+                                <Tooltip title="Language icon" arrow>
+                                    <LanguageIcon  fontSize="inherit" />
+                                </Tooltip>
+                                <Typography
+                                    variant="body2"
+                                    sx={{ marginLeft: 1 }}
+                                >
+                                    {selectedLanguage.toUpperCase()}
+                                </Typography>
+                            </IconButton>
+                            <Menu
+                                anchorEl={anchorEl}
+                                open={Boolean(anchorEl)}
+                                onClose={() => handleLanguageClose(null)}
+                            >
+                                {languages.map((language) => (
+                                    <MenuItem
+                                        key={language.locale}
+                                        onClick={() =>
+                                            handleLanguageClose(language.locale)
+                                        }
+                                    >
+                                        {language.name}
+                                    </MenuItem>
+                                ))}
+                            </Menu>
                         </Box>
                     </>
                 ) : (

@@ -16,7 +16,8 @@ import {
   MenuItem,
   Grid,
   Alert,
-  CircularProgress
+  CircularProgress,
+  useMediaQuery
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import HandshakeIcon from '@mui/icons-material/Handshake';
@@ -28,6 +29,8 @@ const entityTypes = ['Company', 'Individual'];
 
 const PartnerWithUsLink = ({ displayType = 'text' }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   const [formData, setFormData] = useState({
     partnerType: 'Service Partner',
     entityType: 'Individual',
@@ -123,19 +126,26 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
         </Typography>
       ) : (
         <Tooltip title="Partner With Us" arrow>
-          <IconButton onClick={() => toggleDrawer(true)()} sx={{ color: '#ffffff' }} aria-label="partner with us">
-            <HandshakeIcon fontSize="inherit" />
+          <IconButton onClick={() => toggleDrawer(true)()}  aria-label="partner with us">
+          {isMobile ? (
+           <HandshakeIcon fontSize="inherit" style={{ color: '#0d629a' }} />
+          ):(
+            <HandshakeIcon fontSize="inherit" style={{ color: '#fff' }} />
+          )}
           </IconButton>
         </Tooltip>
       )}
       <Drawer anchor="right" open={isDrawerOpen} onClose={() => toggleDrawer(false)()}>
         <Box
-          sx={{ width: 380, padding: 2 }}
+          sx={{ width: 350, padding: 2 }}
           role="presentation"
         >
-          <IconButton onClick={() => toggleDrawer(false)()} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <IconButton onClick={() => toggleDrawer(false)()} >
             <CloseIcon />
           </IconButton>
+          </Box>
+          
           <Typography variant="h5" gutterBottom>
             Partner With Us
           </Typography>
@@ -324,6 +334,7 @@ const PartnerWithUsLink = ({ displayType = 'text' }) => {
           </form>
         </Box>
       </Drawer>
+      
     </>
   );
 };

@@ -139,6 +139,9 @@ height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
 } */
+ .MuiDataGrid-columnHeaderTitleContainerContent {
+     overflow: auto;}
+
 .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.css-dr3m99-MuiButtonBase-root-MuiListItem-root:hover,
 .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.css-dr3m99-MuiButtonBase-root-MuiListItem-root:hover {
     background-color: var(--secondary-color);
@@ -547,9 +550,10 @@ th {
 .ql-align-justify {
     margin-bottom: 1rem;
 }
-@media (min-width: 1580px) {
+.text-white{color:#ffffff;}
+@media (min-width: 1480px) {
     .box-about {
-        left: 33%;
+        left: 33% !important;
     }
 }
 @media (min-width: 1024px) and (max-width: 1366px) {
@@ -773,7 +777,7 @@ th {
 .MuiListItemText-root span {
     font-weight: 500;
     font-size: 1.3rem;
-    color: #000;
+   margin-left: 1rem;
 }
 .holiday-list .MuiListItemText-multiline,
 .holiday-list .MuiListItemText-multiline p {

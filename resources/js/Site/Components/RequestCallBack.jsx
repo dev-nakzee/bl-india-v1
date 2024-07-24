@@ -151,10 +151,13 @@ const RequestCallBack = () => {
                 open={isDrawerOpen}
                 onClose={toggleDrawer(false)}
             >
-                <Box sx={{ width: 500, padding: 4 }}>
+                <Box sx={{ width: 350, padding: 4 }}>
+                    <Box sx={{ display:'flex',justifyContent:'flex-end'}}>
                     <IconButton onClick={toggleDrawer(false)}>
                         <CloseIcon />
                     </IconButton>
+                    </Box>
+                 
                     <Typography variant="h5" gutterBottom>
                         Request a Callback
                     </Typography>
