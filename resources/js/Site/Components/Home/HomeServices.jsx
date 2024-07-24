@@ -162,7 +162,7 @@ const HomeServices = () => {
                                         component={Link}
                                         to={`/services/${service.service_category.slug}/${service.slug}`}
                                     >
-                                        Read More {/* {service.name} */}
+                                        Learn about {service.name}
                                     </Button>
                                 </CardActions>
                             </Box>
