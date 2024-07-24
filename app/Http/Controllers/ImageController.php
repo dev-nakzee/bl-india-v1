@@ -13,7 +13,7 @@ class ImageController extends Controller
     //
     public function show($path)
     {
-        return Cache::remember("images/{$path}", 60 * 24 * 7, function () use ($path) {
+        return Cache::remember("{$path}", 60 * 24 * 7, function () use ($path) {
             if (Storage::disk('public')->exists($path)) {
                 $optimizerChain = OptimizerChainFactory::create();
                 $filePath = storage_path('app/public/' . $path);
