@@ -50,12 +50,8 @@ class Product extends Model
 
     protected static function booted()
     {
-        static::creating(function ($product) {
-            $product->search_vector = DB::raw("to_tsvector('english', coalesce(?, '') || ' ' || coalesce(?, ''))", [$product->name, $product->description]);
-        });
-
-        static::updating(function ($product) {
-            $product->search_vector = DB::raw("to_tsvector('english', coalesce(?, '') || ' ' || coalesce(?, ''))", [$product->name, $product->description]);
+        static::saving(function ($product) {
+            $product->search_vector = DB::raw("to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, ''))");
         });
     }
 }
