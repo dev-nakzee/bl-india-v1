@@ -11,6 +11,20 @@ import HomeTestimonials from '../Components/Home/HomeTestimonials';
 import HomeAssociates from '../Components/Home/HomeAssociates';
 import apiClient from '../Services/api';
 import { Helmet } from 'react-helmet';
+import { useInView } from 'react-intersection-observer';
+
+const LazyLoadComponent = ({ children }) => {
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+    });
+
+    return (
+        <div ref={ref}>
+            {inView && children}
+        </div>
+    );
+};
 
 const HomePage = () => {
     const [homeData, setHomeData] = useState(null);
@@ -73,13 +87,27 @@ const HomePage = () => {
                 <>
                     <HomeBanner />
                     <HomeServices />
-                    <HomeAbout />
-                    <HomeBrochure />
-                    <ScheduleCallDrawer />
-                    <HomeProcess />
-                    <HomeBlog />
-                    <HomeTestimonials />
-                    <HomeAssociates />
+                    <LazyLoadComponent>
+                        <HomeAbout />
+                    </LazyLoadComponent>
+                    <LazyLoadComponent>
+                        <HomeBrochure />
+                    </LazyLoadComponent>
+                    <LazyLoadComponent>
+                        <ScheduleCallDrawer />
+                    </LazyLoadComponent>
+                    <LazyLoadComponent>
+                        <HomeProcess />
+                    </LazyLoadComponent>
+                    <LazyLoadComponent>
+                        <HomeBlog />
+                    </LazyLoadComponent>
+                    <LazyLoadComponent>
+                        <HomeTestimonials />
+                    </LazyLoadComponent>
+                    <LazyLoadComponent>
+                        <HomeAssociates />
+                    </LazyLoadComponent>
                 </>
             )}
         </>
