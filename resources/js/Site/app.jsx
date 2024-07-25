@@ -34,7 +34,7 @@ import Profile from './Pages/Profile';
 import ResetPassword from './Pages/ResetPassword';
 import ProtectedRoute from './Components/ProtectedRoute';
 import AccountLayout from './Layouts/AccountLayout';
-import ScrollToTop from './Components/ScrollToTop'; // Import ScrollToTop
+import ScrollToTop from './Components/ScrollToTop';
 
 function App() {
   return (
