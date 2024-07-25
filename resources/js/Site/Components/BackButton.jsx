@@ -13,7 +13,7 @@ const BackButton = () => {
   };
 
   return (  
-    <Box sx={{display:'flex',justifyContent:'flex-start',alignItems:'center'}}>
+    <Box sx={{display:'flex',justifyContent:'flex-start',alignItems:'center',marginTop:2}}>
       <Button variant="contained" onClick={goBack} sx={{display:'flex',alignItems:'center'}}>
       <ArrowBackIosNewOutlined fontSize='12px' sx={{textTransform:'inherit'}}/>Back
     </Button>
