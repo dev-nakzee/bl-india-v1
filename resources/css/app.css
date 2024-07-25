@@ -131,9 +131,13 @@ li a {
     font-size: 16px !important;
     font-weight: 500 !important;
 }
+
 .service-section-content table td {
-    padding: 0.5rem 1rem;
+    padding: .5rem 1rem;
+    border-bottom: 1px solid #666;
+    border-right: 1px solid #666;
 }
+
 /* .Banner-section{
     background-image: url("../js/Site/Assets/new1.jpg");
     background-repeat: no-repeat;
