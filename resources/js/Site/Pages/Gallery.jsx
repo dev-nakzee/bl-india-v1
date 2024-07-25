@@ -146,11 +146,11 @@ import {
     CircularProgress,
     Modal,
     IconButton,
+    useMediaQuery,
 } from "@mui/material";
 import Masonry from "react-masonry-css";
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
 import CloseIcon from "@mui/icons-material/Close";
-import { useMediaQuery } from "react-responsive";
 
 const Gallery = () => {
     const [galleries, setGalleries] = useState([]);

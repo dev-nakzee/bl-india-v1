@@ -777,9 +777,10 @@ th {
 .MuiListItemText-root span {
     font-weight: 500;
     font-size: 1.3rem;
-   margin-left: 1rem;
+   /* margin-left: 1rem; */
 }
 .MuiListItemText-root span:active , .MuiListItemText-root span:hover {color: var(--primary-color);}
+/* button.react-calendar__tile.react-calendar__month-view__days__day{flex:0 0 14% !important;margin:10px} */
 .holiday-list .MuiListItemText-multiline,
 .holiday-list .MuiListItemText-multiline p {
     color: #ff0000;
@@ -795,9 +796,11 @@ th {
 .react-calendar__month-view__days {
     font-weight: 700;
 }
+
 .react-calendar__tile {
-    text-align: center;
-    padding: 0.5em;
+    text-align: center !important;
+    padding: 1em 0 !important;
+   
 }
 
 .react-calendar__tile.saturday {
@@ -816,6 +819,8 @@ th {
     color: #2e7d32;
     border-radius: 15px;
 }
+.react-calendar__tile--active {color: #2e7d32 !important;}
+
 .react-calendar__tile.restricted-holiday {
     color: #e65100;
     border: 2px solid #e65100 !important;
