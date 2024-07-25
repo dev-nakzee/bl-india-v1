@@ -551,7 +551,8 @@ th {
     margin-bottom: 1rem;
 }
 .text-white{color:#ffffff;}
-@media (min-width: 1480px) {
+
+@media (min-width: 1580px) {
     .box-about {
         left: 33% !important;
     }
@@ -579,9 +580,8 @@ th {
 }
 
 @media (max-width: 767px) {
-    /* .box-hidden {
-        display: none !important;
-    } */
+
+    
     .ql-align-justify img {
         width: 100%;
     }
@@ -779,6 +779,7 @@ th {
     font-size: 1.3rem;
    margin-left: 1rem;
 }
+.MuiListItemText-root span:active , .MuiListItemText-root span:hover {color: var(--primary-color);}
 .holiday-list .MuiListItemText-multiline,
 .holiday-list .MuiListItemText-multiline p {
     color: #ff0000;

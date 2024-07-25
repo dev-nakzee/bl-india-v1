@@ -15,7 +15,6 @@ import SearchIcon from "@mui/icons-material/Search";
 const MandatoryProducts = ({ serviceId }) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,7 +47,6 @@ const MandatoryProducts = ({ serviceId }) => {
   const handleRowClick = (params, event) => {
     localStorage.setItem("serviceId", params.row.service_id);
     const url = `/products/${params.row.product_slug}`;
-
     if (event.ctrlKey || event.metaKey) {
       window.open(url, "_blank");
     } else {
@@ -76,7 +74,7 @@ const MandatoryProducts = ({ serviceId }) => {
       {
         field: "srNo",
         headerName: "Sr. No.",
-        width: 70,
+        width: 40,
         renderCell: (params) => (
           <Box sx={{ pl: 1, py: 2, pr: 2 }}>{params.value}</Box>
         ),
@@ -85,7 +83,7 @@ const MandatoryProducts = ({ serviceId }) => {
         field: "product_name",
         headerName: "Product Name",
         flex: 1,
-        minWidth: 150,
+        minWidth: 170,
         renderCell: (params) => (
           <Box sx={{ whiteSpace: "pre-line", pl: 1, py: 2, pr: 2 }}>
             {params.value}
@@ -96,7 +94,7 @@ const MandatoryProducts = ({ serviceId }) => {
         field: "product_category_names",
         headerName: "Category Names",
         flex: 1,
-        minWidth: 150,
+        minWidth: 170,
         renderCell: (params) => (
           <Box sx={{ whiteSpace: "pre-line", pl: 1, py: 2, pr: 2 }}>
             {params.value.join(", ")}
@@ -109,7 +107,7 @@ const MandatoryProducts = ({ serviceId }) => {
       field: "product_is_standard",
       headerName: "IS Standard",
       flex: 1,
-      minWidth: 100,
+      minWidth: 170,
       renderCell: (params) => (
         <Box sx={{ whiteSpace: "pre-line", pl: 1, py: 2, pr: 2 }}>
           {params.value}

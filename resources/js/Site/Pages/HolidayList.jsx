@@ -184,13 +184,13 @@ const HolidayList = () => {
                                 <List>
                                 <Typography
                                         variant="h6"
-                                        textAlign="center"
+                                        textAlign="left"
                                         gutterBottom
                                     >
                                     Holidays for Month
                                     </Typography> 
                                     {currentMonthHolidays.map((holiday) => (
-                                        <ListItem key={holiday.id}>
+                                        <ListItem key={holiday.id} sx={{paddingLeft:0}}>
                                             <ListItemText
                                                 primary={holiday.title}
                                                 secondary={`${formatDateToIST(
