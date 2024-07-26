@@ -114,17 +114,20 @@ li a {
     height: 100%;
 }
 
-.service-section-content table {
+.service-section-content table,
+.Service-section table {
     width: 100%;
     border-radius: 4px;
     overflow-x: auto;
     border: 1px solid #666;
     border-collapse: collapse;
 }
-.service-section-content table tr {
+.service-section-content table tr,
+.Service-section table tr {
     border-bottom: 1px solid #666 !important;
 }
-.service-section-content table th {
+.service-section-content table th,
+.Service-section table th {
     background-color: var(--secondary-color);
     color: var(--primary-color);
     padding: 0.5rem 1rem;
@@ -132,8 +135,9 @@ li a {
     font-weight: 500 !important;
 }
 
-.service-section-content table td {
-    padding: .5rem 1rem;
+.service-section-content table td,
+.Service-section table td {
+    padding: 0.5rem 1rem;
     border-bottom: 1px solid #666;
     border-right: 1px solid #666;
 }
@@ -372,8 +376,6 @@ li a {
 
 /* Service List Css */
 .Service-section-siderbar {
-    /* padding: 20px; */
-    /* border: 1px solid var(--primary-color); */
     border-radius: 25px;
     margin-right: 40px;
 }
@@ -398,15 +400,6 @@ li a {
     font-size: 100px;
     color: var(--primary-color);
 }
-
-/* .Service-section h2,
-.Service-section h4 {
-    font-family: "Raleway", "Roboto", "Poppins", sans-serif;
-    font-size: 1.4rem !important;
-    color: var(--primary-color);
-    font-weight: 500;
-    margin-block: 10px !important;
-} */
 
 .Service-section p img {
     width: 100%;
@@ -436,9 +429,6 @@ li a {
         0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
-/* .ProductDetail-tab {
-    border: 3px solid var(--third-color);
-} */
 .ProductDetail-tab .MuiButtonBase-root {
     border: 3px solid var(--third-color);
     margin-right: 5px;
@@ -458,10 +448,6 @@ li a {
     background-color: var(--secondary-color);
 }
 
-/******** Product List ***********/
-/* .Accordian-summary {
-    min-height: 70px !important;
-} */
 .notification .MuiTypography-root.MuiLink-root {
     color: var(--primary-color);
     font-weight: 500;
@@ -483,9 +469,7 @@ li a {
 .Footer-section .MuiPaper-root.MuiAccordion-root {
     background-color: var(--third-color);
 }
-/* .MuiAccordionSummary-root.Mui-expanded {
-    background-color: var(--primary-color);
-} */
+
 .Footer-section .MuiGrid-root > .MuiGrid-item {
     padding-top: 20px;
 }
@@ -582,7 +566,6 @@ th {
     color: var(--primary-color);
 }
 
-
 .holiday-list .MuiListItemText-multiline p {
     color: #ff0000;
 }
@@ -638,7 +621,6 @@ th {
     text-transform: capitalize;
 }
 
-
 @media (min-width: 1580px) {
     .box-about {
         left: 33% !important;
@@ -649,13 +631,10 @@ th {
     }
 }
 @media (min-width: 1367px) and (max-width: 1579px) {
- 
     button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 13.99% !important;
         margin: 3px 3px 3px 3px;
     }
-
- 
 }
 @media (min-width: 1024px) and (max-width: 1366px) {
     .box-about {
@@ -665,8 +644,6 @@ th {
         flex: 0 0 13.59% !important;
         margin: 3px 3px 3px 3px;
     }
-
- 
 }
 @media (min-width: 768px) and (max-width: 992px) {
     .schedule-section-call-details .MuiSvgIcon-root {
@@ -703,9 +680,7 @@ th {
         max-width: 100%;
         width: 100%;
     }
-    /* .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12{
-    padding-left: 12px;
-    } */
+
     .navbar-icon {
         height: 30px;
         margin-right: 0.5rem;
@@ -723,7 +698,7 @@ th {
         line-height: 1.25;
         width: 100%;
     }
-    
+
     .box-about {
         display: none;
     }
@@ -769,10 +744,7 @@ th {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
-    /* 
-    .Brochure-section .MuiGrid-root.MuiGrid-container .MuiGrid-item {
-        padding-left: 20px !important;
-    } */
+
     .MuiAccordion-region .MuiSvgIcon-root.MuiSvgIcon-color#fff {
         color: #ffffff;
     }
@@ -833,14 +805,16 @@ th {
         width: 95%;
     }
     figure.table {
-        width:100%;
-        overflow-x:auto;  
-      }
+        width: 100%;
+        overflow-x: auto;
+    }
 
-      figure.table table thead {
-        font-size: 16px !important;
-      }
-
+    .table-row,
+    .table-pagination,
+    th {
+        font-size: 1.2rem !important;
+        padding: 5px !important;
+    }
 }
 
 .my-masonry-grid {
