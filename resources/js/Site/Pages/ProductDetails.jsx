@@ -158,11 +158,7 @@ const ProductDetails = () => {
                     <Typography variant="subtitle1" gutterBottom>
                       {service.name} for {productData.name}
                     </Typography>
-                    {service.compliance_header === 'Indian Standard' ? (
-                      <Typography variant="body1" gutterBottom>
-                        Indian Standard: <strong>{service.is}</strong>
-                      </Typography>
-                    ) : service.compliance_header === 'Group, Scheme' ? (
+                    {service.compliance_header === 'Group, Scheme' ? (
                       <>
                         <Typography variant="body1" gutterBottom>
                           Group: <strong>{service.group}</strong>
@@ -171,7 +167,7 @@ const ProductDetails = () => {
                           Scheme: <strong>{service.scheme}</strong>
                         </Typography>
                       </>
-                    ) : service.compliance_header === null ? (
+                    ) : service.compliance_header !== null && service.compliance_header !== 'Group, Scheme'  ? (
                       <Typography variant="body1" gutterBottom>
                         {service.compliance_header} <strong>{service.others}</strong>
                       </Typography>
