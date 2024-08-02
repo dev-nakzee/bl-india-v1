@@ -140,6 +140,7 @@ const HomeAbout = () => {
                     <AboutContent className="">
                         <Typography
                             variant="h3"
+                            marginBlock={{xs:1,md:2}}
                             sx={{ display: { xs: "none", md: "block" } }}
                         >
                             {aboutData.title}

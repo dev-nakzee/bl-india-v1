@@ -133,6 +133,7 @@ li a {
     padding: 0.5rem 1rem;
     font-size: 16px !important;
     font-weight: 500 !important;
+    border-right: 1px solid #666 !important;
 }
 
 .service-section-content table td,
