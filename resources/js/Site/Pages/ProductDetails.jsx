@@ -171,9 +171,9 @@ const ProductDetails = () => {
                           Scheme: <strong>{service.scheme}</strong>
                         </Typography>
                       </>
-                    ) : service.compliance_header === 'EEE Code' ? (
+                    ) : service.compliance_header === null ? (
                       <Typography variant="body1" gutterBottom>
-                        EEE Code: <strong>{service.others}</strong>
+                        {service.compliance_header} <strong>{service.others}</strong>
                       </Typography>
                     ) : null}
                     <>
