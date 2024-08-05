@@ -35,28 +35,29 @@
         <!-- Other Icons -->
         <link rel="icon" sizes="32x32" href="storage/site_settings/site_icon-32x32.webp">
         <link rel="icon" sizes="96x96" href="storage/site_settings/site_icon-96x96.webp">
-        <link rel="icon" sizes="16x16" href="storage/site_settings/site_icon-16x16.webp">
+        <link rel="icon" sizes="16x16" href "storage/site_settings/site_icon-16x16.webp">
 
         @viteReactRefresh
         @vite('resources/js/Site/app.jsx')
         @vite('resources/css/app.css')
+
         <!-- Google Analytics Code -->
         <script>
             // Function to get the appropriate Google Analytics tag based on the subdomain
             function getAnalyticsTag() {
                 const hostname = window.location.hostname;
                 if (hostname.startsWith('in')) {
-                    return 'G-7MTYGFV5P3'; // Replace with your 'in' subdomain Google Analytics tag
+                    return 'G-7MTYGFV5P3'; // 'in' subdomain Google Analytics tag
                 } else if (hostname.startsWith('global')) {
-                    return 'G-3SRE4T8KYX'; // Replace with your 'global' subdomain Google Analytics tag
+                    return 'G-3SRE4T8KYX'; // 'global' subdomain Google Analytics tag
                 }
-                return 'G-7MTYGFV5P3'; // Default to an empty string if no matching subdomain is found
+                return 'G-7MTYGFV5P3'; // Default Google Analytics tag
             }
 
             // Insert the Google Analytics script dynamically
             (function() {
                 const tag = getAnalyticsTag();
-                if (tag) { // Only insert the script if a valid tag is found
+                if (tag) {
                     const script = document.createElement('script');
                     script.async = true;
                     script.src = `https://www.googletagmanager.com/gtag/js?id=${tag}`;
@@ -66,9 +67,9 @@
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
                     gtag('config', tag, {
-                        cookie_flags: 'SameSite=None;Secure', // To ensure cookies are set with the SameSite attribute and are secure
-                        anonymize_ip: true, // Optional: Anonymize IP addresses for privacy
-                        send_page_view: false, // Optional: Control when page views are sent
+                        cookie_flags: 'SameSite=None;Secure',
+                        anonymize_ip: true,
+                        send_page_view: false,
                     });
                 }
             })();
@@ -90,7 +91,7 @@
         <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=514698110975496&ev=PageView&noscript=1"
         /></noscript>
-    <!-- End Meta Pixel Code -->
+        <!-- End Meta Pixel Code -->
     </head>
     <body>
         <div id="app"></div>
