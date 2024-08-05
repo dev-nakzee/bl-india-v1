@@ -142,6 +142,9 @@ li a {
     border-bottom: 1px solid #666;
     border-right: 1px solid #666;
 }
+.service-section-content a strong {
+    color: var(--primary-color);
+}
 
 /* .Banner-section{
     background-image: url("../js/Site/Assets/new1.jpg");
