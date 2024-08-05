@@ -213,12 +213,19 @@ const ServiceSections = () => {
     setPage(0);
   };
 
-  const filteredSections = serviceSections.filter((section) => 
-    section.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (section.service && section.service.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    section.slug.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    section.tagline.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredSections = serviceSections.filter((section) => {
+    const serviceName = section.service?.name || ''; // Use empty string if service is null
+    const name = section.name || ''; // Use empty string if name is null
+    const slug = section.slug || ''; // Use empty string if slug is null
+    const tagline = section.tagline || ''; // Use empty string if tagline is null
+
+    return (
+      name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      serviceName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      slug.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tagline.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
 
   const paginatedSections = filteredSections.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
