@@ -35,7 +35,7 @@
         <!-- Other Icons -->
         <link rel="icon" sizes="32x32" href="storage/site_settings/site_icon-32x32.webp">
         <link rel="icon" sizes="96x96" href="storage/site_settings/site_icon-96x96.webp">
-        <link rel="icon" sizes="16x16" href "storage/site_settings/site_icon-16x16.webp">
+        <link rel="icon" sizes="16x16" href="storage/site_settings/site_icon-16x16.webp">
 
         @viteReactRefresh
         @vite('resources/js/Site/app.jsx')
@@ -92,6 +92,13 @@
         src="https://www.facebook.com/tr?id=514698110975496&ev=PageView&noscript=1"
         /></noscript>
         <!-- End Meta Pixel Code -->
+
+        <script>
+            // Handle the impact of third-party cookie blocking
+            if (navigator.userAgent.includes("Chrome")) {
+                console.warn("Third-party cookies will be blocked in future Chrome versions as part of the Privacy Sandbox. Ensure you use server-side tracking or first-party cookies where possible.");
+            }
+        </script>
     </head>
     <body>
         <div id="app"></div>
