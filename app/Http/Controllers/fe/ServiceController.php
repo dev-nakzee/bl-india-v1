@@ -173,7 +173,7 @@ class ServiceController extends Controller
             ->with('notification', 'notification.category')
             ->get();
 
-        $product->name = $this->translateText($product->name);
+        $product->name = $product->name;
         $product->description = $this->translateHtmlContent($product->description);
 
         $categories = $product->categories->map(function ($category) {

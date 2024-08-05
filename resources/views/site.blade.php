@@ -40,6 +40,33 @@
         @viteReactRefresh
         @vite('resources/js/Site/app.jsx')
         @vite('resources/css/app.css')
+        <script>
+            // Function to get the appropriate Google Analytics tag based on the subdomain
+            function getAnalyticsTag() {
+                const hostname = window.location.hostname;
+                if (hostname.startsWith('in')) {
+                    return 'G-7MTYGFV5P3'; // Replace with your 'in' subdomain Google Analytics tag
+                } else if (hostname.startsWith('global')) {
+                    return 'G-7MTY456P3'; // Replace with your 'global' subdomain Google Analytics tag
+                }
+                return ''; // Default to an empty string if no matching subdomain is found
+            }
+
+            // Insert the Google Analytics script dynamically
+            (function() {
+                const tag = getAnalyticsTag();
+                if (tag) { // Only insert the script if a valid tag is found
+                    const script = document.createElement('script');
+                    script.async = true;
+                    script.src = `https://www.googletagmanager.com/gtag/js?id=${tag}`;
+                    document.head.appendChild(script);
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', tag);
+                }
+            })();
+        </script>
     </head>
     <body>
         <div id="app"></div>
