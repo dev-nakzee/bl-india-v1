@@ -48,7 +48,7 @@
                 if (hostname.startsWith('in')) {
                     return 'G-7MTYGFV5P3'; // Replace with your 'in' subdomain Google Analytics tag
                 } else if (hostname.startsWith('global')) {
-                    return 'G-7MTYGFV5P3'; // Replace with your 'global' subdomain Google Analytics tag
+                    return 'G-3SRE4T8KYX'; // Replace with your 'global' subdomain Google Analytics tag
                 }
                 return 'G-7MTYGFV5P3'; // Default to an empty string if no matching subdomain is found
             }
