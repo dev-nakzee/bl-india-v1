@@ -72,9 +72,9 @@
                     });
                 }
             })();
-
-            <!-- Meta Pixel Code -->
-            <script>
+        </script>
+         <!-- Meta Pixel Code -->
+         <script>
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -85,12 +85,11 @@
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '514698110975496');
             fbq('track', 'PageView');
-            </script>
-            <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=514698110975496&ev=PageView&noscript=1"
-            /></noscript>
-            <!-- End Meta Pixel Code -->
         </script>
+        <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=514698110975496&ev=PageView&noscript=1"
+        /></noscript>
+            <!-- End Meta Pixel Code -->
     </head>
     <body>
         <div id="app"></div>
