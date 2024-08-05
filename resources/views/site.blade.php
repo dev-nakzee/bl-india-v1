@@ -92,13 +92,6 @@
         src="https://www.facebook.com/tr?id=514698110975496&ev=PageView&noscript=1"
         /></noscript>
         <!-- End Meta Pixel Code -->
-
-        <script>
-            // Handle the impact of third-party cookie blocking
-            if (navigator.userAgent.includes("Chrome")) {
-                console.warn("Third-party cookies will be blocked in future Chrome versions as part of the Privacy Sandbox. Ensure you use server-side tracking or first-party cookies where possible.");
-            }
-        </script>
     </head>
     <body>
         <div id="app"></div>
