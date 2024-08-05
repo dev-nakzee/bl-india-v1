@@ -142,8 +142,9 @@ li a {
     border-bottom: 1px solid #666;
     border-right: 1px solid #666;
 }
-.service-section-content a strong {
+.service-section-content a {
     color: var(--primary-color);
+    text-decoration: none;
 }
 
 /* .Banner-section{
