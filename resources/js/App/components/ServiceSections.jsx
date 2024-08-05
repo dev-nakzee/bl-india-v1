@@ -19,7 +19,8 @@ import {
   TextField,
   MenuItem,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  TablePagination,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -28,7 +29,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import apiClient from '../services/api'; // Ensure this is your configured axios instance
+import apiClient from '../services/api';
 
 const ServiceSections = () => {
   const [serviceSections, setServiceSections] = useState([]);
@@ -45,6 +46,10 @@ const ServiceSections = () => {
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
     fetchServiceSections();
@@ -55,6 +60,7 @@ const ServiceSections = () => {
     try {
       const response = await apiClient.get('/service-sections');
       setServiceSections(response.data);
+      setTotalItems(response.data.length);
     } catch (error) {
       toast.error(`Failed to fetch service sections: ${error.message}`);
       console.error('Error fetching service sections:', error);
@@ -193,28 +199,49 @@ const ServiceSections = () => {
     };
   }
 
-  const getBaseURL = () => {
-    const hostname = window.location.hostname;
-    if (hostname.startsWith('global')) {
-      return 'http://global.localhost:8000/api/v1/cms';
-    } else if (hostname.startsWith('in')) {
-      return 'http://in.localhost:8000/api/v1/cms';
-    }
-    return 'http://localhost:8000/api/v1/cms'; // Default to local
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
   };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    setPage(0);
+  };
+
+  const filteredSections = serviceSections.filter((section) => 
+    section.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (section.service && section.service.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    section.slug.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    section.tagline.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const paginatedSections = filteredSections.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
     <Box sx={{ margin: 2 }}>
       <Typography variant="h6">Service Sections Management</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginY: 2 }}
-        onClick={handleClickOpen}
-      >
-        Add Service Section
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginY: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
+          Add Service Section
+        </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          size="small"
+        />
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -229,8 +256,8 @@ const ServiceSections = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {serviceSections.length > 0 ? (
-              serviceSections.map((section) => (
+            {paginatedSections.length > 0 ? (
+              paginatedSections.map((section) => (
                 <TableRow key={section.id}>
                   <TableCell>{section.id}</TableCell>
                   <TableCell>{section.service ? section.service.name : 'N/A'}</TableCell>
@@ -258,6 +285,15 @@ const ServiceSections = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredSections.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editing ? 'Edit Service Section' : 'Add Service Section'}</DialogTitle>
@@ -330,7 +366,7 @@ const ServiceSections = () => {
               config={{
                 extraPlugins: [MyCustomUploadAdapterPlugin],
                 toolbar: [
-                  'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                  'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
                   'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|', 'imageUpload', '|', 'undo', 'redo'
                 ],
               }}

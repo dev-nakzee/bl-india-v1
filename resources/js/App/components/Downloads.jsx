@@ -21,7 +21,8 @@ import {
   CircularProgress,
   Select,
   InputLabel,
-  FormControl
+  FormControl,
+  TablePagination
 } from '@mui/material';
 import { Add, Edit, Delete, Folder } from '@mui/icons-material';
 import { toast, ToastContainer } from 'react-toastify';
@@ -45,6 +46,9 @@ const Downloads = () => {
     file: null
   });
   const [files, setFiles] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchDownloads();
@@ -200,6 +204,27 @@ const Downloads = () => {
     setCurrentDownload(null);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    setPage(0);
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const filteredDownloads = downloads.filter((download) =>
+    download.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    download.category.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const paginatedDownloads = filteredDownloads.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -214,10 +239,19 @@ const Downloads = () => {
       <Typography variant="h5" gutterBottom>
         Downloads
       </Typography>
-      <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => handleOpen()}>
-        Add New Download
-      </Button>
-      <TableContainer component={Paper} sx={{ marginTop: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
+        <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => handleOpen()}>
+          Add New Download
+        </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          size="small"
+        />
+      </Box>
+      <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
@@ -227,7 +261,7 @@ const Downloads = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {downloads.map((download) => (
+            {paginatedDownloads.map((download) => (
               <TableRow key={download.id}>
                 <TableCell>{download.category.name}</TableCell>
                 <TableCell>{download.name}</TableCell>
@@ -247,6 +281,15 @@ const Downloads = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredDownloads.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{currentDownload ? 'Edit Download' : 'Add New Download'}</DialogTitle>
         <DialogContent>
