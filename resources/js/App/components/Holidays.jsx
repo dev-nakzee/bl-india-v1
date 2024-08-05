@@ -22,6 +22,7 @@ import {
   IconButton,
   CircularProgress,
   DialogContentText,
+  TablePagination,
 } from '@mui/material';
 import { Add, Edit, Delete } from '@mui/icons-material';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
@@ -38,6 +39,9 @@ const Holidays = () => {
     date: '',
     holiday_type: 'Gazetted',
   });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
     fetchHolidays();
@@ -95,6 +99,11 @@ const Holidays = () => {
     });
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setPage(0); // Reset to first page on search
+  };
+
   const handleSubmit = async () => {
     try {
       if (currentHoliday) {
@@ -119,6 +128,21 @@ const Holidays = () => {
     }
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const filteredHolidays = holidays.filter((holiday) =>
+    holiday.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const paginatedHolidays = filteredHolidays.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -132,9 +156,18 @@ const Holidays = () => {
       <Typography variant="h4" gutterBottom>
         Holidays
       </Typography>
-      <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => handleOpen()}>
-        Add New Holiday
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => handleOpen()}>
+          Add New Holiday
+        </Button>
+        <TextField
+          label="Search Holidays"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          size="small"
+        />
+      </Box>
       <TableContainer component={Paper} sx={{ marginTop: 2 }}>
         <Table>
           <TableHead>
@@ -146,7 +179,7 @@ const Holidays = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {holidays.map((holiday) => (
+            {paginatedHolidays.map((holiday) => (
               <TableRow key={holiday.id}>
                 <TableCell>{holiday.title}</TableCell>
                 <TableCell>{holiday.date}</TableCell>
@@ -164,6 +197,15 @@ const Holidays = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        component="div"
+        count={filteredHolidays.length}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPageOptions={[5, 10, 25]}
+      />
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{currentHoliday ? 'Edit Holiday' : 'Add New Holiday'}</DialogTitle>
         <DialogContent>
