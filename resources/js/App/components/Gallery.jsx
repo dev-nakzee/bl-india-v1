@@ -17,7 +17,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
+  TablePagination
 } from '@mui/material';
 import { Add, Edit, Delete } from '@mui/icons-material';
 import apiClient from '../services/api'; // Ensure this is your configured axios instance
@@ -36,6 +37,9 @@ const Gallery = () => {
     image: null, // Change to null to handle file input
     image_alt: ''
   });
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchGalleries();
@@ -140,6 +144,27 @@ const Gallery = () => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    setPage(0);
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const filteredGalleries = galleries.filter((gallery) =>
+    gallery.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    gallery.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const paginatedGalleries = filteredGalleries.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -153,9 +178,18 @@ const Gallery = () => {
       <Typography variant="h4" gutterBottom>
         Gallery
       </Typography>
-      <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => handleOpen()}>
-        Add New Gallery
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginY: 2 }}>
+        <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => handleOpen()}>
+          Add New Gallery
+        </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          size="small"
+        />
+      </Box>
       <TableContainer component={Paper} sx={{ marginTop: 4 }}>
         <Table>
           <TableHead>
@@ -167,7 +201,7 @@ const Gallery = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {galleries.map((gallery) => (
+            {paginatedGalleries.map((gallery) => (
               <TableRow key={gallery.id}>
                 <TableCell>
                   {gallery.image_url && (
@@ -193,6 +227,15 @@ const Gallery = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredGalleries.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{currentGallery ? 'Edit Gallery' : 'Add New Gallery'}</DialogTitle>
         <DialogContent>

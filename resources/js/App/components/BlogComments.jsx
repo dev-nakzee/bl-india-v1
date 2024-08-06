@@ -19,7 +19,8 @@ import {
   TextField,
   MenuItem,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  TablePagination,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -42,6 +43,9 @@ const BlogComments = () => {
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     fetchComments();
@@ -128,6 +132,11 @@ const BlogComments = () => {
     }));
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setPage(0); // Reset to first page on search
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -145,18 +154,43 @@ const BlogComments = () => {
     }
   };
 
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const filteredComments = comments.filter((comment) =>
+    comment.comments.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (comment.blog && comment.blog.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (comment.client && comment.client.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
+  const paginatedComments = filteredComments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
     <Box sx={{ margin: 2 }}>
       <Typography variant="h6">Blog Comments Management</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginY: 2 }}
-        onClick={handleClickOpen}
-      >
-        Add Comment
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginY: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
+          Add Comment
+        </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          size="small"
+        />
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -170,26 +204,43 @@ const BlogComments = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {comments.map((comment) => (
-              <TableRow key={comment.id}>
-                <TableCell>{comment.id}</TableCell>
-                <TableCell>{comment.blog.name}</TableCell>
-                <TableCell>{comment.client.name}</TableCell>
-                <TableCell>{comment.comments}</TableCell>
-                <TableCell>{comment.is_approved ? 'Yes' : 'No'}</TableCell>
-                <TableCell>
-                  <IconButton color="primary" onClick={() => handleEditClick(comment)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton color="secondary" onClick={() => handleDeleteClick(comment.id)}>
-                    <DeleteIcon />
-                  </IconButton>
+            {paginatedComments.length > 0 ? (
+              paginatedComments.map((comment) => (
+                <TableRow key={comment.id}>
+                  <TableCell>{comment.id}</TableCell>
+                  <TableCell>{comment.blog.name}</TableCell>
+                  <TableCell>{comment.client.name}</TableCell>
+                  <TableCell>{comment.comments}</TableCell>
+                  <TableCell>{comment.is_approved ? 'Yes' : 'No'}</TableCell>
+                  <TableCell>
+                    <IconButton color="primary" onClick={() => handleEditClick(comment)}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton color="secondary" onClick={() => handleDeleteClick(comment.id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} align="center">
+                  No comments found
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredComments.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editing ? 'Edit Comment' : 'Add Comment'}</DialogTitle>

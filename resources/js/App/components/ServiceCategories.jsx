@@ -18,7 +18,8 @@ import {
   DialogTitle,
   TextField,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  TablePagination,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -43,6 +44,9 @@ const ServiceCategories = () => {
   const [editing, setEditing] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchServices();
@@ -115,6 +119,20 @@ const ServiceCategories = () => {
     }));
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    setPage(0);
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -133,18 +151,33 @@ const ServiceCategories = () => {
     }
   };
 
+  const filteredServices = services.filter((service) =>
+    service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    service.slug.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const paginatedServices = filteredServices.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
     <Box sx={{ margin: 2 }}>
       <Typography variant="h6">Service Categories Management</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginY: 2 }}
-        onClick={handleClickOpen}
-      >
-        Add Service Category
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginY: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
+          Add Service Category
+        </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          size="small"
+        />
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -157,7 +190,7 @@ const ServiceCategories = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {services.map((service) => (
+            {paginatedServices.map((service) => (
               <TableRow key={service.id}>
                 <TableCell>{service.id}</TableCell>
                 <TableCell>{service.name}</TableCell>
@@ -182,6 +215,15 @@ const ServiceCategories = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredServices.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editing ? 'Edit Service Category' : 'Add Service Category'}</DialogTitle>

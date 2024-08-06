@@ -16,7 +16,7 @@ class ServiceSectionController extends Controller
     public function index()
     {
         //
-        $serviceSections = ServiceSection::with(['service'])->get();
+        $serviceSections = ServiceSection::with(['service'])->orderBy('id')->get();
         return response()->json($serviceSections);
     }
 

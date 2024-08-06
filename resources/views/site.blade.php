@@ -40,6 +40,58 @@
         @viteReactRefresh
         @vite('resources/js/Site/app.jsx')
         @vite('resources/css/app.css')
+
+        <!-- Google Analytics Code -->
+        <script>
+            // Function to get the appropriate Google Analytics tag based on the subdomain
+            function getAnalyticsTag() {
+                const hostname = window.location.hostname;
+                if (hostname.startsWith('in')) {
+                    return 'G-7MTYGFV5P3'; // 'in' subdomain Google Analytics tag
+                } else if (hostname.startsWith('global')) {
+                    return 'G-3SRE4T8KYX'; // 'global' subdomain Google Analytics tag
+                }
+                return 'G-7MTYGFV5P3'; // Default Google Analytics tag
+            }
+
+            // Insert the Google Analytics script dynamically
+            (function() {
+                const tag = getAnalyticsTag();
+                if (tag) {
+                    const script = document.createElement('script');
+                    script.async = true;
+                    script.src = `https://www.googletagmanager.com/gtag/js?id=${tag}`;
+                    document.head.appendChild(script);
+
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', tag, {
+                        cookie_flags: 'SameSite=None;Secure',
+                        anonymize_ip: true,
+                        send_page_view: false,
+                    });
+                }
+            })();
+        </script>
+
+        <!-- Meta Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '514698110975496');
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=514698110975496&ev=PageView&noscript=1"
+        /></noscript>
+        <!-- End Meta Pixel Code -->
     </head>
     <body>
         <div id="app"></div>

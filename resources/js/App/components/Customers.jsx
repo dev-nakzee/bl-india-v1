@@ -17,6 +17,7 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  TablePagination
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -36,6 +37,9 @@ const Customers = () => {
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     fetchCustomers();
@@ -130,18 +134,47 @@ const Customers = () => {
     }
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setPage(0); // Reset to first page on search
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const filteredCustomers = customers.filter((customer) =>
+    customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    customer.image_alt.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const paginatedCustomers = filteredCustomers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
     <Box sx={{ margin: 2 }}>
       <Typography variant="h6">Customers Management</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginY: 2 }}
-        onClick={handleClickOpen}
-      >
-        Add Customer
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginY: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
+          Add Customer
+        </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          size="small"
+        />
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -153,26 +186,43 @@ const Customers = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers.map((customer) => (
-              <TableRow key={customer.id}>
-                <TableCell>{customer.id}</TableCell>
-                <TableCell>
-                  <img src={customer.image_url} alt={customer.image_alt} width="50" />
-                </TableCell>
-                <TableCell>{customer.name}</TableCell>
-                <TableCell>
-                  <IconButton color="primary" onClick={() => handleEditClick(customer)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton color="secondary" onClick={() => handleDeleteClick(customer.id)}>
-                    <DeleteIcon />
-                  </IconButton>
+            {paginatedCustomers.length > 0 ? (
+              paginatedCustomers.map((customer) => (
+                <TableRow key={customer.id}>
+                  <TableCell>{customer.id}</TableCell>
+                  <TableCell>
+                    <img src={customer.image_url} alt={customer.image_alt} width="50" />
+                  </TableCell>
+                  <TableCell>{customer.name}</TableCell>
+                  <TableCell>
+                    <IconButton color="primary" onClick={() => handleEditClick(customer)}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton color="secondary" onClick={() => handleDeleteClick(customer.id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={4} align="center">
+                  No customers found
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredCustomers.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editing ? 'Edit Customer' : 'Add Customer'}</DialogTitle>

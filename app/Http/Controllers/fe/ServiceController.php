@@ -119,7 +119,7 @@ class ServiceController extends Controller
                 $service = $productServiceMap->service;
                 return [
                     'product_id' => $product->id,
-                    'product_name' => $this->translateText($product->name),
+                    'product_name' => $product->name,
                     'product_slug' => $product->slug,
                     'product_is_standard' => $productServiceMap->is,
                     'product_group' => $productServiceMap->group,
@@ -127,7 +127,7 @@ class ServiceController extends Controller
                     'product_others' => $productServiceMap->others,
                     'product_category_ids' => $product->categories->pluck('id')->toArray(),
                     'product_category_names' => $product->categories->pluck('name')->map(function ($name) {
-                        return $this->translateText($name);
+                        return $name;
                     })->toArray(),
                     'service_compliance' => $service->compliance_header,
                 ];
@@ -152,7 +152,7 @@ class ServiceController extends Controller
             ->map(function ($productServiceMap) {
                 return [
                     'id' => $productServiceMap->service->id,
-                    'name' => $this->translateText($productServiceMap->service->name),
+                    'name' => $productServiceMap->service->name,
                     'slug' => $productServiceMap->service->slug,
                     'details' => $this->translateHtmlContent($productServiceMap->details),
                     'compliance_header' => $productServiceMap->service->compliance_header,
@@ -173,7 +173,7 @@ class ServiceController extends Controller
             ->with('notification', 'notification.category')
             ->get();
 
-        $product->name = $this->translateText($product->name);
+        $product->name = $product->name;
         $product->description = $this->translateHtmlContent($product->description);
 
         $categories = $product->categories->map(function ($category) {

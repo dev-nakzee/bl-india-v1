@@ -17,6 +17,7 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  TablePagination,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -40,6 +41,9 @@ const NotificationCategories = () => {
   });
   const [editing, setEditing] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchCategories();
@@ -109,6 +113,20 @@ const NotificationCategories = () => {
     }));
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    setPage(0);
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -126,18 +144,34 @@ const NotificationCategories = () => {
     }
   };
 
+  const filteredCategories = categories.filter((cat) =>
+    cat.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    cat.slug.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    cat.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const paginatedCategories = filteredCategories.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
     <Box sx={{ margin: 2 }}>
       <Typography variant="h6">Notification Categories Management</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginY: 2 }}
-        onClick={handleClickOpen}
-      >
-        Add Category
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginY: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
+          Add Category
+        </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          size="small"
+        />
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -150,7 +184,7 @@ const NotificationCategories = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {categories.map((cat) => (
+            {paginatedCategories.map((cat) => (
               <TableRow key={cat.id}>
                 <TableCell>{cat.id}</TableCell>
                 <TableCell>{cat.name}</TableCell>
@@ -169,6 +203,15 @@ const NotificationCategories = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredCategories.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editing ? 'Edit Category' : 'Add Category'}</DialogTitle>
@@ -250,7 +293,9 @@ const NotificationCategories = () => {
       <Dialog open={confirmDeleteOpen} onClose={handleDeleteCancel}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          <DialogContentText>Are you sure you want to delete this category? This action cannot be undone.</DialogContentText>
+          <DialogContentText>
+            Are you sure you want to delete this category? This action cannot be undone.
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} color="primary">

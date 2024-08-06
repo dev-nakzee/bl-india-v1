@@ -136,6 +136,17 @@ const MandatoryProducts = ({ serviceId }) => {
         </Box>
       ),
     };
+    const eeeCodeColumn = {
+      field: "product_eeeCode",
+      headerName: "EEE Code",
+      flex: 1,
+      minWidth: 100,
+      renderCell: (params) => (
+        <Box sx={{ whiteSpace: "pre-line", pl: 1, py: 2, pr: 2 }}>
+          {params.value}
+        </Box>
+      ),
+    };
 
     if (filteredProducts.length > 0) {
       const firstProduct = filteredProducts[0];
@@ -143,6 +154,8 @@ const MandatoryProducts = ({ serviceId }) => {
         return [...baseColumns, isStandardColumn];
       } else if (firstProduct.service_compliance === "Group, Scheme") {
         return [...baseColumns, groupColumn, schemeColumn];
+      } else if (firstProduct.service_compliance === "EEE Code") {
+        return [...baseColumns, eeeCodeColumn];
       }
     }
 
