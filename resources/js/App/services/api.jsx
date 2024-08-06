@@ -4,13 +4,11 @@ import { toast } from 'react-toastify';
 const getBaseURL = () => {
   const hostname = window.location.hostname;
   if (hostname.startsWith('global')) {
-    // return 'https://global.bl-india.com/api/v1/cms';
-    return 'http://global.localhost:8000/api/v1/cms';
+    return 'https://global.bl-india.com/api/v1/cms';
   } else if (hostname.startsWith('in')) {
-    // return 'https://in.bl-india.com/api/v1/cms';
-    return 'http://in.localhost:8000/api/v1/cms';
-  }
-  return 'http://localhost:8000/api/v1/cms'; // Default to local
+    return 'https://in.bl-india.com/api/v1/cms';
+  } 
+  return 'http://bl-india.com/api/v1/cms'; // Default to local
 };
 
 const apiClient = axios.create({
@@ -21,12 +19,16 @@ const apiClient = axios.create({
   },
 });
 
-// Add a request interceptor to include the token in all requests
+// Add a request interceptor to include the token and CSRF token in all requests
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken');
+    const csrfToken = localStorage.getItem('csrfToken');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    if (csrfToken) {
+      config.headers['X-CSRF-TOKEN'] = csrfToken;
     }
     config.baseURL = getBaseURL(); // Dynamically set baseURL before each request
     return config;
