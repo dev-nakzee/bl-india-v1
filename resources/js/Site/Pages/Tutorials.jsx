@@ -62,7 +62,8 @@ const Tutorials = () => {
 
   return (
     <Stack>
-      <Typography variant="h4" gutterBottom>
+      <Typography className="page-main-heading page-heading"
+                    variant="h1" gutterBottom>
         Tutorials
       </Typography>
       {loading ? (

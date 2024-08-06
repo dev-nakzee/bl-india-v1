@@ -88,7 +88,8 @@ const KnowledgeBaseCategory = () => {
         <meta name="keywords" content={categoryData.seo_keywords || categoryData.name} />
       </Helmet>
       <Box sx={{ padding: 4 }}>
-      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={4}>
+      <Typography    className="page-main-heading page-heading"
+                    variant="h1" textAlign="center" gutterBottom marginBottom={4}>
           Knowledgebase - {categoryData.name}
         </Typography>
         <TextField

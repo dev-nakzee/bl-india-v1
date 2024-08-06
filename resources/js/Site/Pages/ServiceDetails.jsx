@@ -42,8 +42,8 @@ const ServiceImage = styled(CardMedia)(({ theme }) => ({
   backgroundSize: 'contain',
   objectFit: 'contain',
   marginRight: '20px',
-  borderRadius: '50%',
-  border: '2px solid #0D629A',
+  // borderRadius: '50%',
+  // border: '2px solid #0D629A',
   [theme.breakpoints.down('sm')]: {
     maxWidth: '60px',
     marginRight: '10px',
@@ -64,8 +64,8 @@ const RelServiceImage = styled(CardMedia)(({ theme }) => ({
   backgroundSize: 'contain',
   objectFit: 'contain',
   marginRight: '5px',
-  borderRadius: '50%',
-  border: '2px solid #0D629A',
+  // borderRadius: '50%',
+  // border: '2px solid #0D629A',
   [theme.breakpoints.down('sm')]: {
     width: '50px',
     height: '50px',
@@ -183,7 +183,7 @@ const ServiceDetails = () => {
               <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: '100%', backgroundColor: '#0D629A', color: '#fff', margin: 'auto', borderRadius: 20, padding: '5px 40px' }}>
                 {serviceData.service.tagline}
               </Typography>
-              <Typography variant="h4" sx={{ textAlign: 'center', mt: 2, textTransform: 'uppercase' }}>
+              <Typography className="page-main-heading" variant="h1" sx={{ textAlign: 'center', mt: 2, textTransform: 'uppercase' }}>
                 {serviceData.service.name}
               </Typography>
             </Box>

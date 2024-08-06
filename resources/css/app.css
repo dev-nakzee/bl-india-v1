@@ -143,7 +143,7 @@ li a {
     border-right: 1px solid #666;
 }
 .service-section-content a {
-    color: var(--primary-color);
+    color:var(--third-color) !important;
     text-decoration: none;
 }
 
@@ -338,6 +338,11 @@ li a {
 .Brochure-section-data {
     padding: 0 !important;
 }
+.page-main-heading{
+    font-size: 2.7rem !important;
+    font-weight: 600 !important;
+  
+   }
 
 .Footer-section h4 {
     position: relative;
@@ -647,6 +652,9 @@ th {
     }
 }
 @media (min-width: 1024px) and (max-width: 1366px) {
+    .page-main-heading{
+        font-size: 2.4rem !important;
+       }
     .box-about {
         left: 46%;
     }
@@ -656,6 +664,9 @@ th {
     }
 }
 @media (min-width: 768px) and (max-width: 992px) {
+    .page-main-heading{
+        font-size: 2rem !important;
+       }
     .schedule-section-call-details .MuiSvgIcon-root {
         width: 0.7em;
         margin-right: 5px;
@@ -673,6 +684,9 @@ th {
 }
 
 @media (max-width: 767px) {
+    .page-main-heading{
+        font-size: 1.7rem !important;
+       }
     .ql-align-justify img {
         width: 100%;
     }

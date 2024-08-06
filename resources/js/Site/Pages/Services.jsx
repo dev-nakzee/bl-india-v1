@@ -171,8 +171,8 @@ const Services = () => {
             >
                 <Box flexDirection={"column"}>
                     <Typography
-                        className="page-heading"
-                        variant="h4"
+                          className="page-main-heading page-heading"
+                    variant="h1"
                         textAlign="center"
                         gutterBottom
                     >

@@ -145,8 +145,8 @@ const Notifications = () => {
                     marginBottom={4}
                 >
                     <Typography
-                        variant="h4"
-                        className="page-heading"
+                          className="page-main-heading page-heading"
+                    variant="h1"
                         gutterBottom
                         textAlign={"center"}
                     >

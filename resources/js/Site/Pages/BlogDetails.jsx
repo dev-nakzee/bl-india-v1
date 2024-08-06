@@ -369,7 +369,8 @@ const BlogDetails = () => {
                                         marginBottom: "20px",
                                     }}
                                 />
-                                <Typography variant="h1" gutterBottom>
+                                <Typography className="page-main-heading "
+                    variant="h1" gutterBottom>
                                     {blog.name}
                                 </Typography>
                                 <Box

@@ -48,7 +48,8 @@ const NotificationDetails = () => {
         <meta name="keywords" content={notification.seo_keywords} />
       </Helmet>
       <Box className="notification-details" sx={{ padding: 4 }}>
-        <Typography className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={5}>
+        <Typography    className="page-main-heading page-heading"
+                    variant="h1" textAlign="center" gutterBottom marginBottom={5}>
           {notification.name}
         </Typography>
         {notification.technical_name && notification.technical_name && (

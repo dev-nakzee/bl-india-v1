@@ -151,7 +151,7 @@ const Careers = () => {
   return (
     <Box sx={{ padding: 4 }}>
       <ToastContainer />
-      <Typography  className="page-heading" variant="h4" textAlign="center" gutterBottom
+      <Typography className="page-main-heading page-heading"  variant="h1" textAlign="center" gutterBottom
       marginBottom={{ xs: 1, md: 3, lg: 5 }}>
         {pageData.title || 'Careers'}
       </Typography>

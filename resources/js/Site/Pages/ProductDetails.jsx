@@ -108,7 +108,8 @@ const ProductDetails = () => {
             <Grid item xs={12} sm={9}>
               <CardContent>
                 <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
-                  <span>Product Name:</span> &nbsp;&nbsp; <span className='font-bold'>{productData.name}</span>
+                  <span>Product Name:</span> &nbsp;&nbsp; <span className='font-bold page-main-heading'
+                    variant="h1">{productData.name}</span>
                 </Typography>
                 {productData.technical_name && productData.technical_name !== 'null' && (
                   <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>

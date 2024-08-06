@@ -113,7 +113,8 @@ const KnowledgeBase = () => {
       {/* <img src={know_bg} alt="careers_bg" className='knowledge_bg' /> */}
 
       <Box sx={{ padding: 4 }}>
-      <Typography className="page-heading" variant="h4" textAlign="center" gutterBottom marginBottom={4}>
+      <Typography   className="page-main-heading page-heading"
+                    variant="h1" textAlign="center" gutterBottom marginBottom={4}>
           {pageData.name}
         </Typography>
         <TextField

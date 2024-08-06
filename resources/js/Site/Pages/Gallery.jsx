@@ -217,8 +217,8 @@ const Gallery = () => {
     return (
         <Box sx={{ padding: 4 }}>
             <Typography
-                className="page-heading"
-                variant="h4"
+                  className="page-main-heading page-heading"
+                    variant="h1"
                 textAlign="center"
                 gutterBottom
                 marginBottom={{ xs: 2, md: 3, lg: 5 }}

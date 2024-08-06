@@ -162,8 +162,8 @@ const HolidayList = () => {
             <>
                 <Box sx={{ padding: 4 }} className="holiday-list">
                     <Typography
-                        className="page-heading"
-                        variant="h4"
+                          className="page-main-heading page-heading"
+                    variant="h1"
                         textAlign="center"
                         gutterBottom
                         marginBottom={5}

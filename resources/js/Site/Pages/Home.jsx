@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Typography, CircularProgress, Box } from '@mui/material';
-import HomeBanner from '../Components/Home/HomeBanner';
-import HomeServices from '../Components/Home/HomeServices';
-import HomeAbout from '../Components/Home/HomeAbout';
-import HomeBrochure from '../Components/Home/HomeBrochure';
-import ScheduleCallDrawer from '../Components/ScheduleCallDrawer';
-import HomeProcess from '../Components/Home/HomeProcess';
-import HomeBlog from '../Components/Home/HomeBlog';
-import HomeTestimonials from '../Components/Home/HomeTestimonials';
-import HomeAssociates from '../Components/Home/HomeAssociates';
-import apiClient from '../Services/api';
-import { Helmet } from 'react-helmet';
-import { useInView } from 'react-intersection-observer';
+import React, { useState, useEffect } from "react";
+import { Typography, CircularProgress, Box } from "@mui/material";
+import HomeBanner from "../Components/Home/HomeBanner";
+import HomeServices from "../Components/Home/HomeServices";
+import HomeAbout from "../Components/Home/HomeAbout";
+import HomeBrochure from "../Components/Home/HomeBrochure";
+import ScheduleCallDrawer from "../Components/ScheduleCallDrawer";
+import HomeProcess from "../Components/Home/HomeProcess";
+import HomeBlog from "../Components/Home/HomeBlog";
+import HomeTestimonials from "../Components/Home/HomeTestimonials";
+import HomeAssociates from "../Components/Home/HomeAssociates";
+import apiClient from "../Services/api";
+import { Helmet } from "react-helmet";
+import { useInView } from "react-intersection-observer";
 
 const LazyLoadComponent = ({ children }) => {
     const { ref, inView } = useInView({
@@ -19,11 +19,7 @@ const LazyLoadComponent = ({ children }) => {
         threshold: 0.1,
     });
 
-    return (
-        <div ref={ref}>
-            {inView && children}
-        </div>
-    );
+    return <div ref={ref}>{inView && children}</div>;
 };
 
 const HomePage = () => {
@@ -52,23 +48,50 @@ const HomePage = () => {
         <>
             <Helmet>
                 <title>{homeData?.seo_title || "Brand Liaison"}</title>
-                <meta name="description" content={homeData?.seo_description || "Best Consultant for Product Certifications and Approvals"} />
-                <meta name="keywords" content={homeData?.seo_keywords || "BIS Certificate Consultants, WPC Consultants, BIS certification"} />
+                <meta
+                    name="description"
+                    content={
+                        homeData?.seo_description ||
+                        "Best Consultant for Product Certifications and Approvals"
+                    }
+                />
+                <meta
+                    name="keywords"
+                    content={
+                        homeData?.seo_keywords ||
+                        "BIS Certificate Consultants, WPC Consultants, BIS certification"
+                    }
+                />
                 {/* Other meta tags */}
                 <meta name="robots" content="index, follow" />
                 <meta name="author" content="Rajesh Kumar" />
-                <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
-                <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+                <meta
+                    name="publisher"
+                    content="Brand Liaison India Pvt. Ltd."
+                />
+                <meta
+                    name="copyright"
+                    content="Brand Liaison India Pvt. Ltd."
+                />
                 <meta name="Classification" content="Business" />
                 <meta name="coverage" content="Worldwide" />
                 <meta name="distribution" content="Global" />
                 <meta name="rating" content="General" />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
-                <meta property="og:description" content={homeData?.seo_description || "Best Consultant for Product Certifications and Approvals"} />
+                <meta
+                    property="og:description"
+                    content={
+                        homeData?.seo_description ||
+                        "Best Consultant for Product Certifications and Approvals"
+                    }
+                />
                 <meta property="og:url" content="https://www.bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta property="og:image" content="https://www.bl-india.com/images/logo.png" />
+                <meta
+                    property="og:image"
+                    content="https://www.bl-india.com/images/logo.png"
+                />
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href="https://www.bl-india.com/" />
             </Helmet>

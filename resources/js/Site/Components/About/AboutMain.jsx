@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Typography, CircularProgress, Grid } from '@mui/material';
-import { styled } from '@mui/system';
-import apiClient from '../../Services/api'; // Ensure this is your configured axios instance
-import parse from 'html-react-parser';
+import React, { useState, useEffect } from "react";
+import { Box, Typography, CircularProgress, Grid } from "@mui/material";
+import { styled } from "@mui/system";
+import apiClient from "../../Services/api"; // Ensure this is your configured axios instance
+import parse from "html-react-parser";
 
 const AboutMainSection = styled(Box)(({ theme }) => ({
-    textAlign: 'left',
+    textAlign: "left",
     padding: theme.spacing(2),
     // backgroundColor: '#f5f5f5',
     // boxShadow: theme.shadows[3],
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
 }));
 
 const AboutMainContent = styled(Box)(({ theme }) => ({
-    textAlign: 'left',
+    textAlign: "left",
     padding: theme.spacing(2),
 }));
 
-const AboutMainImage = styled('img')(({ theme }) => ({
-    width: '100%',
-    maxWidth: '390px',
-    borderRadius: '10px',
+const AboutMainImage = styled("img")(({ theme }) => ({
+    width: "100%",
+    maxWidth: "390px",
+    borderRadius: "10px",
     boxShadow: theme.shadows[3],
 }));
 
@@ -33,10 +33,10 @@ const AboutMain = () => {
     useEffect(() => {
         const fetchAboutData = async () => {
             try {
-                const response = await apiClient.get('/about-main');
+                const response = await apiClient.get("/about-main");
                 setAboutData(response.data);
             } catch (error) {
-                console.error('Error fetching about data:', error);
+                console.error("Error fetching about data:", error);
             } finally {
                 setLoading(false);
             }
@@ -47,7 +47,14 @@ const AboutMain = () => {
 
     if (loading) {
         return (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                }}
+            >
                 <CircularProgress />
             </Box>
         );
@@ -59,30 +66,63 @@ const AboutMain = () => {
 
     return (
         <section>
-      <Typography  className="page-heading" variant="h4" textAlign="center" marginTop={{xs:2}}  marginBottom={{xs:2,md:5}}>
-      {aboutData.title}
-                    </Typography>
-        <AboutMainSection>
-             
-            <Grid container spacing={2} alignItems="center" position={'relative'}>   
-                <Grid item xs={12} md={5} sx={{display:'flex',justifyContent:'center'}} >
-                    <AboutMainImage src={'https://in.bl-india.com/' + aboutData.image_url} alt={aboutData.image_alt}  />
-                    <Box className="box-about" sx={{left:'36%'}}><p>Since 2010</p></Box>
-
-                </Grid>
-                <Grid item xs={12} md={7}>              
-                     <AboutMainContent>
-                    <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth:'80%',padding:'10px', color: '#ffffff', borderRadius: 20 ,mb:3}}>
-                        {aboutData.tag_line}
-                    </Typography>
-                   
-                        <Box className="about-content">
-                            {parse(aboutData.content)}
+            <Typography
+                className="page-heading page-main-heading"
+                variant="h1"
+                textAlign="center"
+                marginTop={{ xs: 2 }}
+                marginBottom={{ xs: 2, md: 5 }}
+            >
+                {aboutData.title}
+            </Typography>
+            <AboutMainSection>
+                <Grid
+                    container
+                    spacing={2}
+                    alignItems="center"
+                    position={"relative"}
+                >
+                    <Grid
+                        item
+                        xs={12}
+                        md={5}
+                        sx={{ display: "flex", justifyContent: "center" }}
+                    >
+                        <AboutMainImage
+                            src={
+                                "https://in.bl-india.com/" + aboutData.image_url
+                            }
+                            alt={aboutData.image_alt}
+                        />
+                        <Box className="box-about" sx={{ left: "36%" }}>
+                            <p>Since 2010</p>
                         </Box>
-                    </AboutMainContent>
+                    </Grid>
+                    <Grid item xs={12} md={7}>
+                        <AboutMainContent>
+                            <Typography
+                                variant="subtitle1"
+                                sx={{
+                                    textAlign: "center",
+                                    fontWeight: 500,
+                                    background: "#0D629A",
+                                    maxWidth: "80%",
+                                    padding: "10px",
+                                    color: "#ffffff",
+                                    borderRadius: 20,
+                                    mb: 3,
+                                }}
+                            >
+                                {aboutData.tag_line}
+                            </Typography>
+
+                            <Box className="about-content">
+                                {parse(aboutData.content)}
+                            </Box>
+                        </AboutMainContent>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </AboutMainSection>
+            </AboutMainSection>
         </section>
     );
 };
