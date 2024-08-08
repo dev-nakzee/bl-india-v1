@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Service;
 use App\Models\Blog;
 use App\Models\KnowledgeBase;
+use App\Models\ProductServiceMap;
 
 class SearchController extends Controller
 {
@@ -58,6 +59,47 @@ class SearchController extends Controller
                 ->select('id', 'question', 'answer', 'knowledge_base_category_id')
                 ->with('category')
                 ->get();
+            
+                $results['standards'] = ProductServiceMap::where('is', 'LIKE', "%$query%")
+                ->orWhere('others', 'LIKE', "%$query%")
+                ->orWhere('scheme', 'LIKE', "%$query%")
+                ->orWhere('group', 'LIKE', "%$query%")
+                ->with(['product' => function($query) {
+                        $query->select('id', 'name', 'slug')
+                              ->with(['services' => function($query) {
+                                  $query->select('id', 'name', 'slug', 'service_category_id')
+                                        ->with(['serviceCategory' => function($query) {
+                                            $query->select('id', 'slug');
+                                        }]);
+                              }]);
+                    },
+                    'service' => function($query) {
+                        $query->select('id', 'name', 'slug', 'service_category_id')
+                              ->with(['serviceCategory' => function($query) {
+                                  $query->select('id', 'slug');
+                              }]);
+                    }])
+                ->get()
+                ->map(function($map) {
+                    return [
+                        'product' => [
+                            'id' => $map->product->id,
+                            'name' => $map->product->name,
+                            'slug' => $map->product->slug,
+                            'category_slug' => $map->product->services->map(function($service) {
+                                return $service->serviceCategory->slug;
+                            })
+                        ],
+                        'service' => [
+                            'id' => $map->service->id,
+                            'name' => $map->service->name,
+                            'slug' => $map->service->slug,
+                            'category_slug' => $map->service->serviceCategory->slug
+                        ]
+                    ];
+                });
+            
+
         }
 
         return response()->json($results);
