@@ -43,7 +43,7 @@ const SearchField = () => {
     const processResults = (data) => {
         const uniqueResults = [];
         const ids = new Set();
-
+    
         // Process products and their services
         data.products.forEach((product) => {
             if (!ids.has(product.id)) {
@@ -68,7 +68,7 @@ const SearchField = () => {
                 }
             });
         });
-
+    
         // Process other types of data
         ['services', 'blogs', 'knowledge_base'].forEach((key) => {
             data[key].forEach((item) => {
@@ -84,9 +84,37 @@ const SearchField = () => {
                 }
             });
         });
-
+    
+        // Process 'standards' containing linked product and service data
+        data.standards.forEach((standard) => {
+            const { product, service } = standard;
+    
+            if (product && !ids.has(product.id)) {
+                uniqueResults.push({
+                    id: product.id,
+                    name: product.name,
+                    slug: product.slug,
+                    category_slugs: product.category_slugs.join(", "), // Assuming multiple categories can be flattened to a string
+                    type: 'product',
+                });
+                ids.add(product.id);
+            }
+    
+            if (service && !ids.has(service.id)) {
+                uniqueResults.push({
+                    id: service.id,
+                    name: service.name,
+                    slug: service.slug,
+                    category_slug: service.category_slug,
+                    type: 'service',
+                });
+                ids.add(service.id);
+            }
+        });
+    
         return uniqueResults;
     };
+    
 
     const handleInputChange = (e) => {
         const value = e.target.value;

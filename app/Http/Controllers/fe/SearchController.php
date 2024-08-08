@@ -60,43 +60,43 @@ class SearchController extends Controller
                 ->with('category')
                 ->get();
             
-  // Search standards and include detailed product and service info
-$results['standards'] = ProductServiceMap::where('is', 'LIKE', "%$query%")
-->orWhere('others', 'LIKE', "%$query%")
-->orWhere('scheme', 'LIKE', "%$query%")
-->orWhere('group', 'LIKE', "%$query%")
-->with(['product' => function($query) {
-        $query->select('products.id', 'products.name', 'products.slug')
-              ->with(['services' => function($query) {
-                  $query->select('services.id', 'services.name', 'services.slug', 'services.service_category_id')
+            // Search standards and include detailed product and service info
+            $results['standards'] = ProductServiceMap::where('is', 'LIKE', "%$query%")
+            ->orWhere('others', 'LIKE', "%$query%")
+            ->orWhere('scheme', 'LIKE', "%$query%")
+            ->orWhere('group', 'LIKE', "%$query%")
+            ->with(['product' => function($query) {
+                    $query->select('products.id', 'products.name', 'products.slug')
+                        ->with(['services' => function($query) {
+                            $query->select('services.id', 'services.name', 'services.slug', 'services.service_category_id')
+                                    ->with(['serviceCategory' => function($query) {
+                                        $query->select('service_categories.id', 'service_categories.slug');
+                                    }]);
+                        }]);
+                },
+                'service' => function($query) {
+                    $query->select('services.id', 'services.name', 'services.slug', 'services.service_category_id')
                         ->with(['serviceCategory' => function($query) {
                             $query->select('service_categories.id', 'service_categories.slug');
                         }]);
-              }]);
-    },
-    'service' => function($query) {
-        $query->select('services.id', 'services.name', 'services.slug', 'services.service_category_id')
-              ->with(['serviceCategory' => function($query) {
-                  $query->select('service_categories.id', 'service_categories.slug');
-              }]);
-    }])
-->get()
-->map(function($map) {
-    return [
-        'product' => [
-            'id' => $map->product->id,
-            'name' => $map->product->name,
-            'slug' => $map->product->slug,
-            'category_slugs' => $map->product->services->pluck('serviceCategory.slug')->unique()
-        ],
-        'service' => [
-            'id' => $map->service->id,
-            'name' => $map->service->name,
-            'slug' => $map->service->slug,
-            'category_slug' => $map->service->serviceCategory->slug
-        ]
-    ];
-});
+                }])
+            ->get()
+            ->map(function($map) {
+                return [
+                    'product' => [
+                        'id' => $map->product->id,
+                        'name' => $map->product->name,
+                        'slug' => $map->product->slug,
+                        'category_slugs' => $map->product->services->pluck('serviceCategory.slug')->unique()
+                    ],
+                    'service' => [
+                        'id' => $map->service->id,
+                        'name' => $map->service->name,
+                        'slug' => $map->service->slug,
+                        'category_slug' => $map->service->serviceCategory->slug
+                    ]
+                ];
+            });
 
             
 
