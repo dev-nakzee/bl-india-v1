@@ -56,18 +56,20 @@ const MandatoryProducts = ({ serviceId }) => {
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
-    if (event.target.value === "") {
+    const lowerCaseQuery = event.target.value.toLowerCase();
+    if (lowerCaseQuery === "") {
       setFilteredProducts(products);
     } else {
       setFilteredProducts(
         products.filter((product) =>
-          product.product_name
-            .toLowerCase()
-            .includes(event.target.value.toLowerCase())
+          Object.keys(product).some((key) =>
+            String(product[key]).toLowerCase().includes(lowerCaseQuery)
+          )
         )
       );
     }
   };
+  
 
   const getColumns = () => {
     const baseColumns = [
