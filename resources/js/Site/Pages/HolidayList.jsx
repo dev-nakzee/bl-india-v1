@@ -150,7 +150,8 @@ const HolidayList = () => {
         return null; // Or return a fallback UI if needed
     }
 
-    const currentMonthHolidays = holidaysByMonth[selectedMonth] || [];
+    // const currentMonthHolidays = holidaysByMonth[selectedMonth] || [];
+    const currentMonthHolidays = holidaysByMonth[selectedMonth] ;
 
     return (
         <>

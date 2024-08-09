@@ -465,7 +465,7 @@ li a {
 }
 .ProductDetail-tab .MuiTabPanel-root {
     border: 1px solid var(--third-color);
-    border-top-right-radius: 10px;
+    border-top-right-radius: 0;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -608,6 +608,7 @@ th {
 .react-calendar__tile {
     text-align: center !important;
     padding: 1em 0 !important;
+    margin: 0.5em 0 !important;
 }
 
 .react-calendar__tile.saturday {
@@ -698,6 +699,7 @@ th {
     .product-name {
         font-size: 12px !important;
     }
+ 
 }
 
 @media (max-width: 767px) {
@@ -867,7 +869,21 @@ th {
         padding: 5px !important;
         display: flex;
     }
+    .react-calendar {
+          font-size: 1.6rem !important;
+        padding: 1.6rem;
+    }
+    .react-calendar__navigation button {
+        font-size: 1.5rem !important;
+        min-width: 20px;
+    }
+
 }
+
+
+
+
+
 
 .my-masonry-grid {
     display: flex;
