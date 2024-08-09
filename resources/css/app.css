@@ -68,9 +68,8 @@ p {
 .Topbar-section {
     min-height: 55px !important;
 }
-.d-none{
+.d-none {
     display: none !important;
-
 }
 .MuiCardActions-root {
     padding: 8px 0 !important;
@@ -79,24 +78,27 @@ p {
     margin-top: 15px !important;
     margin-bottom: 15px !important;
 }
-/* .Blog-section p {
-    min-height: 97px;
-} */
-p,li{
+
+.product-details p,
+.product-details li {
     margin-bottom: 1rem !important;
     margin-top: 1rem !important;
 }
- h2 >.ql-size-huge{
+h2 > .ql-size-huge {
     font-size: 4rem !important;
-    font-weight: 400 !important;
- }
- h2 >.ql-size-huge:nth-child(3){
+    font-weight: 500 !important;
+}
+h2 > .ql-size-huge:nth-child(3) {
     font-weight: 700 !important;
- }
+}
 .Footer-section p {
     margin-bottom: 0;
     margin-top: 0;
     color: #ffffff;
+}
+.product-name {
+    font-size: 16px !important;
+    color: rgba(0, 0, 0, 0.87) !important;
 }
 
 li a {
@@ -158,7 +160,7 @@ li a {
     border-right: 1px solid #666;
 }
 .service-section-content a {
-    color:var(--third-color) !important;
+    color: var(--third-color) !important;
     text-decoration: none;
 }
 
@@ -353,11 +355,10 @@ li a {
 .Brochure-section-data {
     padding: 0 !important;
 }
-.page-main-heading{
+.page-main-heading {
     font-size: 2.7rem !important;
     font-weight: 600 !important;
-  
-   }
+}
 
 .Footer-section h4 {
     position: relative;
@@ -455,7 +456,7 @@ li a {
 }
 
 .ProductDetail-tab .MuiButtonBase-root {
-    border: 3px solid var(--third-color);
+    border: 1px solid var(--third-color);
     margin-right: 5px;
     border-bottom: 0;
     text-transform: capitalize;
@@ -463,7 +464,7 @@ li a {
     border-top-right-radius: 10px;
 }
 .ProductDetail-tab .MuiTabPanel-root {
-    border: 3px solid var(--third-color);
+    border: 1px solid var(--third-color);
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -665,9 +666,9 @@ th {
     }
 }
 @media (min-width: 1024px) and (max-width: 1366px) {
-    .page-main-heading{
+    .page-main-heading {
         font-size: 2.4rem !important;
-       }
+    }
     .box-about {
         left: 46%;
     }
@@ -677,9 +678,9 @@ th {
     }
 }
 @media (min-width: 768px) and (max-width: 992px) {
-    .page-main-heading{
+    .page-main-heading {
         font-size: 2rem !important;
-       }
+    }
     .schedule-section-call-details .MuiSvgIcon-root {
         width: 0.7em;
         margin-right: 5px;
@@ -697,9 +698,9 @@ th {
 }
 
 @media (max-width: 767px) {
-    .page-main-heading{
+    .page-main-heading {
         font-size: 1.7rem !important;
-       }
+    }
     .ql-align-justify img {
         width: 100%;
     }
@@ -708,9 +709,9 @@ th {
         top: 130px !important;
         z-index: 800 !important;
     }
-    h2 >.ql-size-huge{
+    h2 > .ql-size-huge {
         font-size: 2.2rem !important;
-     }
+    }
 
     .mobile-schedule {
         text-align: center;
