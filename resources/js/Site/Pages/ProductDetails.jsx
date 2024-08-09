@@ -95,7 +95,7 @@ const ProductDetails = () => {
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
       <Box className="product-details" sx={{ padding: isMobile ? 2 : 4 }}>
-        <Card className="Product-card" sx={{ mb: 4 }}>
+        <Card className="Product-card" sx={{ marginBottom: isMobile ? 2 : 4 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={3}>
               <CardMedia
