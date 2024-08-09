@@ -68,6 +68,10 @@ p {
 .Topbar-section {
     min-height: 55px !important;
 }
+.d-none{
+    display: none !important;
+
+}
 .MuiCardActions-root {
     padding: 8px 0 !important;
 }
@@ -78,6 +82,17 @@ p {
 /* .Blog-section p {
     min-height: 97px;
 } */
+p,li{
+    margin-bottom: 1rem !important;
+    margin-top: 1rem !important;
+}
+ h2 >.ql-size-huge{
+    font-size: 4rem !important;
+    font-weight: 400 !important;
+ }
+ h2 >.ql-size-huge:nth-child(3){
+    font-weight: 700 !important;
+ }
 .Footer-section p {
     margin-bottom: 0;
     margin-top: 0;
@@ -546,9 +561,7 @@ th {
 .product-download .MuiSvgIcon-root {
     color: var(--primary-color);
 }
-.ql-align-justify {
-    margin-bottom: 1rem;
-}
+
 .text-white {
     color: #ffffff;
 }
@@ -695,6 +708,9 @@ th {
         top: 130px !important;
         z-index: 800 !important;
     }
+    h2 >.ql-size-huge{
+        font-size: 2.2rem !important;
+     }
 
     .mobile-schedule {
         text-align: center;
@@ -712,7 +728,7 @@ th {
 
     .Banner-section {
         background-image: none !important;
-        height: 65vh !important;
+        /* height: 45vh !important; */
         background-color: var(--secondary-color);
     }
 

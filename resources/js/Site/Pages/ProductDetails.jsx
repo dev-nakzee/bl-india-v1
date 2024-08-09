@@ -133,7 +133,7 @@ const ProductDetails = () => {
           <Typography variant="body1">
             {productData.description ? parse(productData.description) : 'No description available.'}
           </Typography>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" mb={1}>
             Applicable Compliances
           </Typography>
           {productData.services && productData.services.length > 0 ? (
