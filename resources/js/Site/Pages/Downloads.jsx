@@ -131,7 +131,7 @@ const Downloads = () => {
                 <meta name="description" content={data.page.seo_description} />
                 <meta name="keywords" content={data.page.seo_keywords} />
             </Helmet>
-            <Box sx={{ padding: 4 }}>
+            <Box padding={{lg:5,md:4,sm:3,xs:2}}>
                 <Typography
                     className="page-main-heading page-heading"
                     variant="h1"
@@ -298,7 +298,7 @@ const Downloads = () => {
                     </Grid>
                 </Grid>
                 {isMobile ? (
-                    <Box sx={{ marginBlock: 2 }}>
+                    <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBlock:2 }}>
                         <DownloadBrochure />
                         <RequestCallBack />
                     </Box>

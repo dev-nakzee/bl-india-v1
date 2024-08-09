@@ -704,6 +704,7 @@ th {
     .ql-align-justify img {
         width: 100%;
     }
+
     .drawer-container .MuiPaper-root.MuiPaper-elevation.MuiDrawer-paper {
         position: fixed;
         top: 130px !important;
@@ -720,6 +721,9 @@ th {
         padding: 4px;
         max-width: 100%;
         width: 100%;
+    }
+    .schedule-section-call-details h3{
+        padding-left:0;
     }
 
     .navbar-icon {
@@ -855,6 +859,7 @@ th {
     th {
         font-size: 1.2rem !important;
         padding: 5px !important;
+        display: flex;
     }
 }
 
