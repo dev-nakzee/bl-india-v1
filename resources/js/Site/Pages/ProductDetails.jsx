@@ -94,8 +94,8 @@ const ProductDetails = () => {
         <meta name="description" content={productData.seo_description} />
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
-      <Box sx={{ padding: isMobile ? 2 : 4 }}>
-        <Card className="Product-card" sx={{ mb: 4 }}>
+      <Box className="product-details" sx={{ padding: isMobile ? 2 : 4 }}>
+        <Card className="Product-card" sx={{ marginBottom: isMobile ? 2 : 4 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={3}>
               <CardMedia
@@ -108,8 +108,8 @@ const ProductDetails = () => {
             <Grid item xs={12} sm={9}>
               <CardContent>
                 <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
-                  <span>Product Name:</span> &nbsp;&nbsp; <span className='font-bold page-main-heading'
-                    variant="h1">{productData.name}</span>
+                <Typography variant="subtitle" className='font-bold' sx={{display: 'inline-block' }}>Product Name:</Typography> &nbsp;&nbsp; <Typography variant="h2" className='font-bold product-name' sx={{display: 'inline-block' }}
+                    >{productData.name}</Typography>
                 </Typography>
                 {productData.technical_name && productData.technical_name !== 'null' && (
                   <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
@@ -133,7 +133,7 @@ const ProductDetails = () => {
           <Typography variant="body1">
             {productData.description ? parse(productData.description) : 'No description available.'}
           </Typography>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" mb={1}>
             Applicable Compliances
           </Typography>
           {productData.services && productData.services.length > 0 ? (
@@ -186,6 +186,7 @@ const ProductDetails = () => {
                         to={`/services/${service.service_category.slug}/${service.slug}`}
                         variant="contained"
                         color="primary"
+                        sx={{borderRadius:2}}
                       >
                         Learn More
                       </Button>
@@ -194,6 +195,8 @@ const ProductDetails = () => {
                         to={`/notifications/${service.slug}`}
                         variant="contained"
                         color="secondary"
+                        sx={{borderRadius:2}}
+
                       >
                         Latest Notifications
                       </Button>
@@ -208,12 +211,12 @@ const ProductDetails = () => {
         </Box>
         {notificationData && notificationData.length > 0 && (
           <Box sx={{ marginTop: 4 }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h6" gutterBottom>
               Related Notifications
             </Typography>
             {notificationData.map((notif) => (
               <Box key={notif.id} sx={{ marginBottom: 2 }}>
-                <Typography variant="h6">
+                <Typography variant="subtitle">
                   <Button
                     component={Link}
                     to={`/notifications/${notif.notification.category.slug}/${notif.notification.slug}`}

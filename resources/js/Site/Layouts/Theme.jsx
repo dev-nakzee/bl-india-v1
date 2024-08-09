@@ -117,11 +117,12 @@ const theme = createTheme({
       fontWeight: 600,
       color: "#0D629A",
       lineHeight: 1.3,
+     
       "@media (min-width: 360px)": {
-        fontSize: "1.2rem", // Font size for h1 on small devices (e.g., mobile)
+        fontSize: "1.4rem", // Font size for h1 on small devices (e.g., mobile)
       },
       "@media (min-width: 960px)": {
-        fontSize: "1.4rem", // Font size for h1 on medium devices (e.g., tablets)
+        fontSize: "1.5rem", // Font size for h1 on medium devices (e.g., tablets)
       },
       "@media (min-width: 1280px)": {
         fontSize: "1.6rem", // Font size for h1 on large devices (e.g., desktop)

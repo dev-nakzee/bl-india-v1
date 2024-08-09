@@ -80,7 +80,7 @@ const HomeBlog = () => {
                                         component="img"
                                         height="200"
                                         image={'https://in.bl-india.com/' + blog.image_url}
-                                        sx={{  backgroundSize: 'cover', objectFit: 'cover'}}
+                                        sx={{  backgroundSize: 'cover', objectFit: 'unset'}}
                                         alt={blog.image_alt}
                                     />
                                     <CardContent>

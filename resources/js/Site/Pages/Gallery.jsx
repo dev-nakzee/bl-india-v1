@@ -215,7 +215,7 @@ const Gallery = () => {
     }
 
     return (
-        <Box sx={{ padding: 4 }}>
+        <Box padding={{lg:5,md:4,sm:3,xs:2}}>
             <Typography
                   className="page-main-heading page-heading"
                     variant="h1"

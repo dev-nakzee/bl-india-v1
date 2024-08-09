@@ -139,7 +139,7 @@ const Notifications = () => {
                 <meta name="description" content={pageData.seo_description} />
                 <meta name="keywords" content={pageData.seo_keywords} />
             </Helmet>
-            <Box className="notification" sx={{ padding: 4 }}>
+            <Box className="notification" padding={{lg:5,md:4,sm:3,xs:2}}>
                 <Box
                     sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                     marginBottom={4}

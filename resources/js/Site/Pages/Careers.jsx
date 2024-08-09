@@ -149,7 +149,7 @@ const Careers = () => {
   }
 
   return (
-    <Box sx={{ padding: 4 }}>
+    <Box padding={{lg:5,md:4,sm:3,xs:2}}>
       <ToastContainer />
       <Typography className="page-main-heading page-heading"  variant="h1" textAlign="center" gutterBottom
       marginBottom={{ xs: 1, md: 3, lg: 5 }}>

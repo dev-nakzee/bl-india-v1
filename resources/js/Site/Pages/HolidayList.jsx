@@ -1,3 +1,5 @@
+
+// export default HolidayList;
 import React, { useState, useEffect } from "react";
 import {
     Box,
@@ -23,18 +25,18 @@ const HolidayList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
     useEffect(() => {
         fetchHolidayList();
     }, []);
+
     const Sidebar = styled(Box)(({ theme }) => ({
         width: "auto",
         height: "fit-content",
         position: "sticky",
         top: "20px",
         overflowY: "auto",
-        // height:'100%',
-        // 
         [theme.breakpoints.down("sm")]: {
             width: "100%", // Make sidebar full width on small screens
             position: "static", // Remove sticky positioning on small screens
@@ -61,21 +63,30 @@ const HolidayList = () => {
         }
     };
 
-    const groupHolidaysByMonth = () => {
+    const groupHolidaysByMonthAndYear = () => {
         return holidays.reduce((acc, holiday) => {
-            const month = new Date(holiday.date).getMonth();
-            if (!acc[month]) {
-                acc[month] = [];
+            const date = new Date(holiday.date);
+            const month = date.getMonth();
+            const year = date.getFullYear();
+
+            if (year === selectedYear) {
+                if (!acc[month]) {
+                    acc[month] = [];
+                }
+                acc[month].push(holiday);
             }
-            acc[month].push(holiday);
             return acc;
         }, {});
     };
 
-    const holidaysByMonth = groupHolidaysByMonth();
+    const holidaysByMonthAndYear = groupHolidaysByMonthAndYear();
 
     const handleMonthClick = (month) => {
         setSelectedMonth(month);
+    };
+
+    const handleYearChange = (year) => {
+        setSelectedYear(year);
     };
 
     const tileClassName = ({ date, view }) => {
@@ -150,7 +161,7 @@ const HolidayList = () => {
         return null; // Or return a fallback UI if needed
     }
 
-    const currentMonthHolidays = holidaysByMonth[selectedMonth] || [];
+    const currentMonthHolidays = holidaysByMonthAndYear[selectedMonth] || [];
 
     return (
         <>
@@ -160,58 +171,58 @@ const HolidayList = () => {
                 <meta name="keywords" content={pageData.seo_keywords} />
             </Helmet>
             <>
-                <Box sx={{ padding: 4 }} className="holiday-list">
+                <Box padding={{lg:5,md:4,sm:3,xs:2}} className="holiday-list">
                     <Typography
-                          className="page-main-heading page-heading"
-                    variant="h1"
+                        className="page-main-heading page-heading"
+                        variant="h1"
                         textAlign="center"
                         gutterBottom
                         marginBottom={5}
                     >
-                    <Typography
-                                        variant="h4"
-                                        textAlign="center"
-                                        gutterBottom
-                                    >
-                                        {pageData.name}
-                                    </Typography>
+                        <Typography
+                            variant="h4"
+                            textAlign="center"
+                            gutterBottom
+                        >
+                            {pageData.name}
+                        </Typography>
                     </Typography>
                     <Grid container spacing={4}>
                         <Grid item xs={12} md={3}>
                             <Sidebar className="Service-section-siderbar">
-                              <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
-
-                                <List>
-                                <Typography
-                                        variant="h6"
-                                        textAlign="left"
-                                        gutterBottom
-                                    >
-                                    Holidays for Month
-                                    </Typography> 
-                                    {currentMonthHolidays.map((holiday) => (
-                                        <ListItem key={holiday.id} sx={{paddingLeft:0}}>
-                                            <ListItemText
-                                                primary={holiday.title}
-                                                secondary={`${formatDateToIST(
-                                                    holiday.date
-                                                )}`}
-                                            />
-                                        </ListItem>
-                                    ))}
-                                </List>
+                                <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
+                                    <List>
+                                        <Typography
+                                            variant="h6"
+                                            textAlign="left"
+                                            gutterBottom
+                                        >
+                                            Holidays for Month
+                                        </Typography>
+                                        {currentMonthHolidays.map((holiday) => (
+                                            <ListItem key={holiday.id} sx={{paddingLeft:0}}>
+                                                <ListItemText
+                                                    primary={holiday.title}
+                                                    secondary={`${formatDateToIST(
+                                                        holiday.date
+                                                    )}`}
+                                                />
+                                            </ListItem>
+                                        ))}
+                                    </List>
                                 </Box>
                             </Sidebar>
                         </Grid>
                         <Grid item xs={12} md={9}>
                             <Calendar
                                 tileClassName={tileClassName}
-                                activeStartDate={new Date(2024, selectedMonth)}
+                                activeStartDate={new Date(selectedYear, selectedMonth)}
                                 onActiveStartDateChange={({
                                     activeStartDate,
-                                }) =>
-                                    handleMonthClick(activeStartDate.getMonth())
-                                }
+                                }) => {
+                                    handleMonthClick(activeStartDate.getMonth());
+                                    handleYearChange(activeStartDate.getFullYear());
+                                }}
                                 locale="en-IN"
                             />
                         </Grid>
@@ -223,3 +234,4 @@ const HolidayList = () => {
 };
 
 export default HolidayList;
+

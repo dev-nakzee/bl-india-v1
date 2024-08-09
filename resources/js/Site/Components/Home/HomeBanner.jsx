@@ -7,9 +7,9 @@ import SearchField from '../Search/SearchField';
 
 const Banner = styled(Box)(({ theme }) => ({
     position: 'relative',
-    height: '70vh', // Set height to full viewport height
+    height: '55vh', // Set height to full viewport height
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundPosition: 'right',
     display: 'flex',
     justifyContent: 'flex-start', // Align content to the left
     alignItems: 'center',
@@ -17,8 +17,14 @@ const Banner = styled(Box)(({ theme }) => ({
     overflow: 'hidden', // Ensure the content stays within the bounds
     margin: 0, // Remove margins
     padding: 0, // Remove padding
+    [theme.breakpoints.down('md')]: {
+        height: '45vh', // Adjust height for smaller screens
+    },
     [theme.breakpoints.down('sm')]: {
-        height: '50vh', // Adjust height for smaller screens
+        height: '30vh', // Adjust height for smaller screens
+    },
+    [theme.breakpoints.down('xs')]: {
+        height: '25vh', // Adjust height for smaller screens
     },
 }));
 
@@ -66,6 +72,8 @@ const HomeBanner = () => {
         <Banner className="Banner-section"
             sx={{ backgroundImage: `url(${bannerData.image_url})` }}
         >
+            <Typography variant="h1" className='d-none'>Brand Liaison
+                    </Typography>
             <Content className='Banner-section-content-fix'>
                 <div className='banner-content-text' sx={{ width: '60%' }}>
                     {parse(bannerData.content)}

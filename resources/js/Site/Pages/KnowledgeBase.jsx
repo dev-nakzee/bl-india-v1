@@ -112,7 +112,7 @@ const KnowledgeBase = () => {
       </Helmet>
       {/* <img src={know_bg} alt="careers_bg" className='knowledge_bg' /> */}
 
-      <Box sx={{ padding: 4 }}>
+      <Box padding={{lg:5,md:4,sm:3,xs:2}}>
       <Typography   className="page-main-heading page-heading"
                     variant="h1" textAlign="center" gutterBottom marginBottom={4}>
           {pageData.name}

@@ -139,7 +139,7 @@ const HomeAbout = () => {
                     </Grid>
                     <AboutContent className="">
                         <Typography
-                            variant="h3"
+                            variant="h4"
                             marginBlock={{xs:1,md:2}}
                             sx={{ display: { xs: "none", md: "block" } }}
                         >

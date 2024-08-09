@@ -47,7 +47,7 @@ const NotificationDetails = () => {
         <meta name="description" content={notification.seo_description} />
         <meta name="keywords" content={notification.seo_keywords} />
       </Helmet>
-      <Box className="notification-details" sx={{ padding: 4 }}>
+      <Box className="notification-details" padding={{lg:5,md:4,sm:3,xs:2}}>
         <Typography    className="page-main-heading page-heading"
                     variant="h1" textAlign="center" gutterBottom marginBottom={5}>
           {notification.name}
