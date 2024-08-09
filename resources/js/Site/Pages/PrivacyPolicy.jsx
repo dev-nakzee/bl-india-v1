@@ -53,7 +53,7 @@ const PrivacyPolicy = () => {
                 <meta name="keywords" content={pageData.page.seo_keywords} />
             </Helmet>
 
-            <Box sx={{ padding: 4 }} className="privacy-policy">
+            <Box padding={{lg:5,md:4,sm:3,xs:2}} className="privacy-policy">
                 <Typography
                     className="page-main-heading page-heading"
                     variant="h1"

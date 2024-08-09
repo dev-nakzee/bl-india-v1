@@ -725,6 +725,9 @@ th {
     .schedule-section-call-details h3{
         padding-left:0;
     }
+    .product-name {
+        font-size: 13px !important;
+    }
 
     .navbar-icon {
         height: 30px;

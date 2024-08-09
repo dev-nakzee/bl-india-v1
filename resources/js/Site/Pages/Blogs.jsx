@@ -141,6 +141,8 @@ const Blogs = () => {
                             image={"https://in.bl-india.com/" + blog.image_url}
                             alt={blog.image_alt}
                             className="cardmedia"
+                            sx={{  backgroundSize: 'cover', objectFit: 'unset'}}
+
                         />
                         <CardContent>
                             <Typography
@@ -176,7 +178,7 @@ const Blogs = () => {
                 <meta name="description" content={pageData.seo_description} />
                 <meta name="keywords" content={pageData.seo_keywords} />
             </Helmet>
-            <Box sx={{ padding: 4 }} className="blog-page">
+            <Box padding={{lg:5,md:4,sm:3,xs:2}} className="blog-page">
                 <Box
                     sx={{
                         display: "flex",
