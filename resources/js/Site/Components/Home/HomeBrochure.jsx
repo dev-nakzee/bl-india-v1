@@ -79,7 +79,13 @@ const HomeBrochure = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        // Filter out non-numeric characters from phone input
+        if (name === "phone") {
+            const filteredValue = value.replace(/\D/g, ''); // Remove non-digit characters
+            setFormData({ ...formData, [name]: filteredValue });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const handleOtpChange = (e) => {
@@ -251,6 +257,7 @@ const HomeBrochure = () => {
                                             <TextField
                                                 label="Phone"
                                                 name="phone"
+                                                type="tel"
                                                 value={formData.phone}
                                                 onChange={handleInputChange}
                                                 fullWidth

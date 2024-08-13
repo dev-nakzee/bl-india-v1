@@ -9,10 +9,12 @@ import {
     IconButton,
     MenuItem,
     CircularProgress,
+    InputAdornment,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { countries } from "country-data"; // Import country data
 
 const sources = [
     "Social Media",
@@ -30,6 +32,7 @@ const DownloadBrochure = () => {
         company: "",
         email: "",
         phone: "",
+        countryCode: "+1", // Default to USA
         service: "",
         source: "",
     });
@@ -61,14 +64,19 @@ const DownloadBrochure = () => {
         }
         setIsDrawerOpen(open);
         if (!open) {
-            setShowOtpInput(false); // Reset OTP input on close
-            setStatusMessage(""); // Clear messages on close
+            setShowOtpInput(false);
+            setStatusMessage("");
         }
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        if (name === "phone") {
+            const filteredValue = value.replace(/\D/g, '');
+            setFormData({ ...formData, [name]: filteredValue });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const handleOtpChange = (e) => {
@@ -164,11 +172,31 @@ const DownloadBrochure = () => {
                             />
                             <TextField
                                 label="Phone"
+                                type="tel"
                                 name="phone"
                                 fullWidth
                                 required
                                 value={formData.phone}
                                 onChange={handleChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <TextField
+                                                select
+                                                name="countryCode"
+                                                value={formData.countryCode}
+                                                onChange={handleChange}
+                                                variant="standard"
+                                            >
+                                                {countries.all.map((country) => (
+                                                    <MenuItem key={country.alpha2} value={country.countryCallingCodes[0]}>
+                                                        {country.countryCallingCodes[0]} ({country.name})
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                        </InputAdornment>
+                                    ),
+                                }}
                                 sx={{ mb: 2 }}
                             />
                             <TextField
@@ -182,10 +210,7 @@ const DownloadBrochure = () => {
                                 sx={{ mb: 2 }}
                             >
                                 {services.map((service) => (
-                                    <MenuItem
-                                        key={service.id}
-                                        value={service.name}
-                                    >
+                                    <MenuItem key={service.id} value={service.name}>
                                         {service.name}
                                     </MenuItem>
                                 ))}
