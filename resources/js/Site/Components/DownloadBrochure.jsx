@@ -95,7 +95,14 @@ const DownloadBrochure = () => {
                 otp: otp,
             });
             setStatusMessage("OTP verified successfully.");
-            setIsDrawerOpen(false);
+            if (response.data.token) {
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem(
+                    "client",
+                    JSON.stringify(response.data.client)
+                );
+                navigate("/account/brochures");
+            }
         } catch (error) {
             setStatusMessage("Failed to verify OTP.");
         }
