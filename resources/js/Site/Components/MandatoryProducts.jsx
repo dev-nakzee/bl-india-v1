@@ -139,7 +139,7 @@ const MandatoryProducts = ({ serviceId }) => {
       ),
     };
     const eeeCodeColumn = {
-      field: "product_eeeCode",
+      field: "product_others",
       headerName: "EEE Code",
       flex: 1,
       minWidth: 100,
