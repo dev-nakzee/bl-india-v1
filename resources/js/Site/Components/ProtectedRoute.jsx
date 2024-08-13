@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
+// LoginPrompt component
+const LoginPrompt = () => {
+  const navigate = useNavigate();
+
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', textAlign: 'center' }}>
+      <p>Please register or login to access this page.</p>
+    </Box>
+  );
+};
+
+// ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isValid, setIsValid] = useState(false);
@@ -33,7 +46,7 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
-  return isValid ? children : <Navigate to="/" />;
+  return isValid ? children : <LoginPrompt />;
 };
 
 export default ProtectedRoute;

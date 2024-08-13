@@ -68,16 +68,18 @@ function App() {
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/account" element={
               <ProtectedRoute>
-                <AccountLayout />
+                <AccountLayout>
+                  <Routes>
+                    <Route index element={<Account />} />
+                    <Route path="comments" element={<Comments />} />
+                    <Route path="brochures" element={<Brochures />} />
+                    <Route path="tutorials" element={<Tutorials />} />
+                    <Route path="projects" element={<Projects />} />
+                    <Route path="profile" element={<Profile />} />
+                  </Routes>
+                </AccountLayout>
               </ProtectedRoute>
-            }>
-              <Route index element={<Account />} />
-              <Route path="comments" element={<Comments />} />
-              <Route path="brochures" element={<Brochures />} />
-              <Route path="tutorials" element={<Tutorials />} />
-              <Route path="projects" element={<Projects />} />
-              <Route path="profile" element={<Profile />} />
-            </Route>
+            } />
             <Route path="/password-reset/:token" element={<ResetPassword />} />
           </Routes>
         </Layout>
