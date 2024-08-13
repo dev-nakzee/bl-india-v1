@@ -7,7 +7,7 @@ import SearchField from '../Search/SearchField';
 
 const Banner = styled(Box)(({ theme }) => ({
     position: 'relative',
-    height: '55vh', // Set height to full viewport height
+    height: '75vh', // Set height to full viewport height
     backgroundSize: 'cover',
     backgroundPosition: 'right',
     display: 'flex',
