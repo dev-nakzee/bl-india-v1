@@ -1,4 +1,3 @@
-import '../bootstrap';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from '@mui/material/styles';
@@ -41,7 +40,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <ScrollToTop /> {/* Add ScrollToTop component here */}
+        <ScrollToTop />
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -50,17 +49,17 @@ function App() {
             <Route path="/services/:categorySlug" element={<Services />} />
             <Route path="/services/:categorySlug/:slug" element={<ServiceDetails />} />
             <Route path="/products/:slug" element={<ProductDetails />} />
-            <Route path='/notifications' element={<Notifications />} />
-            <Route path='/notifications/:categorySlug' element={<Notifications />} />
-            <Route path='/notifications/:categorySlug/:slug' element={<NotificationDetails />} />
-            <Route path='/blogs' element={<Blogs />} />
-            <Route path='/blogs/:categorySlug' element={<Blogs />} />
-            <Route path='/blogs/:categorySlug/:blogSlug' element={<BlogDetails />} />
-            <Route path='/gallery' element={<Gallery />} />
-            <Route path='/terms-conditions' element={<TermCondition />} />
-            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-            <Route path='/website-disclaimer' element={<WebsiteDisclaimer />} />
-            <Route path='/holiday-list' element={<HolidayList />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/notifications/:categorySlug" element={<Notifications />} />
+            <Route path="/notifications/:categorySlug/:slug" element={<NotificationDetails />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:categorySlug" element={<Blogs />} />
+            <Route path="/blogs/:categorySlug/:blogSlug" element={<BlogDetails />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/terms-conditions" element={<TermCondition />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/website-disclaimer" element={<WebsiteDisclaimer />} />
+            <Route path="/holiday-list" element={<HolidayList />} />
             <Route path="/knowledge-base" element={<KnowledgeBase />} />
             <Route path="/knowledge-base/:categorySlug" element={<KnowledgeBaseCategory />} />
             <Route path="/careers" element={<Careers />} />
@@ -68,16 +67,16 @@ function App() {
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/account" element={
               <ProtectedRoute>
-                <AccountLayout />
+                <AccountLayout>
                   <Routes>
                     <Route index element={<Account />} />
-                    <Route path="account/comments" element={<Comments />} />
-                    <Route path="account/brochures" element={<Brochures />} />
-                    <Route path="account/tutorials" element={<Tutorials />} />
-                    <Route path="account/projects" element={<Projects />} />
-                    <Route path="account/profile" element={<Profile />} />
+                    <Route path="comments" element={<Comments />} />
+                    <Route path="brochures" element={<Brochures />} />
+                    <Route path="tutorials" element={<Tutorials />} />
+                    <Route path="projects" element={<Projects />} />
+                    <Route path="profile" element={<Profile />} />
                   </Routes>
-                {/* </AccountLayout> */}
+                </AccountLayout>
               </ProtectedRoute>
             } />
             <Route path="/password-reset/:token" element={<ResetPassword />} />
