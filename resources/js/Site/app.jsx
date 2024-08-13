@@ -71,11 +71,11 @@ function App() {
                 <AccountLayout>
                   <Routes>
                     <Route index element={<Account />} />
-                    <Route path="comments" element={<Comments />} />
-                    <Route path="brochures" element={<Brochures />} />
-                    <Route path="tutorials" element={<Tutorials />} />
-                    <Route path="projects" element={<Projects />} />
-                    <Route path="profile" element={<Profile />} />
+                    <Route path="account/comments" element={<Comments />} />
+                    <Route path="account/brochures" element={<Brochures />} />
+                    <Route path="account/tutorials" element={<Tutorials />} />
+                    <Route path="account/projects" element={<Projects />} />
+                    <Route path="account/profile" element={<Profile />} />
                   </Routes>
                 </AccountLayout>
               </ProtectedRoute>
