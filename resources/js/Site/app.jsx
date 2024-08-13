@@ -68,7 +68,7 @@ function App() {
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/account" element={
               <ProtectedRoute>
-                <AccountLayout>
+                <AccountLayout />
                   <Routes>
                     <Route index element={<Account />} />
                     <Route path="account/comments" element={<Comments />} />
@@ -77,7 +77,7 @@ function App() {
                     <Route path="account/projects" element={<Projects />} />
                     <Route path="account/profile" element={<Profile />} />
                   </Routes>
-                </AccountLayout>
+                {/* </AccountLayout> */}
               </ProtectedRoute>
             } />
             <Route path="/password-reset/:token" element={<ResetPassword />} />
