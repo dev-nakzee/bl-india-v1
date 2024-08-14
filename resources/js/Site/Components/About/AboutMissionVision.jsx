@@ -59,7 +59,7 @@ const AboutMissionVision = () => {
 
     return (
         <MissionVisionSection>
-            <Grid container spacing={4} alignItems="center">
+            <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} md={12}>
                     <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, background: '#0D629A', maxWidth: 280, color: '#ffffff', margin: 'auto', borderRadius: 20 }}>
                         {missionVisionData.tag_line}
@@ -67,8 +67,7 @@ const AboutMissionVision = () => {
                     <Typography variant="h4" sx={{ textAlign: 'center', mt: 2}}>
                         {missionVisionData.title}
                     </Typography>
-                </Grid>
-        
+                </Grid>        
                 <Grid item xs={12} md={6}>
                     <MissionVisionContent>
                         <Box className="mission-vision-content">

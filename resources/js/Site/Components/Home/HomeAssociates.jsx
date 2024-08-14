@@ -78,7 +78,7 @@ const HomeAssociates = () => {
                     <AssociatesContent>
                         <Grid container spacing={2}>
                             {associates.map((associate) => (
-                                <Grid item xs={6} md={3} key={associate.id}>
+                                <Grid item xs={6} sm={3} md={3}  key={associate.id}>
                                     <img src={'https://in.bl-india.com/' + associate.image_url} alt={associate.image_alt} style={{ height: '100px' }} />
                                 </Grid>
                             ))}

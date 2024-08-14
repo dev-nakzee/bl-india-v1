@@ -708,6 +708,8 @@ th {
     .ql-align-justify img {
         width: 100%;
     }
+    .slick-prev, .slick-next {display: none !important;}
+    .scrolltopbutton{bottom:66px !important;}
 
     .drawer-container .MuiPaper-root.MuiPaper-elevation.MuiDrawer-paper {
         position: fixed;
@@ -860,6 +862,7 @@ th {
         width: 100%;
         overflow-x: auto;
     }
+    p>img{max-width: 100%;}
 
     .table-row,
     .table-pagination,

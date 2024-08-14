@@ -332,10 +332,11 @@ const Blogs = () => {
                                 <Box
                                     sx={{
                                         display: "flex",
-                                        justifyContent: "end",
+                                        justifyContent: "space-between",
                                         mt: 4,
                                     }}
                                 >
+                                    <BackButton />
                                     <Pagination
                                         count={Math.ceil(
                                             filteredBlogs.length / blogsPerPage
@@ -346,9 +347,6 @@ const Blogs = () => {
                                     />
                                 </Box>
 
-                                <Box sx={{ display: "flex" }}>
-                                    <BackButton />
-                                </Box>
                             </Grid>
                         </>
                     )}
