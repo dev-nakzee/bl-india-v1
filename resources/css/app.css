@@ -852,6 +852,7 @@ th {
     .slick-next {
         bottom: 0;
     }
+    .downloads .MuiTablePagination-actions{margin-left: 5px !important;}
     .MuiTypography-subtitle1 {
         width: 100% !important;
     }
