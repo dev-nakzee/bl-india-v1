@@ -171,8 +171,8 @@ const Services = () => {
             >
                 <Box flexDirection={"column"}>
                     <Typography
-                          className="page-main-heading page-heading"
-                    variant="h1"
+                        className="page-main-heading page-heading"
+                        variant="h1"
                         textAlign="center"
                         gutterBottom
                     >
@@ -270,8 +270,7 @@ const Services = () => {
                                             key={service.id}
                                             xs={12}
                                             sm={6}
-                                            lg={3}
-                                            xl={4}
+                                            lg={4}
                                         >
                                             <ServiceCard>
                                                 <Box
@@ -298,13 +297,13 @@ const Services = () => {
                                                         }}
                                                     >
                                                         <Typography
-                                                            variant="h6"
+                                                            variant="bodytext"
                                                             component="h6"
                                                             sx={{
                                                                 marginLeft:
                                                                     "5px",
-                                                                marginBottom:
-                                                                    "5px",
+                                                                // marginBottom:
+                                                                //     "5px",
                                                                 color: "#0D629A",
                                                                 fontWeight: 600,
                                                             }}
@@ -312,7 +311,7 @@ const Services = () => {
                                                             {service.name}
                                                         </Typography>
                                                         <Typography
-                                                            variant="bodytext"
+                                                            variant="caption"
                                                             component="p"
                                                             sx={{
                                                                 marginLeft:
@@ -344,6 +343,7 @@ const Services = () => {
                                                     <Button
                                                         sx={{
                                                             marginTop: "15px",
+                                                            fontSize: "12px",
                                                         }}
                                                         variant="outlined"
                                                         component={Link}

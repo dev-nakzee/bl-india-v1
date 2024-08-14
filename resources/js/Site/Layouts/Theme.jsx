@@ -192,7 +192,7 @@ const theme = createTheme({
       fontWeight: 500,
       fontSize: "1.4rem",
       "@media (min-width: 360px)": {
-        fontSize: "1.1rem", // Font size for h1 on small devices (e.g., mobile)
+        fontSize: "1.16rem", // Font size for h1 on small devices (e.g., mobile)
       },
       "@media (min-width: 960px)": {
         fontSize: "1.2rem", // Font size for h1 on medium devices (e.g., tablets)

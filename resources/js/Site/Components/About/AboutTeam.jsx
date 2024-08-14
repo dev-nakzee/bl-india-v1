@@ -21,7 +21,7 @@ const TeamCard = styled(Card)(({ theme }) => ({
 
 const TeamImage = styled(CardMedia)(({ theme }) => ({
     minHeight: '300px',
-    width: '300px',
+    width: '250px',
     objectFit: 'cover',
     borderBottomRightRadius:'220px',
 }));
