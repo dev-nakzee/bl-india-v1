@@ -238,7 +238,7 @@ const theme = createTheme({
         fontSize: "1rem", // Font size for h1 on medium devices (e.g., tablets)
       },
       "@media (min-width: 1280px)": {
-        fontSize: "1.1rem", // Font size for h1 on large devices (e.g., desktop)
+        fontSize: "1.16rem", // Font size for h1 on large devices (e.g., desktop)
       },
     },
     captionbold: {
