@@ -53,7 +53,7 @@ class BlogController extends Controller
             return BlogCategory::orderBy('id', 'asc')->get();
         });
         $comments = BlogComment::where('blog_id', $blog->id)->where('is_approved', true)->with('client')->get();
-        $blog->content = $this->translateHtmlContent($blog->content);
+        // $blog->content = $this->translateHtmlContent($blog->content);
 
         return response()->json(['blog' => $blog, 'categories' => $categories, 'comments' => $comments]);
     }

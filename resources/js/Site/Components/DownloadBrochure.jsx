@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     Button,
@@ -9,12 +9,12 @@ import {
     IconButton,
     MenuItem,
     CircularProgress,
+    InputAdornment,
 } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import apiClient from "../Services/api"; // Ensure the import path is correct
+import apiClient from "../Services/api"; // Ensure this is your configured axios instance
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { countries } from "country-data"; // Import country data
 
 const sources = [
     "Social Media",
@@ -32,50 +32,25 @@ const DownloadBrochure = () => {
         company: "",
         email: "",
         phone: "",
+        countryCode: "+1", // Default to USA
         service: "",
         source: "",
     });
+    const [otp, setOtp] = useState("");
+    const [showOtpInput, setShowOtpInput] = useState(false);
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [statusMessage, setStatusMessage] = useState("");
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
-    const toggleDrawer = (open) => (event) => {
-        if (
-            event &&
-            event.type === "keydown" &&
-            (event.key === "Tab" || event.key === "Shift")
-        ) {
-            return;
-        }
-        setIsDrawerOpen(open);
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            // Implement actual API submission logic here
-            toast.success("Brochure request submitted successfully");
-            setIsDrawerOpen(false);
-        } catch (error) {
-            toast.error("Error submitting brochure request");
-            console.error("Error submitting brochure request:", error);
-        }
-    };
-
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchServices = async () => {
             try {
                 const response = await apiClient.get("/services");
-                setServices(response.data.services); // Assuming the response body will have a services array
+                setServices(response.data.services);
                 setLoading(false);
             } catch (error) {
-                toast.error("Failed to load services");
-                console.error("Error fetching services:", error);
+                setStatusMessage("Failed to load services.");
                 setLoading(false);
             }
         };
@@ -83,25 +58,89 @@ const DownloadBrochure = () => {
         fetchServices();
     }, []);
 
+    const toggleDrawer = (open) => (event) => {
+        if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+            return;
+        }
+        setIsDrawerOpen(open);
+        if (!open) {
+            setShowOtpInput(false);
+            setStatusMessage("");
+        }
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === "phone") {
+            const filteredValue = value.replace(/\D/g, '');
+            setFormData({ ...formData, [name]: filteredValue });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
+    };
+
+    const handleOtpChange = (e) => {
+        setOtp(e.target.value);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatusMessage("Sending OTP...");
+        try {
+            const response = await apiClient.post("/request-otp", formData);
+            setStatusMessage("OTP has been sent to your email.");
+            setShowOtpInput(true);
+        } catch (error) {
+            setStatusMessage("Failed to send OTP.");
+        }
+    };
+
+    const verifyOtp = async () => {
+        setStatusMessage("Verifying OTP...");
+        try {
+            const response = await apiClient.post("/verify-otp", {
+                email: formData.email,
+                otp: otp,
+            });
+            setStatusMessage("OTP verified successfully.");
+            if (response.data.token) {
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem(
+                    "client",
+                    JSON.stringify(response.data.client)
+                );
+                navigate("/account/brochures");
+            }
+        } catch (error) {
+            setStatusMessage("Failed to verify OTP.");
+        }
+    };
+
     return (
         <>
-            <Drawer
-                anchor="right"
-                open={isDrawerOpen}
-                onClose={toggleDrawer(false)}
-            >
-                <Box sx={{display:'flex',justifyContent:'flex-end'}}>
-                <IconButton onClick={toggleDrawer(false)}>
+            <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
+                <IconButton onClick={toggleDrawer(false)} sx={{ justifyContent: 'flex-end' }}>
                     <CloseIcon />
                 </IconButton>
-                </Box>
-               
                 <Container sx={{ width: 350, padding: 4 }}>
-                    <Typography variant="h6" mb={2}>
-                        Request Brochure
-                    </Typography>
+                    <Typography variant="h6" mb={2}>Request Brochure</Typography>
                     {loading ? (
                         <CircularProgress />
+                    ) : showOtpInput ? (
+                        <Box component="form" onSubmit={verifyOtp}>
+                            <TextField
+                                label="OTP"
+                                type="text"
+                                fullWidth
+                                required
+                                value={otp}
+                                onChange={handleOtpChange}
+                                sx={{ mb: 2 }}
+                            />
+                            <Button type="submit" variant="contained" color="primary" fullWidth>
+                                Verify OTP
+                            </Button>
+                        </Box>
                     ) : (
                         <form onSubmit={handleSubmit}>
                             <TextField
@@ -133,11 +172,31 @@ const DownloadBrochure = () => {
                             />
                             <TextField
                                 label="Phone"
+                                type="tel"
                                 name="phone"
                                 fullWidth
                                 required
                                 value={formData.phone}
                                 onChange={handleChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <TextField
+                                                select
+                                                name="countryCode"
+                                                value={formData.countryCode}
+                                                onChange={handleChange}
+                                                variant="standard"
+                                            >
+                                                {countries.all.map((country) => (
+                                                    <MenuItem key={country.alpha2} value={country.countryCallingCodes[0]}>
+                                                        {country.countryCallingCodes[0]} ({country.name})
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                        </InputAdornment>
+                                    ),
+                                }}
                                 sx={{ mb: 2 }}
                             />
                             <TextField
@@ -151,10 +210,7 @@ const DownloadBrochure = () => {
                                 sx={{ mb: 2 }}
                             >
                                 {services.map((service) => (
-                                    <MenuItem
-                                        key={service.id}
-                                        value={service.name}
-                                    >
+                                    <MenuItem key={service.id} value={service.name}>
                                         {service.name}
                                     </MenuItem>
                                 ))}
@@ -167,62 +223,42 @@ const DownloadBrochure = () => {
                                 required
                                 value={formData.source}
                                 onChange={handleChange}
-                                sx={{ mb: 2, zIndex: 1203 }}
+                                sx={{ mb: 2 }}
                             >
                                 {sources.map((source) => (
-                                    <MenuItem
-                                        key={source}
-                                        value={source}
-                                        sx={{ zIndex: 1203 }}
-                                    >
+                                    <MenuItem key={source} value={source}>
                                         {source}
                                     </MenuItem>
                                 ))}
                             </TextField>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                fullWidth
-                            >
-                                Submit
+                            <Button type="submit" variant="contained" color="primary" fullWidth>
+                                Submit Request
                             </Button>
                         </form>
+                    )}
+                    {statusMessage && (
+                        <Typography color="error" variant="body2" mt={2}>
+                            {statusMessage}
+                        </Typography>
                     )}
                 </Container>
             </Drawer>
             {isMobile ? (
-                <>
-                    <Button
-                        onClick={toggleDrawer(true)}
-                        variant="contained"
-                        color="primary"
-                        mb={1}
-                    >
+                <Button onClick={toggleDrawer(true)} variant="contained" color="primary" mb={1}>
+                    Request Brochure
+                </Button>
+            ) : (
+                <Box sx={{ textAlign: "left", padding: 2 }}>
+                    <Typography variant="h6" mb={1} mt={4}>
+                        Download Brochures
+                    </Typography>
+                    <Typography variant="body1" mb={1}>
+                        Please fill out the form below to request a brochure for your business.
+                    </Typography>
+                    <Button onClick={toggleDrawer(true)} variant="contained" color="primary" mb={1}>
                         Request Brochure
                     </Button>
-                </>
-            ) : (
-                <>
-                    <ToastContainer />
-                    <Box sx={{ textAlign: "left", padding: 2 }}>
-                        <Typography variant="h6" mb={1} mt={4}>
-                            Download Brochures
-                        </Typography>
-                        <Typography variant="body1" mb={1}>
-                            Please fill out the form below to request a brochure
-                            for your business.
-                        </Typography>
-                        <Button
-                            onClick={toggleDrawer(true)}
-                            variant="contained"
-                            color="primary"
-                            mb={1}
-                        >
-                            Request Brochure
-                        </Button>
-                    </Box>
-                </>
+                </Box>
             )}
         </>
     );
