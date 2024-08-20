@@ -131,7 +131,7 @@ const Downloads = () => {
                 <meta name="description" content={data.page.seo_description} />
                 <meta name="keywords" content={data.page.seo_keywords} />
             </Helmet>
-            <Box padding={{lg:5,md:4,sm:3,xs:2}}>
+            <Box padding={{lg:5,md:4,sm:3,xs:2}} className="downloads">
                 <Typography
                     className="page-main-heading page-heading"
                     variant="h1"

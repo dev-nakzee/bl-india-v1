@@ -699,7 +699,6 @@ th {
     .product-name {
         font-size: 12px !important;
     }
- 
 }
 
 @media (max-width: 767px) {
@@ -709,6 +708,8 @@ th {
     .ql-align-justify img {
         width: 100%;
     }
+    .slick-prev, .slick-next {display: none !important;}
+    .scrolltopbutton{bottom:66px !important;}
 
     .drawer-container .MuiPaper-root.MuiPaper-elevation.MuiDrawer-paper {
         position: fixed;
@@ -727,8 +728,8 @@ th {
         max-width: 100%;
         width: 100%;
     }
-    .schedule-section-call-details h3{
-        padding-left:0;
+    .schedule-section-call-details h3 {
+        padding-left: 0;
     }
     .product-name {
         font-size: 13px !important;
@@ -748,8 +749,8 @@ th {
     .banner-content-text {
         color: var(--primary-color);
         font-family: "Raleway", "Roboto", "Poppins", sans-serif;
-        line-height: 1.25;
-        width: 100%;
+        line-height: 1.5;
+        width: 95%;
     }
 
     .box-about {
@@ -851,6 +852,7 @@ th {
     .slick-next {
         bottom: 0;
     }
+    .downloads .MuiTablePagination-actions{margin-left: 5px !important;}
     .MuiTypography-subtitle1 {
         width: 100% !important;
     }
@@ -861,6 +863,7 @@ th {
         width: 100%;
         overflow-x: auto;
     }
+    p>img{max-width: 100%;}
 
     .table-row,
     .table-pagination,
@@ -870,20 +873,14 @@ th {
         display: flex;
     }
     .react-calendar {
-          font-size: 1.6rem !important;
+        font-size: 1.6rem !important;
         padding: 1.6rem;
     }
     .react-calendar__navigation button {
         font-size: 1.5rem !important;
         min-width: 20px;
     }
-
 }
-
-
-
-
-
 
 .my-masonry-grid {
     display: flex;

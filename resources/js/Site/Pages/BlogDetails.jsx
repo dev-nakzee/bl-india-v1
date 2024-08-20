@@ -163,6 +163,7 @@ const BlogDetails = () => {
                 <meta name="keywords" content={blog.seo_keywords} />
             </Helmet>
             <Box padding={{lg:5,md:4,sm:3,xs:2}}>
+                
                 <Typography
                     className="page-heading"
                     variant="h4"

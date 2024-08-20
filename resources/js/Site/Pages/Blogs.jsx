@@ -152,12 +152,22 @@ const Blogs = () => {
                             >
                                 {blog.name}
                             </Typography>
-                            <Typography variant="body2" color="textSecondary">
+                            <Typography variant="body2" color="textSecondary"
+                             sx={{
+                               
+                                display:
+                                    "-webkit-box",
+                                WebkitBoxOrient:
+                                    "vertical",
+                                WebkitLineClamp: 3,
+                                overflow: "hidden",
+                            }}
+                            >
                                 {blog.seo_description}
                             </Typography>
                             <CardActions>
                                 <Button
-                                    sx={{ marginTop: "15px" }}
+                                    // sx={{ marginTop: "15px" }}
                                     variant="outlined"
                                     component={MuiLink}
                                     href={`/blogs/${blog.blog_category.slug}/${blog.slug}`}
@@ -322,10 +332,11 @@ const Blogs = () => {
                                 <Box
                                     sx={{
                                         display: "flex",
-                                        justifyContent: "end",
+                                        justifyContent: "space-between",
                                         mt: 4,
                                     }}
                                 >
+                                    <BackButton />
                                     <Pagination
                                         count={Math.ceil(
                                             filteredBlogs.length / blogsPerPage
@@ -336,9 +347,6 @@ const Blogs = () => {
                                     />
                                 </Box>
 
-                                <Box sx={{ display: "flex" }}>
-                                    <BackButton />
-                                </Box>
                             </Grid>
                         </>
                     )}

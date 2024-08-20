@@ -264,15 +264,15 @@ const Notifications = () => {
           <></>
         )
     }
-      <BackButton />
+      
                         <Box
                             sx={{
                                 display: "flex",
-                                justifyContent: "flex-start",
+                                justifyContent: "space-between",
                                 mt: 4,
                             }}
                         >
-                           
+                           <BackButton />
                             <Pagination
                                 count={Math.ceil(
                                     filteredNotifications.length / notificationsPerPage

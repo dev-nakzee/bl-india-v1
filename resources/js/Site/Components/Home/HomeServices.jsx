@@ -118,11 +118,11 @@ const HomeServices = () => {
                                         }}
                                     >
                                         <Typography
-                                            variant="h6"
+                                            variant="bodytext"
                                             component="h6"
                                             sx={{
                                                 marginLeft: "5px",
-                                                marginBottom: "5px",
+                                                // marginBottom: "5px",
                                                 color: "#0D629A",
                                                 fontWeight: 600,
                                             }}
@@ -130,7 +130,7 @@ const HomeServices = () => {
                                             {service.name}
                                         </Typography>
                                         <Typography
-                                            variant="bodytext"
+                                            variant="caption"
                                             component="p"
                                             sx={{
                                                 marginLeft: "5px",
@@ -160,6 +160,7 @@ const HomeServices = () => {
                                     <Button
                                         variant="outlined"
                                         component={Link}
+                                        sx={{fontSize:'10px'}}
                                         to={`/services/${service.service_category.slug}/${service.slug}`}
                                     >
                                         Learn about {service.name}
