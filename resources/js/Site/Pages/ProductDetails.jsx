@@ -95,8 +95,8 @@ const ProductDetails = () => {
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
       <Box className="product-details" sx={{ padding: isMobile ? 2 : 4 }}>
-      <Typography variant="h1" className='d-none'>Brand Liaison
-      </Typography>
+      {/* <Typography variant="h1" className='d-none'>Brand Liaison
+      </Typography> */}
         <Card className="Product-card" sx={{ marginBottom: isMobile ? 2 : 4 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={3}>
@@ -110,7 +110,7 @@ const ProductDetails = () => {
             <Grid item xs={12} sm={9}>
               <CardContent>
                 <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
-                <Typography variant="subtitle" className='font-bold' sx={{display: 'inline-block' }}>Product Name:</Typography> &nbsp;&nbsp; <Typography variant="h2" className='font-bold product-name' sx={{display: 'inline-block' }}
+                <Typography variant="subtitle" className='font-bold' sx={{display: 'inline-block' }}>Product Name:</Typography> &nbsp;&nbsp; <Typography variant="h1" className='font-bold product-name' sx={{display: 'inline-block' }}
                     >{productData.name}</Typography>
                 </Typography>
                 {productData.technical_name && productData.technical_name !== 'null' && (

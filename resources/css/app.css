@@ -98,6 +98,7 @@ h2 > .ql-size-huge:nth-child(3) {
 }
 .product-name {
     font-size: 16px !important;
+    font-weight: 600 !important;
     color: rgba(0, 0, 0, 0.87) !important;
 }
 
