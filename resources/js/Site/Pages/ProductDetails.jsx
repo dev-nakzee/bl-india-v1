@@ -213,29 +213,31 @@ const ProductDetails = () => {
         </Box>
         {notificationData && notificationData.length > 0 && (
           <Box sx={{ marginTop: 4 }}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               Related Notifications
             </Typography>
             {notificationData.map((notif) => (
-              <Box key={notif.id} sx={{ marginBottom: 2 }}>
+              <Box key={notif.id}>
                 <Typography variant="subtitle">
                   <Button
                     component={Link}
+                    sx={{paddingLeft:0}}
                     to={`/notifications/${notif.notification.category.slug}/${notif.notification.slug}`}
                     // variant="contained"
                   >
                     {notif.notification.name}
+                    
                   </Button>
                 </Typography>
               </Box>
             ))}
           </Box>
         )}
-        
-      </Box>
-      <Box sx={{mb: 2, px: 4}}>
+        <Box sx={{mb: 2, px: 1,pl:0}}>
         <BackButton />
+      </Box> 
       </Box>
+     
     </>
   );
 };

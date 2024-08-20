@@ -666,7 +666,11 @@ th {
         background-image: none;
     }
 }
-@media (min-width: 1024px) and (max-width: 1366px) {
+@media (min-width: 912px) and (max-width: 1366px) {
+    .Banner-section {
+        height: 25vh !important;
+    }
+
     .page-main-heading {
         font-size: 2.4rem !important;
     }
@@ -701,15 +705,20 @@ th {
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px) {   
     .page-main-heading {
         font-size: 1.7rem !important;
     }
     .ql-align-justify img {
         width: 100%;
     }
-    .slick-prev, .slick-next {display: none !important;}
-    .scrolltopbutton{bottom:66px !important;}
+    .slick-prev,
+    .slick-next {
+        display: none !important;
+    }
+    .scrolltopbutton {
+        bottom: 66px !important;
+    }
 
     .drawer-container .MuiPaper-root.MuiPaper-elevation.MuiDrawer-paper {
         position: fixed;
@@ -852,7 +861,9 @@ th {
     .slick-next {
         bottom: 0;
     }
-    .downloads .MuiTablePagination-actions{margin-left: 5px !important;}
+    .downloads .MuiTablePagination-actions {
+        margin-left: 5px !important;
+    }
     .MuiTypography-subtitle1 {
         width: 100% !important;
     }
@@ -863,15 +874,19 @@ th {
         width: 100%;
         overflow-x: auto;
     }
-    p>img{max-width: 100%;}
+    p > img {
+        max-width: 100%;
+    }
 
     .table-row,
-    .table-pagination,
-    th {
+    .table-pagination{
         font-size: 1.2rem !important;
         padding: 5px !important;
         display: flex;
     }
+    .service-section-content table th,
+.Service-section table th  {
+        font-size: 1.2rem !important;}
     .react-calendar {
         font-size: 1.6rem !important;
         padding: 1.6rem;
