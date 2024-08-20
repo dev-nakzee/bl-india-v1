@@ -69,7 +69,7 @@ function App() {
               <Route path="social-media" element={<ProtectedComponent element={<SocialMedia />} allowedUserTypes={['admin']} />} />
               <Route path="pages" element={<ProtectedComponent element={<Pages />} allowedUserTypes={['admin']} />} />
               <Route path="pages/sections" element={<ProtectedComponent element={<PageSections />} allowedUserTypes={['admin']} />} />
-              <Route path="blogs" element={<ProtectedComponent element={<BlogPosts />} allowedUserTypes={['admin']} />} />
+              <Route path="blogs" element={<ProtectedComponent element={<BlogPosts />} allowedUserTypes={['admin', 'user']} />} />
               <Route path="blogs/categories" element={<ProtectedComponent element={<BlogCategories />} allowedUserTypes={['admin']} />} />
               <Route path="blogs/comments" element={<ProtectedComponent element={<BlogComments />} allowedUserTypes={['admin']} />} />
               <Route path="notifications/categories" element={<ProtectedComponent element={<NotificationCategories />} allowedUserTypes={['admin', 'user']} />} />
