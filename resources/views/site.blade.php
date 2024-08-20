@@ -25,17 +25,17 @@
         <link rel="apple-touch-icon" sizes="180x180" href="https://in.bl-india.com/storage/site_settings/site_icon-180x180.webp">
 
         <!-- Android Icons -->
-        <link rel="icon" sizes="36x36" href="storage/site_settings/site_icon-36x36.webp" type="image/webp">
-        <link rel="icon" sizes="48x48" href="storage/site_settings/site_icon-48x48.webp" type="image/webp">
-        <link rel="icon" sizes="72x72" href="storage/site_settings/site_icon-72x72.webp" type="image/webp">
-        <link rel="icon" sizes="96x96" href="storage/site_settings/site_icon-96x96.webp" type="image/webp">
-        <link rel="icon" sizes="144x144" href="storage/site_settings/site_icon-144x144.webp" type="image/webp">
-        <link rel="icon" sizes="192x192" href="storage/site_settings/site_icon-192x192.webp" type="image/webp">
+        <link rel="icon" sizes="36x36" href="https://in.bl-india.com/storage/site_settings/site_icon-36x36.webp" type="image/webp">
+        <link rel="icon" sizes="48x48" href="https://in.bl-india.com/storage/site_settings/site_icon-48x48.webp" type="image/webp">
+        <link rel="icon" sizes="72x72" href="https://in.bl-india.com/storage/site_settings/site_icon-72x72.webp" type="image/webp">
+        <link rel="icon" sizes="96x96" href="https://in.bl-india.com/storage/site_settings/site_icon-96x96.webp" type="image/webp">
+        <link rel="icon" sizes="144x144" href="https://in.bl-india.com/storage/site_settings/site_icon-144x144.webp" type="image/webp">
+        <link rel="icon" sizes="192x192" href="https://in.bl-india.com/storage/site_settings/site_icon-192x192.webp" type="image/webp">
         
         <!-- Other Icons -->
-        <link rel="icon" sizes="32x32" href="storage/site_settings/site_icon-32x32.webp">
-        <link rel="icon" sizes="96x96" href="storage/site_settings/site_icon-96x96.webp">
-        <link rel="icon" sizes="16x16" href="storage/site_settings/site_icon-16x16.webp">
+        <link rel="icon" sizes="32x32" href="https://in.bl-india.com/storage/site_settings/site_icon-32x32.webp">
+        <link rel="icon" sizes="96x96" href="https://in.bl-india.com/storage/site_settings/site_icon-96x96.webp">
+        <link rel="icon" sizes="16x16" href="https://in.bl-india.com/storage/site_settings/site_icon-16x16.webp">
 
         @viteReactRefresh
         @vite('resources/js/Site/app.jsx')
