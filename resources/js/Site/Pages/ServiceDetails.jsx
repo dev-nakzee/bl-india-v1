@@ -199,7 +199,7 @@ const ServiceDetails = () => {
               <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 500, maxWidth: '100%', backgroundColor: '#0D629A', color: '#fff', margin: 'auto', borderRadius: 20, padding: '5px 40px' }}>
                 {serviceData.service.tagline}
               </Typography>
-              <Typography className="page-main-heading" variant="h1" sx={{ textAlign: 'center', mt: 2, textTransform: 'uppercase' }}>
+              <Typography className="page-main-heading" variant="h1" sx={{ textAlign: 'center', mt: 2}}>
                 {serviceData.service.name}
               </Typography>
             </Box>
