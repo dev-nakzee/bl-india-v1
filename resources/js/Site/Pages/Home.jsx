@@ -86,14 +86,12 @@ const HomePage = () => {
                         "Best Consultant for Product Certifications and Approvals"
                     }
                 />
-                <meta property="og:url" content="https://www.bl-india.com" />
+                <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta
-                    property="og:image"
-                    content="https://www.bl-india.com/images/logo.png"
-                />
+                <meta property="og:image" content={'https://in.bl-india.com'+homeData?.image_url} />
+
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href="https://www.bl-india.com/" />
+                <link rel="canonical" href="https://bl-india.com/" />
             </Helmet>
             {loading ? (
                 <Box
