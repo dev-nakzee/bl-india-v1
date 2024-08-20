@@ -77,20 +77,23 @@ const AboutPage = () => {
                 <meta name="description" content={aboutData?.seo_description} />
                 <meta name="keywords" content={aboutData?.seo_keywords} />
                 {/* Other meta tags */}
+                <meta name="robots" content="index, follow" />
+                <meta name="author" content="Rajesh Kumar" />
+                <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
+                <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+                <meta name="Classification" content="Business" />
+                <meta name="coverage" content="Worldwide" />
+                <meta name="distribution" content="Global" />
+                <meta name="rating" content="General" />
+                <meta property="og:locale" content="en_US" />
+                <meta property="og:type" content="website" />
+                <meta property="og:description" content={aboutData.seo_description} />
+                <meta property="og:url" content="https://bl-india.com" />
+                <meta property="og:site_name" content="Brand Liaison India®" />
+                <meta property="og:image" content={'https://bl-india.com'+aboutData.image_url} />
+                <meta name="format-detection" content="telephone=no" />
+                <link rel="canonical" href="https://bl-india.com/" />
             </Helmet>
-            {/* <AboutSection>
-                <Grid container spacing={4} alignItems="center">
-                    <Grid item xs={12} md={12}>
-                        <AboutCard>
-                            <CardContent>
-                                <Typography variant="h5" gutterBottom>
-                                    {aboutData.name}
-                                </Typography>
-                            </CardContent>
-                        </AboutCard>
-                    </Grid>
-                </Grid>
-            </AboutSection> */}
           
             <AboutMain />
             <AboutMissionVision />

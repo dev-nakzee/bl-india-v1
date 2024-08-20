@@ -184,9 +184,25 @@ const Blogs = () => {
     return (
         <>
             <Helmet>
-                <title>{pageData.seo_title}</title>
+            <title>{pageData.seo_title}</title>
                 <meta name="description" content={pageData.seo_description} />
                 <meta name="keywords" content={pageData.seo_keywords} />
+                <meta name="robots" content="index, follow" />
+                <meta name="author" content="Rajesh Kumar" />
+                <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
+                <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+                <meta name="Classification" content="Business" />
+                <meta name="coverage" content="Worldwide" />
+                <meta name="distribution" content="Global" />
+                <meta name="rating" content="General" />
+                <meta property="og:locale" content="en_US" />
+                <meta property="og:type" content="website" />
+                <meta property="og:description" content={pageData.seo_description} />
+                <meta property="og:url" content="https://bl-india.com" />
+                <meta property="og:site_name" content="Brand Liaison India®" />
+                <meta property="og:image" content={'https://bl-india.com'+pageData.image_url} />
+                <meta name="format-detection" content="telephone=no" />
+                <link rel="canonical" href="https://bl-india.com/" />
             </Helmet>
             <Box padding={{lg:5,md:4,sm:3,xs:2}} className="blog-page">
                 <Box

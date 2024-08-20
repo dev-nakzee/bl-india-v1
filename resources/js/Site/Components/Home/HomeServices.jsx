@@ -82,8 +82,8 @@ const HomeServices = () => {
                                 sx={{
                                     // display: "flex",
                                     // flexDirection: "column",
-                                    // alignItems: "center",
-                                    // textAlign: "center",
+                                    alignItems: "center",
+                                    textAlign: "center",
                                     padding: "15px",
                                     boxShadow: 3,
                                     borderRadius: "10px",
