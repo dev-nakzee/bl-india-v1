@@ -33,6 +33,7 @@ const FooterContainer = styled(Box)(({ theme }) => ({
         padding: theme.spacing(2),
         paddingTop: theme.spacing(4),
     },
+   
 }));
 
 const FooterLink = styled(Link)(({ theme }) => ({
@@ -209,7 +210,7 @@ const Footer = () => {
     return (
         <>
             <FooterContainer className="Footer-section">
-                <Grid container spacing={4}>
+                <Grid container spacing={2}>
                     {isMobile ? (
                         <>
                             {renderAccordionSection("Services", servicesContent)}
