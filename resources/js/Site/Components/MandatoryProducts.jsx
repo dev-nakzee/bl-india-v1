@@ -76,7 +76,8 @@ const MandatoryProducts = ({ serviceId }) => {
       {
         field: "srNo",
         headerName: "Sr. No.",
-        width: 150,
+        // flex:1,
+      width: 120,
         renderCell: (params) => (
           <Box sx={{ pl: 1, py: 2, pr: 2 }}>{params.value}</Box>
         ),

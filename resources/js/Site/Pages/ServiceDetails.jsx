@@ -287,7 +287,7 @@ const ServiceDetails = () => {
                 </Grid>
                 {serviceData.related_services && serviceData.related_services.length > 0 && (
                   <RelatedServices>
-                    <Typography variant="h5" gutterBottom>Related Services</Typography>
+                    <Typography variant="h5" mb={2}>Related Services</Typography>
                     <Grid container spacing={2}>
                       {serviceData.related_services.map((relatedService) => (
                         <Grid item key={relatedService.id} xs={12} sm={6} md={4}>
