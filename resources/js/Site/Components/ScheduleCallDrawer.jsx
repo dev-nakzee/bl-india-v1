@@ -9,7 +9,7 @@ import {
     MenuItem,
     Grid,
     Alert,
-    CircularProgress
+    CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
@@ -85,10 +85,16 @@ const ScheduleCallDrawer = () => {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            if (error.response && error.response.data && error.response.data.errors) {
+            if (
+                error.response &&
+                error.response.data &&
+                error.response.data.errors
+            ) {
                 setErrors(error.response.data.errors);
             } else {
-                setErrors({ general: "Failed to schedule call. Please try again." });
+                setErrors({
+                    general: "Failed to schedule call. Please try again.",
+                });
             }
         }
     };
@@ -99,7 +105,10 @@ const ScheduleCallDrawer = () => {
         setErrors({});
         setSuccessMessage("");
         try {
-            await apiClient.post("/schedule-verify-otp", { email: formData.email, otp });
+            await apiClient.post("/schedule-verify-otp", {
+                email: formData.email,
+                otp,
+            });
             setSuccessMessage("Call scheduled successfully");
             setFormData({
                 name: "",
@@ -113,7 +122,11 @@ const ScheduleCallDrawer = () => {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            if (error.response && error.response.data && error.response.data.message === "Invalid OTP or OTP expired.") {
+            if (
+                error.response &&
+                error.response.data &&
+                error.response.data.message === "Invalid OTP or OTP expired."
+            ) {
                 setFormData({
                     name: "",
                     phone: "",
@@ -124,10 +137,16 @@ const ScheduleCallDrawer = () => {
                 setOtp("");
                 setShowOtpField(false);
                 setErrors({ general: "Invalid OTP or OTP expired." });
-            } else if (error.response && error.response.data && error.response.data.errors) {
+            } else if (
+                error.response &&
+                error.response.data &&
+                error.response.data.errors
+            ) {
                 setErrors(error.response.data.errors);
             } else {
-                setErrors({ general: "Failed to verify OTP. Please try again." });
+                setErrors({
+                    general: "Failed to verify OTP. Please try again.",
+                });
             }
         }
     };
@@ -190,10 +209,10 @@ const ScheduleCallDrawer = () => {
                 sx={{ zIndex: 2000 }}
             >
                 <Box sx={{ width: 350, p: 3, position: "relative" }}>
-                    <Box sx={{display:'flex' ,justifyContent:'flex-end'}}>
-                    <IconButton onClick={handleDrawerClose} sx={{ mb: 2,}}>
-                        <CloseIcon />
-                    </IconButton>
+                    <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                        <IconButton onClick={handleDrawerClose} sx={{ mb: 2 }}>
+                            <CloseIcon />
+                        </IconButton>
                     </Box>
                     <Typography variant="h5" sx={{ mb: 3 }}>
                         Schedule a Call
@@ -210,7 +229,10 @@ const ScheduleCallDrawer = () => {
                         </Alert>
                     )}
 
-                    <Box component="form" onSubmit={showOtpField ? handleVerifyOtp : handleSubmit}>
+                    <Box
+                        component="form"
+                        onSubmit={showOtpField ? handleVerifyOtp : handleSubmit}
+                    >
                         {!showOtpField && !loading && (
                             <>
                                 <TextField
@@ -245,7 +267,10 @@ const ScheduleCallDrawer = () => {
                                             onChange={handleInputChange}
                                             fullWidth
                                             error={!!errors.country_code}
-                                            helperText={errors.country_code && errors.country_code[0]}
+                                            helperText={
+                                                errors.country_code &&
+                                                errors.country_code[0]
+                                            }
                                             SelectProps={{
                                                 MenuProps: {
                                                     sx: {
@@ -257,9 +282,16 @@ const ScheduleCallDrawer = () => {
                                             {countries.all.map((country) => (
                                                 <MenuItem
                                                     key={country.alpha2}
-                                                    value={country.countryCallingCodes[0]}
+                                                    value={
+                                                        country
+                                                            .countryCallingCodes[0]
+                                                    }
                                                 >
-                                                    {country.countryCallingCodes[0]} ({country.name})
+                                                    {
+                                                        country
+                                                            .countryCallingCodes[0]
+                                                    }{" "}
+                                                    ({country.name})
                                                 </MenuItem>
                                             ))}
                                         </TextField>
@@ -273,7 +305,9 @@ const ScheduleCallDrawer = () => {
                                             fullWidth
                                             required
                                             error={!!errors.phone}
-                                            helperText={errors.phone && errors.phone[0]}
+                                            helperText={
+                                                errors.phone && errors.phone[0]
+                                            }
                                         />
                                     </Grid>
                                 </Grid>
@@ -290,7 +324,10 @@ const ScheduleCallDrawer = () => {
                                     }}
                                     sx={{ mt: 2, mb: 2 }}
                                     error={!!errors.scheduled_at}
-                                    helperText={errors.scheduled_at && errors.scheduled_at[0]}
+                                    helperText={
+                                        errors.scheduled_at &&
+                                        errors.scheduled_at[0]
+                                    }
                                 />
                             </>
                         )}
@@ -308,7 +345,13 @@ const ScheduleCallDrawer = () => {
                             />
                         )}
                         {loading ? (
-                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
                                 <CircularProgress />
                             </Box>
                         ) : (

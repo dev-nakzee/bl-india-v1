@@ -7,7 +7,6 @@ const TeamSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     padding: theme.spacing(4),
     backgroundColor: '#C3E7FF',
-    // boxShadow: theme.shadows[3],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -70,7 +69,7 @@ const AboutTeam = () => {
                         {section.title}
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} >
                     <Grid container justifyContent="center">
                         {team.map((member) => (
                             <TeamCard key={member.id}>

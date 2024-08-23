@@ -130,11 +130,7 @@ const AboutCustomers = () => {
                                 image={"https://in.bl-india.com/" + customer.image_url}
                                 title={customer.image_alt}
                             />
-                            {/* <CardContent>
-                                <Typography variant="h6" component="div">
-                                    {customer.name}
-                                </Typography>
-                            </CardContent> */}
+                           
                         </CustomerCard>
                     </Grid>
                 ))}

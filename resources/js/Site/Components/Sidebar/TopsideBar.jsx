@@ -27,20 +27,7 @@ const Topsidebar = ({ open, onClose }) => {
         <CloseIcon />
       </IconButton>
 </Box>
- {/* <Box sx={{ display: 'flex', alignItems: 'center', mt:1, width: '50%',margin:"auto" ,minHeight:'100px'}}>
-                    <TextField                       
-                        sx={{ backgroundColor: 'white', borderRadius: '5px', flexGrow: 1 }}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton color="primary">
-                                        <SearchIcon />
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Box> */}
+ 
                  <Box sx={{ display: 'flex', alignItems: 'center', mt:1, width: '50%',margin:"auto" ,height:'80vh' }}>
                     <TextField
                         variant="outlined"

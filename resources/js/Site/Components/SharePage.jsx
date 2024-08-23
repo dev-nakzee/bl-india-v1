@@ -8,7 +8,6 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedinIcon from '@mui/icons-material/LinkedIn';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import RedditIcon from '@mui/icons-material/Reddit';
-// import ViberIcon from '@mui/icons-material/Viber';
 import EmailIcon from '@mui/icons-material/Email';
 import {
   FacebookShareButton,

@@ -8,7 +8,6 @@ const MissionVisionSection = styled(Box)(({ theme }) => ({
     textAlign: 'left',
     padding: theme.spacing(4),
     backgroundColor: '#C3E7FF',
-    // boxShadow: theme.shadows[3],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -21,7 +20,6 @@ const MissionVisionContent = styled(Box)(({ theme }) => ({
 
 const MissionVisionImage = styled('img')(({ theme }) => ({
     width: '100%',
-    // maxWidth: '500px',
     borderRadius: '10px',
     boxShadow: theme.shadows[3],
 }));
