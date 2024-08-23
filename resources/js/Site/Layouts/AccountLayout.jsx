@@ -1,10 +1,21 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 
 const AccountLayout = () => {
-  const client = JSON.parse(localStorage.getItem('client'));
+  const client = localStorage.getItem('client') ? JSON.parse(localStorage.getItem('client')) : null;
+
+  // Redirect or show message if client data is not available
+  if (!client) {
+    // Uncomment the next line to redirect instead of showing a message
+    // return <Navigate to="/login" replace />;
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+        <Typography variant="h6">Please log in or register to access this area.</Typography>
+      </Box>
+    );
+  }
 
   return (
     <Grid container>
