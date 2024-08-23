@@ -41,7 +41,7 @@ class BrochureController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $filePath = $request->file('filename')->store('brochures');
+        $filePath = Storage::disk('public')->putFile('brochures', $request->file('filename'));
 
         $brochure = Brochure::create([
             'title' => $request->title,

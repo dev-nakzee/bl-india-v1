@@ -109,7 +109,7 @@ Route::prefix('v1/fe')->group(function(){
         Route::post('change-password', [ClientController::class, 'changePassword'])->middleware('auth:sanctum');
         Route::get('tutorials', [TutorialController::class, 'tutorial'])->middleware('auth:sanctum');
         Route::get('comments', [CommentController::class, 'comments'])->middleware('auth:sanctum');
-        Route::get('brochures', [BrochuresController::class, 'brochures'])->middleware('auth:sanctum');
+        Route::get('brochures', [BrochureController::class, 'brochures'])->middleware('auth:sanctum');
     });
 
     Route::post('/client/forgot-password', [ClientController::class, 'forgotPassword']);

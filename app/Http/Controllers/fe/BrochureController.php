@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use App\Mail\WelcomeEmail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Brochure;
 
 class BrochureController extends Controller
 {
@@ -90,6 +91,11 @@ class BrochureController extends Controller
 
     public function brochures(Request $request): JsonResponse
     {
-
+        $brochures = Brochure::all()->map(function($brochure) {
+            $brochure->download_link = url('storage/' . $brochure->filename);
+            return $brochure;
+        });
+    
+        return response()->json($brochures);
     }
 }

@@ -7,7 +7,16 @@ Route::get('/cms/{path?}', function () {
     return view('app'); // Your CMS React view file
 })->where('path', '.*');
 
-// Route::get('storage/{path}', [ImageController::class, 'show'])->where('path', '.*');
+// Storage Routes - To Serve Files
+Route::get('/storage/{file?}', function ($file) {
+    $path = storage_path('app/public/' . $file);
+
+    if (!Storage::exists('public/' . $file)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+})->where('file', '.*');
 
 // Site Routes
 Route::get('/{any?}', function () {

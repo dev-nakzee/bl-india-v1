@@ -205,6 +205,10 @@ li a {
 .MuiIconButton-root svg {
     font-size: 2.2rem;
 }
+.AccountDownloadIcon {
+    font-size: 120px !important;
+    color: var(--primary-color);
+}
 
 .MuiDrawer-root.MuiDrawer-modal.MuiModal-root {
     z-index: 1301;
