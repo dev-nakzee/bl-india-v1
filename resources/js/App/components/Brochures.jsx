@@ -41,13 +41,8 @@ const Brochures = () => {
     setBrochureData({ title: '', file: null, service_id: '' }); // Reset form when opening
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
-  };
+  const handleClose = () => setOpen(false);
+  const handleSnackbarClose = () => setSnackbarOpen(false);
 
   const handleChange = e => {
     const { name, value, files } = e.target;
@@ -63,28 +58,33 @@ const Brochures = () => {
     formData.append('title', brochureData.title);
     formData.append('service_id', brochureData.service_id);
     if (brochureData.file) {
-        formData.append('filename', brochureData.file);
+      formData.append('filename', brochureData.file);
     }
 
     try {
-        await apiClient.post('/brochures', formData);
-        setSnackbarMessage('Brochure added successfully');
-        setSnackbarOpen(true);
-        fetchBrochures();
-        handleClose(); // Close the dialog after successful save
+      await apiClient.post('/brochures', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      setSnackbarMessage('Brochure added successfully');
+      setSnackbarOpen(true);
+      fetchBrochures();
+      handleClose(); // Close the dialog after successful save
     } catch (error) {
-        setSnackbarMessage('Failed to add brochure: ' + error.response.data.message);
-        setSnackbarOpen(true);
+      setSnackbarMessage('Failed to add brochure: ' + error.response?.data?.message || 'Server error');
+      setSnackbarOpen(true);
     }
   };
+
   const handleDelete = async (id) => {
     try {
       await apiClient.delete(`/brochures/${id}`);
-      setBrochures(brochures.filter(b => b.id !== id)); // Update UI
+      setBrochures(brochures.filter(b => b.id !== id)); // Update UI by removing the deleted brochure
       setSnackbarMessage('Brochure deleted successfully');
       setSnackbarOpen(true);
     } catch (error) {
-      setSnackbarMessage('Failed to delete brochure: ' + (error.response.data.message || 'Server error'));
+      setSnackbarMessage('Failed to delete brochure: ' + (error.response?.data?.message || 'Server error'));
       setSnackbarOpen(true);
     }
   };
@@ -108,7 +108,7 @@ const Brochures = () => {
             {brochures.map((brochure, index) => (
               <TableRow key={index}>
                 <TableCell>{brochure.title}</TableCell>
-                <TableCell>{brochure.service.name}</TableCell>
+                <TableCell>{brochure.service.name}</TableCell> {/* Display service name */}
                 <TableCell>
                   <IconButton onClick={() => handleDelete(brochure.id)} color="error">
                     <DeleteIcon />
@@ -134,23 +134,23 @@ const Brochures = () => {
             onChange={handleChange}
           />
           <FormControl fullWidth margin="dense">
-              <InputLabel>Service</InputLabel> {/* Corrected: close the tag properly */}
-              <Select
-                  name="service_id"
-                  value={brochureData.service_id}
-                  onChange={handleChange}
-                  label="Service"
-              >
-                  {services.map((service) => (
-                      <MenuItem key={service.id} value={service.id}>
-                          {service.name}
-                      </MenuItem>
-                  ))}
-              </Select>
+            <InputLabel>Service</InputLabel>
+            <Select
+              name="service_id"
+              value={brochureData.service_id}
+              onChange={handleChange}
+              label="Service"
+            >
+              {services.map((service) => (
+                <MenuItem key={service.id} value={service.id}>
+                  {service.name}
+                </MenuItem>
+              ))}
+            </Select>
           </FormControl>
           <TextField
             margin="dense"
-            name="filename"
+            name="file"
             type="file"
             fullWidth
             variant="standard"
