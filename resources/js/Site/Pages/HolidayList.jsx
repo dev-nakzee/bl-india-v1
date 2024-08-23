@@ -17,7 +17,6 @@ import { styled } from '@mui/system';
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-// import '../styles/Calendar.css'; // Custom styles for Calendar
 
 const HolidayList = () => {
     const [pageData, setPageData] = useState(null);
