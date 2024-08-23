@@ -121,6 +121,7 @@ const HomeServices = () => {
                                             variant="bodytext"
                                             component="h6"
                                             sx={{
+                                                textAlign:"left",
                                                 marginLeft: "5px",
                                                 // marginBottom: "5px",
                                                 color: "#0D629A",
@@ -134,6 +135,7 @@ const HomeServices = () => {
                                             component="p"
                                             sx={{
                                                 marginLeft: "5px",
+                                                textAlign:"left",
                                                 color: "#1C7CBC",
                                                 fontWeight: 500,
                                             }}

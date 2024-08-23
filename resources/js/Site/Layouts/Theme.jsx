@@ -190,7 +190,7 @@ const theme = createTheme({
     },
     bodytext: {
       fontWeight: 500,
-      fontSize: "1.4rem",
+      fontSize: "1.6rem",
       "@media (min-width: 360px)": {
         fontSize: "1.16rem", // Font size for h1 on small devices (e.g., mobile)
       },
@@ -198,13 +198,13 @@ const theme = createTheme({
         fontSize: "1.2rem", // Font size for h1 on medium devices (e.g., tablets)
       },
       "@media (min-width: 1280px)": {
-        fontSize: "1.3rem", // Font size for h1 on large devices (e.g., desktop)
+        fontSize: "1.5rem", // Font size for h1 on large devices (e.g., desktop)
       },
 
     },
     body1: {
       fontWeight: 300,
-      fontSize: "1.4rem",
+      fontSize: "1.5rem",
       "@media (min-width: 360px)": {
         fontSize: "1.1rem", // Font size for h1 on small devices (e.g., mobile)
       },
@@ -212,7 +212,7 @@ const theme = createTheme({
         fontSize: "1.2rem", // Font size for h1 on medium devices (e.g., tablets)
       },
       "@media (min-width: 1280px)": {
-        fontSize: "1.3rem", // Font size for h1 on large devices (e.g., desktop)
+        fontSize: "1.4rem", // Font size for h1 on large devices (e.g., desktop)
       },
     },
     body2: {

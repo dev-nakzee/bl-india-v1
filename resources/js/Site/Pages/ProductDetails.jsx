@@ -95,8 +95,8 @@ const ProductDetails = () => {
         <meta name="keywords" content={productData.seo_keywords} />
       </Helmet>
       <Box className="product-details" sx={{ padding: isMobile ? 2 : 4 }}>
-      <Typography variant="h1" className='d-none'>Brand Liaison
-      </Typography>
+      {/* <Typography variant="h1" className='d-none'>Brand Liaison
+      </Typography> */}
         <Card className="Product-card" sx={{ marginBottom: isMobile ? 2 : 4 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={3}>
@@ -110,7 +110,7 @@ const ProductDetails = () => {
             <Grid item xs={12} sm={9}>
               <CardContent>
                 <Typography variant="subtitle" gutterBottom sx={{ display: 'block' }}>
-                <Typography variant="subtitle" className='font-bold' sx={{display: 'inline-block' }}>Product Name:</Typography> &nbsp;&nbsp; <Typography variant="h2" className='font-bold product-name' sx={{display: 'inline-block' }}
+                <Typography variant="subtitle" className='font-bold' sx={{display: 'inline-block' }}>Product Name:</Typography> &nbsp;&nbsp; <Typography variant="h1" className='font-bold product-name' sx={{display: 'inline-block' }}
                     >{productData.name}</Typography>
                 </Typography>
                 {productData.technical_name && productData.technical_name !== 'null' && (
@@ -213,29 +213,31 @@ const ProductDetails = () => {
         </Box>
         {notificationData && notificationData.length > 0 && (
           <Box sx={{ marginTop: 4 }}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               Related Notifications
             </Typography>
             {notificationData.map((notif) => (
-              <Box key={notif.id} sx={{ marginBottom: 2 }}>
+              <Box key={notif.id}>
                 <Typography variant="subtitle">
                   <Button
                     component={Link}
+                    sx={{paddingLeft:0}}
                     to={`/notifications/${notif.notification.category.slug}/${notif.notification.slug}`}
                     // variant="contained"
                   >
                     {notif.notification.name}
+                    
                   </Button>
                 </Typography>
               </Box>
             ))}
           </Box>
         )}
-        
-      </Box>
-      <Box sx={{mb: 2, px: 4}}>
+        <Box sx={{mb: 2, px: 1,pl:0}}>
         <BackButton />
+      </Box> 
       </Box>
+     
     </>
   );
 };
