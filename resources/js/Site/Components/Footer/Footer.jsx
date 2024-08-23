@@ -101,9 +101,9 @@ const Footer = () => {
         </Grid>
     );
 
-    const renderAccordionSection = (title, content) => (
+    const renderAccordionSection = (title, content, defaultOpen = false) => (
         <Grid item xs={12} sm={12} key={title}>
-            <Accordion>
+            <Accordion defaultExpanded={defaultOpen}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}>
                     <Typography color="white">{title}</Typography>
                 </AccordionSummary>
@@ -213,7 +213,7 @@ const Footer = () => {
                 <Grid container spacing={2}>
                     {isMobile ? (
                         <>
-                            {renderAccordionSection("Services", servicesContent)}
+                            {renderAccordionSection("Services", servicesContent, true)}
                             {renderAccordionSection("Quick Links", quickLinksContent)}
                             {renderAccordionSection("Important Links", importantLinksContent)}
                             {renderAccordionSection("Contact Us", contactUsContent)}
