@@ -18,6 +18,7 @@ use App\Http\Controllers\fe\TutorialController;
 use App\Http\Controllers\fe\BrochureController;
 use App\Http\Controllers\fe\ScheduleCallController;
 use App\Http\Controllers\fe\PartnerWithUsController;
+use App\Http\Controllers\fe\CommentController;
 
 Route::prefix('v1/fe')->group(function(){
     // Layout Routes
@@ -107,6 +108,8 @@ Route::prefix('v1/fe')->group(function(){
         Route::post('logout', [ClientController::class, 'logout'])->middleware('auth:sanctum');
         Route::post('change-password', [ClientController::class, 'changePassword'])->middleware('auth:sanctum');
         Route::get('tutorials', [TutorialController::class, 'tutorial'])->middleware('auth:sanctum');
+        Route::get('comments', [CommentController::class, 'comments'])->middleware('auth:sanctum');
+        Route::get('brochures', [BrochuresController::class, 'brochures'])->middleware('auth:sanctum');
     });
 
     Route::post('/client/forgot-password', [ClientController::class, 'forgotPassword']);

@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
+use App\Mail\WelcomeEmail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class BrochureController extends Controller
 {
@@ -26,38 +29,43 @@ class BrochureController extends Controller
             'countryCode' => 'required|string',
             'service' => 'required|string|max:255',
             'source' => 'required|string|max:255',
-            'message' => 'string',
+            'message' => 'string|nullable', // Ensure that message is nullable
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
-        // Create a client record if it does not exist
-        $client = Client::firstOrCreate(
-            ['email' => $request->email],
-            [
+    
+        // Check if the client exists
+        $client = Client::where('email', $request->email)->first();
+    
+        if (!$client) {
+            // Client does not exist, create a new one
+            $password = Str::random(12); // Generate a random password
+            $client = Client::create([
+                'email' => $request->email,
                 'name' => $request->name,
-                'password' => Hash::make('defaultPassword'), // You might want to generate a random password or send a link for setting it
-            ]
-        );
-
+                'password' => Hash::make($password),
+            ]);
+            // Send welcome email with the new password
+            Mail::to($client->email)->send(new WelcomeEmail($client, $password));
+        }
+    
         // Generate an OTP for the new or existing client
         $client->generateOtp();
-
+    
         // Submit the brochure details to an external API
         $response = Http::post('https://pms.bl-india.com/api/lead', $request->all());
-
+    
         if ($response->successful()) {
-            // Optionally send a confirmation or welcome email with the OTP
             return response()->json([
                 'status' => 'success',
                 'client' => $client
             ], 201);
         }
-
+    
         return response()->json(['error' => 'Failed to send brochure details to external API'], 500);
-    }
+    }    
 
     public function verifyOtp(Request $request): JsonResponse
     {
@@ -78,5 +86,10 @@ class BrochureController extends Controller
         } else {
             return response()->json(['message' => 'Invalid OTP or OTP expired.'], 401);
         }
+    }
+
+    public function brochures(Request $request): JsonResponse
+    {
+
     }
 }

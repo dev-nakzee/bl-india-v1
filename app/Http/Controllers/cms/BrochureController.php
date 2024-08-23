@@ -33,7 +33,7 @@ class BrochureController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'filename' => 'required|file|mimes:pdf,doc,docx',
+            'filename' => 'required|file|mimes:pdf',
             'service_id' => 'required|exists:services,id',
         ]);
 

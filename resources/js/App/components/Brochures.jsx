@@ -1,47 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Typography,
-  Button,
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  IconButton,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl
+  Typography, Button, Box, Table, TableBody, TableCell,
+  TableContainer, TableHead, TableRow, Paper, IconButton,
+  Dialog, DialogActions, DialogContent, TextField, Select, MenuItem, FormControl, InputLabel,
+  Snackbar
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import apiClient from '../services/api'; // Ensure this is your configured axios instance
+import DeleteIcon from '@mui/icons-material/Delete'; // Import Delete icon
+import apiClient from '../services/api'; // Ensure the API client is correctly configured
 
 const Brochures = () => {
   const [brochures, setBrochures] = useState([]);
   const [services, setServices] = useState([]);
   const [open, setOpen] = useState(false);
-  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
-  const [brochure, setBrochure] = useState({
-    title: '',
-    filename: null,
-    service_id: '',
-  });
-  const [editing, setEditing] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
-  const [errors, setErrors] = useState({});
+  const [brochureData, setBrochureData] = useState({ title: '', file: null, service_id: '' });
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   useEffect(() => {
     fetchBrochures();
@@ -49,129 +23,76 @@ const Brochures = () => {
   }, []);
 
   const fetchBrochures = async () => {
-    try {
-      const response = await apiClient.get('/brochures');
-      if (Array.isArray(response.data)) {
-        setBrochures(response.data);
-      } else {
-        toast.error('Unexpected response format for brochures');
-      }
-    } catch (error) {
-      toast.error('Failed to fetch brochures');
-    }
+    const response = await apiClient.get('/brochures');
+    setBrochures(response.data || []);
   };
 
   const fetchServices = async () => {
     try {
       const response = await apiClient.get('/services');
-      if (Array.isArray(response.data)) {
-        setServices(response.data);
-      } else {
-        toast.error('Unexpected response format for services');
-      }
+      setServices(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
-      toast.error('Failed to fetch services');
+      console.error('Failed to fetch services', error);
     }
   };
 
   const handleClickOpen = () => {
-    setBrochure({
-      title: '',
-      filename: null,
-      service_id: '',
-    });
-    setErrors({});
-    setEditing(false);
     setOpen(true);
+    setBrochureData({ title: '', file: null, service_id: '' }); // Reset form when opening
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleEditClick = (brochure) => {
-    setBrochure(brochure);
-    setErrors({});
-    setEditing(true);
-    setOpen(true);
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
-  const handleDeleteClick = (id) => {
-    setDeleteId(id);
-    setConfirmDeleteOpen(true);
-  };
-
-  const handleDeleteConfirm = async () => {
-    try {
-      await apiClient.delete(`/brochures/${deleteId}`);
-      fetchBrochures();
-      toast.success('Brochure deleted successfully');
-    } catch (error) {
-      toast.error('Failed to delete brochure');
-    } finally {
-      setConfirmDeleteOpen(false);
-      setDeleteId(null);
-    }
-  };
-
-  const handleDeleteCancel = () => {
-    setConfirmDeleteOpen(false);
-    setDeleteId(null);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setBrochure((prevBrochure) => ({
-      ...prevBrochure,
-      [name]: value,
-    }));
-  };
-
-  const handleFileChange = (e) => {
-    setBrochure((prevBrochure) => ({
-      ...prevBrochure,
-      filename: e.target.files[0],
+  const handleChange = e => {
+    const { name, value, files } = e.target;
+    setBrochureData(prev => ({
+      ...prev,
+      [name]: files ? files[0] : value
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('title', brochure.title);
-    formData.append('service_id', brochure.service_id);
-    if (brochure.filename) {
-      formData.append('filename', brochure.filename);
+    formData.append('title', brochureData.title);
+    formData.append('service_id', brochureData.service_id);
+    if (brochureData.file) {
+        formData.append('filename', brochureData.file);
     }
 
     try {
-      if (editing) {
-        await apiClient.post(`/brochures/${brochure.id}`, formData);
-        toast.success('Brochure updated successfully');
-      } else {
         await apiClient.post('/brochures', formData);
-        toast.success('Brochure added successfully');
-      }
-      fetchBrochures();
-      handleClose();
+        setSnackbarMessage('Brochure added successfully');
+        setSnackbarOpen(true);
+        fetchBrochures();
+        handleClose(); // Close the dialog after successful save
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.errors) {
-        setErrors(error.response.data.errors);
-      } else {
-        toast.error('Failed to save brochure');
-      }
+        setSnackbarMessage('Failed to add brochure: ' + error.response.data.message);
+        setSnackbarOpen(true);
+    }
+  };
+  const handleDelete = async (id) => {
+    try {
+      await apiClient.delete(`/brochures/${id}`);
+      setBrochures(brochures.filter(b => b.id !== id)); // Update UI
+      setSnackbarMessage('Brochure deleted successfully');
+      setSnackbarOpen(true);
+    } catch (error) {
+      setSnackbarMessage('Failed to delete brochure: ' + (error.response.data.message || 'Server error'));
+      setSnackbarOpen(true);
     }
   };
 
   return (
     <Box sx={{ margin: 2 }}>
       <Typography variant="h6">Brochures Management</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginY: 2 }}
-        onClick={handleClickOpen}
-      >
+      <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleClickOpen}>
         Add Brochure
       </Button>
       <TableContainer component={Paper}>
@@ -180,31 +101,16 @@ const Brochures = () => {
             <TableRow>
               <TableCell>Title</TableCell>
               <TableCell>Service</TableCell>
-              <TableCell>Filename</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {brochures.map((brochure) => (
-              <TableRow key={brochure.id}>
+            {brochures.map((brochure, index) => (
+              <TableRow key={index}>
                 <TableCell>{brochure.title}</TableCell>
-                <TableCell>{brochure.service?.name}</TableCell>
+                <TableCell>{brochure.service.name}</TableCell>
                 <TableCell>
-                  <a href={`/storage/${brochure.filename}`} target="_blank" rel="noopener noreferrer">
-                    {brochure.filename.split('/').pop()}
-                  </a>
-                </TableCell>
-                <TableCell>
-                  <IconButton
-                    color="primary"
-                    onClick={() => handleEditClick(brochure)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    color="secondary"
-                    onClick={() => handleDeleteClick(brochure.id)}
-                  >
+                  <IconButton onClick={() => handleDelete(brochure.id)} color="error">
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -215,80 +121,54 @@ const Brochures = () => {
       </TableContainer>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{editing ? 'Edit Brochure' : 'Add Brochure'}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            {editing ? 'Edit the details of the brochure.' : 'Fill in the details to add a new brochure.'}
-          </DialogContentText>
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <TextField
-              label="Title"
-              name="title"
-              value={brochure.title || ''}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-              required
-              error={!!errors.title}
-              helperText={errors.title ? errors.title[0] : ''}
-            />
-            <FormControl fullWidth margin="normal" error={!!errors.service_id}>
-              <InputLabel>Service</InputLabel>
+          <TextField
+            autoFocus
+            margin="dense"
+            name="title"
+            label="Title"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={brochureData.title}
+            onChange={handleChange}
+          />
+          <FormControl fullWidth margin="dense">
+              <InputLabel>Service</InputLabel> {/* Corrected: close the tag properly */}
               <Select
-                name="service_id"
-                value={brochure.service_id || ''}
-                onChange={handleChange}
-                required
+                  name="service_id"
+                  value={brochureData.service_id}
+                  onChange={handleChange}
+                  label="Service"
               >
-                {services.map((service) => (
-                  <MenuItem key={service.id} value={service.id}>
-                    {service.name}
-                  </MenuItem>
-                ))}
+                  {services.map((service) => (
+                      <MenuItem key={service.id} value={service.id}>
+                          {service.name}
+                      </MenuItem>
+                  ))}
               </Select>
-              {errors.service_id && <p style={{ color: 'red' }}>{errors.service_id[0]}</p>}
-            </FormControl>
-            <TextField
-              label="Filename"
-              type="file"
-              name="filename"
-              onChange={handleFileChange}
-              fullWidth
-              margin="normal"
-              required={!editing}
-              error={!!errors.filename}
-              helperText={errors.filename ? errors.filename[0] : ''}
-            />
-            <DialogActions>
-              <Button onClick={handleClose} color="primary">
-                Cancel
-              </Button>
-              <Button type="submit" color="primary">
-                Save
-              </Button>
-            </DialogActions>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={confirmDeleteOpen} onClose={handleDeleteCancel}>
-        <DialogTitle>Confirm Delete</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete this brochure? This action cannot be undone.
-          </DialogContentText>
+          </FormControl>
+          <TextField
+            margin="dense"
+            name="filename"
+            type="file"
+            fullWidth
+            variant="standard"
+            onChange={handleChange}
+          />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteCancel} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleDeleteConfirm} color="secondary" autoFocus>
-            Delete
-          </Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSubmit}>Save</Button>
         </DialogActions>
       </Dialog>
 
-      <ToastContainer />
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+      />
     </Box>
   );
 };
