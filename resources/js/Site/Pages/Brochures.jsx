@@ -69,7 +69,7 @@ const Brochures = () => {
                 >
                   <PictureAsPdfIcon className='AccountDownloadIcon'/>
                 </IconButton>
-                <Typography variant="body1">{brochure.title}</Typography>
+                <Typography variant="h6">{brochure.title}</Typography>
               </Box>
             </Grid>
           ))}
