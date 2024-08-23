@@ -70,7 +70,7 @@ const AboutTeam = () => {
                         {section.title}
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} >
                     <Grid container justifyContent="center">
                         {team.map((member) => (
                             <TeamCard key={member.id}>
