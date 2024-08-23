@@ -66,14 +66,7 @@ const HomeAssociates = () => {
                         {section[0].title}
                     </Typography>
                 </Grid>
-                {/* <Grid item xs={12}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 500, background: '#0D629A', color: '#ffffff', padding: '5px 20px', borderRadius: 20, margin: 'auto' }}>
-                        {section[0].tag_line}
-                    </Typography>
-                    <Typography variant="h2" sx={{ mt: 2, fontWeight: 400 }}>
-                        {section[0].title}
-                    </Typography>
-                </Grid> */}
+              
                 <Grid item xs={12} >
                     <AssociatesContent>
                         <Grid container spacing={2}>

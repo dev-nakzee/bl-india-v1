@@ -167,9 +167,7 @@ const SearchDrawer = ({ open, onClose }) => {
                 padding={{ md: 1 }}
                 className="search-drawer"
             >
-                {/* <Grid item xs={12}>
-          <Typography variant="h6">Search</Typography>
-        </Grid> */}
+               
                 <Grid item xs={12}>
                     <Box display={"flex"} paddingInline={5} marginBlock={2}>
                         <TextField

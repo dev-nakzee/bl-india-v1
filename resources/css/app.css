@@ -657,7 +657,6 @@ th {
     }
 }
 @media (min-width: 1367px) and (max-width: 1579px) {
-  
     button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 13.78% !important;
         margin-right: 5px !important;
@@ -668,7 +667,7 @@ th {
         background-image: none;
     }
 }
-@media (min-width: 912px) and (max-width: 1366px) and (orientation: portrait){
+@media (min-width: 912px) and (max-width: 1366px) and (orientation: portrait) {
     .Banner-section {
         height: 25vh !important;
     }
@@ -712,7 +711,7 @@ th {
     }
 }
 
-@media (max-width: 767px) {   
+@media (max-width: 767px) {
     .page-main-heading {
         font-size: 1.7rem !important;
     }
@@ -886,14 +885,15 @@ th {
     }
 
     .table-row,
-    .table-pagination{
+    .table-pagination {
         font-size: 1.2rem !important;
         padding: 5px !important;
         display: flex;
     }
     .service-section-content table th,
-.Service-section table th  {
-        font-size: 1.2rem !important;}
+    .Service-section table th {
+        font-size: 1.2rem !important;
+    }
     .react-calendar {
         font-size: 1.6rem !important;
         padding: 1.6rem;

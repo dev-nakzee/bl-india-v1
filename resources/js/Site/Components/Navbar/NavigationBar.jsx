@@ -19,7 +19,6 @@ import {
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-// import logo from "../../../../../public/storage/site_settings/logo.webp"; // Replace with your logo path
 import ServicesIcon from "../../Assets/services.svg"; // Replace with your first SVG icon path
 import NotificationIcon from "../../Assets/notifications.svg"; // Replace with your second SVG icon path
 import LanguageIcon from "@mui/icons-material/Language";
