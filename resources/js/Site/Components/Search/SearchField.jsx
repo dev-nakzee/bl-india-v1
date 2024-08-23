@@ -176,6 +176,7 @@ const SearchField = () => {
                                         <IconButton
                                             onClick={handleButtonClick}
                                             edge="end"
+                                            sx={{marginRight:1}}
                                         >
                                             <SearchIcon />
                                         </IconButton>
@@ -184,7 +185,7 @@ const SearchField = () => {
                                 </InputAdornment>
                             ),
                         }}
-                        sx={{ backgroundColor: '#ffffff', }}
+                        sx={{ backgroundColor: '#ffffff'}}
                     />
                 )}
                 renderOption={(props, option) => <li {...props}>{renderOption(option)}</li>}

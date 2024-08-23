@@ -657,9 +657,10 @@ th {
     }
 }
 @media (min-width: 1367px) and (max-width: 1579px) {
+  
     button.react-calendar__tile.react-calendar__month-view__days__day {
-        flex: 0 0 13.99% !important;
-        margin: 3px 3px 3px 3px;
+        flex: 0 0 13.78% !important;
+        margin-right: 5px !important;
     }
 }
 @media (min-width: 1024px) and (max-width: 1196px) {
@@ -667,7 +668,7 @@ th {
         background-image: none;
     }
 }
-@media (min-width: 912px) and (max-width: 1366px) {
+@media (min-width: 912px) and (max-width: 1366px) and (orientation: portrait){
     .Banner-section {
         height: 25vh !important;
     }
@@ -679,10 +680,11 @@ th {
         left: 46%;
     }
     button.react-calendar__tile.react-calendar__month-view__days__day {
-        flex: 0 0 13.59% !important;
-        margin: 3px 3px 3px 3px;
+        flex: 0 0 13.49% !important;
+        margin-right: 5px !important;
     }
 }
+
 @media (min-width: 768px) and (max-width: 992px) {
     .page-main-heading {
         font-size: 2rem !important;
@@ -703,6 +705,10 @@ th {
     }
     .product-name {
         font-size: 12px !important;
+    }
+    button.react-calendar__tile.react-calendar__month-view__days__day {
+        flex: 0 0 11.48% !important;
+        margin-right: 5px !important;
     }
 }
 
@@ -895,6 +901,15 @@ th {
     .react-calendar__navigation button {
         font-size: 1.5rem !important;
         min-width: 20px;
+    }
+    button.react-calendar__tile.react-calendar__month-view__days__day {
+        flex: 0 0 12.68% !important;
+        margin-right: 5px !important;
+    }
+    .MuiAccordionSummary-root.Mui-expanded {
+        min-height: 64px;
+        box-shadow: inherit;
+        background-color: var(--third-color);
     }
 }
 

@@ -171,7 +171,7 @@ const SearchDrawer = ({ open, onClose }) => {
           <Typography variant="h6">Search</Typography>
         </Grid> */}
                 <Grid item xs={12}>
-                    <Box display={"flex"} paddingInline={5}>
+                    <Box display={"flex"} paddingInline={5} marginBlock={2}>
                         <TextField
                             variant="outlined"
                             placeholder="Search..."
@@ -203,13 +203,16 @@ const SearchDrawer = ({ open, onClose }) => {
                             }}
                         />
                     </Box>
-                </Grid>
-                <Grid item xs={12}>
+                    <Box display={"flex"} paddingInline={5}>                        
                     {error && <Alert severity="error">{error}</Alert>}
                     <List className="search-result">
                         {results.map((result) => renderOption(result))}
                                            </List>
+                    </Box>
+                   
                 </Grid>
+             
+               
             </Grid>
         </Drawer>
     );
