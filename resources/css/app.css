@@ -653,18 +653,22 @@ th {
     }
     button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 13.59% !important;
-        margin: 8px 8px 8px 8px;
+        margin-right: 5px !important;
     }
 }
-@media (min-width: 1367px) and (max-width: 1579px) {
+@media (min-width: 1200px) and (max-width: 1579px) {
     button.react-calendar__tile.react-calendar__month-view__days__day {
-        flex: 0 0 13.78% !important;
+        flex: 0 0 13.65% !important;
         margin-right: 5px !important;
     }
 }
 @media (min-width: 1024px) and (max-width: 1196px) {
     .Process-section {
         background-image: none;
+    }
+    button.react-calendar__tile.react-calendar__month-view__days__day {
+        flex: 0 0 13.49% !important;
+        margin-right: 5px !important;
     }
 }
 @media (min-width: 912px) and (max-width: 1366px) and (orientation: portrait) {
