@@ -4,13 +4,10 @@ namespace App\Http\Controllers\fe;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Page;
 use App\Models\PageSection;
 use App\Models\Service;
 use App\Models\Process;
 use App\Models\Blog;
-use App\Models\Testimonial;
-use App\Models\Sticker;
 use Illuminate\Http\JsonResponse;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
@@ -29,7 +26,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Preload translations into the cache (if needed later).
+     * Preload translations for all content into memory or cache.
      */
     public function preloadTranslations(): void
     {
@@ -40,7 +37,7 @@ class HomeController extends Controller
 
         foreach ($this->languages as $locale) {
             $this->translator->setTarget($locale);
-            
+
             // Preload translations for sections
             foreach ($sections as $section) {
                 $this->translateText($section->title);
@@ -68,35 +65,30 @@ class HomeController extends Controller
         }
     }
 
-    /**
-     * Handle the home request.
-     */
     public function home(): JsonResponse
     {
-        $home = Page::where('slug', 'home')->get();
+        $home = PageSection::where('slug', 'home')->first();
+        if ($home) {
+            $home->title = $this->translateText($home->title);
+            $home->content = $this->translateText($home->content);
+        }
         return response()->json($home);
     }
 
-    /**
-     * Handle the Home Banner request.
-     */
     public function banner(): JsonResponse
     {
-        $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->get();
-        if ($banner->isNotEmpty()) {
-            $banner[0]->title = $this->translateText($banner[0]->title);
-            $banner[0]->tag_line = $this->translateText($banner[0]->tag_line);
-            $banner[0]->content = $this->translateText($banner[0]->content);
+        $banner = PageSection::where('page_id', 1)->where('slug', 'home-banner')->first();
+        if ($banner) {
+            $banner->title = $this->translateText($banner->title);
+            $banner->tag_line = $this->translateText($banner->tag_line);
+            $banner->content = $this->translateText($banner->content);
         }
         return response()->json($banner);
     }
 
-    /**
-     * Handle the Home Services request.
-     */
     public function services(): JsonResponse
     {
-        $section = PageSection::where('page_id', 1)->where('slug', 'home-services')->get();
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-services')->first();
         $services = Service::with('serviceCategory')->orderBy('id')->limit(4)->get();
 
         $translations = $this->bulkTranslate([
@@ -125,14 +117,14 @@ class HomeController extends Controller
 
     public function brochure(): JsonResponse
     {
-        $section = PageSection::where('page_id', 1)->where('slug', 'home-brochure')->get();
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-brochure')->first();
         $services = Service::orderBy('id')->get();
         return response()->json(['section' => $section, 'services' => $services]);
     }
 
     public function process(): JsonResponse
     {
-        $section = PageSection::where('page_id', 1)->where('slug', 'home-process')->get();
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-process')->first();
         $processes = Process::orderBy('id')->get();
 
         $translations = $this->bulkTranslate([
@@ -150,7 +142,7 @@ class HomeController extends Controller
 
     public function blog(): JsonResponse
     {
-        $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->get();
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-blog')->first();
         $blogs = Blog::orderBy('id', 'desc')->with('blogCategory')->limit(3)->get();
 
         $translations = $this->bulkTranslate([
@@ -170,14 +162,14 @@ class HomeController extends Controller
 
     public function testimonial(): JsonResponse
     {
-        $section = PageSection::where('page_id', 1)->where('slug', 'home-testimonial')->get();
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-testimonial')->first();
         $testimonials = Testimonial::orderBy('id', 'desc')->limit(3)->get();
         return response()->json(['section' => $section, 'testimonials' => $testimonials]);
     }
 
     public function associates(): JsonResponse
     {
-        $section = PageSection::where('page_id', 1)->where('slug', 'home-associates')->get();
+        $section = PageSection::where('page_id', 1)->where('slug', 'home-associates')->first();
         $associates = Sticker::orderBy('id')->where('image_type', 'Associate')->get();
         return response()->json(['section' => $section, 'associates' => $associates]);
     }
@@ -185,9 +177,8 @@ class HomeController extends Controller
     protected function getFirstParagraphContent(string $html): ?string
     {
         $dom = new \DOMDocument();
-        // Suppress warnings from malformed HTML
         @$dom->loadHTML('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $html);
-        
+
         $paragraphs = $dom->getElementsByTagName('p');
         if ($paragraphs->length > 0) {
             return $paragraphs->item(0)->textContent;

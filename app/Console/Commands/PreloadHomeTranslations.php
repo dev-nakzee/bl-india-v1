@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Http\Controllers\fe\HomeController;
 
-class PreloadTranslations extends Command
+class PreloadHomeTranslations extends Command
 {
     /**
      * The name and signature of the console command.
@@ -27,9 +27,8 @@ class PreloadTranslations extends Command
     public function handle()
     {
         //
-        $homeController = app(HomeController::class);
-        $homeController->preloadTranslations();
-    
-        $this->info('Translations preloaded successfully.');
+        $controller = app(HomeController::class);
+        $controller->preloadTranslations();
+        $this->info('Home translations preloaded successfully.');
     }
 }
