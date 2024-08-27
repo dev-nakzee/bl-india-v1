@@ -13,16 +13,57 @@ use App\Models\Product;
 use App\Models\NoticeProductMap;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use DOMDocument;
-use Illuminate\Support\Facades\Cache;
 
 class ServiceController extends Controller
 {
     protected $translator;
+    protected $languages = [
+        'en', 'fr', 'es', 'it', 'zh-Hans', 'zh-Hant', 'de', 'ar', 'ja', 'ko', 'ru', 
+        'ms', 'vi', 'th', 'pl', 'pt', 'hi', 'mr', 'bn', 'te', 'ta', 'kn', 'ml', 'gu', 'pa'
+    ];
 
     public function __construct(Request $request)
     {
         $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
         $this->translator = new GoogleTranslate($locale);
+    }
+
+    /**
+     * Preload all translations.
+     */
+    public function preloadTranslations(): void
+    {
+        $services = Service::with('serviceCategory')->get();
+        $serviceCategories = ServiceCategory::all();
+        $serviceSections = ServiceSection::all();
+        $products = Product::with('categories')->get();
+
+        foreach ($this->languages as $locale) {
+            $this->translator->setTarget($locale);
+
+            // Preload translations for services
+            foreach ($services as $service) {
+                $this->translateText($service->tagline);
+                $this->translateText($service->description);
+            }
+
+            // Preload translations for service categories
+            foreach ($serviceCategories as $category) {
+                $this->translateText($category->name);
+            }
+
+            // Preload translations for service sections
+            foreach ($serviceSections as $section) {
+                $this->translateText($section->name);
+                $this->translateHtmlContent($section->content);
+            }
+
+            // Preload translations for products
+            foreach ($products as $product) {
+                $this->translateText($product->name);
+                $this->translateHtmlContent($product->description);
+            }
+        }
     }
 
     public function services(Request $request): JsonResponse
@@ -119,7 +160,7 @@ class ServiceController extends Controller
                 $service = $productServiceMap->service;
                 return [
                     'product_id' => $product->id,
-                    'product_name' => $product->name,
+                    'product_name' => $this->translateText($product->name),
                     'product_slug' => $product->slug,
                     'product_is_standard' => $productServiceMap->is,
                     'product_group' => $productServiceMap->group,
@@ -127,9 +168,9 @@ class ServiceController extends Controller
                     'product_others' => $productServiceMap->others,
                     'product_category_ids' => $product->categories->pluck('id')->toArray(),
                     'product_category_names' => $product->categories->pluck('name')->map(function ($name) {
-                        return $name;
+                        return $this->translateText($name);
                     })->toArray(),
-                    'service_compliance' => $service->compliance_header,
+                    'service_compliance' => $this->translateText($service->compliance_header),
                 ];
             })
             ->sortBy('product_id')
@@ -152,10 +193,10 @@ class ServiceController extends Controller
             ->map(function ($productServiceMap) {
                 return [
                     'id' => $productServiceMap->service->id,
-                    'name' => $productServiceMap->service->name,
+                    'name' => $this->translateText($productServiceMap->service->name),
                     'slug' => $productServiceMap->service->slug,
                     'details' => $this->translateHtmlContent($productServiceMap->details),
-                    'compliance_header' => $productServiceMap->service->compliance_header,
+                    'compliance_header' => $this->translateText($productServiceMap->service->compliance_header),
                     'is' => $productServiceMap->is,
                     'group' => $productServiceMap->group,
                     'scheme' => $productServiceMap->scheme,
@@ -173,7 +214,7 @@ class ServiceController extends Controller
             ->with('notification', 'notification.category')
             ->get();
 
-        $product->name = $product->name;
+        $product->name = $this->translateText($product->name);
         $product->description = $this->translateHtmlContent($product->description);
 
         $categories = $product->categories->map(function ($category) {
@@ -197,10 +238,7 @@ class ServiceController extends Controller
             return '';
         }
 
-        $cacheKey = 'translated_text_' . md5($text);
-        return Cache::remember($cacheKey, 60*60*24, function () use ($text) {
-            return $this->translator->translate($text);
-        });
+        return $this->translator->translate($text);
     }
 
     private function translateHtmlContent($html)
@@ -209,16 +247,13 @@ class ServiceController extends Controller
             return '';
         }
 
-        $cacheKey = 'translated_html_' . md5($html);
-        return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($html) {
-            $doc = new DOMDocument();
-            libxml_use_internal_errors(true);
-            $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            libxml_clear_errors();
+        $doc = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
 
-            $translatedHtml = $this->translateDomNode($doc->documentElement);
-            return $translatedHtml;
-        });
+        $translatedHtml = $this->translateDomNode($doc->documentElement);
+        return $translatedHtml;
     }
 
     private function translateDomNode($node)

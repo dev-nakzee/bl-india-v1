@@ -10,14 +10,16 @@ use App\Models\BlogCategory;
 use App\Models\BlogComment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
-
 use Stichoza\GoogleTranslate\GoogleTranslate;
-use Illuminate\Support\Facades\Cache;
 use DOMDocument;
 
 class BlogController extends Controller
 {
     protected $translator;
+    protected $languages = [
+        'en', 'fr', 'es', 'it', 'zh-Hans', 'zh-Hant', 'de', 'ar', 'ja', 'ko', 'ru', 
+        'ms', 'vi', 'th', 'pl', 'pt', 'hi', 'mr', 'bn', 'te', 'ta', 'kn', 'ml', 'gu', 'pa'
+    ];
 
     public function __construct(Request $request)
     {
@@ -25,17 +27,35 @@ class BlogController extends Controller
         $this->translator = new GoogleTranslate($locale);
     }
 
+    /**
+     * Preload all translations for blogs.
+     */
+    public function preloadTranslations(): void
+    {
+        $blogs = Blog::all();
+        $blogCategories = BlogCategory::all();
+
+        foreach ($this->languages as $locale) {
+            $this->translator->setTarget($locale);
+
+            // Preload translations for blogs
+            foreach ($blogs as $blog) {
+                $this->translateText($blog->title);
+                $this->translateText($this->getFirstParagraphContent($blog->content));
+            }
+
+            // Preload translations for blog categories
+            foreach ($blogCategories as $category) {
+                $this->translateText($category->name);
+            }
+        }
+    }
+
     public function blogs(): JsonResponse
     {
-        $page = Cache::remember('page_blogs', 60*60*24, function() {
-            return Page::where('slug', 'blogs')->first();
-        });
-        $blogs = Cache::remember('blogs_list', 60*60*24, function() {
-            return Blog::orderBy('id', 'desc')->with('blogCategory')->get();
-        });
-        $categories = Cache::remember('blog_categories', 60*60*24, function() {
-            return BlogCategory::orderBy('id', 'asc')->get();
-        });
+        $page = Page::where('slug', 'blogs')->first();
+        $blogs = Blog::orderBy('id', 'desc')->with('blogCategory')->get();
+        $categories = BlogCategory::orderBy('id', 'asc')->get();
 
         foreach ($blogs as $blog) {
             $blog->content = $this->translateText(mb_strimwidth($this->getFirstParagraphContent($blog->content), 0, 250, '...'));
@@ -46,17 +66,19 @@ class BlogController extends Controller
 
     public function blogDetails(string $categorySlug, string $slug): JsonResponse
     {
-        $blog = Cache::remember("blog_details_{$slug}", 60*60*24, function() use ($slug) {
-            return Blog::where('slug', $slug)->first();
-        });
-        $categories = Cache::remember('blog_categories', 60*60*24, function() {
-            return BlogCategory::orderBy('id', 'asc')->get();
-        });
+        $blog = Blog::where('slug', $slug)->first();
+        if (!$blog) {
+            return response()->json(['message' => 'Blog not found'], 404);
+        }
+        
+        $categories = BlogCategory::orderBy('id', 'asc')->get();
         $comments = BlogComment::where('blog_id', $blog->id)->where('is_approved', true)->with('client')->get();
-        // $blog->content = $this->translateHtmlContent($blog->content);
+
+        $blog->content = $this->translateHtmlContent($blog->content);
 
         return response()->json(['blog' => $blog, 'categories' => $categories, 'comments' => $comments]);
     }
+
     public function postComment(Request $request, $blogId): JsonResponse
     {
         $request->validate([
@@ -93,10 +115,7 @@ class BlogController extends Controller
             return '';
         }
 
-        $cacheKey = 'translated_text_' . md5($text);
-        return Cache::remember($cacheKey, 60*60*24, function () use ($text) {
-            return $this->translator->translate($text);
-        });
+        return $this->translator->translate($text);
     }
 
     private function translateHtmlContent($html)
@@ -105,21 +124,18 @@ class BlogController extends Controller
             return '';
         }
 
-        $cacheKey = 'translated_html_' . md5($html);
-        return Cache::remember($cacheKey, 60*60*24, function () use ($html) {
-            $doc = new DOMDocument();
-            libxml_use_internal_errors(true);
-            $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            libxml_clear_errors();
+        $doc = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
 
-            $xpath = new \DOMXPath($doc);
-            $textNodes = $xpath->query('//text()');
+        $xpath = new \DOMXPath($doc);
+        $textNodes = $xpath->query('//text()');
 
-            foreach ($textNodes as $textNode) {
-                $textNode->nodeValue = $this->translateText($textNode->nodeValue);
-            }
+        foreach ($textNodes as $textNode) {
+            $textNode->nodeValue = $this->translateText($textNode->nodeValue);
+        }
 
-            return $doc->saveHTML();
-        });
+        return $doc->saveHTML();
     }
 }
