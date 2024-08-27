@@ -13,7 +13,6 @@ use App\Models\Testimonial;
 use App\Models\Sticker;
 use Illuminate\Http\JsonResponse;
 use Stichoza\GoogleTranslate\GoogleTranslate;
-use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -29,8 +28,8 @@ class HomeController extends Controller
         $this->translator = new GoogleTranslate($locale);
     }
 
-     /**
-     * Preload translations into the cache.
+    /**
+     * Preload translations into the cache (if needed later).
      */
     public function preloadTranslations(): void
     {
@@ -216,9 +215,6 @@ class HomeController extends Controller
             return '';
         }
 
-        $cacheKey = 'translated_text_' . md5($text);
-        return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($text) {
-            return $this->translator->translate($text);
-        });
+        return $this->translator->translate($text);
     }
 }
