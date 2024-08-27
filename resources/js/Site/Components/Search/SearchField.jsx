@@ -121,7 +121,7 @@ const SearchField = () => {
         setQuery(value);
 
         // Trigger search if length is a multiple of 3 and more than the previous length
-        if (value.length >= 3 && value.length % 2 === 0 && value.length > prevLength) {
+        if (value.length >= 3 && value.length % 1 === 0 && value.length > prevLength) {
             handleSearch(value);
         }
         setPrevLength(value.length);
