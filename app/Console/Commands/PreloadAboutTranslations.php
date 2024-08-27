@@ -3,16 +3,16 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\fe\HomeController;
+use App\Http\Controllers\fe\AboutController;
 
-class PreloadTranslations extends Command
+class PreloadAboutTranslations extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'preload:translations';
+    protected $signature = 'preload:about-translations';
 
     /**
      * The console command description.
@@ -27,9 +27,9 @@ class PreloadTranslations extends Command
     public function handle()
     {
         //
-        $homeController = app(HomeController::class);
-        $homeController->preloadTranslations();
-    
-        $this->info('Translations preloaded successfully.');
+        $controller = app(AboutController::class);
+        $controller->preloadTranslations();
+
+        $this->info('About translations preloaded successfully.');
     }
 }
