@@ -175,7 +175,7 @@ class ServiceController extends Controller
                     'product_category_names' => $product->categories->pluck('name')->map(function ($name) {
                         return $this->translateText($name);
                     })->toArray(),
-                    'service_compliance' => $this->translateText($service->compliance_header),
+                    'service_compliance' => $service->compliance_header,
                 ];
             })
             ->sortBy('product_id')
@@ -201,7 +201,7 @@ class ServiceController extends Controller
                     'name' => $this->translateText($productServiceMap->service->name),
                     'slug' => $productServiceMap->service->slug,
                     'details' => $this->translateHtmlContent($productServiceMap->details),
-                    'compliance_header' => $this->translateText($productServiceMap->service->compliance_header),
+                    'compliance_header' => $productServiceMap->service->compliance_header,
                     'is' => $productServiceMap->is,
                     'group' => $productServiceMap->group,
                     'scheme' => $productServiceMap->scheme,
