@@ -18,11 +18,55 @@ use Illuminate\Support\Facades\Cache;
 class HomeController extends Controller
 {
     protected $translator;
+    protected $languages = [
+        'en', 'fr', 'es', 'it', 'zh-Hans', 'zh-Hant', 'de', 'ar', 'ja', 'ko', 'ru', 
+        'ms', 'vi', 'th', 'pl', 'pt', 'hi', 'mr', 'bn', 'te', 'ta', 'kn', 'ml', 'gu', 'pa'
+    ];
 
     public function __construct(Request $request)
     {
         $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
         $this->translator = new GoogleTranslate($locale);
+    }
+
+     /**
+     * Preload translations into the cache.
+     */
+    public function preloadTranslations(): void
+    {
+        $sections = PageSection::where('page_id', 1)->get();
+        $services = Service::with('serviceCategory')->get();
+        $processes = Process::get();
+        $blogs = Blog::get();
+
+        foreach ($this->languages as $locale) {
+            $this->translator->setTarget($locale);
+            
+            // Preload translations for sections
+            foreach ($sections as $section) {
+                $this->translateText($section->title);
+                $this->translateText($section->tag_line);
+                $this->translateText($section->content);
+            }
+
+            // Preload translations for services
+            foreach ($services as $service) {
+                $this->translateText($service->tagline);
+                $this->translateText($service->description);
+            }
+
+            // Preload translations for processes
+            foreach ($processes as $process) {
+                $this->translateText($process->name);
+                $this->translateText($process->text);
+            }
+
+            // Preload translations for blogs
+            foreach ($blogs as $blog) {
+                $this->translateText($blog->name);
+                $this->translateText($this->getFirstParagraphContent($blog->content));
+            }
+        }
     }
 
     /**

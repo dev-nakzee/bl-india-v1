@@ -1,11 +1,14 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\fe\HomeController;
 
 // CMS Routes
 Route::get('/cms/{path?}', function () {
     return view('app'); // Your CMS React view file
 })->where('path', '.*');
+
+Route::get('/preload-translations', [HomeController::class, 'preloadTranslations']);
 
 // Storage Routes - To Serve Files
 Route::get('/storage/{file?}', function ($file) {
@@ -22,3 +25,6 @@ Route::get('/storage/{file?}', function ($file) {
 Route::get('/{any?}', function () {
     return view('site'); // Your main site React view file
 })->where('any', '.*');
+
+
+
