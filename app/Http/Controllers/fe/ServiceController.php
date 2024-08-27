@@ -146,6 +146,11 @@ class ServiceController extends Controller
     
             $relatedServices = $relatedServices->merge($additionalServices);
         }
+
+        foreach ($relatedServices as $relatedService)
+        {
+            $relatedService->description = $this->translateText($relatedService->description);
+        }
     
         return response()->json(['service' => $service, 'sections' => $sections, 'related_services' => $relatedServices]);
     }
