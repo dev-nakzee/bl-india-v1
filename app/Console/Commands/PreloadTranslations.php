@@ -12,7 +12,7 @@ class PreloadTranslations extends Command
      *
      * @var string
      */
-    protected $signature = 'preload:translations';
+    protected $signature = 'preload:home-translations';
 
     /**
      * The console command description.
