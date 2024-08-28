@@ -79,6 +79,7 @@ function App() {
                  
             </Route>
             <Route path="/password-reset/:token" element={<ResetPassword />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Layout>
       </BrowserRouter>
