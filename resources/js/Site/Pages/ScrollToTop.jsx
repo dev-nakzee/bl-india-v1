@@ -9,7 +9,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 const ScrollTopButton = styled(Button)({
   position: 'fixed',
   right: 16,
-  bottom: 16,
+  bottom: 50,
   zIndex: 1000,
 });
 
