@@ -435,6 +435,7 @@ li a {
 .Service-section p img {
     width: 100%;
     max-width: fit-content;
+    height: auto;
 }
 
 /******** Product List ***********/
