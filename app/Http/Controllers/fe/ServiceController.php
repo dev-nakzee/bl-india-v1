@@ -4,6 +4,7 @@ namespace App\Http\Controllers\fe;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\ServiceCategory;
@@ -26,6 +27,7 @@ class ServiceController extends Controller
     {
         $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
         $this->translator = new GoogleTranslate($locale);
+        $this->preloadTranslations();
     }
 
     /**
@@ -33,36 +35,42 @@ class ServiceController extends Controller
      */
     public function preloadTranslations(): void
     {
-        $services = Service::with('serviceCategory')->get();
-        $serviceCategories = ServiceCategory::all();
-        $serviceSections = ServiceSection::all();
-        $products = Product::with('categories')->get();
-
         foreach ($this->languages as $locale) {
-            $this->translator->setTarget($locale);
+            Cache::remember("translations_{$locale}", now()->addDay(), function () use ($locale) {
+                $this->translator->setTarget($locale);
+                $translations = [];
+                $services = Service::with('serviceCategory')->get();
+                $serviceCategories = ServiceCategory::all();
+                $serviceSections = ServiceSection::all();
+                $products = Product::with('categories')->get();
 
-            // Preload translations for services
-            foreach ($services as $service) {
-                $this->translateText($service->tagline);
-                $this->translateText($service->description);
-            }
+                foreach ($services as $service) {
+                    $translations['services'][$service->id] = [
+                        'tagline' => $this->translateText($service->tagline),
+                        'description' => $this->translateText($service->description)
+                    ];
+                }
 
-            // Preload translations for service categories
-            foreach ($serviceCategories as $category) {
-                $this->translateText($category->name);
-            }
+                foreach ($serviceCategories as $category) {
+                    $translations['categories'][$category->id] = $this->translateText($category->name);
+                }
 
-            // Preload translations for service sections
-            foreach ($serviceSections as $section) {
-                $this->translateText($section->name);
-                $this->translateHtmlContent($section->content);
-            }
+                foreach ($serviceSections as $section) {
+                    $translations['sections'][$section->id] = [
+                        'name' => $this->translateText($section->name),
+                        'content' => $this->translateHtmlContent($section->content)
+                    ];
+                }
 
-            // Preload translations for products
-            foreach ($products as $product) {
-                $this->translateText($product->name);
-                $this->translateHtmlContent($product->description);
-            }
+                foreach ($products as $product) {
+                    $translations['products'][$product->id] = [
+                        'name' => $this->translateText($product->name),
+                        'description' => $this->translateHtmlContent($product->description)
+                    ];
+                }
+
+                return $translations;
+            });
         }
     }
 
@@ -242,7 +250,6 @@ class ServiceController extends Controller
         if (is_null($text)) {
             return '';
         }
-
         return $this->translator->translate($text);
     }
 
@@ -264,25 +271,21 @@ class ServiceController extends Controller
     private function translateDomNode($node)
     {
         $translatedHtml = '';
-
         foreach ($node->childNodes as $child) {
             if ($child->nodeType === XML_TEXT_NODE) {
                 $translatedHtml .= $this->translateText($child->nodeValue);
             } elseif ($child->nodeType === XML_ELEMENT_NODE) {
                 $translatedHtml .= '<' . $child->nodeName;
-
                 if ($child->hasAttributes()) {
                     foreach ($child->attributes as $attr) {
                         $translatedHtml .= ' ' . $attr->nodeName . '="' . htmlspecialchars($attr->nodeValue) . '"';
                     }
                 }
-
                 $translatedHtml .= '>';
                 $translatedHtml .= $this->translateDomNode($child);
                 $translatedHtml .= '</' . $child->nodeName . '>';
             }
         }
-
         return $translatedHtml;
     }
 }
