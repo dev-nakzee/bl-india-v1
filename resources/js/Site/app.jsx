@@ -34,6 +34,8 @@ import ResetPassword from './Pages/ResetPassword';
 import ProtectedRoute from './Components/ProtectedRoute';
 import AccountLayout from './Layouts/AccountLayout';
 import ScrollToTop from './Components/ScrollToTop';
+import Enquiryform from './Pages/Enquiryform';
+import BussinessCard from './Pages/BussinessCard';
 
 function App() {
   return (
@@ -65,6 +67,8 @@ function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/downloads" element={<Downloads />} />
+            <Route path="/enquiryform" element={<Enquiryform />}  />
+            <Route path="/bussinesscard" element={<BussinessCard />} />
             <Route path="/account" element={
             <ProtectedRoute>
               <AccountLayout/>

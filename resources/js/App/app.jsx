@@ -37,6 +37,8 @@ import Tutorials from './components/Tutorials';
 import Brochures from './components/Brochures';
 import Settings from './components/Settings';
 import ProtectedComponent from './components/ProtectedComponent';
+import Enquiryform from '../Site/Pages/Enquiryform';
+import BussinessCard from '../Site/Pages/BussinessCard';
 
 function App() {
   return (
@@ -47,6 +49,7 @@ function App() {
           <Routes>
             {/* Public Route */}
             <Route path="/cms/login" element={<PublicRoute element={<Login />} />} />
+          
 
             {/* Redirect directly to dashboard from /cms */}
             <Route path="/cms" element={<Navigate to="/cms/dashboard" replace />} />
