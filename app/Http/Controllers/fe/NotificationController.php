@@ -14,6 +14,7 @@ use DOMDocument;
 class NotificationController extends Controller
 {
     protected $translator;
+    protected $locale;
     protected $languages = [
         'en', 'fr', 'es', 'it', 'zh-Hans', 'zh-Hant', 'de', 'ar', 'ja', 'ko', 'ru', 
         'ms', 'vi', 'th', 'pl', 'pt', 'hi', 'mr', 'bn', 'te', 'ta', 'kn', 'ml', 'gu', 'pa'
@@ -21,8 +22,8 @@ class NotificationController extends Controller
 
     public function __construct(Request $request)
     {
-        $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
-        $this->translator = new GoogleTranslate($locale);
+        $this->locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
+        $this->translator = new GoogleTranslate($this->locale);
     }
 
     /**
@@ -34,6 +35,10 @@ class NotificationController extends Controller
         $notificationCategories = NotificationCategory::all();
 
         foreach ($this->languages as $locale) {
+            if ($locale == 'en') {
+                continue; // Skip translation for English
+            }
+
             $this->translator->setTarget($locale);
 
             // Preload translations for notifications
@@ -85,8 +90,8 @@ class NotificationController extends Controller
 
     private function translateText($text)
     {
-        if (is_null($text)) {
-            return '';
+        if (is_null($text) || $this->locale === 'en') {
+            return $text; // Skip translation if locale is English or text is null
         }
 
         return $this->translator->translate($text);
@@ -94,8 +99,8 @@ class NotificationController extends Controller
 
     private function translateHtmlContent($html)
     {
-        if (is_null($html)) {
-            return '';
+        if (is_null($html) || $this->locale === 'en') {
+            return $html; // Skip translation if locale is English or HTML is null
         }
 
         $doc = new DOMDocument();
