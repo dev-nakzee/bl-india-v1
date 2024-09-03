@@ -99,7 +99,25 @@ const HomePage = () => {
 
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
-                {homeData?.seo_tags}
+                 {/* Dynamically add meta tags */}
+        {homeData.meta_tags?.map((meta, index) => (
+          <meta key={index} {...meta} />
+        ))}
+        
+        {/* Dynamically add scripts */}
+        {homeData.seo_scripts?.map((script, index) => (
+          <script key={index} type={script.type || "text/javascript"} dangerouslySetInnerHTML={{ __html: script.content }} />
+        ))}
+
+        {/* Dynamically add styles */}
+        {homeData.seo_styles && (
+          <style dangerouslySetInnerHTML={{ __html: homeData.seo_styles }} />
+        )}
+        
+        {/* Inject structured data */}
+        {homeData.seo_tags && (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: homeData.seo_tags }} />
+        )}
             </Helmet>
             {loading ? (
                 <Box
