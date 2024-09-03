@@ -92,7 +92,8 @@ const Gallery = () => {
                 <meta name="distribution" content="Global" />
                 <meta name="rating" content="General" />
                 <meta property="og:locale" content="en_US" />
-                <meta property="og:type" content="website" />
+                 <meta property="og:type" content="website" />
+                <meta property="og:title" content={data.page.seo_title} />
                 <meta property="og:description" content='We Invite You to Browse Our Image Gallery and Learn More About Our Team. You can See Our Team in Action and Know More About Our Work As Well.' />
                 <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
