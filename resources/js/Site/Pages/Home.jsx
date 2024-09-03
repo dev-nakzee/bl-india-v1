@@ -99,6 +99,7 @@ const HomePage = () => {
 
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
+                {homeData?.seo_tags}
             </Helmet>
             {loading ? (
                 <Box

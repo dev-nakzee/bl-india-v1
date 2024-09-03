@@ -98,6 +98,7 @@ const AboutPage = () => {
 
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
+                {aboutData?.seo_tags}
             </Helmet>
           
             <AboutMain />
