@@ -163,7 +163,7 @@ const Contact = () => {
                 <meta property="og:description" content={data.page.seo_description} />
                 <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta property="og:image" content={'https://bl-india.com'+data.page.image_url} />
+                <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
             </Helmet>
