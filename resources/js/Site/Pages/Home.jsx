@@ -27,6 +27,48 @@ const HomePage = () => {
     const [homeData, setHomeData] = useState(null);
     const [loading, setLoading] = useState(true);
     const location = useLocation();
+    const schemaData = {
+        "@context": "https://schema.org/",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "About Brand Liaison",
+            "item": "https://bl-india.com/about"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Our Services",
+            "item": "https://bl-india.com/services"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Government Notifications",
+            "item": "https://bl-india.com/notifications"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Downloads",
+            "item": "https://bl-india.com/downloads"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Blogs",
+            "item": "https://bl-india.com/blogs"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "Contact US",
+            "item": "https://bl-india.com/contact"
+          }
+        ]
+      };
 
     useEffect(() => {
         const getHomeData = async () => {
@@ -100,41 +142,7 @@ const HomePage = () => {
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
                 <script type="application/ld+json">
-                {
-                    "@context": "https://schema.org/", 
-                    "@type": "BreadcrumbList", 
-                    "itemListElement": [{
-                        "@type": "ListItem", 
-                        "position": 1, 
-                        "name": "About Brand Liaison",
-                        "item": "https://bl-india.com/about"  
-                    },{
-                        "@type": "ListItem", 
-                        "position": 2, 
-                        "name": "Our Services",
-                        "item": "https://bl-india.com/services"  
-                    },{
-                        "@type": "ListItem", 
-                        "position": 3, 
-                        "name": "Government Notifications",
-                        "item": "https://bl-india.com/notifications"  
-                    },{
-                        "@type": "ListItem", 
-                        "position": 4, 
-                        "name": "Downloads",
-                        "item": "https://bl-india.com/downloads"  
-                    },{
-                        "@type": "ListItem", 
-                        "position": 5, 
-                        "name": "Blogs",
-                        "item": "https://bl-india.com/blogs"  
-                    },{
-                        "@type": "ListItem", 
-                        "position": 6, 
-                        "name": "Contact US",
-                        "item": "https://bl-india.com/contact"  
-                    }]
-                }
+                    {JSON.stringify(structuredData)}
                 </script>
             </Helmet>
             {loading ? (
