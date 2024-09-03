@@ -7,11 +7,15 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DownloadIcon from '@mui/icons-material/Download';
 import SharePage from '../Components/SharePage';
 import BackButton from '../Components/BackButton';
+import { useLocation } from 'react-router-dom';
 
 const NotificationDetails = () => {
   const { categorySlug, slug } = useParams();
   const [notification, setNotification] = useState(null);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
+
 
   useEffect(() => {
     const fetchNotification = async () => {
@@ -46,7 +50,7 @@ const NotificationDetails = () => {
         <title>{notification.seo_title}</title>
         <meta name="description" content={notification.seo_description} />
         <meta name="keywords" content={notification.seo_keywords} />
-        <meta name="robots" content="index, follow" />
+        
         <meta name="author" content="Rajesh Kumar" />
         <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
         <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
@@ -61,7 +65,7 @@ const NotificationDetails = () => {
         <meta property="og:site_name" content="Brand Liaison India®" />
         <meta property="og:image" content={'https://bl-india.com/'+notification.image_url} />
         <meta name="format-detection" content="telephone=no" />
-        <link rel="canonical" href="https://bl-india.com/" />
+        <link rel="canonical" href={fullUrl} />
       </Helmet>
       <Box className="notification-details" padding={{lg:5,md:4,sm:3,xs:2}}>
         <Typography    className="page-main-heading page-heading"

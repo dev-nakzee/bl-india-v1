@@ -28,6 +28,8 @@ import apiClient from "../Services/api"; // Ensure this is your configured axios
 import BackButton from "../Components/BackButton";
 import DownloadBrochure from "../Components/DownloadBrochure";
 import RequestCallBack from "../Components/RequestCallBack";
+import { useLocation } from 'react-router-dom';
+
 
 const Sidebar = styled(Box)(({ theme }) => ({
     width: "25%",
@@ -55,7 +57,9 @@ const Blogs = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const blogsPerPage = 9;
     const navigate = useNavigate();
+    const location = useLocation();
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+    const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
     useEffect(() => {
         const fetchBlogData = async () => {
@@ -187,7 +191,7 @@ const Blogs = () => {
             <title>{pageData.seo_title}</title>
                 <meta name="description" content={pageData.seo_description} />
                 <meta name="keywords" content={pageData.seo_keywords} />
-                <meta name="robots" content="index, follow" />
+                
                 <meta name="author" content="Rajesh Kumar" />
                 <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
                 <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
@@ -202,7 +206,7 @@ const Blogs = () => {
                 <meta property="og:site_name" content="Brand Liaison India®" />
                 <meta property="og:image" content={'https://bl-india.com'+pageData.image_url} />
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href="https://bl-india.com/" />
+                <link rel="canonical" href={fullUrl} />
             </Helmet>
             <Box padding={{lg:5,md:4,sm:3,xs:2}} className="blog-page">
                 <Box

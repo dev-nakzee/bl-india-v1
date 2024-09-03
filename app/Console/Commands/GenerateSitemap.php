@@ -47,7 +47,15 @@ class GenerateSitemap extends Command
 
         // Add dynamic content with varying priorities
         foreach ($priorityMap as $model => $priority) {
-            $items = $model::all();
+            $query = $model::query();
+
+            // Exclude the page with id = 1
+            if ($model === Page::class) {
+                $query->where('id', '<>', 1);
+            }
+
+            $items = $query->get();
+
             foreach ($items as $item) {
                 $path = $this->getPathPrefix($model) . $item->slug;
                 $sitemap->add(Url::create($path)
@@ -78,4 +86,5 @@ class GenerateSitemap extends Command
 
         return $paths[$model] ?? '/';
     }
+    
 }

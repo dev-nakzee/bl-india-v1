@@ -32,6 +32,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DownloadBrochure from "../Components/DownloadBrochure";
 import RequestCallBack from "../Components/RequestCallBack";
+import { useLocation } from 'react-router-dom';
 
 const Downloads = () => {
     const [data, setData] = useState(null);
@@ -41,6 +42,10 @@ const Downloads = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+    const location = useLocation();
+
+    const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
+
 
     useEffect(() => {
         fetchData();
@@ -130,7 +135,7 @@ const Downloads = () => {
                 <title>{data.page.seo_title}</title>
                 <meta name="description" content={data.page.seo_description} />
                 <meta name="keywords" content={data.page.seo_keywords} />
-                <meta name="robots" content="index, follow" />
+                
                 <meta name="author" content="Rajesh Kumar" />
                 <meta
                     name="publisher"
@@ -157,7 +162,7 @@ const Downloads = () => {
                     content={"https://bl-india.com" + data.image_url}
                 />
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href="https://bl-india.com/" />
+                <link rel="canonical" href={fullUrl} />
             </Helmet>
             <Box padding={{ lg: 5, md: 4, sm: 3, xs: 2 }} className="downloads">
                 <Typography

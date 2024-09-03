@@ -14,6 +14,8 @@ import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { ExpandMore, Search } from '@mui/icons-material';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+import { useLocation } from 'react-router-dom';
+
 
 const KnowledgeBaseCategory = () => {
   const { categorySlug } = useParams();
@@ -23,6 +25,9 @@ const KnowledgeBaseCategory = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const location = useLocation();
+  const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
+
 
   useEffect(() => {
     fetchCategoryData();
@@ -86,7 +91,7 @@ const KnowledgeBaseCategory = () => {
         <title>{categoryData.seo_title || categoryData.name}</title>
         <meta name="description" content={categoryData.seo_description || categoryData.name} />
         <meta name="keywords" content={categoryData.seo_keywords || categoryData.name} />
-        <meta name="robots" content="index, follow" />
+        
         <meta name="author" content="Rajesh Kumar" />
         <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
         <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
@@ -101,7 +106,7 @@ const KnowledgeBaseCategory = () => {
         <meta property="og:site_name" content="Brand Liaison India®" />
         <meta property="og:image" content={'https://bl-india.com/'+categoryData.image_url} />
         <meta name="format-detection" content="telephone=no" />
-        <link rel="canonical" href="https://bl-india.com/" />
+        <link rel="canonical" href={fullUrl} />
       </Helmet>
       <Box padding={{lg:5,md:4,sm:3,xs:2}}>
       <Typography    className="page-main-heading page-heading"

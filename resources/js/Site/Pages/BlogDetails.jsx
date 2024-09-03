@@ -26,6 +26,7 @@ import BackButton from "../Components/BackButton";
 import DownloadBrochure from "../Components/DownloadBrochure";
 import RequestCallBack from "../Components/RequestCallBack";
 import CommentLoginDrawer from "../Components/CommentLoginDrawer"; // Import the new component
+import { useLocation } from 'react-router-dom';
 
 const BlogDetails = () => {
     const { categorySlug, blogSlug } = useParams();
@@ -41,6 +42,8 @@ const BlogDetails = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const navigate = useNavigate();
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+    const location = useLocation();
+    const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
     const Sidebar = styled(Box)(({ theme }) => ({
         width: "25%",
@@ -163,7 +166,7 @@ const BlogDetails = () => {
                 <title>{blog.seo_title}</title>
                 <meta name="description" content={blog.seo_description} />
                 <meta name="keywords" content={blog.seo_keywords} />
-                <meta name="robots" content="index, follow" />
+                
                 <meta name="author" content="Rajesh Kumar" />
                 <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
                 <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
@@ -178,7 +181,7 @@ const BlogDetails = () => {
                 <meta property="og:site_name" content="Brand Liaison India®" />
                 <meta property="og:image" content={'https://bl-india.com'+blog.image_url} />
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href="https://bl-india.com/" />
+                <link rel="canonical" href={fullUrl} />
             </Helmet>
             <Box padding={{lg:5,md:4,sm:3,xs:2}}>
                 

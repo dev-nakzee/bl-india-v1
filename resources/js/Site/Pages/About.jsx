@@ -8,6 +8,7 @@ import AboutMissionVision from '../Components/About/AboutMissionVision';
 import AboutTeam from '../Components/About/AboutTeam';
 import AboutFounder from '../Components/About/AboutFounder';
 import AboutCustomers from '../Components/About/AboutCustomers';
+import { useLocation } from 'react-router-dom';
 
 const AboutSection = styled(Box)(({ theme }) => ({
     padding: theme.spacing(4),
@@ -42,6 +43,8 @@ const AboutSection = styled(Box)(({ theme }) => ({
 const AboutPage = () => {
     const [aboutData, setAboutData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const location = useLocation();
+    const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
     useEffect(() => {
         const fetchAboutData = async () => {
@@ -77,7 +80,6 @@ const AboutPage = () => {
                 <meta name="description" content={aboutData?.seo_description} />
                 <meta name="keywords" content={aboutData?.seo_keywords} />
                 {/* Other meta tags */}
-                <meta name="robots" content="index, follow" />
                 <meta name="author" content="Rajesh Kumar" />
                 <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
                 <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
@@ -92,7 +94,7 @@ const AboutPage = () => {
                 <meta property="og:site_name" content="Brand Liaison India®" />
                 <meta property="og:image" content={'https://bl-india.com'+aboutData.image_url} />
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href="https://bl-india.com/" />
+                <link rel="canonical" href={fullUrl} />
             </Helmet>
           
             <AboutMain />
