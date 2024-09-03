@@ -37,8 +37,6 @@ class ContactController extends Controller
             'file' => 'nullable|file|mimes:pdf|max:20480',
         ]);
 
-        return response()->json([$request->all()], 422);
-
         if ($request->hasFile('file')) {
             $filePath = $request->file('file')->store('contact_forms', 'public');
             $data['file_url'] = Storage::url($filePath);
