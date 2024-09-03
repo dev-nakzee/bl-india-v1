@@ -42,6 +42,7 @@ class ContactController extends Controller
             $validatedData['file_url'] = Storage::url($filePath);
         }
 
+        return response()->json($validatedData, 422);
         $contactForm = ContactForm::create($validatedData);
 
         Mail::to($contactForm->email)->send(new ThankYouMail($contactForm));
