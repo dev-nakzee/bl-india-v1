@@ -152,10 +152,10 @@ const Notifications = () => {
                 <meta name="rating" content="General" />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
-                <meta property="og:description" content={notification.seo_description} />
+                <meta property="og:description" content={pageData.seo_description} />
                 <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta property="og:image" content={'https://bl-india.com/'+notification.image_url} />
+                <meta property="og:image" content={'https://bl-india.com/'+pageData.image_url} />
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
             </Helmet>
