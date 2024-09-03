@@ -45,7 +45,7 @@ class ContactController extends Controller
         $contactForm = ContactForm::create($validatedData);
 
         Mail::to($contactForm->email)->send(new ThankYouMail($contactForm));
-        Mail::to('developer@bl-india.com')->send(new ContactFormNotificationMail($contactForm));
+        Mail::to('info@bl-india.com')->send(new ContactFormNotificationMail($contactForm));
 
         return response()->json(['message' => 'Thank you for your message. We will get back to you shortly.']);
 }
