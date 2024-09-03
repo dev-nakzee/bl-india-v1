@@ -37,6 +37,7 @@ const Contact = () => {
         organization: "",
         file: null,  // Initialize file to null
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formError, setFormError] = useState('');
     const [formSuccess, setFormSuccess] = useState('');
     const location = useLocation();
@@ -74,21 +75,16 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formPayload = new FormData();  // Use FormData to handle file upload
+        setIsSubmitting(true); // Start submitting
+        const formPayload = new FormData();
         Object.keys(formData).forEach(key => {
-            if (key === 'file' && formData[key]) {
-                formPayload.append('file', formData[key], formData[key].name);
-            } else {
-                formPayload.append(key, formData[key]);
-            }
+            formPayload.append(key, formData[key]);
         });
     
-        setFormError('');
-        setFormSuccess('');
         try {
             await apiClient.post("/contact-form", formPayload, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',  // Set the appropriate header for file upload
+                    'Content-Type': 'multipart/form-data',
                 }
             });
             setFormSuccess("Message and file sent successfully");
@@ -102,15 +98,14 @@ const Contact = () => {
                 file: null,
             });
         } catch (error) {
-            if (error.response && error.response.data && error.response.data.errors) {
-                const errorMessage = Object.values(error.response.data.errors).flat().join(', ');
-                setFormError(errorMessage);
-            } else {
-                setFormError("Error sending message and file");
-            }
+            const errorMessage = error.response?.data?.errors
+                ? Object.values(error.response.data.errors).flat().join(', ')
+                : "Error sending message and file";
+            setFormError(errorMessage);
+        } finally {
+            setIsSubmitting(false); // End submitting
         }
-    };
-    
+    };    
 
     if (loading) {
         return (
@@ -336,14 +331,15 @@ const Contact = () => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            color="primary"
-                                            fullWidth
-                                        >
-                                            Send Message
-                                        </Button>
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        color="primary"
+                                        fullWidth
+                                        disabled={isSubmitting} // Disable button when submitting
+                                    >
+                                        {isSubmitting ? <CircularProgress size={24} /> : 'Send Message'}
+                                    </Button>
                                     </Grid>
                                 </Grid>
                             </form>
