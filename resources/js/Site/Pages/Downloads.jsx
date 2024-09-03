@@ -151,6 +151,7 @@ const Downloads = () => {
                 <meta name="rating" content="General" />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
+                <meta property="og:title" content={data.seo_title} />
                 <meta
                     property="og:description"
                     content={data.seo_description}

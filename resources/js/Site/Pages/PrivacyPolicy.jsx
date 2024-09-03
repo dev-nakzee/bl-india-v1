@@ -65,6 +65,7 @@ const PrivacyPolicy = () => {
                 <meta name="rating" content="General" />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
+                <meta property="og:title" content={pageData.page.seo_title} />
                 <meta property="og:description" content={pageData.page.seo_description} />
                 <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />

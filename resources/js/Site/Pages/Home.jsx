@@ -83,6 +83,10 @@ const HomePage = () => {
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
                 <meta
+                    property="og:title"
+                    content={homeData?.seo_title || "Brand Liaison"}
+                />
+                <meta
                     property="og:description"
                     content={
                         homeData?.seo_description ||
