@@ -180,6 +180,7 @@ const fullUrl = `${window.location.protocol}//${window.location.host}${location.
                 <meta name="rating" content="General" />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
+                <meta property="og:title" content={serviceData.page.seo_title} />
                 <meta
                     property="og:description"
                     content={serviceData.page.seo_description}
