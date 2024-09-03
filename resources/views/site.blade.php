@@ -37,6 +37,8 @@
         <link rel="icon" sizes="96x96" href="https://ik.imagekit.io/iouishbjd/BL-Site/site_settings/site_icon-96x96.webp?updatedAt=1724390106977">
         <link rel="icon" sizes="16x16" href="https://ik.imagekit.io/iouishbjd/BL-Site/site_settings/site_icon-16x16.webp?updatedAt=1724390107177">
 
+        <meta name="robots" content="index, follow" />
+        
         @viteReactRefresh
         @vite('resources/js/Site/app.jsx')
         @vite('resources/css/app.css')
