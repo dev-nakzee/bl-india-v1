@@ -39,7 +39,7 @@ class ContactController extends Controller
 
         if ($request->hasFile('file')) {
             $filePath = $request->file('file')->store('contact_forms', 'public');
-            $data['file_url'] = Storage::url($filePath);
+            $validatedData['file_url'] = Storage::url($filePath);
         }
 
         $contactForm = ContactForm::create($validatedData);
