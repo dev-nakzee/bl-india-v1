@@ -24,8 +24,7 @@ import {
 } from "@mui/icons-material";
 import { useLocation } from 'react-router-dom';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
-
-
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const Contact = () => {
     const [data, setData] = useState(null);
@@ -101,7 +100,7 @@ const Contact = () => {
                     'Content-Type': 'multipart/form-data',
                 }
             });
-            setFormSuccess("Message and file sent successfully");
+            // setFormSuccess("Message and file sent successfully");
             setFormData({
                 name: "",
                 email: "",
@@ -168,16 +167,23 @@ const Contact = () => {
                 <link rel="canonical" href={fullUrl} />
             </Helmet>
              {/* Success Dialog */}
-            <Dialog
+             <Dialog
                 open={openDialog}
                 onClose={handleDialogClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Success"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">
+                    <Box display="flex" alignItems="center" color="success.main">
+                        <CheckCircleOutlineIcon sx={{ fontSize: 60, mr: 2 }} />
+                        {"Success"}
+                    </Box>
+                </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Your message has been sent successfully!
+                        Your form has been sent successfully!
+                        <br /><br />
+                        We will get back to you soon.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -186,6 +192,7 @@ const Contact = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
+
             <Box padding={{lg:5,md:4,sm:3,xs:2}}>
                 <Typography
                       className="page-main-heading page-heading"
