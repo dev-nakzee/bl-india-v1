@@ -34,6 +34,7 @@ import ResetPassword from './Pages/ResetPassword';
 import ProtectedRoute from './Components/ProtectedRoute';
 import AccountLayout from './Layouts/AccountLayout';
 import ScrollToTop from './Components/ScrollToTop';
+import OldRoutesRedirector from './Components/OldRoutesRedirector';
 
 function App() {
   return (
