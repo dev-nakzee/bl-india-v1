@@ -43,6 +43,7 @@ function App() {
         <ScrollToTop />
         <Layout>
           <Routes>
+            <OldRoutesRedirector /> {/* Redirect old URLs */}
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
