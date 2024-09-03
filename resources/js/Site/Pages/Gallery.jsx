@@ -13,8 +13,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Helmet } from "react-helmet";
 import { useLocation } from 'react-router-dom';
 
-const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
-
 const Gallery = () => {
     const [galleries, setGalleries] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,6 +22,8 @@ const Gallery = () => {
         useState("");
     const [modalOpen, setModalOpen] = useState(false);
     const location = useLocation();
+    const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
+
 
     useEffect(() => {
         fetchGalleries();
