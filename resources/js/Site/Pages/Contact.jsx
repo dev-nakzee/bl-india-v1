@@ -35,12 +35,19 @@ const Contact = () => {
         phone: "",
         country_code: "+91",
         organization: "",
+        file: null,  // Initialize file to null
     });
     const [formError, setFormError] = useState('');
     const [formSuccess, setFormSuccess] = useState('');
     const location = useLocation();
     const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
+    const handleFileChange = (event) => {
+        setFormData({
+            ...formData,
+            file: event.target.files[0] // Get the first file
+        });
+    };
 
     useEffect(() => {
         fetchData();
@@ -67,11 +74,24 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const formPayload = new FormData();  // Use FormData to handle file upload
+        Object.keys(formData).forEach(key => {
+            if (key === 'file' && formData[key]) {
+                formPayload.append('file', formData[key], formData[key].name);
+            } else {
+                formPayload.append(key, formData[key]);
+            }
+        });
+    
         setFormError('');
         setFormSuccess('');
         try {
-            await apiClient.post("/contact-form", formData);
-            setFormSuccess("Message sent successfully");
+            await apiClient.post("/contact-form", formPayload, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',  // Set the appropriate header for file upload
+                }
+            });
+            setFormSuccess("Message and file sent successfully");
             setFormData({
                 name: "",
                 email: "",
@@ -79,16 +99,18 @@ const Contact = () => {
                 phone: "",
                 country_code: "+91",
                 organization: "",
+                file: null,
             });
         } catch (error) {
             if (error.response && error.response.data && error.response.data.errors) {
                 const errorMessage = Object.values(error.response.data.errors).flat().join(', ');
                 setFormError(errorMessage);
             } else {
-                setFormError("Error sending message");
+                setFormError("Error sending message and file");
             }
         }
     };
+    
 
     if (loading) {
         return (
@@ -297,6 +319,15 @@ const Contact = () => {
                                             margin="normal"
                                             multiline
                                             rows={4}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            type="file"
+                                            onChange={handleFileChange}
+                                            inputProps={{ accept: "application/pdf" }} // Accept only PDF files
+                                            fullWidth
+                                            margin="normal"
                                         />
                                     </Grid>
                                     <Grid item xs={12}>

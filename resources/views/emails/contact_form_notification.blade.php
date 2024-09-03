@@ -59,6 +59,7 @@
             <p><strong>Phone:</strong> {{ $contactForm['country_code'] }} - {{ $contactForm['phone'] }}</p>
             <p><strong>Organization:</strong> {{ $contactForm['organization'] }}</p>
             <p><strong>Message:</strong> {{ $contactForm['message'] }}</p>
+            <p><strong>File: </strong> {{ 'https://in.bl-india.com'.$contactForm['file_url'] }}</p>
         </div>
         <div class="footer">
             <p>Copyright &copy; 2024 Brand Liaison India Private Limited.</p>

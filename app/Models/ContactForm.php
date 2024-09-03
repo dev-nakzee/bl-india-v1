@@ -17,6 +17,7 @@ class ContactForm extends Model
         'phone',
         'organization',
         'message',
+        'file_url', // Optional file upload field, add this to your migration and update the model'sfillable array
     ];
 
     // Optionally, if you want to hide certain attributes when serializing the model
