@@ -23,6 +23,8 @@ import {
     PhoneOutlined,
 } from "@mui/icons-material";
 import { useLocation } from 'react-router-dom';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
+
 
 
 const Contact = () => {
@@ -42,8 +44,18 @@ const Contact = () => {
     const [formSuccess, setFormSuccess] = useState('');
     const location = useLocation();
     const fileInputRef = React.useRef(null);
+    const [openDialog, setOpenDialog] = useState(false);
 
     const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
+
+    const handleDialogOpen = () => {
+        setOpenDialog(true);
+    };
+    
+    const handleDialogClose = () => {
+        setOpenDialog(false);
+    };
+    
 
     const handleFileChange = (event) => {
         setFormData({
@@ -99,9 +111,9 @@ const Contact = () => {
                 organization: "",
                 file: null,
             });
-            // Clear the file input
+            handleDialogOpen(); // Open success dialog
             if (fileInputRef.current) {
-                fileInputRef.current.value = "";
+                fileInputRef.current.value = ""; // Clear file input
             }
         } catch (error) {
             const errorMessage = error.response?.data?.errors
@@ -109,9 +121,9 @@ const Contact = () => {
                 : "Error sending form";
             setFormError(errorMessage);
         } finally {
-            setIsSubmitting(false); // End submitting
+            setIsSubmitting(false);
         }
-    };    
+    };
 
     if (loading) {
         return (
@@ -155,6 +167,25 @@ const Contact = () => {
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
             </Helmet>
+             {/* Success Dialog */}
+            <Dialog
+                open={openDialog}
+                onClose={handleDialogClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Success"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Your message has been sent successfully!
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDialogClose} color="primary" autoFocus>
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Box padding={{lg:5,md:4,sm:3,xs:2}}>
                 <Typography
                       className="page-main-heading page-heading"
