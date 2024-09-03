@@ -328,8 +328,13 @@ const Contact = () => {
                                             inputProps={{ accept: "application/pdf" }} // Accept only PDF files
                                             fullWidth
                                             margin="normal"
+                                            helperText="Please attach a PDF file. Other file types are not allowed."
+                                            FormHelperTextProps={{
+                                                style: { color: 'rgba(0, 0, 0, 0.54)' }  // Optional: customize the style of the helper text
+                                            }}
                                         />
                                     </Grid>
+
                                     <Grid item xs={12}>
                                         <Button
                                             type="submit"
