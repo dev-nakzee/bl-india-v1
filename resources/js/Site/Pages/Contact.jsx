@@ -326,7 +326,6 @@ const Contact = () => {
                                         <TextField
                                             type="file"
                                             onChange={handleFileChange}
-                                            inputProps={{ accept: "application/pdf" }}
                                             fullWidth
                                             margin="normal"
                                             helperText="If needed attach a PDF file. Other file types are not allowed."
