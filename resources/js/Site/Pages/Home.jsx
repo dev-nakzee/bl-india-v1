@@ -142,7 +142,7 @@ const HomePage = () => {
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
                 <script type="application/ld+json">
-                    {JSON.stringify(structuredData)}
+                    {JSON.stringify(schemaData)}
                 </script>
             </Helmet>
             {loading ? (
