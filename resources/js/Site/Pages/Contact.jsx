@@ -41,6 +41,8 @@ const Contact = () => {
     const [formError, setFormError] = useState('');
     const [formSuccess, setFormSuccess] = useState('');
     const location = useLocation();
+    const fileInputRef = React.useRef(null);
+
     const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
     const handleFileChange = (event) => {
@@ -97,10 +99,14 @@ const Contact = () => {
                 organization: "",
                 file: null,
             });
+            // Clear the file input
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
         } catch (error) {
             const errorMessage = error.response?.data?.errors
                 ? Object.values(error.response.data.errors).flat().join(', ')
-                : "Error sending message and file";
+                : "Error sending form";
             setFormError(errorMessage);
         } finally {
             setIsSubmitting(false); // End submitting
@@ -320,13 +326,14 @@ const Contact = () => {
                                         <TextField
                                             type="file"
                                             onChange={handleFileChange}
-                                            inputProps={{ accept: "application/pdf" }} // Accept only PDF files
+                                            inputProps={{ accept: "application/pdf" }}
                                             fullWidth
                                             margin="normal"
                                             helperText="If needed attach a PDF file. Other file types are not allowed."
                                             FormHelperTextProps={{
-                                                style: { color: 'rgba(0, 0, 0, 0.54)' }  // Optional: customize the style of the helper text
+                                                style: { color: 'rgba(0, 0, 0, 0.54)' }
                                             }}
+                                            inputRef={fileInputRef}  // Attach the reference here
                                         />
                                     </Grid>
 

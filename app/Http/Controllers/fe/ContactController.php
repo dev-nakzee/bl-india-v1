@@ -34,8 +34,10 @@ class ContactController extends Controller
             'phone' => 'required|string',
             'organization' => 'string|nullable',
             'message' => 'string|nullable',
-            'file' => 'nullable|file|mimes:pdf|max:20480',
+            // 'file' => 'nullable|file|mimes:pdf|max:20480',
         ]);
+
+        return response()->json([$request->hasFile()], 422);
 
         if ($request->hasFile('file')) {
             $filePath = $request->file('file')->store('contact_forms', 'public');
