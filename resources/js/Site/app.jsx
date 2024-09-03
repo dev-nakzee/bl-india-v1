@@ -34,7 +34,7 @@ import ResetPassword from './Pages/ResetPassword';
 import ProtectedRoute from './Components/ProtectedRoute';
 import AccountLayout from './Layouts/AccountLayout';
 import ScrollToTop from './Components/ScrollToTop';
-import OldRoutesRedirector from './Components/OldRoutesRedirector';
+// import OldRoutesRedirector from './Components/OldRoutesRedirector';
 
 function App() {
   return (
@@ -44,7 +44,7 @@ function App() {
         <ScrollToTop />
         <Layout>
           <Routes>
-            <OldRoutesRedirector /> {/* Redirect old URLs */}
+            {/* <OldRoutesRedirector /> */}
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
