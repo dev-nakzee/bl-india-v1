@@ -25,6 +25,8 @@ class LayoutController extends Controller
         $socialMedia = SocialMedia::all();
         $topMenu = [
             ['title' => 'About', 'url' => '/about'],
+            ['title' => 'Services', 'url' => '/services'],
+            ['title' => 'Notifications', 'url' => '/notifications'],
             ['title' => 'Downloads', 'url' => '/downloads'],
             ['title' => 'Gallery', 'url' => '/gallery'],
             ['title' => 'Careers', 'url' => '/careers'],
