@@ -107,8 +107,6 @@ const BlogDetails = () => {
                 }
             );
 
-            console.log(response);
-
             setCommentData({ comment: "" });
             setCommentError("");
         } catch (error) {

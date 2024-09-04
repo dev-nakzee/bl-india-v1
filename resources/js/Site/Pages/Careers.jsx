@@ -203,8 +203,8 @@ const Careers = () => {
       />
       <Grid container spacing={4} marginTop={{xs:1,md:2}}>
         {filteredJobs.map((job) => (
-          <Grid item xs={12} sm={6} md={4} key={job.id}>
-            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <Grid item xs={12}  key={job.id}>
+            <Card sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
               <CardContent>
                 <Typography variant="h6" component="div">
                   {job.designation.name}

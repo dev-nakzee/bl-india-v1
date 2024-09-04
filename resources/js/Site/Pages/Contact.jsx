@@ -204,7 +204,7 @@ const Contact = () => {
                     Contact Us
                 </Typography>
 
-                <Grid container spacing={{ xs: 1, md: 4 }}>
+                <Grid className="m-container" container spacing={{ xs: 1, md: 4 }}>
                     <Grid item xs={12} md={6}>
                         <Box sx={{ padding: 2 }}>
                             <Typography variant="h6" gutterBottom>
