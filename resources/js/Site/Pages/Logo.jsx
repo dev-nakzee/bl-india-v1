@@ -1,12 +1,12 @@
 import React from 'react';
 
-// Dynamically import all .jpg files from the `logos` folder in `src`
+// Dynamically import all .jpg files from a specific folder
 const importAll = (r) => {
     return r.keys().map(r);
 };
 
-// Load all jpg images from the `logos` folder
-const logos = importAll(require.context('../logos', false, /\.(jpg|jpeg)$/));
+// Load all jpg images from the `public/logos` folder (or any folder you want)
+const logos = importAll(require.context('../logos', false, /\.(jpg)$/));
 
 const Logo = () => {
     return (
