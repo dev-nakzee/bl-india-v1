@@ -708,7 +708,10 @@ th {
         flex: 0 0 13.49% !important;
         margin-right: 5px !important;
     }
+   
+
 }
+
 
 @media (min-width: 768px) and (max-width: 992px) {
     .page-main-heading {
@@ -735,6 +738,10 @@ th {
         flex: 0 0 11.48% !important;
         margin-right: 5px !important;
     }
+    .m-container{
+        flex-direction: column-reverse !important;
+    }
+  
 }  
 
 @media (max-width: 767px) {
@@ -936,6 +943,9 @@ th {
         min-height: 64px;
         box-shadow: inherit;
         background-color: var(--third-color);
+    }
+    .m-container{
+        flex-direction: column-reverse !important;
     }
 }
 
