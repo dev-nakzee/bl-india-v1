@@ -37,6 +37,24 @@
         <link rel="icon" sizes="96x96" href="https://ik.imagekit.io/iouishbjd/BL-Site/site_settings/site_icon-96x96.webp?updatedAt=1724390106977">
         <link rel="icon" sizes="16x16" href="https://ik.imagekit.io/iouishbjd/BL-Site/site_settings/site_icon-16x16.webp?updatedAt=1724390107177">
 
+        <meta name="robots" content="index, follow" />
+        
+        <meta name="author" content="Rajesh Kumar" />
+        <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
+        <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+        <meta name="Classification" content="Business" />
+        <meta name="coverage" content="Worldwide" />
+        <meta name="distribution" content="Global" />
+        <meta name="rating" content="General" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Best Consultant for Product Certifications and Approvals" />
+        <meta property="og:description" content="BIS/CRS | BIS/ISI | Scheme X | EPRA | BEE | TEC | WPC/ETA | Trademark | Copyright | Patent" />
+        <meta property="og:url" content="https://bl-india.com" />
+        <meta property="og:site_name" content="Brand Liaison India®" />
+        <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
+        <meta name="format-detection" content="telephone=no" />
+        
         @viteReactRefresh
         @vite('resources/js/Site/app.jsx')
         @vite('resources/css/app.css')

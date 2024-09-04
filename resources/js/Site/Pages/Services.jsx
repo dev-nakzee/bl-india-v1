@@ -24,6 +24,8 @@ import RequestCallBack from "../Components/RequestCallBack";
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BackButton from "../Components/BackButton";
+import { useLocation } from 'react-router-dom';
+
 
 const ServiceSection = styled(Box)(({ theme }) => ({
     textAlign: "left",
@@ -87,6 +89,9 @@ const Services = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [mobileSelectValue, setMobileSelectValue] = useState("all"); // State for mobile select value
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+    const location = useLocation();
+
+const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
     const navigate = useNavigate();
 
@@ -159,7 +164,7 @@ const Services = () => {
                 />
                 <meta name="keywords" content={serviceData.page.seo_keywords} />
 
-                <meta name="robots" content="index, follow" />
+                
                 <meta name="author" content="Rajesh Kumar" />
                 <meta
                     name="publisher"
@@ -175,6 +180,7 @@ const Services = () => {
                 <meta name="rating" content="General" />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
+                <meta property="og:title" content={serviceData.page.seo_title} />
                 <meta
                     property="og:description"
                     content={serviceData.page.seo_description}
@@ -188,7 +194,7 @@ const Services = () => {
                     }
                 />
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href="https://bl-india.com/" />
+                <link rel="canonical" href={fullUrl} />
             </Helmet>
 
             <Grid

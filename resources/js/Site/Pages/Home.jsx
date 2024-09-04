@@ -12,6 +12,7 @@ import HomeAssociates from "../Components/Home/HomeAssociates";
 import apiClient from "../Services/api";
 import { Helmet } from "react-helmet";
 import { useInView } from "react-intersection-observer";
+import { useLocation } from 'react-router-dom';
 
 const LazyLoadComponent = ({ children }) => {
     const { ref, inView } = useInView({
@@ -25,6 +26,49 @@ const LazyLoadComponent = ({ children }) => {
 const HomePage = () => {
     const [homeData, setHomeData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const location = useLocation();
+    const schemaData = {
+        "@context": "https://schema.org/",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "About Brand Liaison",
+            "item": "https://bl-india.com/about"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Our Services",
+            "item": "https://bl-india.com/services"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Government Notifications",
+            "item": "https://bl-india.com/notifications"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Downloads",
+            "item": "https://bl-india.com/downloads"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Blogs",
+            "item": "https://bl-india.com/blogs"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "Contact US",
+            "item": "https://bl-india.com/contact"
+          }
+        ]
+      };
 
     useEffect(() => {
         const getHomeData = async () => {
@@ -43,6 +87,8 @@ const HomePage = () => {
 
         getHomeData();
     }, []);
+
+    const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
     return (
         <>
@@ -63,7 +109,6 @@ const HomePage = () => {
                     }
                 />
                 {/* Other meta tags */}
-                <meta name="robots" content="index, follow" />
                 <meta name="author" content="Rajesh Kumar" />
                 <meta
                     name="publisher"
@@ -80,6 +125,10 @@ const HomePage = () => {
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
                 <meta
+                    property="og:title"
+                    content={homeData?.seo_title || "Brand Liaison"}
+                />
+                <meta
                     property="og:description"
                     content={
                         homeData?.seo_description ||
@@ -88,10 +137,13 @@ const HomePage = () => {
                 />
                 <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta property="og:image" content={'https://in.bl-india.com'+homeData?.image_url} />
+                <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
 
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href="https://bl-india.com/" />
+                <link rel="canonical" href={fullUrl} />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
             </Helmet>
             {loading ? (
                 <Box

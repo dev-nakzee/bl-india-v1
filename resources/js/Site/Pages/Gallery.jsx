@@ -11,6 +11,7 @@ import Masonry from "react-masonry-css";
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
 import CloseIcon from "@mui/icons-material/Close";
 import { Helmet } from "react-helmet";
+import { useLocation } from 'react-router-dom';
 
 const Gallery = () => {
     const [galleries, setGalleries] = useState([]);
@@ -20,6 +21,9 @@ const Gallery = () => {
     const [selectedImageDescription, setSelectedImageDescription] =
         useState("");
     const [modalOpen, setModalOpen] = useState(false);
+    const location = useLocation();
+    const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
+
 
     useEffect(() => {
         fetchGalleries();
@@ -79,7 +83,7 @@ const Gallery = () => {
                 <title>A Visual Journey of Brand Liaison's Success | Our Gallery</title>
                 <meta name="description" content='We Invite You to Browse Our Image Gallery and Learn More About Our Team. You can See Our Team in Action and Know More About Our Work As Well.' />
                 <meta name="keywords" content='image gallery of brand liaison, brand liaison team image gallery' />
-                <meta name="robots" content="index, follow" />
+                
                 <meta name="author" content="Rajesh Kumar" />
                 <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
                 <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
@@ -89,12 +93,13 @@ const Gallery = () => {
                 <meta name="rating" content="General" />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
+                <meta property="og:title" content='A Visual Journey of Brand Liaison`s Success | Our Gallery' />
                 <meta property="og:description" content='We Invite You to Browse Our Image Gallery and Learn More About Our Team. You can See Our Team in Action and Know More About Our Work As Well.' />
                 <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta property="og:image" content='' />
+                <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href="https://bl-india.com/" />
+                <link rel="canonical" href={fullUrl} />
             </Helmet>
             <Box padding={{lg:5,md:4,sm:3,xs:2}}>
             <Typography

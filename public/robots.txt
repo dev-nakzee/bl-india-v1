@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /account/
+
+Sitemap: https://in.bl-india.com/sitemap.xml
+Sitemap: https://global.bl-india.com/sitemap.xml

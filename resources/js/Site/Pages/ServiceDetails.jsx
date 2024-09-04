@@ -119,6 +119,9 @@ const ServiceDetails = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
 
+  const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
+
+
   useEffect(() => {
     const fetchServiceData = async () => {
       try {
@@ -170,7 +173,7 @@ const ServiceDetails = () => {
         <title>{serviceData.service.seo_title}</title>
         <meta name="description" content={serviceData.service.seo_description} />
         <meta name="keywords" content={serviceData.service.seo_keywords} />
-        <meta name="robots" content="index, follow" />
+        
         <meta name="author" content="Rajesh Kumar" />
         <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
         <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
@@ -180,12 +183,13 @@ const ServiceDetails = () => {
         <meta name="rating" content="General" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="website" />
+        <meta property="og:title" content={serviceData.service.seo_title} />
         <meta property="og:description" content={serviceData.service.seo_description} />
         <meta property="og:url" content="https://bl-india.com" />
         <meta property="og:site_name" content="Brand Liaison India®" />
-        <meta property="og:image" content={'https://bl-india.com'+serviceData.service.image_url} />
+        <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
         <meta name="format-detection" content="telephone=no" />
-        <link rel="canonical" href="https://bl-india.com/" />
+        <link rel="canonical" href={fullUrl} />
       </Helmet>
       <ServiceSection className='Service-section'>
         <Grid item xs={12} display={'flex'} justifyContent={'center'} alignItems={'center'} mb={3}>

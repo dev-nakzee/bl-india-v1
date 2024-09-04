@@ -22,6 +22,9 @@ import {
     FmdGoodOutlined,
     PhoneOutlined,
 } from "@mui/icons-material";
+import { useLocation } from 'react-router-dom';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const Contact = () => {
     const [data, setData] = useState(null);
@@ -33,9 +36,32 @@ const Contact = () => {
         phone: "",
         country_code: "+91",
         organization: "",
+        file: null,  // Initialize file to null
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formError, setFormError] = useState('');
     const [formSuccess, setFormSuccess] = useState('');
+    const location = useLocation();
+    const fileInputRef = React.useRef(null);
+    const [openDialog, setOpenDialog] = useState(false);
+
+    const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
+
+    const handleDialogOpen = () => {
+        setOpenDialog(true);
+    };
+    
+    const handleDialogClose = () => {
+        setOpenDialog(false);
+    };
+    
+
+    const handleFileChange = (event) => {
+        setFormData({
+            ...formData,
+            file: event.target.files[0] // Get the first file
+        });
+    };
 
     useEffect(() => {
         fetchData();
@@ -62,11 +88,19 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFormError('');
-        setFormSuccess('');
+        setIsSubmitting(true); // Start submitting
+        const formPayload = new FormData();
+        Object.keys(formData).forEach(key => {
+            formPayload.append(key, formData[key]);
+        });
+    
         try {
-            await apiClient.post("/contact-form", formData);
-            setFormSuccess("Message sent successfully");
+            await apiClient.post("/contact-form", formPayload, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            });
+            // setFormSuccess("Message and file sent successfully");
             setFormData({
                 name: "",
                 email: "",
@@ -74,14 +108,19 @@ const Contact = () => {
                 phone: "",
                 country_code: "+91",
                 organization: "",
+                file: null,
             });
-        } catch (error) {
-            if (error.response && error.response.data && error.response.data.errors) {
-                const errorMessage = Object.values(error.response.data.errors).flat().join(', ');
-                setFormError(errorMessage);
-            } else {
-                setFormError("Error sending message");
+            handleDialogOpen(); // Open success dialog
+            if (fileInputRef.current) {
+                fileInputRef.current.value = ""; // Clear file input
             }
+        } catch (error) {
+            const errorMessage = error.response?.data?.errors
+                ? Object.values(error.response.data.errors).flat().join(', ')
+                : "Error sending form";
+            setFormError(errorMessage);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -110,7 +149,7 @@ const Contact = () => {
                 <title>{data.page.seo_title}</title>
                 <meta name="description" content={data.page.seo_description} />
                 <meta name="keywords" content={data.page.seo_keywords} />
-                <meta name="robots" content="index, follow" />
+                
                 <meta name="author" content="Rajesh Kumar" />
                 <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
                 <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
@@ -120,13 +159,40 @@ const Contact = () => {
                 <meta name="rating" content="General" />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
+                <meta property="og:title" content={data.page.seo_title} />
                 <meta property="og:description" content={data.page.seo_description} />
                 <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta property="og:image" content={'https://bl-india.com'+data.page.image_url} />
+                <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href="https://bl-india.com/" />
+                <link rel="canonical" href={fullUrl} />
             </Helmet>
+             {/* Success Dialog */}
+             <Dialog
+                open={openDialog}
+                onClose={handleDialogClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    <Box display="flex" alignItems="center" color="success.main">
+                        <CheckCircleOutlineIcon sx={{ fontSize: 60, mr: 2 }} />
+                    </Box>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Your form has been submitted successfully!
+                        <br /><br />
+                        We will get back to you soon.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDialogClose} color="primary" autoFocus>
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
             <Box padding={{lg:5,md:4,sm:3,xs:2}}>
                 <Typography
                       className="page-main-heading page-heading"
@@ -295,14 +361,29 @@ const Contact = () => {
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            color="primary"
+                                        <TextField
+                                            type="file"
+                                            onChange={handleFileChange}
                                             fullWidth
-                                        >
-                                            Send Message
-                                        </Button>
+                                            margin="normal"
+                                            helperText="If needed attach a PDF file. Other file types are not allowed."
+                                            FormHelperTextProps={{
+                                                style: { color: 'rgba(0, 0, 0, 0.54)' }
+                                            }}
+                                            inputRef={fileInputRef}  // Attach the reference here
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        color="primary"
+                                        fullWidth
+                                        disabled={isSubmitting} // Disable button when submitting
+                                    >
+                                        {isSubmitting ? <CircularProgress size={24} /> : 'Send Message'}
+                                    </Button>
                                     </Grid>
                                 </Grid>
                             </form>

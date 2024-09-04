@@ -19,6 +19,8 @@ import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import { Search, ExpandMore } from '@mui/icons-material';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
+import { useLocation } from 'react-router-dom';
+
 
 const KnowledgeBase = () => {
   const [pageData, setPageData] = useState(null);
@@ -28,6 +30,8 @@ const KnowledgeBase = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
   useEffect(() => {
     fetchKnowledgeBase();
@@ -109,7 +113,7 @@ const KnowledgeBase = () => {
         <title>{pageData.seo_title}</title>
         <meta name="description" content={pageData.seo_description} />
         <meta name="keywords" content={pageData.seo_keywords} />
-        <meta name="robots" content="index, follow" />
+        
         <meta name="author" content="Rajesh Kumar" />
         <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
         <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
@@ -119,12 +123,13 @@ const KnowledgeBase = () => {
         <meta name="rating" content="General" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageData.seo_title} />
         <meta property="og:description" content={pageData.seo_description} />
         <meta property="og:url" content="https://bl-india.com" />
         <meta property="og:site_name" content="Brand Liaison India®" />
-        <meta property="og:image" content={'https://bl-india.com/'+pageData.image_url} />
+        <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
         <meta name="format-detection" content="telephone=no" />
-        <link rel="canonical" href="https://bl-india.com/" />
+        <link rel="canonical" href={fullUrl} />
       </Helmet>
       {/* <img src={know_bg} alt="careers_bg" className='knowledge_bg' /> */}
 
