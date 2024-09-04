@@ -8,8 +8,8 @@ const logos = [
     { name: '300x75', jpg: '/logos/logo-300x75.jpg', cdr: '/logos/cdr-300x75.cdr' },
     { name: '400x100', jpg: '/logos/logo-400x100.jpg', cdr: '/logos/cdr-400x100.cdr' },
     { name: '500x125', jpg: '/logos/logo-500x125.jpg', cdr: '/logos/cdr-500x125.cdr' },
-    { name: '600x150', jpg: '/logos/logo-600x150.jpg', cdr: '/logos/cdr-600x150.jpg' },
-    { name: '700x175', jpg: '/logos/logo-700x175.jpg', cdr: '/logos/cdr-700x175.jpg' },
+    { name: '600x150', jpg: '/logos/logo-600x150.jpg', cdr: '/logos/cdr-600x150.cdr' },
+    { name: '700x175', jpg: '/logos/logo-700x175.jpg', cdr: '/logos/cdr-700x175.cdr' },
     // Add more logos as needed
 ];
 
