@@ -12,7 +12,6 @@ import HomeAssociates from "../Components/Home/HomeAssociates";
 import apiClient from "../Services/api";
 import { Helmet } from "react-helmet";
 import { useInView } from "react-intersection-observer";
-import { useLocation } from 'react-router-dom';
 
 const LazyLoadComponent = ({ children }) => {
     const { ref, inView } = useInView({
@@ -26,7 +25,6 @@ const LazyLoadComponent = ({ children }) => {
 const HomePage = () => {
     const [homeData, setHomeData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const location = useLocation();
 
     useEffect(() => {
         const getHomeData = async () => {
@@ -45,8 +43,6 @@ const HomePage = () => {
 
         getHomeData();
     }, []);
-
-    const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
     return (
         <>
@@ -67,6 +63,7 @@ const HomePage = () => {
                     }
                 />
                 {/* Other meta tags */}
+                <meta name="robots" content="index, follow" />
                 <meta name="author" content="Rajesh Kumar" />
                 <meta
                     name="publisher"
@@ -94,7 +91,7 @@ const HomePage = () => {
                 <meta property="og:image" content={'https://in.bl-india.com'+homeData?.image_url} />
 
                 <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href={fullUrl} />
+                <link rel="canonical" href="https://bl-india.com/" />
             </Helmet>
             {loading ? (
                 <Box
