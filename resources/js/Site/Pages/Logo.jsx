@@ -1,8 +1,15 @@
 import React from 'react';
+import { Button } from '@mui/material'; // Import Material UI Button component
 
 // Array of logos where each entry contains the base name of the logo
 const logos = [
     { name: '200x48', jpg: '/logos/logo-200x48.jpg', cdr: '/logos/cdr-200x48.cdr' },
+    { name: '250x60', jpg: '/logos/logo-250x60.jpg', cdr: '/logos/cdr-250x60.cdr' },
+    { name: '300x75', jpg: '/logos/logo-300x75.jpg', cdr: '/logos/cdr-300x75.cdr' },
+    { name: '400x100', jpg: '/logos/logo-400x100.jpg', cdr: '/logos/cdr-400x100.cdr' },
+    { name: '500x125', jpg: '/logos/logo-500x125.jpg', cdr: '/logos/cdr-500x125.cdr' },
+    { name: '600x150', jpg: '/logos/logo-600x150.jpg', cdr: '/logos/cdr-600x150.jpg' },
+    { name: '700x175', jpg: '/logos/logo-700x175.jpg', cdr: '/logos/cdr-700x175.jpg' },
     // Add more logos as needed
 ];
 
