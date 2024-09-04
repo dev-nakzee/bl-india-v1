@@ -68,7 +68,7 @@ function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/downloads" element={<Downloads />} />
-            <Route path="/kyc-details" element={<KycDetails />} />
+            <Route path="/kyc" element={<KycDetails />} />
             <Route path="/account" element={
             <ProtectedRoute>
               <AccountLayout/>
