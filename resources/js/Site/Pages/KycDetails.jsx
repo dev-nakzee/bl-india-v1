@@ -105,7 +105,7 @@ const KycDetails = () => {
                             </TableContainer>
 
                             {/* Billing Address Table */}
-                            <Typography variant="h6" gutterBottom style={{ marginTop: '20px' }}>
+                            <Typography variant="h6" gutterBottom style={{ marginTop: '100px' }}>
                                 Billing Address
                             </Typography>
                             <TableContainer component={Paper}>
