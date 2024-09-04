@@ -15,15 +15,17 @@ const logos = [
 
 const Logo = () => {
     return (
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '20px' }}>
             {logos.map((logo, index) => (
-                <div key={index} style={{ marginBottom: '20px', textAlign: 'center' }}>
-                    {/* Display JPG Image */}
-                    <img 
-                        src={logo.jpg} 
-                        alt={logo.name} 
-                        style={{ width: '100%', maxWidth: '400px', height: 'auto' }} 
-                    />
+                <div key={index} style={{ marginBottom: '40px', textAlign: 'center' }}>
+                    {/* Display JPG Image in original size */}
+                    <div style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
+                        <img 
+                            src={logo.jpg} 
+                            alt={logo.name} 
+                            style={{ display: 'inline-block', height: 'auto' }} // Image will display in its natural size
+                        />
+                    </div>
                     
                     {/* Download Options */}
                     <div style={{ marginTop: '10px' }}>
