@@ -16,7 +16,6 @@ use DOMDocument;
 class BlogController extends Controller
 {
     protected $translator;
-    protected $locale;
     protected $languages = [
         'en', 'fr', 'es', 'it', 'zh-Hans', 'zh-Hant', 'de', 'ar', 'ja', 'ko', 'ru', 
         'ms', 'vi', 'th', 'pl', 'pt', 'hi', 'mr', 'bn', 'te', 'ta', 'kn', 'ml', 'gu', 'pa'
@@ -24,8 +23,8 @@ class BlogController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
-        $this->translator = new GoogleTranslate($this->locale);
+        $locale = $request->header('current-locale', 'en'); // Default to 'en' if no locale is set
+        $this->translator = new GoogleTranslate($locale);
     }
 
     /**
@@ -37,10 +36,6 @@ class BlogController extends Controller
         $blogCategories = BlogCategory::all();
 
         foreach ($this->languages as $locale) {
-            if ($locale == 'en') {
-                continue; // Skip translation for English
-            }
-
             $this->translator->setTarget($locale);
 
             // Preload translations for blogs
@@ -116,8 +111,8 @@ class BlogController extends Controller
 
     private function translateText($text)
     {
-        if (is_null($text) || $this->locale === 'en') {
-            return $text; // Skip translation if locale is English or text is null
+        if (is_null($text)) {
+            return '';
         }
 
         return $this->translator->translate($text);
@@ -125,8 +120,8 @@ class BlogController extends Controller
 
     private function translateHtmlContent($html)
     {
-        if (is_null($html) || $this->locale === 'en') {
-            return $html; // Skip translation if locale is English or HTML is null
+        if (is_null($html)) {
+            return '';
         }
 
         $doc = new DOMDocument();
