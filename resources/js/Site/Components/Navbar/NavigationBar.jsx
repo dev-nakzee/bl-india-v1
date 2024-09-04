@@ -209,12 +209,6 @@ const NavigationBar = () => {
                       onKeyDown={toggleDrawer(false)}
                     >
                       <List>
-                        <ListItem component={Link} to="/services" color="inherit">
-                          <ListItemText primary="Services" sx={{fontWeight:800}} />
-                        </ListItem>
-                        <ListItem component={Link} to="/notifications" color="inherit">
-                          <ListItemText primary="Notifications" sx={{fontWeight:800}} />
-                        </ListItem>
                         {topMenu && topMenu.map((menuItem) => (
                           <ListItem button component={Link} to={menuItem.url} key={menuItem.url}>
                             <ListItemText primary={menuItem.title} />
