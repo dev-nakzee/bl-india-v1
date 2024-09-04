@@ -58,7 +58,7 @@ const KycDetails = () => {
                 </div>
             ) : (
                 <>
-                    <Typography variant="h4" gutterBottom>
+                    <Typography variant="h4" gutterBottom sx={{ mb: 6}}>
                         KYC Details
                     </Typography>
 
