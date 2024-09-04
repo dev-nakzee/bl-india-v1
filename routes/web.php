@@ -23,6 +23,10 @@ Route::get('/storage/{file?}', function ($file) {
     return response()->file($path);
 })->where('file', '.*');
 
+Route::get('/sitemap.xml', function () {
+    return response()->file(public_path('sitemap.xml'));
+});
+
 Route::get('/preload-all-translations', function() {
     $homeController = app(HomeController::class);
     $aboutController = app(AboutController::class);
