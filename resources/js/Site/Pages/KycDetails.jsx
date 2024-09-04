@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button, Grid, TextField } from '@mui/material';
 
 // Define the passwords for access
-const user_access_password = 'bl@user'; // Replace with your actual password
-const office_access_password = 'bl@2014'; // Replace with your actual password
+const user_access_password = '3BhqvxpSC88s'; // Replace with your actual password
+const office_access_password = 'EwzA5eSmfWGz'; // Replace with your actual password
 
 const KycDetails = () => {
     const [enteredPassword, setEnteredPassword] = useState('');
