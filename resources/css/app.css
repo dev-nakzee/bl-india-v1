@@ -651,19 +651,7 @@ th {
 .MuiButtonBase-root.MuiButton-root {
     text-transform: capitalize;
 }
-.enquiry-left span{
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-}
-.enquiry-left span:hover{
-    color: #ffffff;
-}
-.enquiry-left p{
-    color: #ffffff;
-    font-size: 1.3rem;
-    line-height: 1.10;
 
-}
 @media (min-width: 1580px) {
     .box-about {
         left: 33% !important;
