@@ -20,7 +20,7 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import HandshakeIcon from "@mui/icons-material/Handshake";
+import HandshakeTwoTone from "@mui/icons-material/HandshakeTwoTone";
 import { countries } from "country-data";
 import apiClient from "../../Services/api";
 
@@ -138,12 +138,12 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
                         aria-label="partner with us"
                     >
                         {isMobile ? (
-                            <HandshakeIcon
+                            <HandshakeTwoTone
                                 fontSize="inherit"
                                 style={{ color: "#0d629a" }}
                             />
                         ) : (
-                            <HandshakeIcon
+                            <HandshakeTwoTone
                                 fontSize="inherit"
                                 style={{ color: "#fff" }}
                             />
