@@ -36,9 +36,9 @@ const KycDetails = () => {
     };
 
     return (
-        <div style={{ margin: '0 auto', padding: '20px' }}>
+        <div style={{ margin: '0 auto', padding: '20px', minHeight: '500px' }}>
             {!isAuthenticated ? (
-                <div sx={{ minHeight: '500px' }}>
+                <div sx={{ maxWidth: '50%' }}>
                     <Typography variant="h4" gutterBottom>
                         Enter Password to Access KYC Details
                     </Typography>
