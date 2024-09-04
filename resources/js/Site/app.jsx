@@ -35,6 +35,7 @@ import ProtectedRoute from './Components/ProtectedRoute';
 import AccountLayout from './Layouts/AccountLayout';
 import ScrollToTop from './Components/ScrollToTop';
 import KycDetails from './Pages/KycDetails';
+import Logo from './Pages/Logo';
 // import OldRoutesRedirector from './Components/OldRoutesRedirector';
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/kyc" element={<KycDetails />} />
+            <Route path='/logo' element={<Logo />} />
             <Route path="/account" element={
             <ProtectedRoute>
               <AccountLayout/>
