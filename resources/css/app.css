@@ -664,11 +664,6 @@ th {
     line-height: 1.10;
 
 }
-/* .bussiness-right .MuiButtonBase-root.MuiTab-root.MuiTab-labelIcon.MuiTab-textColorPrimary.Mui-selected {
-    border-bottom: 3px solid var(--third-color);
-} */
-.bussiness-right .MuiTabs-indicator {display: block !important;}
-.bussiness-right .MuiButtonBase-root-MuiTab-root {min-height: 54px;}
 @media (min-width: 1580px) {
     .box-about {
         left: 33% !important;

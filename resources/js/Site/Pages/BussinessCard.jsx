@@ -381,7 +381,7 @@ const BussinessCard = () => {
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={9}>
-                        <Box  className="bussiness-right" sx={{ marginTop: 2, padding: 2 }}>
+                        <Box sx={{ marginTop: 2, padding: 2 }}>
                             <Box sx={{ textAlign: "center", marginBottom: 2 }}>
                                 <Typography variant="h4" gutterBottom>
                                     Product Certification Services
