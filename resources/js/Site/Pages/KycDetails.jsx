@@ -62,7 +62,7 @@ const KycDetails = () => {
                         KYC Details
                     </Typography>
 
-                    <Grid container spacing={3}>
+                    <Grid container spacing={4} sx={{mb: 3}}>
                         {/* Left Column - Bank Details and Billing Address */}
                         <Grid item xs={12} md={6}>
                             {/* Bank Details Table */}
