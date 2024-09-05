@@ -31,7 +31,10 @@ html {
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     scrollbar-color: var(--primary-color) var(--secondary-color);
+    scrollbar-width: 4px !important;
+    
 }
+
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -929,6 +932,9 @@ th {
     }
     .m-container{
         flex-direction: column-reverse !important;
+    }
+    .MuiTableCell-root{
+       padding:6px 12px !important;
     }
 }
 
