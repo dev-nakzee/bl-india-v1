@@ -320,7 +320,24 @@ const Downloads = () => {
                                             ))}
                                     </TableBody>
                                 </Table>
-                            </TableContainer>
+                            </TableContainer>):(
+
+<Box
+sx={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: 4
+}}
+>
+<Typography variant="h6" gutterBottom>
+    You need to be registered and logged in to view the downloads.
+</Typography>
+<Typography variant="body1">
+    Please <a href="/login">log in</a> or <a href="/register">register</a> to continue.
+</Typography>
+</Box>
+                            )}
                             <TablePagination
                                 className="table-pagination"
                                 component="div"
@@ -330,23 +347,7 @@ const Downloads = () => {
                                 rowsPerPage={rowsPerPage}
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                             />
-):(
-                                            <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                alignItems: "center",
-                                                marginTop: 4
-                                            }}
-                                        >
-                                            <Typography variant="h6" gutterBottom>
-                                                You need to be registered and logged in to view the downloads.
-                                            </Typography>
-                                            <Typography variant="body1">
-                                                Please <a href="/login">log in</a> or <a href="/register">register</a> to continue.
-                                            </Typography>
-                                        </Box>
-                                        )}
+                                    
                         </Paper>
                     </Grid>
                 </Grid>
