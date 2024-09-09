@@ -330,11 +330,8 @@ sx={{
     marginTop: 4
 }}
 >
-<Typography variant="h6" gutterBottom>
+<Typography variant="h6" gutterBottom sx={{ p:4 }}>
     You need to be registered and logged in to view the downloads.
-</Typography>
-<Typography variant="body1">
-    Please <a href="/login">log in</a> or <a href="/register">register</a> to continue.
 </Typography>
 </Box>
                             )}
