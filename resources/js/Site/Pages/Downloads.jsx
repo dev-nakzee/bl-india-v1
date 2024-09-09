@@ -46,6 +46,7 @@ const Downloads = () => {
 
     const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
+    const client = localStorage.getItem('client') ? JSON.parse(localStorage.getItem('client')) : null;
 
     useEffect(() => {
         fetchData();
@@ -266,6 +267,7 @@ const Downloads = () => {
                             />
                         </Box>
                         <Paper sx={{ width: "100%", overflow: "hidden" }}>
+                        {client ? (
                             <TableContainer>
                                 <Table className="product-download">
                                     <TableHead>
@@ -328,6 +330,23 @@ const Downloads = () => {
                                 rowsPerPage={rowsPerPage}
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                             />
+):(
+                                            <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                alignItems: "center",
+                                                marginTop: 4
+                                            }}
+                                        >
+                                            <Typography variant="h6" gutterBottom>
+                                                You need to be registered and logged in to view the downloads.
+                                            </Typography>
+                                            <Typography variant="body1">
+                                                Please <a href="/login">log in</a> or <a href="/register">register</a> to continue.
+                                            </Typography>
+                                        </Box>
+                                        )}
                         </Paper>
                     </Grid>
                 </Grid>
