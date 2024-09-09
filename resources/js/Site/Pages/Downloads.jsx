@@ -338,6 +338,7 @@ sx={{
 </Typography>
 </Box>
                             )}
+                            {client ? (
                             <TablePagination
                                 className="table-pagination"
                                 component="div"
@@ -347,7 +348,7 @@ sx={{
                                 rowsPerPage={rowsPerPage}
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                             />
-                                    
+                            ): ''}
                         </Paper>
                     </Grid>
                 </Grid>
