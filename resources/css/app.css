@@ -636,7 +636,7 @@ th {
 }
 .react-calendar__tile {
     border-radius: 15px;
-    text-align: center !important;
+    /* text-align: center !important; */
   
 }
 .react-calendar__tile--now {
@@ -652,7 +652,7 @@ th {
 .react-calendar__tile.restricted-holiday {
     color: #FFA500;
     font-weight: 700;
-    
+
        /* border: 2px solid #FFA500 !important; */
 }
 
@@ -665,54 +665,6 @@ th {
 
 
 
-/* .holiday-list .MuiListItemText-multiline p {
-    color: #ff0000;
-}
-
-.react-calendar__month-view__weekdays__weekday {
-    color: var(--primary-color);
-}
-.react-calendar__month-view__days {
-    font-weight: 700;
-}
-
-.react-calendar__tile {
-    text-align: center !important;
-    padding: 1em 0 !important;
-    margin: 0.2em 0 !important;
-}
-
-.react-calendar__tile.saturday {
-    color: #ed6c02;
-}
-
-.react-calendar__tile.sunday {
-    color: #ed6c02;
-}
-.react-calendar__tile {
-    border-radius: 15px;
-}
-.react-calendar__tile--now {
-    background: none !important;
-    border: 2px solid #2e7d32 !important;
-    color: #2e7d32;
-    border-radius: 15px;
-}
-.react-calendar__tile--active {
-    color: #2e7d32 !important;
-}
-
-.react-calendar__tile.restricted-holiday {
-    color: #e65100;
-    border: 2px solid #e65100 !important;
-}
-
-.react-calendar__tile.gazetted-holiday {
- 
-    color: #ff0000;
-    border: 2px solid #ff0000;
-    font-weight: 700;
-} */
 .MuiButtonBase-root.MuiButton-root {
     text-transform: capitalize;
 }
@@ -1002,10 +954,10 @@ th {
 }
 
 @media (max-width: 414px){
-    button.react-calendar__tile.react-calendar__month-view__days__day {
+    /* button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 12.39% !important;
         margin-right: 5px !important;
-    }
+    } */
 }
 
 .my-masonry-grid {
