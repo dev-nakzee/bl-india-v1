@@ -589,6 +589,25 @@ th {
     text-decoration: none !important;
     padding: 2.5rem;
 }
+
+.react-calendar__tile {
+    max-width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: #FF0000; /* Optional: to visually distinguish weekends */
+}
+
+.gazetted-holiday ,.react-calendar__tile.saturday {
+    color:#FFA500; /* Add your desired styles */
+}
+
+.restricted-holiday ,.react-calendar__tile.sunday {
+  color:  #FF0000; /* Add your desired styles */
+}
+
 .MuiListItemText-root span {
     font-weight: 500;
     font-size: 1.3rem;
@@ -598,15 +617,58 @@ th {
 .MuiListItemText-root span:hover {
     color: var(--primary-color);
 }
-
-.holiday-list .MuiListItemText-multiline p {
-    color: #ff0000;
-}
 .react-calendar__navigation button {
     font-size: 2.3rem !important;
     color: var(--primary-color);
     font-weight: 700;
 }
+.react-calendar__month-view__weekdays__weekday {
+    color: var(--primary-color);
+}
+.react-calendar__month-view__days {
+    font-weight: 700;
+}
+.react-calendar__month-view__weekdays__weekday {
+    color: var(--primary-color);
+}
+.react-calendar__month-view__days {
+    font-weight: 700;
+}
+.react-calendar__tile {
+    border-radius: 15px;
+    text-align: center !important;
+  
+}
+.react-calendar__tile--now {
+    background: none !important;
+    /* border: 2px solid #2e7d32 !important; */
+    color: #2e7d32;
+    border-radius: 15px;
+}
+.react-calendar__tile--active {
+    color: #2e7d32 !important;
+}
+
+.react-calendar__tile.restricted-holiday {
+    color: #FFA500;
+    font-weight: 700;
+    
+       /* border: 2px solid #FFA500 !important; */
+}
+
+.react-calendar__tile.gazetted-holiday {
+ 
+    color: #FF0000;
+    /* border: 2px solid #FF0000; */
+    font-weight: 700;
+}
+
+
+
+/* .holiday-list .MuiListItemText-multiline p {
+    color: #ff0000;
+}
+
 .react-calendar__month-view__weekdays__weekday {
     color: var(--primary-color);
 }
@@ -646,38 +708,39 @@ th {
 }
 
 .react-calendar__tile.gazetted-holiday {
-    /* color:var(--third-color); */
+ 
     color: #ff0000;
     border: 2px solid #ff0000;
     font-weight: 700;
-}
+} */
 .MuiButtonBase-root.MuiButton-root {
     text-transform: capitalize;
 }
+
 
 @media (min-width: 1580px) {
     .box-about {
         left: 33% !important;
     }
-    button.react-calendar__tile.react-calendar__month-view__days__day {
+    /* button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 13.59% !important;
         margin-right: 5px !important;
-    }
+    } */
 }
-@media (min-width: 1200px) and (max-width: 1579px) {
+/* @media (min-width: 1200px) and (max-width: 1579px) {
     button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 13.65% !important;
         margin-right: 5px !important;
     }
-}
+} */
 @media (min-width: 1024px) and (max-width: 1196px) {
     .Process-section {
         background-image: none;
     }
-    button.react-calendar__tile.react-calendar__month-view__days__day {
+    /* button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 13.49% !important;
         margin-right: 5px !important;
-    }
+    } */
 }
 @media (min-width: 912px) and (max-width: 1366px) and (orientation: portrait) {
     .Banner-section {
@@ -690,10 +753,10 @@ th {
     .box-about {
         left: 46%;
     }
-    button.react-calendar__tile.react-calendar__month-view__days__day {
+    /* button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 13.49% !important;
         margin-right: 5px !important;
-    }
+    } */
    
 
 }
@@ -720,10 +783,10 @@ th {
     .product-name {
         font-size: 12px !important;
     }
-    button.react-calendar__tile.react-calendar__month-view__days__day {
+    /* button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 11.48% !important;
         margin-right: 5px !important;
-    }
+    } */
     .m-container{
         flex-direction: column-reverse !important;
     }
@@ -921,10 +984,10 @@ th {
         font-size: 1.5rem !important;
         min-width: 20px;
     }
-    button.react-calendar__tile.react-calendar__month-view__days__day {
+    /* button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 12.68% !important;
         margin-right: 5px !important;
-    }
+    } */
     .MuiAccordionSummary-root.Mui-expanded {
         min-height: 64px;
         box-shadow: inherit;
