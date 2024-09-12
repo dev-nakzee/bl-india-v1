@@ -46,6 +46,7 @@ const Downloads = () => {
 
     const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
+    const client = localStorage.getItem('client') ? JSON.parse(localStorage.getItem('client')) : null;
 
     useEffect(() => {
         fetchData();
@@ -266,6 +267,7 @@ const Downloads = () => {
                             />
                         </Box>
                         <Paper sx={{ width: "100%", overflow: "hidden" }}>
+                        {client ? (
                             <TableContainer>
                                 <Table className="product-download">
                                     <TableHead>
@@ -318,7 +320,22 @@ const Downloads = () => {
                                             ))}
                                     </TableBody>
                                 </Table>
-                            </TableContainer>
+                            </TableContainer>):(
+
+<Box
+sx={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: 4
+}}
+>
+<Typography variant="h6" gutterBottom sx={{ p:4 }}>
+    You need to be registered and logged in to view the downloads.
+</Typography>
+</Box>
+                            )}
+                            {client ? (
                             <TablePagination
                                 className="table-pagination"
                                 component="div"
@@ -328,6 +345,7 @@ const Downloads = () => {
                                 rowsPerPage={rowsPerPage}
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                             />
+                            ): ''}
                         </Paper>
                     </Grid>
                 </Grid>

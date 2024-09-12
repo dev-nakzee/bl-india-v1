@@ -93,7 +93,7 @@ const AboutMain = () => {
                             alt={aboutData.image_alt}
                         />
                         <Box className="box-about" sx={{ left: "36%" }}>
-                            <p>Since 2010</p>
+                            <p>Since 2014</p>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={7}>
