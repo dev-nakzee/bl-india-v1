@@ -11,6 +11,7 @@ import {
     List,
     ListItem,
     ListItemText,
+    Button,
 } from "@mui/material";
 import { Helmet } from "react-helmet";
 import { styled } from '@mui/system';
@@ -41,6 +42,7 @@ const HolidayList = () => {
         position: "sticky",
         top: "20px",
         overflowY: "auto",
+     
         [theme.breakpoints.down("sm")]: {
             width: "100%", // Make sidebar full width on small screens
             position: "static", // Remove sticky positioning on small screens
@@ -218,7 +220,7 @@ const HolidayList = () => {
                                             textAlign="left"
                                             gutterBottom
                                         >
-                                            Holidays for Month
+                                            List of Holidays 
                                         </Typography>
                                         {currentMonthHolidays.map((holiday) => (
                                             <ListItem key={holiday.id} sx={{paddingLeft:0}}>
@@ -231,7 +233,11 @@ const HolidayList = () => {
                                             </ListItem>
                                         ))}
                                     </List>
+                                    <Button variant="contained" color="primary" sx={{marginBlock:2}} >
+               Download Calendar
+              </Button>
                                 </Box>
+                              
                             </Sidebar>
                         </Grid>
                         <Grid item xs={12} md={9}>
@@ -245,7 +251,10 @@ const HolidayList = () => {
                                     handleYearChange(activeStartDate.getFullYear());
                                 }}
                                 locale="en-IN"
+                                showNeighboringMonth={false} // Add this line to hide neighboring month dates
+                               
                             />
+                            
                         </Grid>
                     </Grid>
                 </Box>
