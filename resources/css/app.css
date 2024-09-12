@@ -586,6 +586,7 @@ th {
     font-size: 2.3rem !important;
     text-decoration: none !important;
     padding: 2.5rem;
+    cursor:default !important;;
 }
 
 .react-calendar__tile {
@@ -655,9 +656,9 @@ th {
     color: #2e7d32;
     border-radius: 15px;
 }
-.react-calendar__tile--active {
+/* .react-calendar__tile--active {
     color: #2e7d32 !important;
-}
+} */
 
 .react-calendar__tile.restricted-holiday {
     color: #ffa500;
