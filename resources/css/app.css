@@ -32,9 +32,7 @@ html {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     scrollbar-color: var(--primary-color) var(--secondary-color);
     scrollbar-width: 4px !important;
-    
 }
-
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -438,7 +436,7 @@ li a {
 .Service-section p img {
     width: 100%;
     max-width: fit-content;
-    height:auto;
+    height: auto;
 }
 
 /******** Product List ***********/
@@ -597,15 +595,17 @@ th {
 }
 
 .react-calendar__month-view__days__day--weekend {
-    color: #FF0000; /* Optional: to visually distinguish weekends */
+    color: #ff0000; /* Optional: to visually distinguish weekends */
 }
 
-.gazetted-holiday ,.react-calendar__tile.saturday {
-    color:#FFA500; /* Add your desired styles */
+.gazetted-holiday,
+.react-calendar__tile.saturday {
+    color: #ffa500; /* Add your desired styles */
 }
 
-.restricted-holiday ,.react-calendar__tile.sunday {
-  color:  #FF0000; /* Add your desired styles */
+.restricted-holiday,
+.react-calendar__tile.sunday {
+    color: #ff0000; /* Add your desired styles */
 }
 
 .MuiListItemText-root span {
@@ -636,8 +636,15 @@ th {
 }
 .react-calendar__tile {
     border-radius: 15px;
-    /* text-align: center !important; */
-  
+    text-align: center !important;
+}
+.date-holilist span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.date-holilist p {
+    font-weight: 400;
 }
 .react-calendar__tile--now {
     background: none !important;
@@ -650,25 +657,25 @@ th {
 }
 
 .react-calendar__tile.restricted-holiday {
-    color: #FFA500;
+    color: #ffa500;
     font-weight: 700;
 
-       /* border: 2px solid #FFA500 !important; */
+    /* border: 2px solid #FFA500 !important; */
 }
 
 .react-calendar__tile.gazetted-holiday {
- 
-    color: #FF0000;
+    color: #ff0000;
     /* border: 2px solid #FF0000; */
     font-weight: 700;
 }
-
-
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+    background-color: transparent !important;
+}
 
 .MuiButtonBase-root.MuiButton-root {
     text-transform: capitalize;
 }
-
 
 @media (min-width: 1580px) {
     .box-about {
@@ -709,10 +716,7 @@ th {
         flex: 0 0 13.49% !important;
         margin-right: 5px !important;
     } */
-   
-
 }
-
 
 @media (min-width: 768px) and (max-width: 992px) {
     .page-main-heading {
@@ -739,11 +743,10 @@ th {
         flex: 0 0 11.48% !important;
         margin-right: 5px !important;
     } */
-    .m-container{
+    .m-container {
         flex-direction: column-reverse !important;
     }
-  
-}  
+}
 
 @media (max-width: 767px) {
     .page-main-heading {
@@ -945,15 +948,15 @@ th {
         box-shadow: inherit;
         background-color: var(--third-color);
     }
-    .m-container{
+    .m-container {
         flex-direction: column-reverse !important;
     }
-    .MuiTableCell-root{
-       padding:6px 12px !important;
+    .MuiTableCell-root {
+        padding: 6px 12px !important;
     }
 }
 
-@media (max-width: 414px){
+@media (max-width: 414px) {
     /* button.react-calendar__tile.react-calendar__month-view__days__day {
         flex: 0 0 12.39% !important;
         margin-right: 5px !important;

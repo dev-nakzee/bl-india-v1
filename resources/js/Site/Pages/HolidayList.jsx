@@ -20,6 +20,7 @@ import "react-calendar/dist/Calendar.css";
 import DownloadIcon from "@mui/icons-material/Download"; // Import the download icon
 import { useLocation } from "react-router-dom";
 
+
 const HolidayList = () => {
     const [pageData, setPageData] = useState(null);
     const [holidays, setHolidays] = useState([]);
@@ -82,6 +83,17 @@ const HolidayList = () => {
             return acc;
         }, {});
     };
+   
+    const pdfUrl = 'https://in.bl-india.com/storage/download_files/CJPfpYaRH0x5xXEFUm4MAUyKPfKDJKYmo1t7uzhQ.pdf';
+    const handleDownload = () => {
+        // Create a new anchor element
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.target = '_blank'; // Open in a new tab
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link); // Clean up the anchor element
+      };
 
     const holidaysByMonthAndYear = groupHolidaysByMonthAndYear();
 
@@ -220,7 +232,7 @@ const HolidayList = () => {
                             textAlign="center"
                             gutterBottom
                         >
-                            {pageData.name}
+                         Holiday Calendar  {/* {pageData.name} */}
                         </Typography>
                     </Typography>
                     <Grid container spacing={4}>
@@ -240,17 +252,23 @@ const HolidayList = () => {
                                             gutterBottom
                                         >
                                             List of Holidays
-                                        </Typography>
+                                        </Typography>      
+
+
                                         {currentMonthHolidays.map((holiday) => (
                                             <ListItem
                                                 key={holiday.id}
-                                                sx={{ paddingLeft: 0 }}
+                                                sx={{
+                                                    padding: 0,
+                                                    color: holiday.holiday_type === "Gazetted" ? "red" : "orange",
+                                                }}
                                             >
-                                                <ListItemText
-                                                    primary={holiday.title}
-                                                    secondary={`${formatDateToIST(
+                                                
+                                                <ListItemText className="date-holilist"
+                                                    primary={`${formatDateToIST(
                                                         holiday.date
                                                     )}`}
+                                                    secondary={holiday.title}
                                                 />
                                             </ListItem>
                                         ))}
@@ -259,8 +277,9 @@ const HolidayList = () => {
                                         variant="contained"
                                         color="primary"
                                         startIcon={<DownloadIcon />}
+                                        onClick={handleDownload} 
                                     >
-                                        Download Calendar
+                                        Download HolidayList
                                     </Button>
                                 </Box>
                             </Sidebar>
@@ -285,8 +304,11 @@ const HolidayList = () => {
                                 showNeighboringMonth={false} // Add this line to hide neighboring month dates
                             />
                         </Grid>
+                        {/* <Typography className="" component={span}>Note : </Typography> */}
                     </Grid>
+                     
                 </Box>
+                
             </>
         </>
     );
