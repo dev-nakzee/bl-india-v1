@@ -41,7 +41,9 @@ class ClientController extends Controller
         ]);
 
         $client->generateOtp();
+
         $response = Http::post('https://pms.bl-india.com/api/erp/register/Lead', $request->all());
+
         return response()->json(['message' => 'OTP sent to your email.'], 201);
     }
 
@@ -60,9 +62,6 @@ class ClientController extends Controller
 
         if ($client->verifyOtp($request->otp)) {
             $token = $client->createToken('client-token')->plainTextToken;
-            if($response){
-                return response()->json(['token' => $token, 'client' => $client, 'response' => $response], 200);
-            }
             return response()->json(['token' => $token, 'client' => $client], 200);
         } else {
             return response()->json(['message' => 'Invalid OTP or OTP expired.'], 401);
