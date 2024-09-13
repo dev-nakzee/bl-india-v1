@@ -34,7 +34,6 @@ class ContactController extends Controller
             'phone' => 'required|string',
             'organization' => 'string|nullable',
             'message' => 'string|nullable',
-            'file' => 'nullable|file|mimes:pdf|max:20480',
         ]);
 
         if ($request->hasFile('file')) {
