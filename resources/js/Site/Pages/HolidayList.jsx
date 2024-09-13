@@ -1,4 +1,3 @@
-
 // export default HolidayList;
 import React, { useState, useEffect } from "react";
 import {
@@ -11,13 +10,15 @@ import {
     List,
     ListItem,
     ListItemText,
+    Button,
 } from "@mui/material";
 import { Helmet } from "react-helmet";
-import { styled } from '@mui/system';
+import { styled } from "@mui/system";
 import apiClient from "../Services/api"; // Ensure this is your configured axios instance
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useLocation } from 'react-router-dom';
+import DownloadIcon from "@mui/icons-material/Download"; // Import the download icon
+import { useLocation } from "react-router-dom";
 
 
 const HolidayList = () => {
@@ -30,7 +31,6 @@ const HolidayList = () => {
     const location = useLocation();
     const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
-
     useEffect(() => {
         fetchHolidayList();
     }, []);
@@ -41,6 +41,7 @@ const HolidayList = () => {
         position: "sticky",
         top: "20px",
         overflowY: "auto",
+
         [theme.breakpoints.down("sm")]: {
             width: "100%", // Make sidebar full width on small screens
             position: "static", // Remove sticky positioning on small screens
@@ -82,6 +83,17 @@ const HolidayList = () => {
             return acc;
         }, {});
     };
+   
+    const pdfUrl = 'https://in.bl-india.com/storage/download_files/CJPfpYaRH0x5xXEFUm4MAUyKPfKDJKYmo1t7uzhQ.pdf';
+    const handleDownload = () => {
+        // Create a new anchor element
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.target = '_blank'; // Open in a new tab
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link); // Clean up the anchor element
+      };
 
     const holidaysByMonthAndYear = groupHolidaysByMonthAndYear();
 
@@ -173,10 +185,16 @@ const HolidayList = () => {
                 <title>{pageData.seo_title}</title>
                 <meta name="description" content={pageData.seo_description} />
                 <meta name="keywords" content={pageData.seo_keywords} />
-                
+
                 <meta name="author" content="Rajesh Kumar" />
-                <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
-                <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+                <meta
+                    name="publisher"
+                    content="Brand Liaison India Pvt. Ltd."
+                />
+                <meta
+                    name="copyright"
+                    content="Brand Liaison India Pvt. Ltd."
+                />
                 <meta name="Classification" content="Business" />
                 <meta name="coverage" content="Worldwide" />
                 <meta name="distribution" content="Global" />
@@ -184,15 +202,24 @@ const HolidayList = () => {
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={pageData.seo_title} />
-                <meta property="og:description" content={pageData.seo_description} />
+                <meta
+                    property="og:description"
+                    content={pageData.seo_description}
+                />
                 <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
+                <meta
+                    property="og:image"
+                    content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208"
+                />
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
             </Helmet>
             <>
-                <Box padding={{lg:5,md:4,sm:3,xs:2}} className="holiday-list">
+                <Box
+                    padding={{ lg: 5, md: 4, sm: 3, xs: 2 }}
+                    className="holiday-list"
+                >
                     <Typography
                         className="page-main-heading page-heading"
                         variant="h1"
@@ -205,54 +232,86 @@ const HolidayList = () => {
                             textAlign="center"
                             gutterBottom
                         >
-                            {pageData.name}
+                         Holiday Calendar  {/* {pageData.name} */}
                         </Typography>
                     </Typography>
                     <Grid container spacing={4}>
                         <Grid item xs={12} md={3}>
                             <Sidebar className="Service-section-siderbar">
-                                <Box sx={{ border: "1px solid #0d629a", borderRadius: "25px", p: "20px"}}>
+                                <Box
+                                    sx={{
+                                        border: "1px solid #0d629a",
+                                        borderRadius: "25px",
+                                        p: "20px",
+                                    }}
+                                >
                                     <List>
                                         <Typography
                                             variant="h6"
                                             textAlign="left"
                                             gutterBottom
                                         >
-                                            Holidays for Month
-                                        </Typography>
+                                            List of Holidays
+                                        </Typography>      
+
+
                                         {currentMonthHolidays.map((holiday) => (
-                                            <ListItem key={holiday.id} sx={{paddingLeft:0}}>
-                                                <ListItemText
-                                                    primary={holiday.title}
-                                                    secondary={`${formatDateToIST(
+                                            <ListItem
+                                                key={holiday.id}
+                                                sx={{
+                                                    padding: 0,
+                                                    color: holiday.holiday_type === "Gazetted" ? "red" : "orange",
+                                                }}
+                                            >
+                                                
+                                                <ListItemText className="date-holilist"
+                                                    primary={`${formatDateToIST(
                                                         holiday.date
                                                     )}`}
+                                                    secondary={holiday.title}
                                                 />
                                             </ListItem>
                                         ))}
                                     </List>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        startIcon={<DownloadIcon />}
+                                        onClick={handleDownload} 
+                                    >
+                                        Download HolidayList
+                                    </Button>
                                 </Box>
                             </Sidebar>
                         </Grid>
                         <Grid item xs={12} md={9}>
                             <Calendar
                                 tileClassName={tileClassName}
-                                activeStartDate={new Date(selectedYear, selectedMonth)}
+                                activeStartDate={
+                                    new Date(selectedYear, selectedMonth)
+                                }
                                 onActiveStartDateChange={({
                                     activeStartDate,
                                 }) => {
-                                    handleMonthClick(activeStartDate.getMonth());
-                                    handleYearChange(activeStartDate.getFullYear());
+                                    handleMonthClick(
+                                        activeStartDate.getMonth()
+                                    );
+                                    handleYearChange(
+                                        activeStartDate.getFullYear()
+                                    );
                                 }}
                                 locale="en-IN"
+                                showNeighboringMonth={false} // Add this line to hide neighboring month dates
                             />
                         </Grid>
+                        {/* <Typography className="" component={span}>Note : </Typography> */}
                     </Grid>
+                     
                 </Box>
+                
             </>
         </>
     );
 };
 
 export default HolidayList;
-
