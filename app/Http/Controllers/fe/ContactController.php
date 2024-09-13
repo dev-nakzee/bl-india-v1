@@ -47,13 +47,13 @@ class ContactController extends Controller
         Mail::to($contactForm->email)->send(new ThankYouMail($contactForm));
         Mail::to('info@bl-india.com')->send(new ContactFormNotificationMail($contactForm));
         $response = Http::post('https://pms.bl-india.com/api/erp/contact/lead', $validatedData);
-        // if ($response) {
+        if ($response) {
             return response()->json(['message' => 'Thank you for your message. We will get back to you shortly.', 'error' => $response]);
-        // }
-        // else 
-        // {
-        //     return response()->json(['error' => 'Failed to send contact details to external API'], 500);
-        // }
+        }
+        else 
+        {
+            return response()->json(['error' => 'Failed to send contact details to external API'], 500);
+        }
     }
 
 }
