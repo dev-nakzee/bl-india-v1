@@ -18,42 +18,23 @@ class GeoRedirectMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // $jsonPath = public_path('urlMapping.json');
-
-        // // Check if the file exists
-        // if (file_exists($jsonPath)) {
-        //     // Load JSON data from the file
-        //     $json = file_get_contents($jsonPath);
-        //     $redirects = json_decode($json, true);
-
-        //     // Get current request path
-        //     $currentPath = $request->path();
-
-        //     // Check for a matching old URL in the JSON data
-        //     foreach ($redirects as $redirect) {
-        //         if ($currentPath === trim($redirect['old_url'], '/')) {
-        //             // Redirect to the new URL if a match is found
-        //             return redirect($redirect['new_url'], 301);
-        //         }
-        //     }
-        // }
         $location = Location::get($request->ip());
 
         $targetSubdomain = $location && $location->countryCode === 'IN' ? 'in' : 'global';
 
         $currentHost = $request->getHost();
         $baseURL = Config::get('app.url'); // Retrieve the base URL from config
-        $baseURL = 'https://bl-india.com';
+        // $baseURL = 'https://bl-india.com';
         $parsedUrl = parse_url($baseURL);
         $baseDomain = $parsedUrl['host'] ?? ''; // Extract the domain
         $expectedHost = $targetSubdomain . '.' . $baseDomain;
 
         if (Str::startsWith($currentHost, 'in.') && $targetSubdomain !== 'in') {
-            // $expectedHost = 'global.' . $baseDomain. ':8000';
-            $expectedHost = 'global.' . $baseDomain;
+            $expectedHost = 'global.' . $baseDomain. ':8000';
+            // $expectedHost = 'global.' . $baseDomain;
         } elseif (Str::startsWith($currentHost, 'global.') && $targetSubdomain !== 'global') {
-            // $expectedHost = 'in.' . $baseDomain. ':8000';
-            $expectedHost = 'in.' . $baseDomain;
+            $expectedHost = 'in.' . $baseDomain. ':8000';
+            // $expectedHost = 'in.' . $baseDomain;
         }
 
         // Check if current host matches the expected host

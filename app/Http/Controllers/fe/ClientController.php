@@ -22,6 +22,8 @@ class ClientController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'country_code' => 'required|string|max:10',
+            'phone' => 'required|string|max:15',
             'email' => 'required|string|email|max:255|unique:clients',
             'password' => 'required|string|min:8|confirmed',
         ]);
@@ -33,11 +35,13 @@ class ClientController extends Controller
         $client = Client::create([
             'name' => $request->name,
             'email' => $request->email,
+            'country_code' => $request->country_code,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
 
         $client->generateOtp();
-
+        $response = Http::post('https://pms.bl-india.com/api/erp/register/Lead', $request->all());
         return response()->json(['message' => 'OTP sent to your email.'], 201);
     }
 
@@ -56,7 +60,6 @@ class ClientController extends Controller
 
         if ($client->verifyOtp($request->otp)) {
             $token = $client->createToken('client-token')->plainTextToken;
-            $response = Http::post('https://pms.bl-india.com/api/erp/register/Lead', $client);
             if($response){
                 return response()->json(['token' => $token, 'client' => $client, 'response' => $response], 200);
             }

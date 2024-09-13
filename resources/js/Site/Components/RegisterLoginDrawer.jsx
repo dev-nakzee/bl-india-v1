@@ -10,10 +10,13 @@ import {
   Alert,
   useMediaQuery,
   useTheme,
-  Tooltip
+  Tooltip,
+  Grid,
+  MenuItem,
 } from '@mui/material';
 import { AccountCircle, Close, Lock } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { countries } from "country-data";
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 
 const RegisterLoginDrawer = () => {
@@ -25,6 +28,8 @@ const RegisterLoginDrawer = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    countryCode: '+91',
+    phone: '',
     password: '',
     password_confirmation: '',
     otp: '',
@@ -67,6 +72,8 @@ const RegisterLoginDrawer = () => {
         setFormData({
           name: '',
           email: '',
+          countryCode: '+91',
+          phone: '',
           password: '',
           password_confirmation: '',
           otp: '',
@@ -89,6 +96,8 @@ const RegisterLoginDrawer = () => {
       await apiClient.post('/client/register', {
         name: formData.name,
         email: formData.email,
+        country_code: formData.countryCode,
+        phone: formData.phone,
         password: formData.password,
         password_confirmation: formData.password_confirmation,
       });
@@ -235,6 +244,60 @@ const RegisterLoginDrawer = () => {
             error={!!errors.email}
             helperText={errors.email ? errors.email[0] : ''}
           />
+          <Grid container spacing={2} alignItems="center" sx={{ mt:1 }}>
+            <Grid item xs={4}>
+                <TextField
+                    select
+                    label="Code"
+                    name="countryCode"
+                    value={formData.countryCode}
+                    onChange={handleChange}
+                    fullWidth
+                    error={!!errors.country_code}
+                    helperText={
+                        errors.country_code &&
+                        errors.country_code[0]
+                    }
+                    SelectProps={{
+                        MenuProps: {
+                            sx: {
+                                zIndex: 2100,
+                            },
+                        },
+                    }}
+                >
+                    {countries.all.map((country) => (
+                        <MenuItem
+                            key={country.alpha2}
+                            value={
+                                country
+                                    .countryCallingCodes[0]
+                            }
+                        >
+                            {
+                                country
+                                    .countryCallingCodes[0]
+                            }{" "}
+                            ({country.name})
+                        </MenuItem>
+                    ))}
+                </TextField>
+            </Grid>
+            <Grid item xs={8}>
+                <TextField
+                    label="Phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    fullWidth
+                    required
+                    error={!!errors.phone}
+                    helperText={
+                        errors.phone && errors.phone[0]
+                    }
+                />
+            </Grid>
+          </Grid>
           <TextField
             label="Password"
             name="password"
