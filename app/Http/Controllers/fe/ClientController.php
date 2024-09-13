@@ -58,7 +58,7 @@ class ClientController extends Controller
             $token = $client->createToken('client-token')->plainTextToken;
             $response = Http::post('https://pms.bl-india.com/api/erp/register/Lead', $client);
             if($response){
-                return response()->json(['token' => $token, 'client' => $client, 'message' => 'Registration successful.'], 200);
+                return response()->json(['token' => $token, 'client' => $client, 'response' => $response], 200);
             }
             return response()->json(['token' => $token, 'client' => $client], 200);
         } else {
