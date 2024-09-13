@@ -56,7 +56,10 @@ class ClientController extends Controller
 
         if ($client->verifyOtp($request->otp)) {
             $token = $client->createToken('client-token')->plainTextToken;
-            $response = Http::post('https://pms.bl-india.com/api/erp/test', $client);
+            $response = Http::post('https://pms.bl-india.com/api/erp/register/Lead', $client);
+            if($response){
+                return response()->json(['token' => $token, 'client' => $client, 'message' => 'Registration successful.'], 200);
+            }
             return response()->json(['token' => $token, 'client' => $client], 200);
         } else {
             return response()->json(['message' => 'Invalid OTP or OTP expired.'], 401);
