@@ -56,7 +56,7 @@ class BrochureController extends Controller
         $client->generateOtp();
     
         // Submit the brochure details to an external API
-        $response = Http::post('https://pms.bl-india.com/api/erp/test', $request->all());
+        $response = Http::post('https://pms.bl-india.com/api/erp/brochure/lead', $request->all());
     
         if ($response->successful()) {
             return response()->json([
