@@ -156,7 +156,7 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
                 open={isDrawerOpen}
                 onClose={() => toggleDrawer(false)()}
             >
-                <Box sx={{ width: 350, padding: 2, mt: '-1' }} role="presentation">
+                <Box sx={{ width: 350, padding: 2 }} role="presentation">
                     <Box
                         sx={{
                             display: "flex",
@@ -180,7 +180,7 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
                         <Alert severity="success">{successMessage}</Alert>
                     )}
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} sx={{ overflowY: 'scroll' }}>
                         <FormControl
                             component="fieldset"
                             margin="normal"
