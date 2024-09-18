@@ -586,8 +586,10 @@ th {
     font-size: 2.3rem !important;
     text-decoration: none !important;
     padding: 2.5rem;
-    cursor:default !important;;
+    cursor:unset !important;;
+  
 }
+.react-calendar__viewContainer ,.MuiList-padding{  pointer-events: none !important;}
 
 .react-calendar__tile {
     max-width: 100%;
@@ -599,12 +601,9 @@ th {
     color: #ff0000; /* Optional: to visually distinguish weekends */
 }
 
-.gazetted-holiday,
-.react-calendar__tile.saturday {
-    color: #ffa500; /* Add your desired styles */
-}
 
-.restricted-holiday,
+.gazetted-holiday,
+.react-calendar__tile.saturday ,.restricted-holiday,
 .react-calendar__tile.sunday {
     color: #ff0000; /* Add your desired styles */
 }
@@ -656,21 +655,24 @@ th {
     color: #2e7d32;
     border-radius: 15px;
 }
-/* .react-calendar__tile--active {
-    color: #2e7d32 !important;
-} */
-
-.react-calendar__tile.restricted-holiday {
-    color: #ffa500;
-    font-weight: 700;
-
-    /* border: 2px solid #FFA500 !important; */
+.react-calendar__tile--active {
+    color: inherit !important;
+    font-size: large !important;
+    
+}
+.react-calendar button:enabled:hover {cursor:default !important;
 }
 
-.react-calendar__tile.gazetted-holiday {
+.react-calendar__tile.restricted-holiday,.rh-class {
+    color: #ffa500;
+    font-weight: 700 !important;
+
+   
+}
+
+.react-calendar__tile.gazetted-holiday ,.gh-class{
     color: #ff0000;
-    /* border: 2px solid #FF0000; */
-    font-weight: 700;
+      font-weight: 700 !important;
 }
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
