@@ -25,7 +25,7 @@ class ScheduleCallController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'countryCode' => 'required|string|max:10',
-            'phone' => 'required|string|max:15',
+            'phone' => 'required|numeric|max:15',
             'email' => 'required|email|max:255',
             'schedule' => 'required|date|after:now',
         ]);
