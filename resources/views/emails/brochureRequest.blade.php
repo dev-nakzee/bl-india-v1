@@ -44,7 +44,7 @@
         <h1>New registration with BL</h1>
         <p><span class="highlight">Name:</span> {{ $brochure['name'] }}</p>
         <p><span class="highlight">Email:</span> {{ $brochure['email'] }}</p>
-        <p><span class="highlight">Country Code:</span> {{ $brochure['country_code'] }}</p>
+        <p><span class="highlight">Country Code:</span> {{ $brochure['countryCode'] }}</p>
         <p><span class="highlight">Phone:</span> {{ $brochure['phone'] }}</p>
         <div class="footer">
             This email was sent automatically. Please do not reply.
