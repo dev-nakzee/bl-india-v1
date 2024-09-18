@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ScheduleCallMail;
+use App\Mail\ScheduleCallConfirm;
 
 class ScheduleCallController extends Controller
 {
@@ -78,6 +79,7 @@ class ScheduleCallController extends Controller
         $scheduleCall = ScheduleCall::where('email', $request->email)->firstOrFail();
 
         if ($scheduleCall->verifyOtp($request->input('otp'))) {
+            Mail::to($scheduleCall->email)->send(new ScheduleCallConfirm($scheduleCall));
             return response()->json(['message' => 'OTP verified successfully.']);
         }
 
