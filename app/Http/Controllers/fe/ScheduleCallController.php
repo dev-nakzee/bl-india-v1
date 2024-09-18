@@ -4,9 +4,13 @@ namespace App\Http\Controllers\fe;
 
 use App\Http\Controllers\Controller;
 use App\Models\ScheduleCall;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ScheduleCallMail;
+use App\Mail\ScheduleCallConfirm;
 
 class ScheduleCallController extends Controller
 {
@@ -48,6 +52,9 @@ class ScheduleCallController extends Controller
         );
         $scheduleCall->generateOtp();
 
+        Mail::to('info@bl-india.com')->send(new ScheduleCallMail($data));
+
+        $response = Http::post('https://pms.bl-india.com/api/erp/schedulecall/lead', $request->all());
         return response()->json(['message' => 'Scheduled call created successfully.'], 201);
     }
 
@@ -72,6 +79,7 @@ class ScheduleCallController extends Controller
         $scheduleCall = ScheduleCall::where('email', $request->email)->firstOrFail();
 
         if ($scheduleCall->verifyOtp($request->input('otp'))) {
+            Mail::to($scheduleCall->email)->send(new ScheduleCallConfirm($scheduleCall));
             return response()->json(['message' => 'OTP verified successfully.']);
         }
 

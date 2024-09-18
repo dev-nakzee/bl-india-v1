@@ -23,6 +23,8 @@ class Client extends Authenticatable implements CanResetPassword
     protected $fillable = [
         'name',
         'email',
+        'country_code',
+        'phone',
         'password',
         'email_token',
         'email_token_sent_at',

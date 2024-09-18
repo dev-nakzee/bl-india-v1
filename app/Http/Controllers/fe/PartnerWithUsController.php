@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\PartnerWithUs;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PartnerDetailMail;
+use App\Mail\PartnerThankYouMail;
+
 
 class PartnerWithUsController extends Controller
 {
@@ -39,6 +43,11 @@ class PartnerWithUsController extends Controller
 
         // Create a new PartnerWithUs record
         $partnerWithUs = PartnerWithUs::create($request->all());
+
+        // send notification email
+
+        Mail::to($partnerWithUs->email)->send(new PartnerThankYouMail($partnerWithUs));
+        Mail::to('rk@bl-india.com')->send(new PartnerDetailMail($partnerWithUs));
 
         // Return a success response
         return response()->json(['message' => 'Form submitted successfully', 'data' => $partnerWithUs], 201);

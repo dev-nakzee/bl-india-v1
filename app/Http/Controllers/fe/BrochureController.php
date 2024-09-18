@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 use App\Mail\WelcomeEmail;
+use App\Mail\BrochureDetailMail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Brochure;
@@ -36,6 +37,9 @@ class BrochureController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+
+        $brochure = $request->all();
+        Mail::to('info@bl-india.com')->send(new BrochureDetailMail($brochure));
     
         // Check if the client exists
         $client = Client::where('email', $request->email)->first();
@@ -56,16 +60,16 @@ class BrochureController extends Controller
         $client->generateOtp();
     
         // Submit the brochure details to an external API
-        $response = Http::post('https://pms.bl-india.com/api/lead', $request->all());
+        $response = Http::post('https://pms.bl-india.com/api/erp/brochure/lead', $brochure);
     
-        if ($response->successful()) {
-            return response()->json([
-                'status' => 'success',
-                'client' => $client
-            ], 201);
+        if (!$response) {
+            return response()->json(['error' => 'Failed to send brochure details to external API'], 500);
         }
     
-        return response()->json(['error' => 'Failed to send brochure details to external API'], 500);
+        return response()->json([
+            'status' => 'success',
+            'client' => $client
+        ], 201);
     }    
 
     public function verifyOtp(Request $request): JsonResponse

@@ -8,6 +8,7 @@ use App\Models\Page;
 use App\Models\Contact;
 use App\Models\ContactForm;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ThankYouMail;
@@ -34,7 +35,6 @@ class ContactController extends Controller
             'phone' => 'required|string',
             'organization' => 'string|nullable',
             'message' => 'string|nullable',
-            'file' => 'nullable|file|mimes:pdf|max:20480',
         ]);
 
         if ($request->hasFile('file')) {
@@ -46,8 +46,14 @@ class ContactController extends Controller
 
         Mail::to($contactForm->email)->send(new ThankYouMail($contactForm));
         Mail::to('info@bl-india.com')->send(new ContactFormNotificationMail($contactForm));
-
-        return response()->json(['message' => 'Thank you for your message. We will get back to you shortly.']);
-}
+        $response = Http::post('https://pms.bl-india.com/api/erp/contact/lead', $validatedData);
+        if ($response) {
+            return response()->json(['message' => 'Thank you for your message. We will get back to you shortly.', 'error' => $response]);
+        }
+        else 
+        {
+            return response()->json(['error' => 'Failed to send contact details to external API'], 500);
+        }
+    }
 
 }

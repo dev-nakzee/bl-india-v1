@@ -32,12 +32,12 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
     const [formData, setFormData] = useState({
-        partnerType: "Service Partner",
+        partnerType: "Service Partner", // Default value
         entityType: "Individual",
         name: "",
         email: "",
         phone: "",
-        countryCode: "+1",
+        countryCode: "+91",
         companyName: "",
         designation: "",
         fieldOfExpertise: "",
@@ -62,7 +62,7 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
 
     const resetForm = () => {
         setFormData({
-            partnerType: "Service Partner",
+            partnerType: "Service Partner", // Default value
             entityType: "Individual",
             name: "",
             email: "",
@@ -79,10 +79,10 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData((prevData) => ({
+            ...prevData,
             [name]: value,
-        });
+        }));
     };
 
     const handleSubmit = async (e) => {
@@ -124,7 +124,7 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
         <>
             {displayType === "text" ? (
                 <Typography
-                    variant="body2"
+                    variant="bodytext"
                     className="Service-list"
                     onClick={() => toggleDrawer(true)()}
                     sx={{ cursor: "pointer" }}
@@ -194,7 +194,7 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
                                     row
                                     name="partnerType"
                                     value={formData.partnerType}
-                                    onChange={handleChange}
+                                    onChange={handleChange} // Correct onChange handler
                                 >
                                     {partnerTypes.map((type) => (
                                         <FormControlLabel
@@ -206,6 +206,19 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
                                     ))}
                                 </RadioGroup>
                             </FormGroup>
+
+                            {/* Conditionally render text based on partner type */}
+                            {formData.partnerType === "Service Partner" && (
+                                <Typography variant="body2" color="textSecondary">
+                                    As certification/compliance service provider
+                                </Typography>
+                            )}
+                            {formData.partnerType === "Channel Partner" && (
+                                <Typography variant="body2" color="textSecondary">
+                                    As Marketing Associate
+                                </Typography>
+                            )}
+
                             {errors.partner_type && (
                                 <Alert severity="error">
                                     {errors.partner_type[0]}
