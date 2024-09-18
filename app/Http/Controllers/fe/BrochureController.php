@@ -60,16 +60,16 @@ class BrochureController extends Controller
         $client->generateOtp();
     
         // Submit the brochure details to an external API
-        $response = Http::post('https://pms.bl-india.com/api/erp/brochure/lead', $request->all());
+        $response = Http::post('https://pms.bl-india.com/api/erp/brochure/lead', $brochure);
     
-        if ($response->successful()) {
-            return response()->json([
-                'status' => 'success',
-                'client' => $client
-            ], 201);
+        if (!$response) {
+            return response()->json(['error' => 'Failed to send brochure details to external API'], 500);
         }
     
-        return response()->json(['error' => 'Failed to send brochure details to external API'], 500);
+        return response()->json([
+            'status' => 'success',
+            'client' => $client
+        ], 201);
     }    
 
     public function verifyOtp(Request $request): JsonResponse
