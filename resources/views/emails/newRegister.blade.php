@@ -43,7 +43,7 @@
     <div class="container">
         <h1>New registration with BL</h1>
         <p><span class="highlight">Name:</span> {{ $client['name'] }}</p>
-        <p><span class="highlight">Email:</span> {{ $cleint['email'] }}</p>
+        <p><span class="highlight">Email:</span> {{ $client['email'] }}</p>
         <p><span class="highlight">Country Code:</span> {{ $client['country_code'] }}</p>
         <p><span class="highlight">Phone:</span> {{ $client['phone'] }}</p>
         <div class="footer">
