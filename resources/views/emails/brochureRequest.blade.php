@@ -41,7 +41,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>New registration with BL</h1>
+        <h1>New brochure request with BL</h1>
         <p><span class="highlight">Name:</span> {{ $brochure['name'] }}</p>
         <p><span class="highlight">Email:</span> {{ $brochure['email'] }}</p>
         <p><span class="highlight">Country Code:</span> {{ $brochure['countryCode'] }}</p>
