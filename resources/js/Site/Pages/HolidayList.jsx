@@ -309,11 +309,12 @@ const HolidayList = () => {
                             />
                             <Box sx={{marginTop:2}}> 
                                 <Typography className="rh-class" component="span" sx={{marginRight:5}}>*RH - Restricted Hoilday </Typography>
-                                <Typography className="gh-class" component="span">*GH - Gazetted Hoilday </Typography>
+                                <Typography className="gh-class" component="span" sx={{marginRight:5}}>*PH - Public Hoilday </Typography>
+                                <Typography  component="span"><Typography className="gh-class" component="span" sx={{marginRight:1}}>*Sat  <Typography component="span" >& </Typography > Sun</Typography >are weekly off</Typography>
                             </Box>
                         </Grid>
                         
-                        {/* <Typography className="" component={span}>Note : </Typography> */}
+                       
                     </Grid>
                      
                 </Box>
