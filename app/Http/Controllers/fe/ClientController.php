@@ -43,7 +43,7 @@ class ClientController extends Controller
 
         $client->generateOtp();
 
-        Mail::to($client->email)->send(new RegisterDetailMail($client));
+        Mail::to('info@bl-india.com')->send(new RegisterDetailMail($client));
 
         $response = Http::post('https://pms.bl-india.com/api/erp/register/Lead', $request->all());
 
