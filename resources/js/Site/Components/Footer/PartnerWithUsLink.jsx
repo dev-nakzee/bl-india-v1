@@ -408,7 +408,7 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
                                 variant="contained"
                                 color="primary"
                                 fullWidth
-                                sx={{ mt: 2 }}
+                                sx={{ mt: 2, mb: 2 }}
                             >
                                 Submit
                             </Button>
