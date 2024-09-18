@@ -19,6 +19,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import DownloadIcon from "@mui/icons-material/Download"; // Import the download icon
 import { useLocation } from "react-router-dom";
+import { orange } from "@mui/material/colors";
 
 
 const HolidayList = () => {
@@ -278,6 +279,7 @@ const HolidayList = () => {
                                         color="primary"
                                         startIcon={<DownloadIcon />}
                                         onClick={handleDownload} 
+                                        sx={{mt:5}}
                                     >
                                         Download HolidayList
                                     </Button>
@@ -302,7 +304,12 @@ const HolidayList = () => {
                                 }}
                                 locale="en-IN"
                                 showNeighboringMonth={false} // Add this line to hide neighboring month dates
+                                onClickDay={null}
                             />
+                             <Box sx={{marginTop:2}}> 
+                                <Typography className="rh-class" component="span" sx={{marginRight:5}}>*RH - Restricted Hoilday </Typography>
+                                <Typography className="gh-class" component="span">*GH - Gazetted Hoilday </Typography>
+                            </Box>
                         </Grid>
                         {/* <Typography className="" component={span}>Note : </Typography> */}
                     </Grid>
