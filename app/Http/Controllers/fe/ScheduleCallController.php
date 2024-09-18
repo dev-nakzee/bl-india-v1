@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ScheduleCallMail;
 
 class ScheduleCallController extends Controller
 {
@@ -48,6 +50,9 @@ class ScheduleCallController extends Controller
             ]
         );
         $scheduleCall->generateOtp();
+
+        Mail::to('info@bl-india.com')->send(new ScheduleCallMail($$data));
+
         $response = Http::post('https://pms.bl-india.com/api/erp/schedulecall/lead', $request->all());
         return response()->json(['message' => 'Scheduled call created successfully.'], 201);
     }
