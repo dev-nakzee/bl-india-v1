@@ -45,7 +45,7 @@ class PartnerWithUsController extends Controller
         $partnerWithUs = PartnerWithUs::create($request->all());
 
         // send notification email
-        $this->sendNotificationEmail($partnerWithUs);
+
         Mail::to($partnerWithUs->email)->send(new PartnerThankYouMail($partnerWithUs));
         Mail::to('rk@bl-india.com')->send(new PartnerDetailMail($partnerWithUs));
 
