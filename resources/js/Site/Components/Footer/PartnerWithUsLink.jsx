@@ -210,7 +210,7 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
                             {/* Conditionally render text based on partner type */}
                             {formData.partnerType === "Service Partner" && (
                                 <Typography variant="body2" color="textSecondary" sx={{ fontStyle: 'italic'}}>
-                                    Become certification/compliance service provider
+                                    Become Certification/Compliance Service Associate
                                 </Typography>
                             )}
                             {formData.partnerType === "Channel Partner" && (

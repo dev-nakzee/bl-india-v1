@@ -146,7 +146,7 @@ const NavigationBar = () => {
           <>
             <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
               <Link to="/">
-                <img src="https://in.bl-india.com/storage/site_settings/logo.webp" alt="Brand Logo" style={{ height: "60px" }} />
+                <img src="https://in.bl-india.com/storage/site_settings/logo.webp" alt="Brand Liaison" style={{ height: "60px" }} />
               </Link>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -180,7 +180,7 @@ const NavigationBar = () => {
               <Stack direction={'row'} sx={{ display: "flex", justifyContent:'space-between', alignItems: "center", width:'100%' }}>
                 <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
                   <Link to="/">
-                    <img src="https://in.bl-india.com/storage/site_settings/logo.webp" alt="Brand Logo" style={{ height: "35px" }} />
+                    <img src="https://in.bl-india.com/storage/site_settings/logo.webp" alt="Brand Liaison" style={{ height: "35px" }} />
                   </Link>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" ,justifyContent:'space-between'}}>
