@@ -43,7 +43,7 @@
     <div class="container">
         <h1>Schedule call confirmation</h1>
         <p>Hi, {{ $scheduleCall['name'] }}, </p>
-        <p>We have received your call request at - {{ $data['scheduled_at'] }}. Our representative will get in touch with you shortly.</p>
+        <p>We have received your call request at - {{ $scheduleCall['scheduled_at'] }}. Our representative will get in touch with you shortly.</p>
         <p>Best regards,</p>
         <p class="highlight">Team BL-India</p>
         <div class="footer">
