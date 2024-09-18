@@ -37,6 +37,9 @@ class BrochureController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+
+        $brochure = $request->all();
+        Mail::to('info@bl-india.com')->send(new BrochureDetailMail($brochure));
     
         // Check if the client exists
         $client = Client::where('email', $request->email)->first();
@@ -53,8 +56,6 @@ class BrochureController extends Controller
             Mail::to($client->email)->send(new WelcomeEmail($client, $password));
         }
     
-        $brochure = $request->all();
-        Mail::to('info@bl-india.com')->send(new BrochureDetailMail($brochure));
         // Generate an OTP for the new or existing client
         $client->generateOtp();
     

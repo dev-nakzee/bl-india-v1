@@ -40,7 +40,7 @@ class BrochureDetailMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'brochureRequest.name',
+            view: 'emails.brochureRequest',
             with: ['brochure' => $this->brochure]
         );
     }
