@@ -51,7 +51,7 @@ class ScheduleCallController extends Controller
         );
         $scheduleCall->generateOtp();
 
-        Mail::to('info@bl-india.com')->send(new ScheduleCallMail($$data));
+        Mail::to('info@bl-india.com')->send(new ScheduleCallMail($data));
 
         $response = Http::post('https://pms.bl-india.com/api/erp/schedulecall/lead', $request->all());
         return response()->json(['message' => 'Scheduled call created successfully.'], 201);
