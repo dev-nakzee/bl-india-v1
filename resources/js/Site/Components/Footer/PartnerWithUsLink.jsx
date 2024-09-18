@@ -124,7 +124,7 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
         <>
             {displayType === "text" ? (
                 <Typography
-                    variant="body2"
+                    variant="bodytext"
                     className="Service-list"
                     onClick={() => toggleDrawer(true)()}
                     sx={{ cursor: "pointer" }}
