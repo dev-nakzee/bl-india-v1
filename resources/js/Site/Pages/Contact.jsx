@@ -25,6 +25,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
     const [data, setData] = useState(null);
@@ -85,6 +86,12 @@ const Contact = () => {
             [name]: value,
         });
     };
+    const navigate = useNavigate();
+    const handleClickholiday = () => {
+        // Navigate to another page
+        navigate('/holiday-list');
+      };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -265,6 +272,7 @@ const Contact = () => {
                                     />
                                 </ListItem>
                             </List>
+                            <Button sx={{mt:2}} variant="contained" onClick={handleClickholiday}>HolidayList</Button>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
