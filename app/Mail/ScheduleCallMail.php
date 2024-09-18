@@ -16,9 +16,10 @@ class ScheduleCallMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
         //
+        $this->data = $data;
     }
 
     /**
@@ -27,7 +28,7 @@ class ScheduleCallMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Schedule Call Mail',
+            subject: 'Schedule Call Request',
         );
     }
 
@@ -37,7 +38,8 @@ class ScheduleCallMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.scheduleRequest',
+            with: ['data' => $this->data]
         );
     }
 
