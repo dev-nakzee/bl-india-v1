@@ -588,8 +588,7 @@ th {
     padding: 2.5rem;
     cursor:default !important;;
 }
-
-.react-calendar__viewContainer ,.holiday-list .MuiList-padding{  pointer-events: none !important;}
+.react-calendar__viewContainer ,.holiday-list .MuiList-padding, .holiday-list .react-calendar__navigation__label{  pointer-events: none !important;}
 
 .react-calendar__tile {
     max-width: 100%;
