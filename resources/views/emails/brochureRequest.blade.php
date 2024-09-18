@@ -46,6 +46,10 @@
         <p><span class="highlight">Email:</span> {{ $brochure['email'] }}</p>
         <p><span class="highlight">Country Code:</span> {{ $brochure['countryCode'] }}</p>
         <p><span class="highlight">Phone:</span> {{ $brochure['phone'] }}</p>
+        <p><span class="highlight">Company:</span> {{ $brochure['company'] }}</p>
+        <p><span class="highlight">Service:</span> {{ $brochure['service'] }}</p>
+        <p><span class="highlight">Source:</span> {{ $brochure['source'] }}</p>
+        <p><span class="highlight">Message:</span> {{ $brochure['message'] }}</p>
         <div class="footer">
             This email was sent automatically. Please do not reply.
         </div>

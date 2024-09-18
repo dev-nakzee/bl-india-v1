@@ -46,10 +46,6 @@
         <p><span class="highlight">Email:</span> {{ $client['email'] }}</p>
         <p><span class="highlight">Country Code:</span> {{ $client['country_code'] }}</p>
         <p><span class="highlight">Phone:</span> {{ $client['phone'] }}</p>
-        <p><span class="highlight">Company:</span> {{ $client['company'] }}</p>
-        <p><span class="highlight">Service:</span> {{ $client['service'] }}</p>
-        <p><span class="highlight">Source:</span> {{ $client['source'] }}</p>
-        <p><span class="highlight">Message:</span> {{ $client['message'] }}</p>
         <div class="footer">
             This email was sent automatically. Please do not reply.
         </div>
