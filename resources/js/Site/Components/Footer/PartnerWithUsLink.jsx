@@ -209,13 +209,13 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
 
                             {/* Conditionally render text based on partner type */}
                             {formData.partnerType === "Service Partner" && (
-                                <Typography variant="body2" color="textSecondary">
-                                    As certification/compliance service provider
+                                <Typography variant="body2" color="textSecondary" sx={{ fontStyle: 'italic'}}>
+                                    Become certification/compliance service provider
                                 </Typography>
                             )}
                             {formData.partnerType === "Channel Partner" && (
-                                <Typography variant="body2" color="textSecondary">
-                                    As Marketing Associate
+                                <Typography variant="body2" color="textSecondary" sx={{ fontStyle: 'italic'}}>
+                                    Become Marketing Associate
                                 </Typography>
                             )}
 
@@ -326,7 +326,7 @@ const PartnerWithUsLink = ({ displayType = "text" }) => {
                                 />
                             </Grid>
                         </Grid>
-                        {formData.entityType === "Company" && (
+                        {formData.entityType === "Organization" && (
                             <>
                                 <TextField
                                     label="Company Name"
