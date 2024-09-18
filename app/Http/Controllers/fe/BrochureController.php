@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 use App\Mail\WelcomeEmail;
+use App\Mail\BrochureDetailMail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Brochure;
@@ -52,6 +53,8 @@ class BrochureController extends Controller
             Mail::to($client->email)->send(new WelcomeEmail($client, $password));
         }
     
+        $brochure = $request->all();
+        Mail::to('info@bl-india.com')->send(new BrochureDetailMail($brochure));
         // Generate an OTP for the new or existing client
         $client->generateOtp();
     

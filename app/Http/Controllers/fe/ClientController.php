@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\JsonResponse;
 use App\Mail\ResetPasswordMail;
+use App\Mail\RegisterDetailMail;
 
 class ClientController extends Controller
 {
@@ -41,6 +42,8 @@ class ClientController extends Controller
         ]);
 
         $client->generateOtp();
+
+        Mail::to($client->email)->send(new RegisterDetailMail($client));
 
         $response = Http::post('https://pms.bl-india.com/api/erp/register/Lead', $request->all());
 

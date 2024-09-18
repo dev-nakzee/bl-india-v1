@@ -179,6 +179,7 @@ const RegisterLoginDrawer = () => {
       setMessage('OTP verified successfully');
       setIsLoggedIn(true);
       handleToggleDrawer();
+      navigate('/account');
     } catch (error) {
       setMessageType('error');
       setMessage('OTP verification failed');
