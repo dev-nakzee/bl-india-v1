@@ -29,7 +29,7 @@ class PartnerWithUsController extends Controller
             'country_code' => 'required|string|max:10',
             'phone' => 'required|string|max:20',
             'partner_type' => 'required|in:Service Partner,Channel Partner',
-            'entity_type' => 'required|in:Company,Individual',
+            'entity_type' => 'required|in:Organization,Individual',
             'organization' => 'nullable|string|max:255',
             'designation' => 'nullable|string|max:255',
             'field_of_expertise' => 'nullable|string|max:255',

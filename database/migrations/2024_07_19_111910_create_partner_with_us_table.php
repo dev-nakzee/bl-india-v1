@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('country_code');
             $table->string('phone');
             $table->enum('partner_type', ['Service Partner', 'Channel Partner']);
-            $table->enum('entity_type', ['Company', 'Individual']);
+            $table->enum('entity_type', ['Organization', 'Individual']);
             $table->string('organization')->nullable();
             $table->string('designation')->nullable();
             $table->string('field_of_expertise')->nullable();

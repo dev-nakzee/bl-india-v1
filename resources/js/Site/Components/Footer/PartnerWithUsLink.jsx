@@ -25,7 +25,7 @@ import { countries } from "country-data";
 import apiClient from "../../Services/api";
 
 const partnerTypes = ["Service Partner", "Channel Partner"];
-const entityTypes = ["Company", "Individual"];
+const entityTypes = ["Organization", "Individual"];
 
 const PartnerWithUsLink = ({ displayType = "text" }) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
