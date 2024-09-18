@@ -40,7 +40,7 @@ class RegisterDetailMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.newRegister',
+            view: 'emails.newRegister',
             with: ['client' => $this->client]
         );
     }
