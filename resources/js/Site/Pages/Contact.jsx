@@ -26,6 +26,7 @@ import { useLocation } from 'react-router-dom';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useNavigate } from 'react-router-dom';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
 const Contact = () => {
     const [data, setData] = useState(null);
@@ -251,7 +252,7 @@ const Contact = () => {
                                     </Box>
                                 </ListItem>
                                 <ListItem sx={{ paddingLeft: 0 }}>
-                                    <PhoneOutlined
+                                    <PhoneAndroidIcon
                                         className="contact-icon"
                                         color="secondary"
                                     />
@@ -262,7 +263,7 @@ const Contact = () => {
                                 </ListItem>
 
                                 <ListItem sx={{ paddingLeft: 0 }}>
-                                    <PhoneOutlined
+                                <PhoneOutlined  
                                         className="contact-icon"
                                         color="secondary"
                                     />
@@ -272,7 +273,7 @@ const Contact = () => {
                                     />
                                 </ListItem>
                             </List>
-                            <Button sx={{mt:2}} variant="contained" onClick={handleClickholiday}>HolidayList</Button>
+                            <Button sx={{mt:2}} variant="contained" onClick={handleClickholiday}>Holiday List</Button>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
