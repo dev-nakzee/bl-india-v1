@@ -23,6 +23,8 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import { EmailOutlined, FmdGoodOutlined, PhoneOutlined } from "@mui/icons-material";
 import apiClient from "../../Services/api";
 import PartnerWithUsLink from "./PartnerWithUsLink";
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+
 
 const FooterContainer = styled(Box)(({ theme }) => ({
     backgroundColor: "#0D629A",
@@ -153,7 +155,7 @@ const Footer = () => {
             >
                 {footerData.contact.name}
             </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '10px' ,marginBottom:1}}>
                 <FmdGoodOutlined sx={{ color: "#fff" }} />
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography
@@ -176,7 +178,7 @@ const Footer = () => {
             </Box>
             <Box sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                    <PhoneOutlined sx={{ color: "#fff" }} />
+                    <PhoneAndroidIcon sx={{ color: "#fff" }} />
                     <Typography
                         variant="body2"
                         textAlign={"left"}

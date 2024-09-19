@@ -281,7 +281,7 @@ const HolidayList = () => {
                                         onClick={handleDownload} 
                                         sx={{mt:5}}
                                     >
-                                        Download HolidayList
+                                        Download Holiday List
                                     </Button>
                                 </Box>
                             </Sidebar>
