@@ -77,13 +77,13 @@ const ScheduleCallDrawer = () => {
     // This function gets the next available weekday if the selected date falls on a weekend
     const getNextAvailableDay = (date) => {
         let newDate = new Date(date);
-        while (newDate.getDay() === 6 || newDate.getDay() === 0) { // Check if it's Saturday (6) or Sunday (0)
-            newDate.setDate(newDate.getDate() + 1); // Add 1 day if it's a weekend
+        while (newDate.getDay() === 6 || newDate.getDay() === 0) { // Saturday (6) or Sunday (0)
+            newDate.setDate(newDate.getDate() + 1); // Skip to next day
         }
         return newDate;
     };
 
-    // Ensure the time is within the 10:00 AM to 6:00 PM range
+    // Enforce the time to be within the 10:00 AM to 6:00 PM range
     const enforceTimeLimits = (dateTime) => {
         const date = new Date(dateTime);
         const hours = date.getHours();
@@ -99,14 +99,14 @@ const ScheduleCallDrawer = () => {
     const handleDateTimeChange = (e) => {
         let selectedDateTime = new Date(e.target.value);
 
-        // Check if the selected day is a weekend
+        // Disable weekends (Saturday and Sunday)
         selectedDateTime = getNextAvailableDay(selectedDateTime);
 
-        // Enforce time limits between 10:00 AM and 6:00 PM
+        // Enforce time restrictions between 10:00 AM and 6:00 PM
         selectedDateTime = enforceTimeLimits(selectedDateTime);
 
-        // Update the formData with the corrected schedule
-        setFormData({ ...formData, schedule: selectedDateTime.toISOString().slice(0, 16) }); // Convert to the correct format YYYY-MM-DDTHH:mm
+        // Update formData with the corrected date and time
+        setFormData({ ...formData, schedule: selectedDateTime.toISOString().slice(0, 16) });
     };
 
     const handleSubmit = async (e) => {
@@ -166,7 +166,7 @@ const ScheduleCallDrawer = () => {
                 setFormData({
                     name: "",
                     phone: "",
-                    countryCode: "+1",
+                    countryCode: "+91",
                     email: "",
                     schedule: "",
                 });
