@@ -16,6 +16,7 @@ import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
 import { styled } from "@mui/system";
 import { countries } from "country-data";
 import apiClient from "../Services/api";
+import { addDays, format, isWeekend } from "date-fns"; // Import necessary functions from date-fns
 
 const ScheduleCall = styled(Box)(({ theme }) => ({
     textAlign: "left",
@@ -74,31 +75,40 @@ const ScheduleCallDrawer = () => {
         setOtp(e.target.value);
     };
 
-    // Function to disable weekends (Saturday and Sunday)
-    const isWeekend = (dateString) => {
-        const date = new Date(dateString);
-        const day = date.getDay();
-        return day === 6 || day === 0; // 0 = Sunday, 6 = Saturday
+    // This function gets the next available weekday if the selected date falls on a weekend
+    const getNextAvailableDay = (date) => {
+        let newDate = new Date(date);
+        while (isWeekend(newDate)) {
+            newDate = addDays(newDate, 1);
+        }
+        return format(newDate, "yyyy-MM-dd'T'HH:mm");
     };
 
-    const isValidSchedule = (schedule) => {
-        const date = new Date(schedule);
+    // Ensure the time is within the 10:00 AM to 6:00 PM range
+    const enforceTimeLimits = (dateTime) => {
+        const date = new Date(dateTime);
         const hours = date.getHours();
-        const minutes = date.getMinutes();
 
-        // Ensure it's not a weekend
-        if (isWeekend(schedule)) {
-            setErrors({ scheduled_at: "Scheduling is not available on weekends." });
-            return false;
+        if (hours < 10) {
+            date.setHours(10, 0); // Set to 10:00 AM
+        } else if (hours >= 18) {
+            date.setHours(18, 0); // Set to 6:00 PM
+        }
+        return format(date, "yyyy-MM-dd'T'HH:mm");
+    };
+
+    const handleDateTimeChange = (e) => {
+        let selectedDateTime = e.target.value;
+
+        // Check if the selected day is a weekend
+        if (isWeekend(new Date(selectedDateTime))) {
+            selectedDateTime = getNextAvailableDay(selectedDateTime);
         }
 
-        // Ensure the time is between 10 AM and 6 PM
-        if (hours < 10 || (hours >= 18 && minutes > 0)) {
-            setErrors({ scheduled_at: "Scheduling time must be between 10:00 AM and 6:00 PM." });
-            return false;
-        }
+        // Enforce time limits between 10:00 AM and 6:00 PM
+        selectedDateTime = enforceTimeLimits(selectedDateTime);
 
-        return true;
+        setFormData({ ...formData, schedule: selectedDateTime });
     };
 
     const handleSubmit = async (e) => {
@@ -106,12 +116,6 @@ const ScheduleCallDrawer = () => {
         setLoading(true);
         setErrors({});
         setSuccessMessage("");
-
-        // Validate the schedule before sending the request
-        if (!isValidSchedule(formData.schedule)) {
-            setLoading(false);
-            return;
-        }
 
         try {
             await apiClient.post("/schedule", formData);
@@ -350,7 +354,7 @@ const ScheduleCallDrawer = () => {
                                     name="schedule"
                                     type="datetime-local"
                                     value={formData.schedule}
-                                    onChange={handleInputChange}
+                                    onChange={handleDateTimeChange} // Use the custom handler
                                     fullWidth
                                     required
                                     InputLabelProps={{
@@ -364,8 +368,8 @@ const ScheduleCallDrawer = () => {
                                     }
                                     InputProps={{
                                         inputProps: {
-                                            min: "10:00",
-                                            max: "18:00",
+                                            min: "2023-01-01T10:00", // Set minimum time to 10:00 AM
+                                            max: "2023-12-31T18:00", // Set maximum time to 6:00 PM
                                             step: 1800, // 30 minutes in seconds
                                         },
                                     }}
