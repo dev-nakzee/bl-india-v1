@@ -74,41 +74,45 @@ const ScheduleCallDrawer = () => {
         setOtp(e.target.value);
     };
 
-    const getDateTimeString = (type) => {
-        const now = new Date();
-        const year = now.getFullYear();
-        let month = now.getMonth() + 1;
-        let day = now.getDate();
-        if (month < 10) month = `0${month}`;
-        if (day < 10) day = `0${day}`;
-        const datePart = `${year}-${month}-${day}`;
-    
-        if (type === 'min') {
-            return `${datePart}T10:00`;
-        } else if (type === 'max') {
-            return `${datePart}T18:00`;
-        }
+    // Function to disable weekends (Saturday and Sunday)
+    const isWeekend = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDay();
+        return day === 6 || day === 0; // 0 = Sunday, 6 = Saturday
     };
-    
-    // This function could be enhanced to skip weekends, ensuring the 'min' and 'max'
-    // values always fall on a weekday. For example:
-    const getNextWeekday = (date) => {
-        let adjustedDate = new Date(date);
-        while (adjustedDate.getDay() === 6 || adjustedDate.getDay() === 0) { // Saturday or Sunday
-            adjustedDate.setDate(adjustedDate.getDate() + 1);
+
+    const isValidSchedule = (schedule) => {
+        const date = new Date(schedule);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+
+        // Ensure it's not a weekend
+        if (isWeekend(schedule)) {
+            setErrors({ scheduled_at: "Scheduling is not available on weekends." });
+            return false;
         }
-        return adjustedDate;
+
+        // Ensure the time is between 10 AM and 6 PM
+        if (hours < 10 || (hours >= 18 && minutes > 0)) {
+            setErrors({ scheduled_at: "Scheduling time must be between 10:00 AM and 6:00 PM." });
+            return false;
+        }
+
+        return true;
     };
-    
-    // Call this in `getDateTimeString` function for getting 'min' or 'max'
-    const nextWeekday = getNextWeekday(new Date());
-    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setErrors({});
         setSuccessMessage("");
+
+        // Validate the schedule before sending the request
+        if (!isValidSchedule(formData.schedule)) {
+            setLoading(false);
+            return;
+        }
+
         try {
             await apiClient.post("/schedule", formData);
             setShowOtpField(true);
@@ -355,14 +359,15 @@ const ScheduleCallDrawer = () => {
                                     sx={{ mt: 2, mb: 2 }}
                                     error={!!errors.scheduled_at}
                                     helperText={
-                                        errors.scheduled_at && errors.scheduled_at[0]
+                                        errors.scheduled_at &&
+                                        errors.scheduled_at[0]
                                     }
                                     InputProps={{
                                         inputProps: {
-                                            min: getDateTimeString('min'),
-                                            max: getDateTimeString('max'),
+                                            min: "10:00",
+                                            max: "18:00",
                                             step: 1800, // 30 minutes in seconds
-                                        }
+                                        },
                                     }}
                                 />
                             </>
