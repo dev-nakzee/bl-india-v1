@@ -366,8 +366,7 @@ const ScheduleCallDrawer = () => {
                                     }
                                     InputProps={{
                                         inputProps: {
-                                            min: `${new Date().getFullYear()}-01-01T10:00`, // Set minimum time to 10:00 AM
-                                            max: `${new Date().getFullYear()}-12-31T18:00`, // Set maximum time to 6:00 PM
+                                            min: new Date().toISOString().slice(0, 16), // Set minimum to current date and time
                                             step: 1800, // 30 minutes in seconds
                                         },
                                     }}
