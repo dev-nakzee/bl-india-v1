@@ -16,7 +16,6 @@ import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
 import { styled } from "@mui/system";
 import { countries } from "country-data";
 import apiClient from "../Services/api";
-import { addDays, format, isWeekend } from "date-fns"; // Import necessary functions from date-fns
 
 const ScheduleCall = styled(Box)(({ theme }) => ({
     textAlign: "left",
@@ -78,10 +77,10 @@ const ScheduleCallDrawer = () => {
     // This function gets the next available weekday if the selected date falls on a weekend
     const getNextAvailableDay = (date) => {
         let newDate = new Date(date);
-        while (isWeekend(newDate)) {
-            newDate = addDays(newDate, 1);
+        while (newDate.getDay() === 6 || newDate.getDay() === 0) { // Check if it's Saturday (6) or Sunday (0)
+            newDate.setDate(newDate.getDate() + 1); // Add 1 day if it's a weekend
         }
-        return format(newDate, "yyyy-MM-dd'T'HH:mm");
+        return newDate;
     };
 
     // Ensure the time is within the 10:00 AM to 6:00 PM range
@@ -94,21 +93,20 @@ const ScheduleCallDrawer = () => {
         } else if (hours >= 18) {
             date.setHours(18, 0); // Set to 6:00 PM
         }
-        return format(date, "yyyy-MM-dd'T'HH:mm");
+        return date;
     };
 
     const handleDateTimeChange = (e) => {
-        let selectedDateTime = e.target.value;
+        let selectedDateTime = new Date(e.target.value);
 
         // Check if the selected day is a weekend
-        if (isWeekend(new Date(selectedDateTime))) {
-            selectedDateTime = getNextAvailableDay(selectedDateTime);
-        }
+        selectedDateTime = getNextAvailableDay(selectedDateTime);
 
         // Enforce time limits between 10:00 AM and 6:00 PM
         selectedDateTime = enforceTimeLimits(selectedDateTime);
 
-        setFormData({ ...formData, schedule: selectedDateTime });
+        // Update the formData with the corrected schedule
+        setFormData({ ...formData, schedule: selectedDateTime.toISOString().slice(0, 16) }); // Convert to the correct format YYYY-MM-DDTHH:mm
     };
 
     const handleSubmit = async (e) => {
@@ -368,8 +366,8 @@ const ScheduleCallDrawer = () => {
                                     }
                                     InputProps={{
                                         inputProps: {
-                                            min: "2023-01-01T10:00", // Set minimum time to 10:00 AM
-                                            max: "2023-12-31T18:00", // Set maximum time to 6:00 PM
+                                            min: `${new Date().getFullYear()}-01-01T10:00`, // Set minimum time to 10:00 AM
+                                            max: `${new Date().getFullYear()}-12-31T18:00`, // Set maximum time to 6:00 PM
                                             step: 1800, // 30 minutes in seconds
                                         },
                                     }}
