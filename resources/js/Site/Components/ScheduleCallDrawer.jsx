@@ -40,7 +40,7 @@ const ScheduleCallDrawer = () => {
     const [formData, setFormData] = useState({
         name: "",
         phone: "",
-        countryCode: "+1",
+        countryCode: "+91",
         email: "",
         schedule: "",
     });
@@ -73,6 +73,36 @@ const ScheduleCallDrawer = () => {
     const handleOtpChange = (e) => {
         setOtp(e.target.value);
     };
+
+    const getDateTimeString = (type) => {
+        const now = new Date();
+        const year = now.getFullYear();
+        let month = now.getMonth() + 1;
+        let day = now.getDate();
+        if (month < 10) month = `0${month}`;
+        if (day < 10) day = `0${day}`;
+        const datePart = `${year}-${month}-${day}`;
+    
+        if (type === 'min') {
+            return `${datePart}T10:00`;
+        } else if (type === 'max') {
+            return `${datePart}T18:00`;
+        }
+    };
+    
+    // This function could be enhanced to skip weekends, ensuring the 'min' and 'max'
+    // values always fall on a weekday. For example:
+    const getNextWeekday = (date) => {
+        let adjustedDate = new Date(date);
+        while (adjustedDate.getDay() === 6 || adjustedDate.getDay() === 0) { // Saturday or Sunday
+            adjustedDate.setDate(adjustedDate.getDate() + 1);
+        }
+        return adjustedDate;
+    };
+    
+    // Call this in `getDateTimeString` function for getting 'min' or 'max'
+    const nextWeekday = getNextWeekday(new Date());
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -113,7 +143,7 @@ const ScheduleCallDrawer = () => {
             setFormData({
                 name: "",
                 phone: "",
-                countryCode: "+1",
+                countryCode: "+91",
                 email: "",
                 schedule: "",
             });
@@ -325,9 +355,15 @@ const ScheduleCallDrawer = () => {
                                     sx={{ mt: 2, mb: 2 }}
                                     error={!!errors.scheduled_at}
                                     helperText={
-                                        errors.scheduled_at &&
-                                        errors.scheduled_at[0]
+                                        errors.scheduled_at && errors.scheduled_at[0]
                                     }
+                                    InputProps={{
+                                        inputProps: {
+                                            min: getDateTimeString('min'),
+                                            max: getDateTimeString('max'),
+                                            step: 1800, // 30 minutes in seconds
+                                        }
+                                    }}
                                 />
                             </>
                         )}
