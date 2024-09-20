@@ -199,7 +199,7 @@ const CommentLoginDrawer = ({ open, onClose }) => {
             error={!!errors.email}
             helperText={errors.email ? errors.email[0] : ''}
           />
-                    <Grid container spacing={2} alignItems="center" sx={{ mt:1 }}>
+          {isRegister && (<Grid container spacing={2} alignItems="center" sx={{ mt:1 }}>
             <Grid item xs={4}>
                 <TextField
                     select
@@ -252,7 +252,7 @@ const CommentLoginDrawer = ({ open, onClose }) => {
                     }
                 />
             </Grid>
-          </Grid>
+          </Grid>)}
           <TextField
             label="Password"
             name="password"

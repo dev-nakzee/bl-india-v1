@@ -245,6 +245,7 @@ const RegisterLoginDrawer = () => {
             error={!!errors.email}
             helperText={errors.email ? errors.email[0] : ''}
           />
+          {isRegister &&(
           <Grid container spacing={2} alignItems="center" sx={{ mt:1 }}>
             <Grid item xs={4}>
                 <TextField
@@ -298,7 +299,7 @@ const RegisterLoginDrawer = () => {
                     }
                 />
             </Grid>
-          </Grid>
+          </Grid>)}
           <TextField
             label="Password"
             name="password"
