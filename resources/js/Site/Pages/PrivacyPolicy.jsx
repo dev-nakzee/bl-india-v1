@@ -81,6 +81,7 @@ const PrivacyPolicy = () => {
                     variant="h1"
                     gutterBottom
                     textAlign={"center"}
+                    marginBottom={4}
                 >
                     {pageData.page.name}
                 </Typography>

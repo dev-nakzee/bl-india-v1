@@ -70,7 +70,8 @@ const TermCondition = () => {
       </Helmet>
      
         <Box sx={{ padding: 4 }} className="privacy-policy">
-        <Typography variant="h4" gutterBottom textAlign={"center"}>
+        <Typography    className="page-main-heading page-heading"
+                    variant="h1" gutterBottom textAlign={"center"} marginBottom={4}>
         {pageData.page.name}
           </Typography>
           <Box sx={{ marginTop: 2 }}>
