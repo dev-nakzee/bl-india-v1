@@ -71,7 +71,7 @@ const WebsiteDisclaimer = () => {
       <>
         <Box sx={{ padding: 4 }} className="privacy-policy">
         <Typography    className="page-main-heading page-heading"
-                    variant="h1" gutterBottom textAlign={"center"}>
+                    variant="h1" gutterBottom textAlign={"center"} marginBottom={4}>
         {pageData.page.name}
           </Typography>
           <Box sx={{ marginTop: 2 }}>
