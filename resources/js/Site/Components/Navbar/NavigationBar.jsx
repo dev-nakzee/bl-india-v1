@@ -159,7 +159,7 @@ const NavigationBar = () => {
                   </Typography>
                 </Box>
               </IconButton>
-              <IconButton component={Link} to="/notifications" color="inherit">
+              <IconButton component={Link} to="/notifications" color="inherit" sx={{marginRight:2}}>
                 <img src={NotificationIcon} alt="Notifications" className="navbar-icon"/>
                 <Box sx={{ textAlign: "left" }}>
                   <Typography variant="h6">Notifications</Typography>

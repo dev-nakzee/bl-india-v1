@@ -327,14 +327,15 @@ sx={{
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: 4
+   marginBlock:3,
+   padding:3
 }}
 >
-<Typography variant="h6" gutterBottom sx={{ p:4 }}>
-    You need to register or login to access the download page.
+<Typography variant="p" gutterBottom sx={{marginBottom:2}}>
+    You need to <span className="font-bold ">Register or Login </span> to access the download page.
 </Typography>
-<Typography variant="h6" gutterBottom sx={{ p:4 }}>
-    You download forms, list of required documents and guidelines for you respective certifications and approvals
+<Typography variant="p" gutterBottom >
+    You can download  the <span className="font-bold">Forms, List of Required Documents and Guidelines </span> for your respective certifications and approvals.
 </Typography>   
 </Box>
                             )}
