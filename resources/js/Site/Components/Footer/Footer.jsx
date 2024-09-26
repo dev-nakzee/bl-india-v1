@@ -25,6 +25,14 @@ import apiClient from "../../Services/api";
 import PartnerWithUsLink from "./PartnerWithUsLink";
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
+const handleCall = (phoneNumber) => {
+    window.location.href = `tel:${phoneNumber}`;
+};
+/*************** Mailing   ***************/
+
+const handleMailClick = (email) => {
+    window.location.href = `mailto:${email}`;
+};
 
 const FooterContainer = styled(Box)(({ theme }) => ({
     backgroundColor: "#0D629A",
@@ -164,6 +172,12 @@ const Footer = () => {
                     variant="body2"
                     textAlign={"left"}
                     className="Service-list"
+                    sx={{ cursor: "pointer" }}
+                    onClick={() =>
+                        handleMailClick(
+                            "nfo@bl-india.com"
+                        )
+                    }
                 >
                     {footerData.contact.email}
                 </Typography>
@@ -175,6 +189,9 @@ const Footer = () => {
                         variant="body2"
                         textAlign={"left"}
                         className="Service-list"
+                        onClick={() =>
+                            handleCall(footerData.contact.phone1)
+                        } sx={{ cursor: "pointer" }}
                     >
                         {footerData.contact.phone1}
                     </Typography>
@@ -184,6 +201,9 @@ const Footer = () => {
                     variant="body2"
                     textAlign={"left"}
                     className="Service-list"
+                    onClick={() =>
+                        handleCall(footerData.contact.phone2)
+                    } sx={{ cursor: "pointer" }}
                 >
                     {footerData.contact.phone2}
                 </Typography>
@@ -194,6 +214,9 @@ const Footer = () => {
                     variant="body2"
                     textAlign={"left"}
                     className="Service-list"
+                    onClick={() =>
+                        handleCall(footerData.contact.phone3)
+                    } sx={{ cursor: "pointer" }}
                 >
                     {footerData.contact.phone3}
                 </Typography>
