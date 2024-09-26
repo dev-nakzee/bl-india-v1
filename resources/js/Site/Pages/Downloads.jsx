@@ -40,7 +40,7 @@ const Downloads = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
     const location = useLocation();
 
@@ -243,7 +243,7 @@ const Downloads = () => {
                         )}
                     </Grid>
                     <Grid item xs={12} sm={8} md={9}>
-                        <Box
+                    {client ? (<Box
                             sx={{
                                 display: "flex",
                                 justifyContent: "flex-end",
@@ -265,7 +265,7 @@ const Downloads = () => {
                                 }}
                                 sx={{ marginBottom: 2 }}
                             />
-                        </Box>
+                        </Box>): ''}
                         <Paper sx={{ width: "100%", overflow: "hidden" }}>
                         {client ? (
                             <TableContainer>
@@ -331,8 +331,11 @@ sx={{
 }}
 >
 <Typography variant="h6" gutterBottom sx={{ p:4 }}>
-    You need to be registered and logged in to view the downloads.
+    You need to register or login to access the download page.
 </Typography>
+<Typography variant="h6" gutterBottom sx={{ p:4 }}>
+    You download forms, list of required documents and guidelines for you respective certifications and approvals
+</Typography>   
 </Box>
                             )}
                             {client ? (
