@@ -298,16 +298,18 @@ const Contact = () => {
                                         }}
                                     >
                                         <EmailOutlined
-                                            onClick={() =>
-                                                handleMailClick(
-                                                    "info@bl-india.com"
-                                                )
-                                            }
+                                          
                                             className="contact-icon"
                                             color="secondary"
-                                            sx={{ cursor: "pointer" }}
+                                          
                                         />
                                         <ListItemText
+                                          sx={{ cursor: "pointer" }}
+                                          onClick={() =>
+                                            handleMailClick(
+                                                "info@bl-india.com"
+                                            )
+                                        }
                                             primary="Email"
                                             secondary={data.contact.email}
                                         />
