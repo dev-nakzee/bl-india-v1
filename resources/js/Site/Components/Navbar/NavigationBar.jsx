@@ -155,7 +155,7 @@ const NavigationBar = () => {
                 <Box sx={{ textAlign: "left" }}>
                   <Typography variant="h6">Services</Typography>
                   <Typography variant="subtitle2" display="block">
-                    provided by BL-India
+                  Product Certifications
                   </Typography>
                 </Box>
               </IconButton>

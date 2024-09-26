@@ -66,6 +66,8 @@ p {
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
+.contact-page p{margin-block: 0 !important;}
+.MuiIconButton-root:hover{border-radius: 0 !important;}
 .Topbar-section {
     min-height: 55px !important;
 }

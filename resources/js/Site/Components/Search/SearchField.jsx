@@ -162,7 +162,7 @@ const SearchField = () => {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        label="Search services and products"
+                        label="Search Products & Certifications"
                         value={query}
                         onChange={handleInputChange}
                         fullWidth
