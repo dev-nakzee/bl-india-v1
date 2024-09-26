@@ -11,22 +11,31 @@ import {
     Button,
     Alert,
     MenuItem,
-    InputAdornment
+    InputAdornment,
 } from "@mui/material";
 import { Helmet } from "react-helmet";
 import apiClient from "../Services/api";
 import { countries } from "country-data";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import {
+    CalendarMonth,
     EmailOutlined,
     FmdGoodOutlined,
     PhoneOutlined,
+    RateReviewOutlined,
+    Reviews,
 } from "@mui/icons-material";
-import { useLocation } from 'react-router-dom';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { useNavigate } from 'react-router-dom';
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import { useLocation } from "react-router-dom";
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+} from "@mui/material";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { useNavigate } from "react-router-dom";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 
 const Contact = () => {
     const [data, setData] = useState(null);
@@ -38,11 +47,11 @@ const Contact = () => {
         phone: "",
         country_code: "+91",
         organization: "",
-        file: null,  // Initialize file to null
+        file: null, // Initialize file to null
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [formError, setFormError] = useState('');
-    const [formSuccess, setFormSuccess] = useState('');
+    const [formError, setFormError] = useState("");
+    const [formSuccess, setFormSuccess] = useState("");
     const location = useLocation();
     const fileInputRef = React.useRef(null);
     const [openDialog, setOpenDialog] = useState(false);
@@ -52,16 +61,39 @@ const Contact = () => {
     const handleDialogOpen = () => {
         setOpenDialog(true);
     };
-    
+
     const handleDialogClose = () => {
         setOpenDialog(false);
     };
-    
+    /*************** Calling   ***************/
+    // const handleCall = () => {
+    //     window.location.href =  `tel:${data.contact.phone1 }`;
+    //   };
+    //   const handleCall1 = () => {
+    //     window.location.href =  `tel:${data.contact.phone3 }`;
+    //   };
+    // Function to handle calls with dynamic phone number
+    const handleCall = (phoneNumber) => {
+        window.location.href = `tel:${phoneNumber}`;
+    };
+    /*************** Mailing   ***************/
+
+    //   const handleMailClick = () => {
+    //     window.location.href = 'mailto:rk@bl-india.com';
+    //   };
+    //   const handleMailClick1 = () => {
+    //     window.location.href = 'mailto:info@bl-india.com';
+    //   };
+
+    // Function to handle mail with dynamic email address
+    const handleMailClick = (email) => {
+        window.location.href = `mailto:${email}`;
+    };
 
     const handleFileChange = (event) => {
         setFormData({
             ...formData,
-            file: event.target.files[0] // Get the first file
+            file: event.target.files[0], // Get the first file
         });
     };
 
@@ -90,23 +122,22 @@ const Contact = () => {
     const navigate = useNavigate();
     const handleClickholiday = () => {
         // Navigate to another page
-        navigate('/holiday-list');
-      };
-    
+        navigate("/holiday-list");
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true); // Start submitting
         const formPayload = new FormData();
-        Object.keys(formData).forEach(key => {
+        Object.keys(formData).forEach((key) => {
             formPayload.append(key, formData[key]);
         });
-    
+
         try {
             await apiClient.post("/contact-form", formPayload, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
+                    "Content-Type": "multipart/form-data",
+                },
             });
             // setFormSuccess("Message and file sent successfully");
             setFormData({
@@ -124,7 +155,7 @@ const Contact = () => {
             }
         } catch (error) {
             const errorMessage = error.response?.data?.errors
-                ? Object.values(error.response.data.errors).flat().join(', ')
+                ? Object.values(error.response.data.errors).flat().join(", ")
                 : "Error sending form";
             setFormError(errorMessage);
         } finally {
@@ -157,10 +188,16 @@ const Contact = () => {
                 <title>{data.page.seo_title}</title>
                 <meta name="description" content={data.page.seo_description} />
                 <meta name="keywords" content={data.page.seo_keywords} />
-                
+
                 <meta name="author" content="Rajesh Kumar" />
-                <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
-                <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+                <meta
+                    name="publisher"
+                    content="Brand Liaison India Pvt. Ltd."
+                />
+                <meta
+                    name="copyright"
+                    content="Brand Liaison India Pvt. Ltd."
+                />
                 <meta name="Classification" content="Business" />
                 <meta name="coverage" content="Worldwide" />
                 <meta name="distribution" content="Global" />
@@ -168,42 +205,57 @@ const Contact = () => {
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={data.page.seo_title} />
-                <meta property="og:description" content={data.page.seo_description} />
+                <meta
+                    property="og:description"
+                    content={data.page.seo_description}
+                />
                 <meta property="og:url" content="https://bl-india.com" />
                 <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
+                <meta
+                    property="og:image"
+                    content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208"
+                />
                 <meta name="format-detection" content="telephone=no" />
                 <link rel="canonical" href={fullUrl} />
             </Helmet>
-             {/* Success Dialog */}
-             <Dialog
+            {/* Success Dialog */}
+            <Dialog
                 open={openDialog}
                 onClose={handleDialogClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    <Box display="flex" alignItems="center" color="success.main">
+                    <Box
+                        display="flex"
+                        alignItems="center"
+                        color="success.main"
+                    >
                         <CheckCircleOutlineIcon sx={{ fontSize: 60, mr: 2 }} />
                     </Box>
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         Your form has been submitted successfully!
-                        <br /><br />
+                        <br />
+                        <br />
                         We will get back to you soon.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDialogClose} color="primary" autoFocus>
+                    <Button
+                        onClick={handleDialogClose}
+                        color="primary"
+                        autoFocus
+                    >
                         Close
                     </Button>
                 </DialogActions>
             </Dialog>
 
-            <Box padding={{lg:5,md:4,sm:3,xs:2}}>
+            <Box padding={{ lg: 5, md: 4, sm: 3, xs: 2 }}>
                 <Typography
-                      className="page-main-heading page-heading"
+                    className="page-main-heading page-heading"
                     variant="h1"
                     textAlign="center"
                     gutterBottom
@@ -212,7 +264,11 @@ const Contact = () => {
                     Contact Us
                 </Typography>
 
-                <Grid className="m-container" container spacing={{ xs: 1, md: 4 }}>
+                <Grid
+                    className="m-container contact-page"
+                    container
+                    spacing={{ xs: 1, md: 4 }}
+                >
                     <Grid item xs={12} md={6}>
                         <Box sx={{ padding: 2 }}>
                             <Typography variant="h6" gutterBottom>
@@ -242,8 +298,14 @@ const Contact = () => {
                                         }}
                                     >
                                         <EmailOutlined
+                                            onClick={() =>
+                                                handleMailClick(
+                                                    "info@bl-india.com"
+                                                )
+                                            }
                                             className="contact-icon"
                                             color="secondary"
+                                            sx={{ cursor: "pointer" }}
                                         />
                                         <ListItemText
                                             primary="Email"
@@ -253,27 +315,62 @@ const Contact = () => {
                                 </ListItem>
                                 <ListItem sx={{ paddingLeft: 0 }}>
                                     <PhoneAndroidIcon
+                                        onClick={() =>
+                                            handleCall(data.contact.phone1)
+                                        }
+                                        aria-label="make a call"
                                         className="contact-icon"
                                         color="secondary"
+                                        sx={{ cursor: "pointer" }}
                                     />
                                     <ListItemText
                                         primary="Mobile No"
-                                        secondary={data.contact.phone1 + ' , ' + data.contact.phone2}
+                                        secondary={
+                                            data.contact.phone1 +
+                                            " , " +
+                                            data.contact.phone2
+                                        }
                                     />
                                 </ListItem>
 
                                 <ListItem sx={{ paddingLeft: 0 }}>
-                                <PhoneOutlined  
+                                    <PhoneOutlined
+                                        onClick={() =>
+                                            handleCall(data.contact.phone3)
+                                        }
                                         className="contact-icon"
                                         color="secondary"
+                                        sx={{ cursor: "pointer" }}
                                     />
                                     <ListItemText
                                         primary="Office No"
                                         secondary={data.contact.phone3}
                                     />
                                 </ListItem>
+                                <ListItem sx={{ paddingLeft: 0 }}>
+                                    <RateReviewOutlined
+                                        onClick={() =>
+                                            handleMailClick("rk@bl-india.com")
+                                        }
+                                        sx={{ cursor: "pointer" }}
+                                        className="contact-icon"
+                                        color="secondary"
+                                    />
+                                    <ListItemText
+                                        primary="Feedback / Grievance"
+                                        secondary="rk@bl-india.com"
+                                    />
+                                </ListItem>
                             </List>
-                            <Button sx={{mt:2}} variant="contained" onClick={handleClickholiday}>Holiday List</Button>
+                            <Button                                        
+
+                                sx={{ mt: 2 ,cursor: "pointer" }}
+                                variant="contained"
+                                onClick={handleClickholiday}
+                            >
+                                <CalendarMonth />
+                                &nbsp; Holiday List
+                            </Button>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -282,14 +379,10 @@ const Contact = () => {
                                 Feel Free to Message
                             </Typography>
                             {formError && (
-                                <Alert severity="error">
-                                    {formError}
-                                </Alert>
+                                <Alert severity="error">{formError}</Alert>
                             )}
                             {formSuccess && (
-                                <Alert severity="success">
-                                    {formSuccess}
-                                </Alert>
+                                <Alert severity="success">{formSuccess}</Alert>
                             )}
                             <form onSubmit={handleSubmit}>
                                 <Grid container spacing={{ xs: 1 }}>
@@ -318,6 +411,7 @@ const Contact = () => {
                                     </Grid>
                                     <Grid item xs={12} md={6}>
                                         <TextField
+                                            sx={{ marginBlock: 0 }}
                                             label="Phone"
                                             name="phone"
                                             value={formData.phone}
@@ -332,15 +426,41 @@ const Contact = () => {
                                                             select
                                                             name="country_code"
                                                             variant="standard"
-                                                            value={formData.country_code}
-                                                            onChange={handleChange}
-                                                            sx={{ width: 'auto', minWidth: '80px' }}
+                                                            value={
+                                                                formData.country_code
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            sx={{
+                                                                width: "auto",
+                                                                minWidth:
+                                                                    "80px",
+                                                            }}
                                                         >
-                                                            {countries.all.map((country) => (
-                                                                <MenuItem key={country.alpha2} value={country.countryCallingCodes[0]}>
-                                                                    {country.countryCallingCodes[0]} ({country.name})
-                                                                </MenuItem>
-                                                            ))}
+                                                            {countries.all.map(
+                                                                (country) => (
+                                                                    <MenuItem
+                                                                        key={
+                                                                            country.alpha2
+                                                                        }
+                                                                        value={
+                                                                            country
+                                                                                .countryCallingCodes[0]
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            country
+                                                                                .countryCallingCodes[0]
+                                                                        }{" "}
+                                                                        (
+                                                                        {
+                                                                            country.name
+                                                                        }
+                                                                        )
+                                                                    </MenuItem>
+                                                                )
+                                                            )}
                                                         </TextField>
                                                     </InputAdornment>
                                                 ),
@@ -349,6 +469,7 @@ const Contact = () => {
                                     </Grid>
                                     <Grid item xs={12} md={6}>
                                         <TextField
+                                            sx={{ marginBlock: 0 }}
                                             label="Organization"
                                             name="organization"
                                             value={formData.organization}
@@ -359,6 +480,7 @@ const Contact = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
+                                            sx={{ marginBlock: 0 }}
                                             label="Message"
                                             name="message"
                                             value={formData.message}
@@ -371,28 +493,34 @@ const Contact = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
+                                            sx={{ marginBlock: 0 }}
                                             type="file"
                                             onChange={handleFileChange}
                                             fullWidth
                                             margin="normal"
                                             helperText="If needed attach a PDF file. Other file types are not allowed."
                                             FormHelperTextProps={{
-                                                style: { color: 'rgba(0, 0, 0, 0.54)' }
+                                                style: {
+                                                    color: "rgba(0, 0, 0, 0.54)",
+                                                },
                                             }}
-                                            inputRef={fileInputRef}  // Attach the reference here
+                                            inputRef={fileInputRef} // Attach the reference here
                                         />
                                     </Grid>
-
                                     <Grid item xs={12}>
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                        fullWidth
-                                        disabled={isSubmitting} // Disable button when submitting
-                                    >
-                                        {isSubmitting ? <CircularProgress size={24} /> : 'Send Message'}
-                                    </Button>
+                                        <Button
+                                            type="submit"
+                                            variant="contained"
+                                            color="primary"
+                                            fullWidth
+                                            disabled={isSubmitting} // Disable button when submitting
+                                        >
+                                            {isSubmitting ? (
+                                                <CircularProgress size={24} />
+                                            ) : (
+                                                "Send Message"
+                                            )}
+                                        </Button>
                                     </Grid>
                                 </Grid>
                             </form>
