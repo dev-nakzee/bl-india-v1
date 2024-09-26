@@ -164,7 +164,7 @@ const NavigationBar = () => {
                 <Box sx={{ textAlign: "left" }}>
                   <Typography variant="h6">Notifications</Typography>
                   <Typography variant="subtitle2" display="block">
-                    Government Notifications
+                   Policy Updates
                   </Typography>
                 </Box>
               </IconButton>
