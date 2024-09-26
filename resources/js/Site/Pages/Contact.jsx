@@ -274,10 +274,6 @@ const Contact = () => {
                             <Typography variant="h6" gutterBottom>
                                 Get in Touch
                             </Typography>
-                            <Typography variant="body2" gutterBottom>
-                                {data.contact.name}
-                            </Typography>
-
                             <List>
                                 <ListItem sx={{ paddingLeft: 0 }}>
                                     <FmdGoodOutlined

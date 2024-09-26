@@ -147,14 +147,6 @@ const Footer = () => {
 
     const contactUsContent = (
         <>
-            <Typography
-                variant="body2"
-                textAlign={"left"}
-                className="Service-list"
-                sx={{ color: "#ffffff" }}
-            >
-                {footerData.contact.name}
-            </Typography>
             <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '10px' ,marginBottom:1}}>
                 <FmdGoodOutlined sx={{ color: "#fff" }} />
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
