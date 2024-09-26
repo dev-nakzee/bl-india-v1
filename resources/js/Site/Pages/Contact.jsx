@@ -65,27 +65,12 @@ const Contact = () => {
     const handleDialogClose = () => {
         setOpenDialog(false);
     };
-    /*************** Calling   ***************/
-    // const handleCall = () => {
-    //     window.location.href =  `tel:${data.contact.phone1 }`;
-    //   };
-    //   const handleCall1 = () => {
-    //     window.location.href =  `tel:${data.contact.phone3 }`;
-    //   };
-    // Function to handle calls with dynamic phone number
+
     const handleCall = (phoneNumber) => {
         window.location.href = `tel:${phoneNumber}`;
     };
     /*************** Mailing   ***************/
 
-    //   const handleMailClick = () => {
-    //     window.location.href = 'mailto:rk@bl-india.com';
-    //   };
-    //   const handleMailClick1 = () => {
-    //     window.location.href = 'mailto:info@bl-india.com';
-    //   };
-
-    // Function to handle mail with dynamic email address
     const handleMailClick = (email) => {
         window.location.href = `mailto:${email}`;
     };
@@ -274,8 +259,11 @@ const Contact = () => {
                             <Typography variant="h6" gutterBottom>
                                 Get in Touch
                             </Typography>
-                            <List>
+                            <List
+                             
+                            >
                                 <ListItem sx={{ paddingLeft: 0 }}>
+                              <Box sx={{display: 'flex', alignItems:'start'}}>
                                     <FmdGoodOutlined
                                         className="contact-icon"
                                         color="secondary"
@@ -284,7 +272,9 @@ const Contact = () => {
                                         primary="Address"
                                         secondary={parse(data.contact.address)}
                                     />
+                                  </Box> 
                                 </ListItem>
+                                
                                 <ListItem sx={{ paddingLeft: 0 }}>
                                     <Box
                                         sx={{
@@ -294,18 +284,16 @@ const Contact = () => {
                                         }}
                                     >
                                         <EmailOutlined
-                                          
                                             className="contact-icon"
                                             color="secondary"
-                                          
                                         />
                                         <ListItemText
-                                          sx={{ cursor: "pointer" }}
-                                          onClick={() =>
-                                            handleMailClick(
-                                                "info@bl-india.com"
-                                            )
-                                        }
+                                            sx={{ cursor: "pointer" }}
+                                            onClick={() =>
+                                                handleMailClick(
+                                                    "info@bl-india.com"
+                                                )
+                                            }
                                             primary="Email"
                                             secondary={data.contact.email}
                                         />
@@ -313,45 +301,31 @@ const Contact = () => {
                                 </ListItem>
                                 <ListItem sx={{ paddingLeft: 0 }}>
                                     <PhoneAndroidIcon
-                                      
                                         aria-label="make a call"
                                         className="contact-icon"
                                         color="secondary"
-                                       
                                     />
                                     <ListItemText
                                         primary="Mobile No"
                                         onClick={() =>
                                             handleCall(data.contact.phone1)
-                                        } sx={{ cursor: "pointer" }}
-                                        secondary={
-                                            data.contact.phone1 
-                                         
                                         }
-                                    />
-                                      <ListItemText
-                                        primary="Mobile No"
-                                        onClick={() =>
-                                            handleCall(data.contact.phone2)
-                                        } sx={{ cursor: "pointer" }}
-                                        secondary={
-                                         
-                                            data.contact.phone2
-                                        }
+                                        sx={{ cursor: "pointer" }}
+                                        secondary={`${data.contact.phone1}, ${data.contact.phone2}`}
                                     />
                                 </ListItem>
-                                
 
                                 <ListItem sx={{ paddingLeft: 0 }}>
                                     <PhoneOutlined
-                                        onClick={() =>
-                                            handleCall(data.contact.phone3)
-                                        }
+                                       
                                         className="contact-icon"
                                         color="secondary"
-                                        sx={{ cursor: "pointer" }}
+                                        
                                     />
-                                    <ListItemText
+                                    <ListItemText  onClick={() =>
+                                            handleCall(data.contact.phone3)
+                                        }
+                                        sx={{ cursor: "pointer" }}
                                         primary="Office No"
                                         secondary={data.contact.phone3}
                                     />
@@ -361,7 +335,8 @@ const Contact = () => {
                                         className="contact-icon"
                                         color="secondary"
                                     />
-                                    <ListItemText onClick={() =>
+                                    <ListItemText
+                                        onClick={() =>
                                             handleMailClick("rk@bl-india.com")
                                         }
                                         sx={{ cursor: "pointer" }}
@@ -370,9 +345,8 @@ const Contact = () => {
                                     />
                                 </ListItem>
                             </List>
-                            <Button                                        
-
-                                sx={{ mt: 2 ,cursor: "pointer" }}
+                            <Button
+                                sx={{ mt: 2, cursor: "pointer" }}
                                 variant="contained"
                                 onClick={handleClickholiday}
                             >
@@ -419,7 +393,6 @@ const Contact = () => {
                                     </Grid>
                                     <Grid item xs={12} md={6}>
                                         <TextField
-                                            sx={{ marginBlock: 0 }}
                                             label="Phone"
                                             name="phone"
                                             value={formData.phone}
@@ -477,7 +450,7 @@ const Contact = () => {
                                     </Grid>
                                     <Grid item xs={12} md={6}>
                                         <TextField
-                                            sx={{ marginBlock: 0 }}
+                                          
                                             label="Organization"
                                             name="organization"
                                             value={formData.organization}
@@ -488,7 +461,7 @@ const Contact = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
-                                            sx={{ marginBlock: 0 }}
+                                         
                                             label="Message"
                                             name="message"
                                             value={formData.message}
@@ -501,7 +474,7 @@ const Contact = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
-                                            sx={{ marginBlock: 0 }}
+                                           
                                             type="file"
                                             onChange={handleFileChange}
                                             fullWidth
