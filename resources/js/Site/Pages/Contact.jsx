@@ -315,23 +315,34 @@ const Contact = () => {
                                 </ListItem>
                                 <ListItem sx={{ paddingLeft: 0 }}>
                                     <PhoneAndroidIcon
-                                        onClick={() =>
-                                            handleCall(data.contact.phone1)
-                                        }
+                                      
                                         aria-label="make a call"
                                         className="contact-icon"
                                         color="secondary"
-                                        sx={{ cursor: "pointer" }}
+                                       
                                     />
                                     <ListItemText
                                         primary="Mobile No"
+                                        onClick={() =>
+                                            handleCall(data.contact.phone1)
+                                        } sx={{ cursor: "pointer" }}
                                         secondary={
-                                            data.contact.phone1 +
-                                            " , " +
+                                            data.contact.phone1 
+                                         
+                                        }
+                                    />
+                                      <ListItemText
+                                        primary="Mobile No"
+                                        onClick={() =>
+                                            handleCall(data.contact.phone2)
+                                        } sx={{ cursor: "pointer" }}
+                                        secondary={
+                                         
                                             data.contact.phone2
                                         }
                                     />
                                 </ListItem>
+                                
 
                                 <ListItem sx={{ paddingLeft: 0 }}>
                                     <PhoneOutlined
@@ -349,14 +360,13 @@ const Contact = () => {
                                 </ListItem>
                                 <ListItem sx={{ paddingLeft: 0 }}>
                                     <RateReviewOutlined
-                                        onClick={() =>
-                                            handleMailClick("rk@bl-india.com")
-                                        }
-                                        sx={{ cursor: "pointer" }}
                                         className="contact-icon"
                                         color="secondary"
                                     />
-                                    <ListItemText
+                                    <ListItemText onClick={() =>
+                                            handleMailClick("rk@bl-india.com")
+                                        }
+                                        sx={{ cursor: "pointer" }}
                                         primary="Feedback / Grievance"
                                         secondary="rk@bl-india.com"
                                     />
