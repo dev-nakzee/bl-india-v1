@@ -21,6 +21,7 @@ import {
     MenuItem,
     FormControl,
     Select,
+    Button,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
@@ -33,6 +34,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import DownloadBrochure from "../Components/DownloadBrochure";
 import RequestCallBack from "../Components/RequestCallBack";
 import { useLocation } from 'react-router-dom';
+import DownloadAccessDrawer from "../Components/DownloadAccessDrawer"; // Import the drawer
 
 const Downloads = () => {
     const [data, setData] = useState(null);
@@ -41,6 +43,7 @@ const Downloads = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [drawerOpen, setDrawerOpen] = useState(false); // State to control drawer
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
     const location = useLocation();
 
@@ -100,6 +103,11 @@ const Downloads = () => {
         setSelectedCategory(categoryId);
         setPage(0);
         setSearchTerm("");
+    };
+
+    const handleLoginSuccess = () => {
+        // Refresh the page or refetch data when login is successful
+        window.location.reload(); // or fetchData();
     };
 
     const filteredDownloads = data
@@ -243,7 +251,8 @@ const Downloads = () => {
                         )}
                     </Grid>
                     <Grid item xs={12} sm={8} md={9}>
-                    {client ? (<Box
+                    {client ? (
+                        <Box
                             sx={{
                                 display: "flex",
                                 justifyContent: "flex-end",
@@ -265,9 +274,44 @@ const Downloads = () => {
                                 }}
                                 sx={{ marginBottom: 2 }}
                             />
-                        </Box>): ''}
+                        </Box>
+                    ) : (
+                        <>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    marginBlock: 3,
+                                    padding: 3,
+                                }}
+                            >
+                                <Typography variant="p" gutterBottom sx={{ marginBottom: 2 }}>
+                                    You need to <span className="font-bold ">Register or Login </span> to access the download page.
+                                </Typography>
+                                <Typography variant="p" gutterBottom>
+                                    You can download the <span className="font-bold">Forms, List of Required Documents and Guidelines </span> for your respective certifications and approvals.
+                                </Typography>
+                                <Button 
+                                    variant="contained" 
+                                    color="primary" 
+                                    onClick={() => setDrawerOpen(true)} // Open drawer on click
+                                    sx={{ mt: 2 }}
+                                >
+                                    Register or Login
+                                </Button>
+                            </Box>
+
+                            {/* Download Access Drawer */}
+                            <DownloadAccessDrawer
+                                open={drawerOpen}
+                                onClose={() => setDrawerOpen(false)}
+                                onLoginSuccess={handleLoginSuccess}
+                            />
+                        </>
+                    )}
+                    {client && (
                         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-                        {client ? (
                             <TableContainer>
                                 <Table className="product-download">
                                     <TableHead>
@@ -292,14 +336,10 @@ const Downloads = () => {
                                                             {download.files.map(
                                                                 (file) => (
                                                                     <ListItem
-                                                                        key={
-                                                                            file.id
-                                                                        }
+                                                                        key={file.id}
                                                                         button
                                                                         component="a"
-                                                                        href={
-                                                                            file.file_url
-                                                                        }
+                                                                        href={file.file_url}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
                                                                     >
@@ -307,9 +347,7 @@ const Downloads = () => {
                                                                             <DownloadIcon />
                                                                         </ListItemIcon>
                                                                         <ListItemText
-                                                                            primary={
-                                                                                file.name
-                                                                            }
+                                                                            primary={file.name}
                                                                         />
                                                                     </ListItem>
                                                                 )
@@ -320,26 +358,7 @@ const Downloads = () => {
                                             ))}
                                     </TableBody>
                                 </Table>
-                            </TableContainer>):(
-
-<Box
-sx={{
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-   marginBlock:3,
-   padding:3
-}}
->
-<Typography variant="p" gutterBottom sx={{marginBottom:2}}>
-    You need to <span className="font-bold ">Register or Login </span> to access the download page.
-</Typography>
-<Typography variant="p" gutterBottom >
-    You can download  the <span className="font-bold">Forms, List of Required Documents and Guidelines </span> for your respective certifications and approvals.
-</Typography>   
-</Box>
-                            )}
-                            {client ? (
+                            </TableContainer>
                             <TablePagination
                                 className="table-pagination"
                                 component="div"
@@ -349,11 +368,11 @@ sx={{
                                 rowsPerPage={rowsPerPage}
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                             />
-                            ): ''}
                         </Paper>
+                    )}
                     </Grid>
                 </Grid>
-                {isMobile ? (
+                {isMobile && (
                     <Box
                         sx={{
                             display: "flex",
@@ -365,8 +384,6 @@ sx={{
                         <DownloadBrochure />
                         <RequestCallBack />
                     </Box>
-                ) : (
-                    <></>
                 )}
             </Box>
         </>
