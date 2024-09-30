@@ -223,7 +223,10 @@ const Careers = () => {
                       <Typography variant="bodytext" color="secondary">Job Description</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                      <Typography>{job.designation.description}</Typography>
+                    <Typography 
+    component="div" 
+    dangerouslySetInnerHTML={{ __html: job.designation.description }} 
+  />
                     </AccordionDetails>
                   </Accordion>
                 </Box>
@@ -232,7 +235,10 @@ const Careers = () => {
                     <Typography variant="bodytext" color="secondary">Responsibilities</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Typography>{job.designation.responsibility}</Typography>
+                  <Typography 
+    component="div" 
+    dangerouslySetInnerHTML={{ __html: job.designation.responsibility }} 
+  />
                   </AccordionDetails>
                 </Accordion>
                 <Box marginTop={2}>
