@@ -36,8 +36,8 @@ const KycDetails = () => {
         msme: "/storage/download_files/g3ovzpDLnjnPbDVt7awnRE6rVq9QymNO7LXi8RwK.pdf",
         iso: "/storage/download_files/KSvadPJOyWL7NrcH3hjxfM74GJMFlRS7JFMAgWtY.pdf",
         bankAd: "/storage/download_files/4RlTJahkFuW9CRE1udl8soWdIKv6HNGDED8j6wP5.pdf",
-        undertaking:
-            "/storage/download_files/IQx0znj1UBkZ3wl9OhNfpcdFv13IqCWr84WKhMRO.pdf",
+        CRISILCertificate:
+            "/storage/download_files/zUU8CjP3ViSoDVgbEhG48bDMkTnp4nuUjvLtj6Hq.pdf",
     };
 
     // Function to handle password submission
@@ -516,6 +516,31 @@ const KycDetails = () => {
                                         <TableRow>
                                             <TableCell>
                                                 <strong>
+                                                    Bank AD Code:
+                                                </strong>
+                                            </TableCell>
+                                            <TableCell>0302056 - 2900009</TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    component="a"
+                                                    href={documentLinks.bankAd}
+                                                    target="_blank"
+                                                    rel="noopener"
+                                                >
+                                                    View
+                                                </Button>
+                                                <Button
+                                                    component="a"
+                                                    href={documentLinks.bankAd}
+                                                    download
+                                                >
+                                                    Download
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>
+                                                <strong>
                                                     MSME Certificate:
                                                 </strong>
                                             </TableCell>
@@ -563,41 +588,17 @@ const KycDetails = () => {
                                                 </Button>
                                             </TableCell>
                                         </TableRow>
+                                        
                                         <TableRow>
                                             <TableCell>
-                                                <strong>
-                                                    Bank Account Details:
-                                                </strong>
+                                                <strong>CRISIL Certificate</strong>
                                             </TableCell>
-                                            <TableCell>Available</TableCell>
-                                            <TableCell>
-                                                <Button
-                                                    component="a"
-                                                    href={documentLinks.bankAd}
-                                                    target="_blank"
-                                                    rel="noopener"
-                                                >
-                                                    View
-                                                </Button>
-                                                <Button
-                                                    component="a"
-                                                    href={documentLinks.bankAd}
-                                                    download
-                                                >
-                                                    Download
-                                                </Button>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>
-                                                <strong>Undertaking:</strong>
-                                            </TableCell>
-                                            <TableCell>Available</TableCell>
+                                            <TableCell>2020 - 2021</TableCell>
                                             <TableCell>
                                                 <Button
                                                     component="a"
                                                     href={
-                                                        documentLinks.undertaking
+                                                        documentLinks.CRISILCertificate
                                                     }
                                                     target="_blank"
                                                     rel="noopener"
@@ -607,7 +608,7 @@ const KycDetails = () => {
                                                 <Button
                                                     component="a"
                                                     href={
-                                                        documentLinks.undertaking
+                                                        documentLinks.CRISILCertificate
                                                     }
                                                     download
                                                 >
