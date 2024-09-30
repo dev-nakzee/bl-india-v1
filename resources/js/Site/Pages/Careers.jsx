@@ -201,52 +201,51 @@ const Careers = () => {
           ),
         }}
       />
-      <Grid container spacing={4} marginTop={{xs:1,md:2}}>
+      <Grid container spacing={4} marginTop={{ xs: 1, md: 2 }}>
         {filteredJobs.map((job) => (
-          <Grid item xs={12}  key={job.id}>
-            <Card sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+          <Grid item xs={12} sm={6} md={4} key={job.id}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
               <CardContent>
                 <Typography variant="h6" component="div">
                   {job.designation.name}
                 </Typography>
-                <Box sx={{ display: 'flex', justifyContent:'space-between', alignItems: 'center' ,marginBlock:2}}>
-                <Typography variant="body2" color="textSecondary" marginRight={{xs:3}}>
-                <Typography variant='bodytext'>Positions:</Typography>  {job.positions}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" marginRight={{xs:3}}>
-                <Typography variant='bodytext'>Postings:</Typography> {job.postings}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" marginRight={{xs:3}}>
-                  <Typography variant='bodytext'>Status:</Typography> {job.status}
-                </Typography></Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBlock: 2 }}>
+                  <Typography variant="body2" color="textSecondary" marginRight={{ xs: 3 }}>
+                    <Typography variant="bodytext">Positions:</Typography> {job.positions}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" marginRight={{ xs: 3 }}>
+                    <Typography variant="bodytext">Status:</Typography> {job.status}
+                  </Typography>
+                </Box>
                 <Box marginBottom={2}>
-                <Accordion>
-                  <AccordionSummary expandIcon={<ExpandMore />} >
-                    <Typography variant='bodytext' color="secondary">Job Description</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography >{job.designation.description}</Typography>
-                  </AccordionDetails>
-                </Accordion>
+                  <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMore />}>
+                      <Typography variant="bodytext" color="secondary">Job Description</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography>{job.designation.description}</Typography>
+                    </AccordionDetails>
+                  </Accordion>
                 </Box>
                 <Accordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
-                    <Typography variant='bodytext' color="secondary">Responsibilities</Typography>
+                    <Typography variant="bodytext" color="secondary">Responsibilities</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography>{job.designation.responsibility}</Typography>
                   </AccordionDetails>
                 </Accordion>
                 <Box marginTop={2}>
-                <Button size="small" color="primary" variant="outlined" onClick={() => handleApplyNowClick(job.id)}>
-                  Apply Now
-                </Button></Box>
+                  <Button size="small" color="primary" variant="outlined" onClick={() => handleApplyNowClick(job.id)}>
+                    Apply Now
+                  </Button>
+                </Box>
               </CardContent>
-             
             </Card>
           </Grid>
         ))}
       </Grid>
+
       <Drawer anchor="right" open={drawerOpen}
       //  onClose={handleCloseDrawer}
        >
