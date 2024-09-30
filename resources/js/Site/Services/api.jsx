@@ -3,13 +3,15 @@ import axios from 'axios';
 const getBaseURL = () => {
   const hostname = window.location.hostname;
   if (hostname.startsWith('global')) {
-    return 'http://global.bl-india.com/api/v1/fe';
+    return 'https://in.bl-india.com/api/v1/fe';
     // return 'http://global.localhost:8000/api/v1/fe';
   } else if (hostname.startsWith('in')) {
     return 'https://in.bl-india.com/api/v1/fe';
     // return 'http://in.localhost:8000/api/v1/fe';
   }
   return 'https://bl-india.com/api/v1/fe'; // Default to local
+  // return 'http://in.localhost:8000/api/v1/fe';
+
 };
 
 const getLocale = () => {
