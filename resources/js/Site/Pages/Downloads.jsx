@@ -33,7 +33,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DownloadBrochure from "../Components/DownloadBrochure";
 import RequestCallBack from "../Components/RequestCallBack";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import DownloadAccessDrawer from "../Components/DownloadAccessDrawer"; // Import the drawer
 
 const Downloads = () => {
@@ -49,7 +49,9 @@ const Downloads = () => {
 
     const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
-    const client = localStorage.getItem('client') ? JSON.parse(localStorage.getItem('client')) : null;
+    const client = localStorage.getItem("client")
+        ? JSON.parse(localStorage.getItem("client"))
+        : null;
 
     useEffect(() => {
         fetchData();
@@ -144,7 +146,7 @@ const Downloads = () => {
                 <title>{data.page.seo_title}</title>
                 <meta name="description" content={data.page.seo_description} />
                 <meta name="keywords" content={data.page.seo_keywords} />
-                
+
                 <meta name="author" content="Rajesh Kumar" />
                 <meta
                     name="publisher"
@@ -251,125 +253,148 @@ const Downloads = () => {
                         )}
                     </Grid>
                     <Grid item xs={12} sm={8} md={9}>
-                    {client ? (
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "flex-end",
-                                alignItems: "center",
-                            }}
-                        >
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                placeholder="Search downloads"
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Search />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                sx={{ marginBottom: 2 }}
-                            />
-                        </Box>
-                    ) : (
-                        <>
+                        {client ? (
                             <Box
                                 sx={{
                                     display: "flex",
-                                    flexDirection: "column",
+                                    justifyContent: "flex-end",
                                     alignItems: "center",
-                                    marginBlock: 3,
-                                    padding: 3,
                                 }}
                             >
-                                <Typography variant="p" gutterBottom sx={{ marginBottom: 2 }}>
-                                    You need to <span className="font-bold ">Register or Login </span> to access the download page.
-                                </Typography>
-                                <Typography variant="p" gutterBottom>
-                                    You can download the <span className="font-bold">Forms, List of Required Documents and Guidelines </span> for your respective certifications and approvals.
-                                </Typography>
-                                <Button 
-                                    variant="contained" 
-                                    color="primary" 
-                                    onClick={() => setDrawerOpen(true)} // Open drawer on click
-                                    sx={{ mt: 2 }}
-                                >
-                                    Register or Login
-                                </Button>
+                                <TextField
+                                    variant="outlined"
+                                    fullWidth
+                                    placeholder="Search downloads"
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <Search />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    sx={{ marginBottom: 2 }}
+                                />
                             </Box>
-
-                            {/* Download Access Drawer */}
-                            <DownloadAccessDrawer
-                                open={drawerOpen}
-                                onClose={() => setDrawerOpen(false)}
-                                onLoginSuccess={handleLoginSuccess}
-                            />
-                        </>
-                    )}
-                    {client && (
-                        <Paper sx={{ width: "100%", overflow: "hidden" }}>
-                            <TableContainer>
-                                <Table className="product-download">
-                                    <TableHead>
-                                        <TableRow className="table-row">
-                                            <TableCell>Name</TableCell>
-                                            <TableCell>Files</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {filteredDownloads
-                                            .slice(
-                                                page * rowsPerPage,
-                                                page * rowsPerPage + rowsPerPage
-                                            )
-                                            .map((download) => (
-                                                <TableRow key={download.id}>
-                                                    <TableCell>
-                                                        {download.name}
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <List>
-                                                            {download.files.map(
-                                                                (file) => (
-                                                                    <ListItem
-                                                                        key={file.id}
-                                                                        button
-                                                                        component="a"
-                                                                        href={file.file_url}
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                    >
-                                                                        <ListItemIcon>
-                                                                            <DownloadIcon />
-                                                                        </ListItemIcon>
-                                                                        <ListItemText
-                                                                            primary={file.name}
-                                                                        />
-                                                                    </ListItem>
-                                                                )
-                                                            )}
-                                                        </List>
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                            <TablePagination
-                                className="table-pagination"
-                                component="div"
-                                count={filteredDownloads.length}
-                                page={page}
-                                onPageChange={handleChangePage}
-                                rowsPerPage={rowsPerPage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                            />
-                        </Paper>
-                    )}
+                        ) : (
+                            <>
+                              <Paper elevation={2} 
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "flex-start",
+                                        marginBlock: 3,
+                                        padding: 3,
+                                    }}
+                                >
+                                    <Typography
+                                        variant="p"
+                                        gutterBottom
+                                        sx={{ marginBottom: 2 }}
+                                    >
+                                        You need to{" "}
+                                        <span className="font-bold ">
+                                            Register or Login{" "}
+                                        </span>{" "}
+                                        to access the download page.
+                                    </Typography>
+                                    <Typography variant="p" gutterBottom>
+                                        You can download the{" "}
+                                        <span className="font-bold">
+                                            Forms, List of Required Documents
+                                            and Guidelines{" "}
+                                        </span>{" "}
+                                        for your respective certifications and
+                                        approvals.
+                                    </Typography>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => setDrawerOpen(true)} // Open drawer on click
+                                        sx={{ mt: 2 }}
+                                    >
+                                        Register or Login
+                                    </Button>
+                                </Paper>
+                               
+                                {/* Download Access Drawer */}
+                                <DownloadAccessDrawer
+                                    open={drawerOpen}
+                                    onClose={() => setDrawerOpen(false)}
+                                    onLoginSuccess={handleLoginSuccess}
+                                />
+                            </>
+                        )}
+                        {client && (
+                            <Paper sx={{ width: "100%", overflow: "hidden" }}>
+                                <TableContainer>
+                                    <Table className="product-download">
+                                        <TableHead>
+                                            <TableRow className="table-row">
+                                                <TableCell>Name</TableCell>
+                                                <TableCell>Files</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {filteredDownloads
+                                                .slice(
+                                                    page * rowsPerPage,
+                                                    page * rowsPerPage +
+                                                        rowsPerPage
+                                                )
+                                                .map((download) => (
+                                                    <TableRow key={download.id}>
+                                                        <TableCell>
+                                                            {download.name}
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <List>
+                                                                {download.files.map(
+                                                                    (file) => (
+                                                                        <ListItem
+                                                                            key={
+                                                                                file.id
+                                                                            }
+                                                                            button
+                                                                            component="a"
+                                                                            href={
+                                                                                file.file_url
+                                                                            }
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                        >
+                                                                            <ListItemIcon>
+                                                                                <DownloadIcon />
+                                                                            </ListItemIcon>
+                                                                            <ListItemText
+                                                                                primary={
+                                                                                    file.name
+                                                                                }
+                                                                            />
+                                                                        </ListItem>
+                                                                    )
+                                                                )}
+                                                            </List>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                <TablePagination
+                                    className="table-pagination"
+                                    component="div"
+                                    count={filteredDownloads.length}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    rowsPerPage={rowsPerPage}
+                                    onRowsPerPageChange={
+                                        handleChangeRowsPerPage
+                                    }
+                                />
+                            </Paper>
+                        )}
                     </Grid>
                 </Grid>
                 {isMobile && (
