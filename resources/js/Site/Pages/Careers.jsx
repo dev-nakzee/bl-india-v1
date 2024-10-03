@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -6,22 +7,26 @@ import {
   Grid,
   Card,
   CardContent,
-  CardActions,
   Button,
   TextField,
   InputAdornment,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Drawer,
-  IconButton
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from '@mui/material';
-import { Search, ExpandMore, Close } from '@mui/icons-material';
+import { Search, Close } from '@mui/icons-material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 
 const Careers = () => {
   const [jobs, setJobs] = useState([]);
@@ -30,6 +35,11 @@ const Careers = () => {
   const [error, setError] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedJobDescription, setSelectedJobDescription] = useState(null);
+  const [SelectedJobResponsibility, setSelectedJobResponsibility] = useState(null);
+
+  const [selectedJobId, setSelectedJobId] = useState(null); // Track selected job ID
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
 
@@ -82,6 +92,7 @@ const Careers = () => {
   const handleApplyNowClick = (jobId) => {
     setFormData({ ...formData, jobOpeningId: jobId });
     setDrawerOpen(true);
+    setIsModalOpen(false); // Close the modal when the drawer opens
   };
 
   const handleCloseDrawer = () => {
@@ -131,9 +142,38 @@ const Careers = () => {
     }
   };
 
+  const handleOpenModal = (description, designation, jobId, responsibility) => {
+    setSelectedJobDescription(description);
+    setSelectedJobResponsibility(designation);
+    setSelectedJobId(jobId);
+    setIsModalOpen(true);
+  };
+
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedJobDescription(null);
+    setSelectedJobResponsibility(null)
+    setSelectedJobId(null);
+  };
+
   const filteredJobs = jobs.filter(job =>
     job.designation.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const theme = useTheme();
+  const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMd = useMediaQuery(theme.breakpoints.down('md'));
+
+  let maxWidth = 'lg';
+
+  if (isMd) {
+    maxWidth = 'md';
+  }
+
+  if (isSm) {
+    maxWidth = 'sm';
+  }
 
   if (loading) {
     return (
@@ -155,181 +195,175 @@ const Careers = () => {
 
   return (
     <>
-        <Helmet>
-                <title>{pageData.seo_title}</title>
-                <meta name="description" content={pageData.seo_description} />
-                <meta name="keywords" content={pageData.seo_keywords} />
-                
-                <meta name="author" content="Rajesh Kumar" />
-                <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
-                <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
-                <meta name="Classification" content="Business" />
-                <meta name="coverage" content="Worldwide" />
-                <meta name="distribution" content="Global" />
-                <meta name="rating" content="General" />
-                <meta property="og:locale" content="en_US" />
-                <meta property="og:type" content="website" />
-                <meta property="og:title" content={pageData.seo_title} />
-                <meta property="og:description" content={pageData.seo_description} />
-                <meta property="og:url" content="https://bl-india.com" />
-                <meta property="og:site_name" content="Brand Liaison India®" />
-                <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
-                <meta name="format-detection" content="telephone=no" />
-                <link rel="canonical" href={fullUrl} />
-        </Helmet>
-        <Box padding={{lg:5,md:4,sm:3,xs:2}}>
-      <ToastContainer />
-      <Typography className="page-main-heading page-heading"  variant="h1" textAlign="center" gutterBottom
-      marginBottom={{ xs: 1, md: 3, lg: 5 }}>
-        {pageData.title || 'Careers'}
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        {pageData.description}
-      </Typography>
-      <TextField
-        label="Search Jobs"
-        variant="outlined"
-        value={searchQuery}
-        onChange={handleSearchChange}
-        fullWidth
-        margin="normal"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Search />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <Grid container spacing={4} marginTop={{ xs: 1, md: 2 }}>
-        {filteredJobs.map((job) => (
-          <Grid item xs={12} sm={6} md={4} key={job.id}>
-            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  {job.designation.name}
-                </Typography>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBlock: 2 }}>
-                  <Typography variant="body2" color="textSecondary" marginRight={{ xs: 3 }}>
-                    <Typography variant="bodytext">Positions:</Typography> {job.positions}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" marginRight={{ xs: 3 }}>
-                    <Typography variant="bodytext">Status:</Typography> {job.status}
-                  </Typography>
-                </Box>
-                <Box marginBottom={2}>
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMore />}>
-                      <Typography variant="bodytext" color="secondary">Job Description</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <Typography 
-    component="div" 
-    dangerouslySetInnerHTML={{ __html: job.designation.description }} 
-  />
-                    </AccordionDetails>
-                  </Accordion>
-                </Box>
-                <Accordion>
-                  <AccordionSummary expandIcon={<ExpandMore />}>
-                    <Typography variant="bodytext" color="secondary">Responsibilities</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                  <Typography 
-    component="div" 
-    dangerouslySetInnerHTML={{ __html: job.designation.responsibility }} 
-  />
-                  </AccordionDetails>
-                </Accordion>
-                <Box marginTop={2}>
-                  <Button size="small" color="primary" variant="outlined" onClick={() => handleApplyNowClick(job.id)}>
-                    Apply Now
-                  </Button>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <Helmet>
+        <title>{pageData.seo_title}</title>
+        <meta name="description" content={pageData.seo_description} />
+        <meta name="keywords" content={pageData.seo_keywords} />
 
-      <Drawer anchor="right" open={drawerOpen}
-      //  onClose={handleCloseDrawer}
-       >
-        <Box sx={{ width: 400, padding: 4 }}>
-          <IconButton onClick={handleCloseDrawer} sx={{ mb: 2 }}>
+        <meta name="author" content="Rajesh Kumar" />
+        <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
+        <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+        <meta name="Classification" content="Business" />
+        <meta name="coverage" content="Worldwide" />
+        <meta name="distribution" content="Global" />
+        <meta name="rating" content="General" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageData.seo_title} />
+        <meta property="og:description" content={pageData.seo_description} />
+        <meta property="og:url" content="https://bl-india.com" />
+        <meta property="og:site_name" content="Brand Liaison India®" />
+        <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="canonical" href={fullUrl} />
+      </Helmet>
+      <Box padding={{ lg: 5, md: 4, sm: 3, xs: 2 }}>
+        <ToastContainer />
+        <Typography className="page-main-heading page-heading" variant="h1" textAlign="center" gutterBottom
+          marginBottom={{ xs: 1, md: 3, lg: 5 }}>
+          {pageData.title || 'Careers'}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          {pageData.description}
+        </Typography>
+        <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}> 
+        <Typography variant="h4" gutterBottom>
+         Job Opening
+        </Typography>
+        <TextField
+          label="Search Jobs"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          sx={{width:'30%'}}
+          margin="normal"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+        />
+        </Box>
+        <Grid container spacing={4} marginTop={{ xs: 1, md: 2 }}>
+          {filteredJobs.map((job) => (
+            <Grid item xs={12} sm={6} md={4} key={job.id}>
+              <Card sx={{ display: 'flex', flexDirection: 'column' }}>
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    {job.designation.name}
+                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBlock: 1 }}>
+                    <Typography variant="body2" color="textSecondary">
+                      Positions: {job.positions}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      Status: {job.status}
+                    </Typography>
+                  </Box>
+                  <Box marginTop={2}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleOpenModal(job.designation.description, job.designation.name, job.id)}
+                    >
+                      View Job Description
+                    </Button>
+
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+
+        {/* Job Description Modal */}
+        <Dialog  className="Dialog-careers" open={isModalOpen} onClose={handleCloseModal} maxWidth={maxWidth} fullWidth={true} sx={{ padding: 3, height: '100%', width: '100%' }}>
+          <DialogTitle>
+        {SelectedJobResponsibility}
+          </DialogTitle>
+          <DialogContent>
+            <Typography component="div" dangerouslySetInnerHTML={{ __html: selectedJobDescription }} />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="contained"
+              onClick={() => handleApplyNowClick(selectedJobId)} // Open the drawer from the modal
+              color="primary"
+            >
+              Apply Now
+            </Button>
+            <Button onClick={handleCloseModal} color="secondary" variant="outlined">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        {/* Application Drawer */}
+        <Drawer anchor="right" open={drawerOpen} onClose={handleCloseDrawer}>
+          <IconButton onClick={handleCloseDrawer} sx={{justifyContent:'end',padding:2}}>
             <Close />
           </IconButton>
-          <Typography variant="h5" gutterBottom>
-            Application Form
-          </Typography>
-          <TextField
-            label="Name"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleInputChange}
-            fullWidth
-            margin="normal"
-          />
-          <input
-            accept="application/pdf"
-            style={{ display: 'none' }}
-            id="resume-upload"
-            type="file"
-            name="resume"
-            onChange={handleFileChange}
-          />
-          <label htmlFor="resume-upload">
-            <Button variant="contained" component="span" fullWidth sx={{ mt: 2 }}>
-              Upload Resume
-            </Button>
-            {formData.resume && (
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                {formData.resume.name}
+          <Box sx={{ width: 400, padding: 2}}>
+            <Box >
+              <Typography variant="h5" gutterBottom>
+                Application Form
               </Typography>
-            )}
-          </label>
-          <input
-            accept="application/pdf"
-            style={{ display: 'none' }}
-            id="cover-letter-upload"
-            type="file"
-            name="coverLetter"
-            onChange={handleFileChange}
-          />
-          <label htmlFor="cover-letter-upload">
-            <Button variant="contained" component="span" fullWidth sx={{ mt: 2 }}>
-              Upload Cover Letter (Optional)
-            </Button>
-            {formData.coverLetter && (
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                {formData.coverLetter.name}
-              </Typography>
-            )}
-          </label>
-          <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
-            Submit Application
-          </Button>
-        </Box>
-      </Drawer>
-    </Box>
-    </>
 
+            </Box>
+
+            <Typography variant="body2" gutterBottom>
+              {SelectedJobResponsibility}
+            </Typography>
+            <TextField
+              label="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              fullWidth
+              margin="normal"
+            />
+            <input
+              accept="application/pdf"
+              style={{ display: 'none' }}
+              id="resume-upload"
+              type="file"
+              name="resume"
+              onChange={handleFileChange}
+            />
+            <label htmlFor="resume-upload">
+              <Button variant="outlined" component="span" fullWidth sx={{ mt: 2 }} startIcon={<CloudUploadIcon />}>
+                Upload Resume
+              </Button>
+              {formData.resume && (
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  {formData.resume.name}
+                </Typography>
+              )}
+            </label>
+            <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
+              Submit Application
+            </Button>
+          </Box>
+        </Drawer>
+      </Box>
+    </>
   );
 };
 
