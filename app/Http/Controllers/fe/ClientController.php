@@ -169,8 +169,7 @@ class ClientController extends Controller
             $token = Str::random(60);
     
             // Save the token in the password_resets table
-            PasswordReset::updateOrCreate(
-                ['email' => $client->email],
+            PasswordReset::update(
                 [
                     'token' => $token,
                     'token_sent_at' => Carbon::now(),
