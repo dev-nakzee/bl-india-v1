@@ -490,7 +490,7 @@ const KycDetails = () => {
                                                     Incorporation:
                                                 </strong>
                                             </TableCell>
-                                            <TableCell>Available</TableCell>
+                                            <TableCell>U74900DL2014PTC263016</TableCell>
                                             <TableCell>
                                                 <Button
                                                     component="a"
