@@ -466,7 +466,7 @@ const KycDetails = () => {
                                                     Certificate:
                                                 </strong>
                                             </TableCell>
-                                            <TableCell> 01/04/2024 to 31/03/2025</TableCell>
+                                            <TableCell> 2024 - 2025</TableCell>
                                             <TableCell>
                                                 <Button
                                                     component="a"
