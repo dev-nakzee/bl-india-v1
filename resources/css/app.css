@@ -66,6 +66,8 @@ p {
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
+.Dialog-careers h4{margin-bottom: 1rem;
+    margin-top: 1rem;}
 .contact-page p{margin-block: 0 !important;}
 .MuiIconButton-root:hover{border-radius: 0 !important;}
 .Topbar-section {
@@ -226,14 +228,12 @@ li a {
     content: " ";
     position: absolute;
     bottom: -10px;
-    left: 47%;
+    left: 50%;
     width: 60px;
     border-bottom: 4px solid var(--primary-color);
+    transform: translateX(-50%);
 }
-.services-page .page-heading::after,
-.blog-page .page-heading::after {
-    left: 22%;
-}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -364,7 +364,7 @@ li a {
     padding: 0 !important;
 }
 .page-main-heading {
-    font-size: 2.7rem !important;
+    font-size: 2.9rem !important;
     font-weight: 600 !important;
 }
 

@@ -23,6 +23,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import apiClient from '../Services/api'; // Ensure this is your configured axios instance
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 
 const Careers = () => {
   const [jobs, setJobs] = useState([]);
@@ -138,12 +142,13 @@ const Careers = () => {
     }
   };
 
-  const handleOpenModal = (description, jobId,responsibility) => {
+  const handleOpenModal = (description, designation, jobId, responsibility) => {
     setSelectedJobDescription(description);
-    setSelectedJobResponsibility(responsibility);
-    setSelectedJobId(jobId); // Set the selected job ID
+    setSelectedJobResponsibility(designation);
+    setSelectedJobId(jobId);
     setIsModalOpen(true);
   };
+
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -155,6 +160,20 @@ const Careers = () => {
   const filteredJobs = jobs.filter(job =>
     job.designation.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const theme = useTheme();
+  const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMd = useMediaQuery(theme.breakpoints.down('md'));
+
+  let maxWidth = 'lg';
+
+  if (isMd) {
+    maxWidth = 'md';
+  }
+
+  if (isSm) {
+    maxWidth = 'sm';
+  }
 
   if (loading) {
     return (
@@ -176,43 +195,47 @@ const Careers = () => {
 
   return (
     <>
-       <Helmet>
-//                 <title>{pageData.seo_title}</title>
-//                 <meta name="description" content={pageData.seo_description} />
-//                 <meta name="keywords" content={pageData.seo_keywords} />
-                
-//                 <meta name="author" content="Rajesh Kumar" />
-//                 <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
-//                 <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
-//                 <meta name="Classification" content="Business" />
-//                 <meta name="coverage" content="Worldwide" />
-//                 <meta name="distribution" content="Global" />
-//                 <meta name="rating" content="General" />
-//                 <meta property="og:locale" content="en_US" />
-//                 <meta property="og:type" content="website" />
-//                 <meta property="og:title" content={pageData.seo_title} />
-//                 <meta property="og:description" content={pageData.seo_description} />
-//                 <meta property="og:url" content="https://bl-india.com" />
-//                 <meta property="og:site_name" content="Brand Liaison India®" />
-//                 <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
-//                 <meta name="format-detection" content="telephone=no" />
-//                 <link rel="canonical" href={fullUrl} />
-//         </Helmet>
+      <Helmet>
+        <title>{pageData.seo_title}</title>
+        <meta name="description" content={pageData.seo_description} />
+        <meta name="keywords" content={pageData.seo_keywords} />
+
+        <meta name="author" content="Rajesh Kumar" />
+        <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
+        <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+        <meta name="Classification" content="Business" />
+        <meta name="coverage" content="Worldwide" />
+        <meta name="distribution" content="Global" />
+        <meta name="rating" content="General" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageData.seo_title} />
+        <meta property="og:description" content={pageData.seo_description} />
+        <meta property="og:url" content="https://bl-india.com" />
+        <meta property="og:site_name" content="Brand Liaison India®" />
+        <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="canonical" href={fullUrl} />
+      </Helmet>
       <Box padding={{ lg: 5, md: 4, sm: 3, xs: 2 }}>
         <ToastContainer />
-        <Typography className="page-main-heading page-heading"  variant="h1" textAlign="center" gutterBottom
-      marginBottom={{ xs: 1, md: 3, lg: 5 }}>
+        <Typography className="page-main-heading page-heading" variant="h1" textAlign="center" gutterBottom
+          marginBottom={{ xs: 1, md: 3, lg: 5 }}>
           {pageData.title || 'Careers'}
         </Typography>
         <Typography variant="body1" gutterBottom>
           {pageData.description}
+        </Typography>
+        <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}> 
+        <Typography variant="h4" gutterBottom>
+         Job Opening
         </Typography>
         <TextField
           label="Search Jobs"
           variant="outlined"
           value={searchQuery}
           onChange={handleSearchChange}
-          fullWidth
+          sx={{width:'30%'}}
           margin="normal"
           InputProps={{
             endAdornment: (
@@ -222,6 +245,7 @@ const Careers = () => {
             ),
           }}
         />
+        </Box>
         <Grid container spacing={4} marginTop={{ xs: 1, md: 2 }}>
           {filteredJobs.map((job) => (
             <Grid item xs={12} sm={6} md={4} key={job.id}>
@@ -230,7 +254,7 @@ const Careers = () => {
                   <Typography variant="h6" component="div">
                     {job.designation.name}
                   </Typography>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBlock: 2 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBlock: 1 }}>
                     <Typography variant="body2" color="textSecondary">
                       Positions: {job.positions}
                     </Typography>
@@ -238,13 +262,14 @@ const Careers = () => {
                       Status: {job.status}
                     </Typography>
                   </Box>
-                  <Box marginBottom={2}>
+                  <Box marginTop={2}>
                     <Button
-                      variant="contained"
-                      onClick={() => handleOpenModal(job.designation.description, job.id)}
+                      variant="outlined"
+                      onClick={() => handleOpenModal(job.designation.description, job.designation.name, job.id)}
                     >
                       View Job Description
                     </Button>
+
                   </Box>
                 </CardContent>
               </Card>
@@ -253,20 +278,22 @@ const Careers = () => {
         </Grid>
 
         {/* Job Description Modal */}
-        <Dialog open={isModalOpen} onClose={handleCloseModal} fullWidth maxWidth="sm" sx={{padding:3,height:'90%'}}>
-          <DialogTitle>Job Description</DialogTitle>
+        <Dialog  className="Dialog-careers" open={isModalOpen} onClose={handleCloseModal} maxWidth={maxWidth} fullWidth={true} sx={{ padding: 3, height: '100%', width: '100%' }}>
+          <DialogTitle>
+        {SelectedJobResponsibility}
+          </DialogTitle>
           <DialogContent>
             <Typography component="div" dangerouslySetInnerHTML={{ __html: selectedJobDescription }} />
-          </DialogContent>         
+          </DialogContent>
           <DialogActions>
             <Button
-              variant="outlined"
+              variant="contained"
               onClick={() => handleApplyNowClick(selectedJobId)} // Open the drawer from the modal
               color="primary"
             >
               Apply Now
             </Button>
-            <Button onClick={handleCloseModal} color="secondary" variant="contained">
+            <Button onClick={handleCloseModal} color="secondary" variant="outlined">
               Close
             </Button>
           </DialogActions>
@@ -274,12 +301,19 @@ const Careers = () => {
 
         {/* Application Drawer */}
         <Drawer anchor="right" open={drawerOpen} onClose={handleCloseDrawer}>
-          <Box sx={{ width: 400, padding: 4 }}>
-            <IconButton onClick={handleCloseDrawer} sx={{ mb: 2 }}>
-              <Close />
-            </IconButton>
-            <Typography variant="h5" gutterBottom>
-              Application Form
+          <IconButton onClick={handleCloseDrawer} sx={{justifyContent:'end',padding:2}}>
+            <Close />
+          </IconButton>
+          <Box sx={{ width: 400, padding: 2}}>
+            <Box >
+              <Typography variant="h5" gutterBottom>
+                Application Form
+              </Typography>
+
+            </Box>
+
+            <Typography variant="body2" gutterBottom>
+              {SelectedJobResponsibility}
             </Typography>
             <TextField
               label="Name"
@@ -314,7 +348,7 @@ const Careers = () => {
               onChange={handleFileChange}
             />
             <label htmlFor="resume-upload">
-              <Button variant="contained" component="span" fullWidth sx={{ mt: 2 }}>
+              <Button variant="outlined" component="span" fullWidth sx={{ mt: 2 }} startIcon={<CloudUploadIcon />}>
                 Upload Resume
               </Button>
               {formData.resume && (
