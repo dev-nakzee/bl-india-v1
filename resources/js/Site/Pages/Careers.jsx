@@ -71,7 +71,7 @@ const Careers = () => {
 
   const fetchJobs = async (retryCount = 3) => {
     try {
-      const response = await apiClient.get('https://hrm.bl-india.com/api/v1/job-list');
+      const response = await apiClient.get('https://hrm.bl-india.com/api/hrm/job-list');
       setJobs(response.data);
     } catch (error) {
       console.error('Error fetching jobs:', error);
@@ -129,7 +129,7 @@ const Careers = () => {
     data.append('status', formData.status);
 
     try {
-      await apiClient.post('https://hrm.bl-india.com/api/v1/apply', data, {
+      await apiClient.post('https://hrm.bl-india.com/api/hrm/apply', data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
