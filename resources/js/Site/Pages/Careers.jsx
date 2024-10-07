@@ -256,10 +256,10 @@ const Careers = () => {
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBlock: 1 }}>
                     <Typography variant="body2" color="textSecondary">
-                      Positions: {job.positions}
+                      <b>Positions:</b> {job.no_of_openings}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Status: {job.status}
+                      <b>Status:</b> {job.status}
                     </Typography>
                   </Box>
                   <Box marginTop={2}>
