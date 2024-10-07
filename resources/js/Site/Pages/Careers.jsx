@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -14,7 +15,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
+  DialogActions
 } from '@mui/material';
 import { Search, Close } from '@mui/icons-material';
 import { toast, ToastContainer } from 'react-toastify';
@@ -26,6 +27,7 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
+
 const Careers = () => {
   const [jobs, setJobs] = useState([]);
   const [pageData, setPageData] = useState({});
@@ -35,7 +37,8 @@ const Careers = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedJobDescription, setSelectedJobDescription] = useState(null);
   const [SelectedJobResponsibility, setSelectedJobResponsibility] = useState(null);
-  const [selectedJobId, setSelectedJobId] = useState(null);
+
+  const [selectedJobId, setSelectedJobId] = useState(null); // Track selected job ID
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}`;
@@ -47,7 +50,7 @@ const Careers = () => {
     resume: null,
     coverLetter: null,
     jobOpeningId: '',
-    status: 'Applied',
+    status: 'Applied'
   });
 
   useEffect(() => {
@@ -69,9 +72,7 @@ const Careers = () => {
   const fetchJobs = async (retryCount = 3) => {
     try {
       const response = await apiClient.get('https://hrm.bl-india.com/api/hrm/job-list');
-      const jobList = Array.isArray(response.data) ? response.data : [];
-      setJobs(jobList);
-      console.log('Fetched jobs:', jobList); // Log the job data to verify
+      setJobs(response.data);
     } catch (error) {
       console.error('Error fetching jobs:', error);
       if (retryCount > 0) {
@@ -91,7 +92,7 @@ const Careers = () => {
   const handleApplyNowClick = (jobId) => {
     setFormData({ ...formData, jobOpeningId: jobId });
     setDrawerOpen(true);
-    setIsModalOpen(false);
+    setIsModalOpen(false); // Close the modal when the drawer opens
   };
 
   const handleCloseDrawer = () => {
@@ -103,7 +104,7 @@ const Careers = () => {
       resume: null,
       coverLetter: null,
       jobOpeningId: '',
-      status: 'Applied',
+      status: 'Applied'
     });
   };
 
@@ -123,15 +124,15 @@ const Careers = () => {
     data.append('email', formData.email);
     data.append('phone', formData.phone);
     data.append('resume', formData.resume);
-    data.append('cover_letter', formData.coverLetter || '');
+    data.append('cover_letter', formData.coverLetter || ''); // If cover_letter is not selected, send an empty string
     data.append('job_opening_id', formData.jobOpeningId);
     data.append('status', formData.status);
 
     try {
       await apiClient.post('https://hrm.bl-india.com/api/hrm/apply', data, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       });
       handleCloseDrawer();
       toast.success('Application submitted successfully');
@@ -141,34 +142,38 @@ const Careers = () => {
     }
   };
 
-  const handleOpenModal = (description, designation, jobId) => {
+  const handleOpenModal = (description, designation, jobId, responsibility) => {
     setSelectedJobDescription(description);
     setSelectedJobResponsibility(designation);
     setSelectedJobId(jobId);
     setIsModalOpen(true);
   };
 
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedJobDescription(null);
-    setSelectedJobResponsibility(null);
+    setSelectedJobResponsibility(null)
     setSelectedJobId(null);
   };
 
-  // Safeguard the filter method by checking if `jobs` is an array.
-  const filteredJobs = Array.isArray(jobs)
-    ? jobs.filter((job) =>
-        job?.designation?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : [];
+  const filteredJobs = jobs.filter(job =>
+    job.designation.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
   let maxWidth = 'lg';
-  if (isMd) maxWidth = 'md';
-  if (isSm) maxWidth = 'sm';
+
+  if (isMd) {
+    maxWidth = 'md';
+  }
+
+  if (isSm) {
+    maxWidth = 'sm';
+  }
 
   if (loading) {
     return (
@@ -193,75 +198,123 @@ const Careers = () => {
       <Helmet>
         <title>{pageData.seo_title}</title>
         <meta name="description" content={pageData.seo_description} />
+        <meta name="keywords" content={pageData.seo_keywords} />
+
+        <meta name="author" content="Rajesh Kumar" />
+        <meta name="publisher" content="Brand Liaison India Pvt. Ltd." />
+        <meta name="copyright" content="Brand Liaison India Pvt. Ltd." />
+        <meta name="Classification" content="Business" />
+        <meta name="coverage" content="Worldwide" />
+        <meta name="distribution" content="Global" />
+        <meta name="rating" content="General" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageData.seo_title} />
+        <meta property="og:description" content={pageData.seo_description} />
+        <meta property="og:url" content="https://bl-india.com" />
+        <meta property="og:site_name" content="Brand Liaison India®" />
+        <meta property="og:image" content="https://ik.imagekit.io/iouishbjd/BL-Site/logo-700x175.jpg?updatedAt=1722162753208" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="canonical" href={fullUrl} />
       </Helmet>
       <Box padding={{ lg: 5, md: 4, sm: 3, xs: 2 }}>
         <ToastContainer />
-        <Typography variant="h1" textAlign="center" gutterBottom>
+        <Typography className="page-main-heading page-heading" variant="h1" textAlign="center" gutterBottom
+          marginBottom={{ xs: 1, md: 3, lg: 5 }}>
           {pageData.title || 'Careers'}
         </Typography>
         <Typography variant="body1" gutterBottom>
           {pageData.description}
         </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h4" gutterBottom>
-            Job Opening
-          </Typography>
-          <TextField
-            label="Search Jobs"
-            variant="outlined"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            sx={{ width: '30%' }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-          />
+        <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}> 
+        <Typography variant="h4" gutterBottom>
+         Job Opening
+        </Typography>
+        <TextField
+          label="Search Jobs"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          sx={{width:'30%'}}
+          margin="normal"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+        />
         </Box>
-        <Grid container spacing={4} marginTop={2}>
+        <Grid container spacing={4} marginTop={{ xs: 1, md: 2 }}>
           {filteredJobs.map((job) => (
-            <Grid item xs={12} sm={6} md={4} key={job._id}>
-              <Card>
+            <Grid item xs={12} sm={6} md={4} key={job.id}>
+              <Card sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent>
-                  <Typography variant="h6">{job.designation.name}</Typography>
-                  <Typography variant="body2">Positions: {job.no_of_openings}</Typography>
-                  <Typography variant="body2">Status: {job.status}</Typography>
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleOpenModal(job.designation.description, job.designation.name, job._id)}
-                  >
-                    View Job Description
-                  </Button>
+                  <Typography variant="h6" component="div">
+                    {job.designation.name}
+                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBlock: 1 }}>
+                    <Typography variant="body2" color="textSecondary">
+                      Positions: {job.positions}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      Status: {job.status}
+                    </Typography>
+                  </Box>
+                  <Box marginTop={2}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleOpenModal(job.designation.description, job.designation.name, job.id)}
+                    >
+                      View Job Description
+                    </Button>
+
+                  </Box>
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
 
-        <Dialog open={isModalOpen} onClose={handleCloseModal} maxWidth={maxWidth} fullWidth>
-          <DialogTitle>{SelectedJobResponsibility}</DialogTitle>
+        {/* Job Description Modal */}
+        <Dialog  className="Dialog-careers" open={isModalOpen} onClose={handleCloseModal} maxWidth={maxWidth} fullWidth={true} sx={{ padding: 3, height: '100%', width: '100%' }}>
+          <DialogTitle>
+        {SelectedJobResponsibility}
+          </DialogTitle>
           <DialogContent>
             <Typography component="div" dangerouslySetInnerHTML={{ __html: selectedJobDescription }} />
           </DialogContent>
           <DialogActions>
-            <Button variant="contained" onClick={() => handleApplyNowClick(selectedJobId)} color="primary">
+            <Button
+              variant="contained"
+              onClick={() => handleApplyNowClick(selectedJobId)} // Open the drawer from the modal
+              color="primary"
+            >
               Apply Now
             </Button>
-            <Button onClick={handleCloseModal} color="secondary">
+            <Button onClick={handleCloseModal} color="secondary" variant="outlined">
               Close
             </Button>
           </DialogActions>
         </Dialog>
 
+        {/* Application Drawer */}
         <Drawer anchor="right" open={drawerOpen} onClose={handleCloseDrawer}>
-          <IconButton onClick={handleCloseDrawer}>
+          <IconButton onClick={handleCloseDrawer} sx={{justifyContent:'end',padding:2}}>
             <Close />
           </IconButton>
-          <Box sx={{ width: 400, padding: 2 }}>
-            <Typography variant="h5">Application Form</Typography>
+          <Box sx={{ width: 400, padding: 2}}>
+            <Box >
+              <Typography variant="h5" gutterBottom>
+                Application Form
+              </Typography>
+
+            </Box>
+
+            <Typography variant="body2" gutterBottom>
+              {SelectedJobResponsibility}
+            </Typography>
             <TextField
               label="Name"
               name="name"
