@@ -50,11 +50,9 @@ const DownloadAccessDrawer = ({ open, onClose, onLoginSuccess }) => {
         email: formData.email,
         password: formData.password,
       });
-      localStorage.setItem('client', JSON.stringify(response.data.client));
+      setOtpSent(true);
       setMessageType('success');
-      setMessage('Login successful');
-      onLoginSuccess(); // Callback to handle successful login
-      onClose();
+      setMessage('OTP sent to your email.');
     } catch (error) {
       setMessageType('error');
       setMessage('Login failed');
@@ -67,7 +65,7 @@ const DownloadAccessDrawer = ({ open, onClose, onLoginSuccess }) => {
     setLoading(true);
     setErrors({});
     try {
-      const response = await apiClient.post('/client/register', {
+      await apiClient.post('/client/register', {
         name: formData.name,
         email: formData.email,
         country_code: formData.countryCode,
@@ -98,6 +96,33 @@ const DownloadAccessDrawer = ({ open, onClose, onLoginSuccess }) => {
     } catch (error) {
       setMessageType('error');
       setMessage('Password reset request failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    setLoading(true);
+    setErrors({});
+    try {
+      const endpoint = isRegister ? '/client/verify-register-otp' : '/client/verify-login-otp';
+      const response = await apiClient.post(endpoint, {
+        email: formData.email,
+        otp: formData.otp,
+      });
+      const { token, client } = response.data;
+
+      // Save token and client info to localStorage or state
+      localStorage.setItem('token', token);
+      localStorage.setItem('client', JSON.stringify(client));
+
+      setMessageType('success');
+      setMessage('OTP verified successfully');
+      onLoginSuccess(); // Callback to handle successful login
+      onClose();
+    } catch (error) {
+      setMessageType('error');
+      setMessage('OTP verification failed');
     } finally {
       setLoading(false);
     }
@@ -268,7 +293,7 @@ const DownloadAccessDrawer = ({ open, onClose, onLoginSuccess }) => {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => { /* handle OTP verification logic */ }}
+            onClick={handleVerifyOtp}
             fullWidth
             sx={{ mt: 3 }}
           >
