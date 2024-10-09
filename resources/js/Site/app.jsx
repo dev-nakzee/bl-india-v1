@@ -66,7 +66,7 @@ function App() {
             <Route path="/holiday-list" element={<HolidayList />} />
             <Route path="/knowledge-base" element={<KnowledgeBase />} />
             <Route path="/knowledge-base/:categorySlug" element={<KnowledgeBaseCategory />} />
-            <Route path="/careers" element={<Careers />} />
+            <Route path="/career" element={<Careers />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/kyc" element={<KycDetails />} />

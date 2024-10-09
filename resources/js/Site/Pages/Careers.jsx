@@ -221,7 +221,7 @@ const Careers = () => {
         <ToastContainer />
         <Typography className="page-main-heading page-heading" variant="h1" textAlign="center" gutterBottom
           marginBottom={{ xs: 1, md: 3, lg: 5 }}>
-          {pageData.title || 'Careers'}
+          {pageData.title || 'Career'}
         </Typography>
         <Typography variant="body1" gutterBottom>
           {pageData.description}
