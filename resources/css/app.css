@@ -106,6 +106,7 @@ h2 > .ql-size-huge:nth-child(3) {
     margin-top: 0;
     color: #ffffff;
 }
+
 .product-name {
     font-size: 16px !important;
     font-weight: 600 !important;
@@ -871,7 +872,7 @@ th {
     .schedule-section {
         flex-direction: column;
     }
-    .mcertificate, .footer-certificates {
+    .Footer-section .mcertificate, .Footer-section .f-certificates {
         justify-content: center !important;
         flex-wrap: wrap !important;
         align-items: center;
