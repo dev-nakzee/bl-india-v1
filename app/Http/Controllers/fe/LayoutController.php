@@ -29,7 +29,7 @@ class LayoutController extends Controller
             ['title' => 'Notifications', 'url' => '/notifications'],
             ['title' => 'Downloads', 'url' => '/downloads'],
             ['title' => 'Gallery', 'url' => '/gallery'],
-            ['title' => 'Careers', 'url' => '/careers'],
+            ['title' => 'Career', 'url' => '/career'],
             ['title' => 'Blogs', 'url' => '/blogs'],
             ['title' => 'Contact', 'url' => '/contact'],
 

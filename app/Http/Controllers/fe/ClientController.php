@@ -172,7 +172,6 @@ class ClientController extends Controller
             PasswordReset::updateOrCreate(
                 ['email' => $client->email],
                 [
-                    'email' => $client->email,
                     'token' => $token,
                     'token_sent_at' => Carbon::now(),
                 ]

@@ -38,6 +38,8 @@ const KycDetails = () => {
         bankAd: "/storage/download_files/4RlTJahkFuW9CRE1udl8soWdIKv6HNGDED8j6wP5.pdf",
         CRISILCertificate:
             "/storage/download_files/zUU8CjP3ViSoDVgbEhG48bDMkTnp4nuUjvLtj6Hq.pdf",
+        DunandBradstreet:
+            "/storage/download_files/Czl96ZFzLYZsykHd9AjQbcdaDG7rXqgxPN74vT4O.pdf",
     };
 
     // Function to handle password submission
@@ -464,7 +466,7 @@ const KycDetails = () => {
                                                     Certificate:
                                                 </strong>
                                             </TableCell>
-                                            <TableCell>Available</TableCell>
+                                            <TableCell> 2024 - 2025</TableCell>
                                             <TableCell>
                                                 <Button
                                                     component="a"
@@ -490,7 +492,7 @@ const KycDetails = () => {
                                                     Incorporation:
                                                 </strong>
                                             </TableCell>
-                                            <TableCell>Available</TableCell>
+                                            <TableCell>U74900DL2014PTC263016</TableCell>
                                             <TableCell>
                                                 <Button
                                                     component="a"
@@ -544,7 +546,7 @@ const KycDetails = () => {
                                                     MSME Certificate:
                                                 </strong>
                                             </TableCell>
-                                            <TableCell>Available</TableCell>
+                                            <TableCell>UDYAM-DL-02-0013478</TableCell>
                                             <TableCell>
                                                 <Button
                                                     component="a"
@@ -569,7 +571,7 @@ const KycDetails = () => {
                                                     ISO Certificate:
                                                 </strong>
                                             </TableCell>
-                                            <TableCell>Available</TableCell>
+                                            <TableCell>24MEQPO94</TableCell>
                                             <TableCell>
                                                 <Button
                                                     component="a"
@@ -609,6 +611,33 @@ const KycDetails = () => {
                                                     component="a"
                                                     href={
                                                         documentLinks.CRISILCertificate
+                                                    }
+                                                    download
+                                                >
+                                                    Download
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>
+                                                <strong>Dun & Bradstreet Certificate</strong>
+                                            </TableCell>
+                                            <TableCell>87-414-3948</TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    component="a"
+                                                    href={
+                                                        documentLinks.DunandBradstreet
+                                                    }
+                                                    target="_blank"
+                                                    rel="noopener"
+                                                >
+                                                    View
+                                                </Button>
+                                                <Button
+                                                    component="a"
+                                                    href={
+                                                        documentLinks.DunandBradstreet
                                                     }
                                                     download
                                                 >

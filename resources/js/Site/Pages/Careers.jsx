@@ -71,7 +71,7 @@ const Careers = () => {
 
   const fetchJobs = async (retryCount = 3) => {
     try {
-      const response = await apiClient.get('https://hrm.bl-india.com/api/v1/job-list');
+      const response = await apiClient.get('https://hrm.bl-india.com/api/hrm/job-list');
       setJobs(response.data);
     } catch (error) {
       console.error('Error fetching jobs:', error);
@@ -129,7 +129,7 @@ const Careers = () => {
     data.append('status', formData.status);
 
     try {
-      await apiClient.post('https://hrm.bl-india.com/api/v1/apply', data, {
+      await apiClient.post('https://hrm.bl-india.com/api/hrm/apply', data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -221,7 +221,7 @@ const Careers = () => {
         <ToastContainer />
         <Typography className="page-main-heading page-heading" variant="h1" textAlign="center" gutterBottom
           marginBottom={{ xs: 1, md: 3, lg: 5 }}>
-          {pageData.title || 'Careers'}
+          {pageData.title || 'Career'}
         </Typography>
         <Typography variant="body1" gutterBottom>
           {pageData.description}
@@ -256,10 +256,10 @@ const Careers = () => {
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBlock: 1 }}>
                     <Typography variant="body2" color="textSecondary">
-                      Positions: {job.positions}
+                      <b>Positions:</b> {job.no_of_openings}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Status: {job.status}
+                      <b>Status:</b> {job.status}
                     </Typography>
                   </Box>
                   <Box marginTop={2}>
