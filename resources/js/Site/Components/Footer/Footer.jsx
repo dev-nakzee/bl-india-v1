@@ -247,7 +247,7 @@ const Footer = () => {
                 <Divider sx={{ marginBlock: "25px", backgroundColor: "#fff" }} />
                 <Grid container>
                     <Grid item className="footer-certificates" xs={12} sm={6}>
-                        <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
+                        <Box className="f-certificates" sx={{ display: "flex", justifyContent: "flex-start" }}>
                             {footerData.companyCert.map((link) => (
                                 <FooterLink key={link.url} href={link.url}>
                                     <img
