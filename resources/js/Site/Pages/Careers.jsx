@@ -228,7 +228,7 @@ const Careers = () => {
         </Typography>
         <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}> 
         <Typography variant="h4" gutterBottom>
-         Job Opening
+         Job Openings
         </Typography>
         <TextField
           label="Search Jobs"
@@ -251,7 +251,7 @@ const Careers = () => {
             <Grid item xs={12} sm={6} md={4} key={job.id}>
               <Card sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent>
-                  <Typography variant="h6" component="div">
+                  <Typography variant="h5" component="div">
                     {job.designation.name}
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBlock: 1 }}>
@@ -306,13 +306,13 @@ const Careers = () => {
           </IconButton>
           <Box sx={{ width: 400, padding: 2}}>
             <Box >
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h5" sx={{marginBottom:2}}>
                 Application Form
               </Typography>
 
             </Box>
 
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="body font-bold "  gutterBottom>
               {SelectedJobResponsibility}
             </Typography>
             <TextField
