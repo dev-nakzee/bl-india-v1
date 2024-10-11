@@ -11,7 +11,7 @@ class CareerController extends Controller
     //
     public function careers()
     {
-        $page = Page::where('slug', 'careers')->first();
+        $page = Page::where('slug', 'career')->first();
         return response()->json($page);
     }
 }
