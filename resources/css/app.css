@@ -96,7 +96,12 @@ h2 > .ql-size-huge {
 h2 > .ql-size-huge:nth-child(3) {
     font-weight: 700 !important;
 }
-.Footer-section p {
+/* .Footer-section p {
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #ffffff;
+} */
+.footer-address p{
     margin-bottom: 0;
     margin-top: 0;
     color: #ffffff;
@@ -866,9 +871,14 @@ th {
     .schedule-section {
         flex-direction: column;
     }
-    .mcertificate {
+    .mcertificate, .footer-certificates {
         justify-content: center !important;
+        flex-wrap: wrap !important;
+        align-items: center;
+        margin-bottom: 10px !important;
     }
+    
+  
 
     .schedule-section-call-details {
         flex-direction: column;

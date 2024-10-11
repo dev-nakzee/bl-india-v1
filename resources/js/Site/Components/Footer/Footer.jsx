@@ -155,7 +155,7 @@ const Footer = () => {
 
     const contactUsContent = (
         <>
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '10px' ,marginBottom:1}}>
+            <Box className="footer-address" sx={{ display: 'flex', alignItems: 'flex-start', gap: '10px' ,marginBottom:1}}>
                 <FmdGoodOutlined sx={{ color: "#fff" }} />
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography
@@ -273,14 +273,14 @@ const Footer = () => {
                         </Box>
                     </Grid>
                 </Grid>
-                <Typography variant="body2" sx={{ mt: 4 }}>
+                <Typography variant="body2" sx={{MarginTop:{xs:2,md:4,lg:4}}}>
                     © {new Date().getFullYear()} Brand Liaison. All rights reserved.
                     <Box
                         sx={{
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            marginTop: "10px",
+                            paddingTop: "10px",
                         }}
                     >
                         <SocialMediaIcons>
