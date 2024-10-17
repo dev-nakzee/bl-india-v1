@@ -11,7 +11,7 @@ const getBaseURL = () => {
   //   // return 'https://in.bl-india.com/api/v1/cms';
   //    return 'https://in.localhost:8000/api/v1/fe';
   // } 
-  return 'http://www.bl-india.com/api/v1/cms'; // Default to local
+  return 'http://bl-india.com/api/v1/cms'; // Default to local
     // return 'http://localhost:8000/api/v1/fe'; // Default to local
 
 };
