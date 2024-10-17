@@ -9,6 +9,10 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+    # Redirect subdomains 'in' or 'global' to the base domain
+    RewriteCond %{HTTP_HOST} ^(in|global)\.(.+)$ [NC]
+    RewriteRule ^ https://%2%{REQUEST_URI} [L,R=301]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$

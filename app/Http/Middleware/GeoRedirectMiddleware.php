@@ -22,7 +22,6 @@ class GeoRedirectMiddleware
     {
         $currentHost = $request->getHost(); // Get the current host of the request
         $baseURL = Config::get('app.url'); // Retrieve the base URL from config
-        $baseURL = "https://bl-india.com";
         $parsedUrl = parse_url($baseURL); // Parse the URL to extract the domain
         $baseDomain = $parsedUrl['host'] ?? ''; // Default to an empty string if the host isn't set
 
