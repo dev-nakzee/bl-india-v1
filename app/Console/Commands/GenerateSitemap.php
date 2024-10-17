@@ -81,7 +81,7 @@ class GenerateSitemap extends Command
             NotificationCategory::class => '/notifications/',
             Notification::class => '/notifications/',
             KnowledgeBaseCategory::class => '/knowledge-base/',
-            DownloadCategory::class => '/downloads/',
+            // DownloadCategory::class => '/downloads/',
         ];
 
         return $paths[$model] ?? '/';
