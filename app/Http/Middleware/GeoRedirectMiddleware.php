@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Stevebauman\Location\Facades\Location;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 
@@ -14,34 +14,25 @@ class GeoRedirectMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $location = Location::get($request->ip());
-
-        $targetSubdomain = $location && $location->countryCode === 'IN' ? 'in' : 'global';
-
-        $currentHost = $request->getHost();
+        $currentHost = $request->getHost(); // Get the current host of the request
         $baseURL = Config::get('app.url'); // Retrieve the base URL from config
-        $baseURL = 'https://bl-india.com';
-        $parsedUrl = parse_url($baseURL);
-        $baseDomain = $parsedUrl['host'] ?? ''; // Extract the domain
-        $expectedHost = $baseDomain;
+        $parsedUrl = parse_url($baseURL); // Parse the URL to extract the domain
+        $baseDomain = $parsedUrl['host'] ?? ''; // Default to an empty string if the host isn't set
 
-        if (Str::startsWith($currentHost, 'in.')) {
-            // $expectedHost = $baseDomain. ':8000';
-            $expectedHost = $baseDomain;
-        } elseif (Str::startsWith($currentHost, 'global.')) {
-            // $expectedHost = $baseDomain. ':8000';
-            $expectedHost = $baseDomain;
+        // Check if the current host starts with 'in.' or 'global.'
+        if (Str::startsWith($currentHost, 'in.') || Str::startsWith($currentHost, 'global.')) {
+            // If so, strip the subdomain and redirect to the base domain
+            $redirectUrl = $request->getScheme() . '://' . $baseDomain . $request->getRequestUri();
+            return Redirect::to($redirectUrl);
         }
 
-        // Check if current host matches the expected host
-        if ($currentHost !== $expectedHost) {
-            return redirect()->to($request->getScheme() . '://' . $expectedHost . $request->getRequestUri());
-        }
-
+        // If no redirection is needed, proceed with the next middleware
         return $next($request);
     }
 }
