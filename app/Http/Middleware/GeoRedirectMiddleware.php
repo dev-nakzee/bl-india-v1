@@ -30,11 +30,11 @@ class GeoRedirectMiddleware
         $expectedHost = $baseDomain;
 
         if (Str::startsWith($currentHost, 'in.') && $targetSubdomain !== 'in') {
-            $expectedHost = $baseDomain. ':8000';
-            // $expectedHost = 'global.' . $baseDomain;
+            // $expectedHost = $baseDomain. ':8000';
+            $expectedHost = $baseDomain;
         } elseif (Str::startsWith($currentHost, 'global.') && $targetSubdomain !== 'global') {
-            $expectedHost = $baseDomain. ':8000';
-            // $expectedHost = 'in.' . $baseDomain;
+            // $expectedHost = $baseDomain. ':8000';
+            $expectedHost = $baseDomain;
         }
 
         // Check if current host matches the expected host
