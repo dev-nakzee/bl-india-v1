@@ -196,7 +196,7 @@ const ServiceDetails = () => {
           <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
             <ServiceImage
               component="img"
-              image={`https://in.bl-india.com/${serviceData.service.thumbnail_url}`}
+              image={`https://bl-india.com/${serviceData.service.thumbnail_url}`}
               alt={serviceData.service.image_alt}
             />
             <Box flexDirection={'column'}>
@@ -299,7 +299,7 @@ const ServiceDetails = () => {
                             <Box paddingInline={'16px'} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingTop: '16px' }}>
                               <RelServiceImage
                                 component="img"
-                                image={`https://in.bl-india.com/${relatedService.thumbnail_url}`}
+                                image={`https://bl-india.com/${relatedService.thumbnail_url}`}
                                 alt={relatedService.image_alt}
                               />
                               <Box sx={{ display: "flex", alignItems: "left", flexDirection: 'column' }}>

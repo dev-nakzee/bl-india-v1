@@ -169,7 +169,7 @@ const HomeBrochure = () => {
                                 <Grid item xs={12} md={6}>
                                     <BrochureImage
                                         src={
-                                            "https://in.bl-india.com/" +
+                                            "https://bl-india.com/" +
                                             brochureData.image_url
                                         }
                                         alt={brochureData.image_alt}
@@ -391,7 +391,7 @@ const HomeBrochure = () => {
                         <Grid item xs={12} md={6}>
                             <BrochureImage
                                 src={
-                                    "https://in.bl-india.com/" +
+                                    "https://bl-india.com/" +
                                     brochureData.image_url
                                 }
                                 alt={brochureData.image_alt}

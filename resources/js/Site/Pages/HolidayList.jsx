@@ -85,7 +85,7 @@ const HolidayList = () => {
         }, {});
     };
    
-    const pdfUrl = 'https://in.bl-india.com/storage/download_files/CJPfpYaRH0x5xXEFUm4MAUyKPfKDJKYmo1t7uzhQ.pdf';
+    const pdfUrl = 'https://bl-india.com/storage/download_files/CJPfpYaRH0x5xXEFUm4MAUyKPfKDJKYmo1t7uzhQ.pdf';
     const handleDownload = () => {
         // Create a new anchor element
         const link = document.createElement('a');

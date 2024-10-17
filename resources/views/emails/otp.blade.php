@@ -77,7 +77,7 @@
         <div class="footer">
             <p>If you did not request this OTP, please ignore this email.</p>
             <p>Thank you,<br>Team BL India</p>
-            <p><a href="https://in.bl-india.com/">Brand Liaison India Pvt Ltd</a></p>
+            <p><a href="https://bl-india.com/">Brand Liaison India Pvt Ltd</a></p>
         </div>
     </div>
 </body>

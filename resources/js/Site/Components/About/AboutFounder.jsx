@@ -69,7 +69,7 @@ const AboutFounder = () => {
             <Grid container spacing={3} alignItems="center" justifyContent={'space-around'} mt={3}>
             <Grid item xs={12} md={2} ></Grid>
                 <Grid item xs={12} md={2}>
-                    <FounderImage className="founder-img" src={'https://in.bl-india.com/' + founderData.image_url} alt={founderData.image_alt} />
+                    <FounderImage className="founder-img" src={'https://bl-india.com/' + founderData.image_url} alt={founderData.image_alt} />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <FounderContent>

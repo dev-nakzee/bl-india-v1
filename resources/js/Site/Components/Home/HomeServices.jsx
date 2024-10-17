@@ -100,7 +100,7 @@ const HomeServices = () => {
                                 >
                                     <img
                                         src={
-                                            "https://in.bl-india.com/" +
+                                            "https://bl-india.com/" +
                                             service.thumbnail_url
                                         }
                                         alt={service.image_alt}

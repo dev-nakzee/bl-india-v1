@@ -74,7 +74,7 @@ const AboutTeam = () => {
                         {team.map((member) => (
                             <TeamCard key={member.id}>
                                 <TeamImage
-                                    image={'https://in.bl-india.com/' + member.image_url}
+                                    image={'https://bl-india.com/' + member.image_url}
                                     title={member.image_alt}
                                 />
                                 <CardContent>

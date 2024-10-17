@@ -219,7 +219,7 @@ const BlogDetails = () => {
                         </Grid>
                         <Grid item xs={12} md={9}>
                             <img
-                                src={"https://in.bl-india.com" + blog.image_url}
+                                src={"https://bl-india.com" + blog.image_url}
                                 alt={blog.image_alt}
                                 style={{
                                     width: "100%",
@@ -382,7 +382,7 @@ const BlogDetails = () => {
                             </Grid>
                             <Grid item xs={12} md={9}>
                                 <img
-                                    src={"https://in.bl-india.com" + blog.image_url}
+                                    src={"https://bl-india.com" + blog.image_url}
                                     alt={blog.image_alt}
                                     style={{
                                         width: "100%",

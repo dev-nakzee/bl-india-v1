@@ -74,7 +74,7 @@ const AboutMissionVision = () => {
                     </MissionVisionContent>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <MissionVisionImage src={'https://in.bl-india.com/' + missionVisionData.image_url} alt={missionVisionData.image_alt} />
+                    <MissionVisionImage src={'https://bl-india.com/' + missionVisionData.image_url} alt={missionVisionData.image_alt} />
                 </Grid>
             </Grid>
         </MissionVisionSection>

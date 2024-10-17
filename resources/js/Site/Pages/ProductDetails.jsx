@@ -122,7 +122,7 @@ const ProductDetails = () => {
               <CardMedia
                 component="img"
                 sx={{ width: '100%', backgroundColor: '#c3e7ff' }}
-                image={`https://in.bl-india.com/${productData.image_url}`}
+                image={`https://bl-india.com/${productData.image_url}`}
                 alt={productData.image_alt}
               />
             </Grid>

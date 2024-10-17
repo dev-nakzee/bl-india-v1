@@ -119,7 +119,7 @@ const HomePage = () => {
                         "@context": "https://schema.org",
                         "@type": "ProfessionalService",
                         "name": "Brand Liaison India Pvt Ltd",
-                        "image": "https://in.bl-india.com/storage/site_settings/logo.webp",
+                        "image": "https://bl-india.com/storage/site_settings/logo.webp",
                         "@id": "https://bl-india.com/",
                         "url": "https://bl-india.com/",
                         "telephone": "9810363988",

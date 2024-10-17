@@ -79,7 +79,7 @@ const HomeBlog = () => {
                                     <CardMedia
                                         component="img"
                                         height="200"
-                                        image={'https://in.bl-india.com/' + blog.image_url}
+                                        image={'https://bl-india.com/' + blog.image_url}
                                         sx={{  backgroundSize: 'cover', objectFit: 'unset'}}
                                         alt={blog.image_alt}
                                     />

@@ -175,7 +175,7 @@ const KnowledgeBase = () => {
                       sx={{backgroundSize:'contain',objectFit: 'contain' }}
                         component="img"
                         height="100"
-                        image={'https://in.bl-india.com' + category.image_url}
+                        image={'https://bl-india.com' + category.image_url}
                         alt={category.image_alt}
                       />
                       <CardContent>

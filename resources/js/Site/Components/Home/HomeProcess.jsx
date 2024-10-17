@@ -143,7 +143,7 @@ const HomeProcess = () => {
                                     </Badge>
                                     <img
                                         src={
-                                            "https://in.bl-india.com/" +
+                                            "https://bl-india.com/" +
                                             process.image_url
                                         }
                                         alt={process.image_alt}

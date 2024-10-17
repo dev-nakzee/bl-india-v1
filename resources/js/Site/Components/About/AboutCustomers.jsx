@@ -127,7 +127,7 @@ const AboutCustomers = () => {
                     <Grid item key={customer.id}>
                         <CustomerCard>
                             <CustomerImage
-                                image={"https://in.bl-india.com/" + customer.image_url}
+                                image={"https://bl-india.com/" + customer.image_url}
                                 title={customer.image_alt}
                             />
                            

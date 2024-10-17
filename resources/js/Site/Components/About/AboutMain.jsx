@@ -88,7 +88,7 @@ const AboutMain = () => {
                     >
                         <AboutMainImage
                             src={
-                                "https://in.bl-india.com/" + aboutData.image_url
+                                "https://bl-india.com/" + aboutData.image_url
                             }
                             alt={aboutData.image_alt}
                         />

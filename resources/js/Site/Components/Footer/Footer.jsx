@@ -251,7 +251,7 @@ const Footer = () => {
                             {footerData.companyCert.map((link) => (
                                 <FooterLink key={link.url} href={link.url}>
                                     <img
-                                        src={"https://in.bl-india.com/" + link.image_url}
+                                        src={"https://bl-india.com/" + link.image_url}
                                         alt={link.image_alt}
                                         className="footer-img"
                                     />
@@ -264,7 +264,7 @@ const Footer = () => {
                             {footerData.siteCert.map((link) => (
                                 <FooterLink key={link.url} href={link.url}>
                                     <img
-                                        src={"https://in.bl-india.com/" + link.image_url}
+                                        src={"https://bl-india.com/" + link.image_url}
                                         alt={link.image_alt}
                                         className="footer-img"
                                     />

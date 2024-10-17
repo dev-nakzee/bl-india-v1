@@ -108,7 +108,7 @@ const HomeAbout = () => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <AboutImage
-                        src={"https://in.bl-india.com/" + aboutData.image_url}
+                        src={"https://bl-india.com/" + aboutData.image_url}
                         alt={aboutData.image_alt}
                         sx={{}}
                     />

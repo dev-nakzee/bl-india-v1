@@ -322,7 +322,7 @@ const fullUrl = `${window.location.protocol}//${window.location.host}${location.
                                                 >
                                                     <ServiceImage
                                                         component="img"
-                                                        image={`https://in.bl-india.com/${service.thumbnail_url}`}
+                                                        image={`https://bl-india.com/${service.thumbnail_url}`}
                                                         alt={service.image_alt}
                                                     />
                                                     <Box

@@ -122,14 +122,14 @@ const Gallery = () => {
                         sx={{ cursor: "pointer", marginBottom: 2 }}
                         onClick={() =>
                             openModal(
-                                "https://in.bl-india.com/" + gallery.image_url,
+                                "https://bl-india.com/" + gallery.image_url,
                                 gallery.title,
                                 gallery.description
                             )
                         }
                     >
                         <img
-                            src={"https://in.bl-india.com/" + gallery.image_url}
+                            src={"https://bl-india.com/" + gallery.image_url}
                             alt={gallery.image_alt}
                             style={{
                                 width: "100%",

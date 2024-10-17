@@ -134,7 +134,7 @@ const HomeTestimonials = () => {
                         {section.image_url && (
                             <TestimonialImage
                                 src={
-                                    "https://in.bl-india.com/" +
+                                    "https://bl-india.com/" +
                                     section.image_url
                                 }
                                 alt={section.image_alt}
