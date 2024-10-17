@@ -25,14 +25,14 @@ class GeoRedirectMiddleware
         $currentHost = $request->getHost();
         $baseURL = Config::get('app.url'); // Retrieve the base URL from config
         $baseURL = 'https://bl-india.com';
-        // $parsedUrl = parse_url($baseURL);
+        $parsedUrl = parse_url($baseURL);
         $baseDomain = $parsedUrl['host'] ?? ''; // Extract the domain
         $expectedHost = $baseDomain;
 
-        if (Str::startsWith($currentHost, 'in.') && $targetSubdomain !== 'in') {
+        if (Str::startsWith($currentHost, 'in.')) {
             // $expectedHost = $baseDomain. ':8000';
             $expectedHost = $baseDomain;
-        } elseif (Str::startsWith($currentHost, 'global.') && $targetSubdomain !== 'global') {
+        } elseif (Str::startsWith($currentHost, 'global.')) {
             // $expectedHost = $baseDomain. ':8000';
             $expectedHost = $baseDomain;
         }
