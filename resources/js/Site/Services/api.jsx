@@ -9,7 +9,7 @@ const getBaseURL = () => {
   //   // return 'https://bl-india.com/api/v1/fe';
   //   return 'http://in.localhost:8000/api/v1/fe';
   // }
-  return 'https://bl-india.com/api/v1/fe'; // Default to local
+  return 'https://www.bl-india.com/api/v1/fe'; // Default to local
   // return 'http://localhost:8000/api/v1/fe';
 };
 
