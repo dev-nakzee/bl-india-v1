@@ -15,7 +15,7 @@ class Sitemap extends BaseSitemap
         /** @var Url $tag */
         foreach ($this->tags as $tag) {
             $xml .= '<url>';
-            $xml .= "<loc>https://bl-india.com{$tag->url}</loc>";
+            $xml .= "<loc>https://www.bl-india.com{$tag->url}</loc>";
             $xml .= "<lastmod>{$tag->lastModificationDate->toAtomString()}</lastmod>";
             $xml .= "<priority>{$tag->priority}</priority>";
             $xml .= '</url>';
